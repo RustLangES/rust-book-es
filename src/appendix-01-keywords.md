@@ -8,7 +8,7 @@ identificadores son nombres de funciones, variables, parámetros, campos de
 estructuras, módulos, cajas, constantes, macros, valores estáticos, atributos,
 tipos, rasgos o lifetimes.
 
-[raw-identifiers]: #raw-identifiers
+[raw-identifiers]: #identificadores-brutos
 
 ### Palabras clave actuales en uso
 La siguiente lista contiene las palabras clave actuales en uso, con su
