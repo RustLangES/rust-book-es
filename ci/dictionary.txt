@@ -1,4 +1,4 @@
-personal_ws-1.1 en 0 utf-8
+personal_ws-1.1 es 0 utf-8
 abcabcabc
 abcd
 abcdefghijklmnopqrstuvwxyz
@@ -18,7 +18,6 @@ AlwaysEqual
 Amir
 anotherusername
 APIs
-app's
 aren
 args
 ArgumentV
@@ -34,7 +33,6 @@ backtrace
 backtraces
 BACKTRACE
 Backtraces
-Baz's
 benchmarking
 bioinformatics
 bitand
@@ -76,7 +74,6 @@ choo
 chXX
 chYY
 clippy
-clippy's
 cmdlet
 coercions
 combinator
@@ -86,7 +83,6 @@ Config
 confignew
 const
 consts
-constant's
 copyeditor
 couldn
 CPUs
@@ -102,7 +98,7 @@ Ctrl
 customizable
 CustomSmartPointer
 CustomSmartPointers
-data's
+datas
 DataStruct
 deallocate
 deallocated
@@ -148,13 +144,13 @@ ebook
 ebooks
 Edsger
 egular
-else's
+elses
 emoji
 encodings
 enum
 Enum
 enums
-enum's
+enums
 Enums
 eprintln
 Erlang
@@ -174,7 +170,7 @@ filename
 Filename
 filesystem
 Filesystem
-filesystem's
+filesystems
 filesystems
 filmmaking
 Firefox
@@ -224,7 +220,7 @@ Iceburgh
 ident
 IDE
 IDEs
-IDE's
+IDEs
 IEEE
 impl
 implementor
@@ -253,10 +249,10 @@ IpAddrKind
 irst
 isize
 iter
-iterator's
+iterators
 JavaScript
 JoinHandle
-Kay's
+Kays
 kinded
 Klabnik
 lang
@@ -311,7 +307,7 @@ MulAssign
 multibyte
 multithreaded
 mutex
-mutex's
+mutexs
 Mutex
 mutexes
 Mutexes
@@ -340,7 +336,7 @@ nongeneric
 noplayground
 NotFound
 nsprust
-null's
+nulls
 OCaml
 offsetof
 online
@@ -350,7 +346,7 @@ OptionalFloatingPointNumber
 OptionalNumber
 OsStr
 OsString
-other's
+others
 otherinstall
 OtherError
 OurError
@@ -412,7 +408,7 @@ reimplement
 RemAssign
 repr
 representable
-request's
+requests
 resizes
 resizing
 ReturnedError
@@ -466,14 +462,14 @@ stdin
 Stdin
 stdlib
 stdout
-steveklabnik's
+steveklabniks
 stringify
 Stroustrup
-Stroustrup's
+Stroustrups
 struct
 Struct
 structs
-struct's
+structs
 Structs
 StrWrap
 SubAssign
@@ -498,10 +494,10 @@ supertraits
 TcpListener
 TcpStream
 templating
-test's
+tests
 TextField
-That'd
-there'd
+Thatd
+thered
 ThreadPool
 threadpool
 timestamp
@@ -555,8 +551,8 @@ usize
 UsState
 utils
 vals
-variable's
-variant's
+variables
+variants
 vers
 versa
 vert
