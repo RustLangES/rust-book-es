@@ -1,7 +1,7 @@
 # The Rust Programming Language
 
 [The Rust Programming Language](title-page.md)
-[Foreword](foreword.md)
+[Prefacio](foreword.md)
 [Introducción](ch00-00-introduction.md)
 
 ## Getting started
