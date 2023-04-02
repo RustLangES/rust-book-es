@@ -1,68 +1,75 @@
-## Appendix A: Keywords
+## Apéndice A: Palabras clave
 
-The following list contains keywords that are reserved for current or future
-use by the Rust language. As such, they cannot be used as identifiers (except
-as raw identifiers as we’ll discuss in the “[Raw
-Identifiers][raw-identifiers]<!-- ignore -->” section). Identifiers are names
-of functions, variables, parameters, struct fields, modules, crates, constants,
-macros, static values, attributes, types, traits, or lifetimes.
+La siguiente lista contiene palabras clave que están reservadas para el uso
+actual o futuro del lenguaje Rust. Por lo tanto, no se pueden usar como
+identificadores (excepto como identificadores brutos como discutiremos en la
+sección “[Identificadores brutos][raw-identifiers]<!-- ignore -->”). Los
+identificadores son nombres de funciones, variables, parámetros, campos de
+estructuras, módulos, cajas, constantes, macros, valores estáticos, atributos,
+tipos, rasgos o lifetimes.
 
 [raw-identifiers]: #raw-identifiers
 
-### Keywords Currently in Use
+### Palabras clave actuales en uso
+La siguiente lista contiene las palabras clave actuales en uso, con su
+funcionalidad descrita.
 
-The following is a list of keywords currently in use, with their functionality
-described.
-
-* `as` - perform primitive casting, disambiguate the specific trait containing
-  an item, or rename items in `use` statements
-* `async` -  return a `Future` instead of blocking the current thread
-* `await` - suspend execution until the result of a `Future` is ready
-* `break` - exit a loop immediately
-* `const` - define constant items or constant raw pointers
-* `continue` - continue to the next loop iteration
-* `crate` - in a module path, refers to the crate root
-* `dyn` - dynamic dispatch to a trait object
-* `else` - fallback for `if` and `if let` control flow constructs
-* `enum` - define an enumeration
-* `extern` - link an external function or variable
-* `false` - Boolean false literal
-* `fn` - define a function or the function pointer type
-* `for` - loop over items from an iterator, implement a trait, or specify a
-  higher-ranked lifetime
-* `if` - branch based on the result of a conditional expression
-* `impl` - implement inherent or trait functionality
-* `in` - part of `for` loop syntax
-* `let` - bind a variable
-* `loop` - loop unconditionally
-* `match` - match a value to patterns
-* `mod` - define a module
-* `move` - make a closure take ownership of all its captures
-* `mut` - denote mutability in references, raw pointers, or pattern bindings
-* `pub` - denote public visibility in struct fields, `impl` blocks, or modules
-* `ref` - bind by reference
-* `return` - return from function
-* `Self` - a type alias for the type we are defining or implementing
-* `self` - method subject or current module
-* `static` - global variable or lifetime lasting the entire program execution
-* `struct` - define a structure
-* `super` - parent module of the current module
-* `trait` - define a trait
-* `true` - Boolean true literal
-* `type` - define a type alias or associated type
-* `union` - define a [union][union]<!-- ignore -->; is only a keyword when used
-  in a union declaration
-* `unsafe` - denote unsafe code, functions, traits, or implementations
-* `use` - bring symbols into scope
-* `where` - denote clauses that constrain a type
-* `while` - loop conditionally based on the result of an expression
+* `as` - realiza una conversión primitiva, elimina la ambigüedad del *trait*
+  específico que contiene
+  un elemento, o cambiar el nombre de los elementos en las declaraciones `use` y 
+  `extern crate`
+* `async` -  retornar un `Future` en lugar de bloquear el hilo actual
+* `await` - suspender la ejecución hasta que el resultado de un `Future` esté 
+  listo
+* `break` - salir de un bucle inmediatamente
+* `const` - define elementos constantes o punteros crudos constantes
+* `continue` - continuar con la siguiente iteración del bucle
+* `crate` - en un camino de módulo, se refiere a la raíz del módulo
+* `dyn` - despacho dinámico a un objeto de rasgo
+* `else` - alternativa para las construcciones de flujo de control `if` y 
+  `if let`
+* `enum` - define una enumeración
+* `extern` - enlaza una función o variable externa
+* `false` - literal booleano falso
+* `fn` - define una función o el tipo de puntero de función
+* `for` - bucle sobre elementos de un iterador, implementa un rasgo, o 
+  especifica una vida más alta
+* `if` - ramificación basada en el resultado de una expresión condicional
+* `impl` - implementa funcionalidad propia o de rasgo
+* `in` - parte de la sintaxis del bucle `for`
+* `let` - vincula una variable
+* `loop` - bucle sin condición
+* `match` - combina un valor con patrones
+* `mod` - define un módulo
+* `move` - hace que una función clausura tome posesión de todos sus capturas
+* `mut` - denota mutabilidad en referencias, punteros crudos o vinculaciones de 
+  patrones
+* `pub` - denota visibilidad pública en campos de estructuras, bloques `impl` o 
+  módulos
+* `ref` - vincula por referencia
+* `return` - retorna de una función
+* `Self` - un alias de tipo para el tipo que estamos definiendo o implementando
+* `self` - sujeto de método o módulo actual
+* `static` - variable global o duración de vida que dura toda la ejecución del 
+  programa
+* `struct` - define una estructura
+* `super` - módulo padre del módulo actual
+* `trait` - define un rasgo
+* `true` - literal booleano verdadero
+* `type` - define un alias de tipo o tipo asociado
+* `union` - define una [unión][union]<!-- ignore -->; solo es una palabra clave 
+  cuando se usa en una declaración de unión
+* `unsafe` - denota código, funciones, rasgos o implementaciones inseguras
+* `use` - importa símbolos en el ámbito
+* `where` - denota cláusulas que restringen un tipo
+* `while` - bucle condicionalmente basado en el resultado de una expresión
 
 [union]: ../reference/items/unions.html
 
-### Keywords Reserved for Future Use
+### Palabras clave reservadas para uso futuro
 
-The following keywords do not yet have any functionality but are reserved by
-Rust for potential future use.
+Las siguientes palabras clave no tienen aún ninguna funcionalidad, pero están
+reservadas por Rust para un uso potencial en el futuro.
 
 * `abstract`
 * `become`
@@ -78,15 +85,16 @@ Rust for potential future use.
 * `virtual`
 * `yield`
 
-### Raw Identifiers
+### Identificadores brutos
 
-*Raw identifiers* are the syntax that lets you use keywords where they wouldn’t
-normally be allowed. You use a raw identifier by prefixing a keyword with `r#`.
+*Identificadores brutos* son la sintaxis que le permite usar palabras clave
+donde normalmente no se permitirían. Usted usa un identificador bruto
+prefijando una palabra clave con `r#`.
 
-For example, `match` is a keyword. If you try to compile the following function
-that uses `match` as its name:
+Por ejemplo, `match` es una palabra clave. Si intenta compilar la siguiente
+función que usa `match` como su nombre:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn match(needle: &str, haystack: &str) -> bool {
@@ -94,7 +102,7 @@ fn match(needle: &str, haystack: &str) -> bool {
 }
 ```
 
-you’ll get this error:
+obtendrá este error:
 
 ```text
 error: expected identifier, found keyword `match`
@@ -104,11 +112,11 @@ error: expected identifier, found keyword `match`
   |    ^^^^^ expected identifier, found keyword
 ```
 
-The error shows that you can’t use the keyword `match` as the function
-identifier. To use `match` as a function name, you need to use the raw
-identifier syntax, like this:
+El error muestra que no se puede usar la palabra clave `match` como
+identificador de función. Para usar `match` como nombre de función, necesita
+usar la sintaxis de identificador bruto, como esta:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust
 fn r#match(needle: &str, haystack: &str) -> bool {
@@ -119,19 +127,19 @@ fn main() {
     assert!(r#match("foo", "foobar"));
 }
 ```
+Este código compilará sin errores. Note el prefijo `r#` en el nombre de la
+función en su definición, así como donde se llama la función en `main`.
 
-This code will compile without any errors. Note the `r#` prefix on the function
-name in its definition as well as where the function is called in `main`.
-
-Raw identifiers allow you to use any word you choose as an identifier, even if
-that word happens to be a reserved keyword. This gives us more freedom to
-choose identifier names, as well as lets us integrate with programs written in
-a language where these words aren’t keywords. In addition, raw identifiers
-allow you to use libraries written in a different Rust edition than your crate
-uses. For example, `try` isn’t a keyword in the 2015 edition but is in the 2018
-edition. If you depend on a library that’s written using the 2015 edition and
-has a `try` function, you’ll need to use the raw identifier syntax, `r#try` in
-this case, to call that function from your 2018 edition code. See [Appendix
-E][appendix-e]<!-- ignore --> for more information on editions.
+Los identificadores brutos permiten usar cualquier palabra como identificador,
+incluso si esa palabra es una palabra clave. Esto nos da más libertad para
+elegir nombres de identificadores, así como nos permite integrarnos con
+programas escritos en un lenguaje donde estas palabras no son palabras clave.
+Además, los identificadores brutos nos permiten usar bibliotecas escritas en
+una edición de Rust diferente a la de su crate. Por ejemplo, `try` no es una
+palabra clave en la edición 2015, pero lo es en la edición 2018. Si depende de
+una biblioteca que está escrita usando la edición 2015 y tiene una función
+`try`, necesitará usar la sintaxis de identificador bruto para llamar a esa
+función desde su código de la edición 2018. Vea [Apéndice E][appendix-e]<!--
+ignore --> para obtener más información sobre las ediciones.
 
 [appendix-e]: appendix-05-editions.html
