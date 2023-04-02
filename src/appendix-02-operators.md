@@ -1,172 +1,183 @@
 ## Appendix B: Operators and Symbols
+## Apéndice B: Operadores y símbolos
 
-This appendix contains a glossary of Rust’s syntax, including operators and
-other symbols that appear by themselves or in the context of paths, generics,
-trait bounds, macros, attributes, comments, tuples, and brackets.
+Este apéndice contiene una lista de los operadores y símbolos que aparecen en
+Rust, incluyendo los operadores y otros símbolos que aparecen por sí mismos o en
+el contexto de rutas, genéricos, límites de trait, macros, atributos, comentarios,
+tuplas y corchetes.
 
-### Operators
+### Operadores
+La tabla B-1 contiene los operadores en Rust, un ejemplo de cómo aparecería el
+operador en contexto, una breve explicación y si ese operador es
+sobrecargable. Si un operador es sobrecargable, se lista el rasgo relevante para
+sobrecargar ese operador.
 
-Table B-1 contains the operators in Rust, an example of how the operator would
-appear in context, a short explanation, and whether that operator is
-overloadable. If an operator is overloadable, the relevant trait to use to
-overload that operator is listed.
+<span class="caption">Tabla B-1: Operadores</span>
 
-<span class="caption">Table B-1: Operators</span>
-
-| Operator | Example | Explanation | Overloadable? |
+| Operador | Ejemplo | Explicación | Sobrecargable? |
 |----------|---------|-------------|---------------|
-| `!` | `ident!(...)`, `ident!{...}`, `ident![...]` | Macro expansion | |
-| `!` | `!expr` | Bitwise or logical complement | `Not` |
-| `!=` | `expr != expr` | Nonequality comparison | `PartialEq` |
-| `%` | `expr % expr` | Arithmetic remainder | `Rem` |
-| `%=` | `var %= expr` | Arithmetic remainder and assignment | `RemAssign` |
-| `&` | `&expr`, `&mut expr` | Borrow | |
-| `&` | `&type`, `&mut type`, `&'a type`, `&'a mut type` | Borrowed pointer type | |
-| `&` | `expr & expr` | Bitwise AND | `BitAnd` |
-| `&=` | `var &= expr` | Bitwise AND and assignment | `BitAndAssign` |
-| `&&` | `expr && expr` | Short-circuiting logical AND | |
-| `*` | `expr * expr` | Arithmetic multiplication | `Mul` |
-| `*=` | `var *= expr` | Arithmetic multiplication and assignment | `MulAssign` |
-| `*` | `*expr` | Dereference | `Deref` |
-| `*` | `*const type`, `*mut type` | Raw pointer | |
-| `+` | `trait + trait`, `'a + trait` | Compound type constraint | |
-| `+` | `expr + expr` | Arithmetic addition | `Add` |
-| `+=` | `var += expr` | Arithmetic addition and assignment | `AddAssign` |
-| `,` | `expr, expr` | Argument and element separator | |
-| `-` | `- expr` | Arithmetic negation | `Neg` |
-| `-` | `expr - expr` | Arithmetic subtraction | `Sub` |
-| `-=` | `var -= expr` | Arithmetic subtraction and assignment | `SubAssign` |
-| `->` | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Function and closure return type | |
-| `.` | `expr.ident` | Member access | |
-| `..` | `..`, `expr..`, `..expr`, `expr..expr` | Right-exclusive range literal | `PartialOrd` |
-| `..=` | `..=expr`, `expr..=expr` | Right-inclusive range literal | `PartialOrd` |
-| `..` | `..expr` | Struct literal update syntax | |
-| `..` | `variant(x, ..)`, `struct_type { x, .. }` | “And the rest” pattern binding | |
-| `...` | `expr...expr` | (Deprecated, use `..=` instead) In a pattern: inclusive range pattern | |
-| `/` | `expr / expr` | Arithmetic division | `Div` |
-| `/=` | `var /= expr` | Arithmetic division and assignment | `DivAssign` |
-| `:` | `pat: type`, `ident: type` | Constraints | |
-| `:` | `ident: expr` | Struct field initializer | |
-| `:` | `'a: loop {...}` | Loop label | |
-| `;` | `expr;` | Statement and item terminator | |
-| `;` | `[...; len]` | Part of fixed-size array syntax | |
-| `<<` | `expr << expr` | Left-shift | `Shl` |
-| `<<=` | `var <<= expr` | Left-shift and assignment | `ShlAssign` |
-| `<` | `expr < expr` | Less than comparison | `PartialOrd` |
-| `<=` | `expr <= expr` | Less than or equal to comparison | `PartialOrd` |
-| `=` | `var = expr`, `ident = type` | Assignment/equivalence | |
-| `==` | `expr == expr` | Equality comparison | `PartialEq` |
-| `=>` | `pat => expr` | Part of match arm syntax | |
-| `>` | `expr > expr` | Greater than comparison | `PartialOrd` |
-| `>=` | `expr >= expr` | Greater than or equal to comparison | `PartialOrd` |
-| `>>` | `expr >> expr` | Right-shift | `Shr` |
-| `>>=` | `var >>= expr` | Right-shift and assignment | `ShrAssign` |
-| `@` | `ident @ pat` | Pattern binding | |
-| `^` | `expr ^ expr` | Bitwise exclusive OR | `BitXor` |
-| `^=` | `var ^= expr` | Bitwise exclusive OR and assignment | `BitXorAssign` |
-| <code>&vert;</code> | <code>pat &vert; pat</code> | Pattern alternatives | |
-| <code>&vert;</code> | <code>expr &vert; expr</code> | Bitwise OR | `BitOr` |
-| <code>&vert;=</code> | <code>var &vert;= expr</code> | Bitwise OR and assignment | `BitOrAssign` |
-| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code> | Short-circuiting logical OR | |
-| `?` | `expr?` | Error propagation | |
+| `!` | `ident!(...)`, `ident!{...}`, `ident![...]` | Expansor de Macros | |
+| `!` | `!expr` | Operador bit a bit o complemento lógico | `Not` |
+| `!=` | `expr != expr` | Comparador de No Igualdad | `PartialEq` |
+| `%` | `expr % expr` | Modulo | `Rem` |
+| `%=` | `var %= expr` | Modulo y asignación | `RemAssign` |
+| `&` | `&expr`, `&mut expr` | Préstamo | |
+| `&` | `&type`, `&mut type`, `&'a type`, `&'a mut type` | Préstamo del puntero del tipo | |
+| `&` | `expr & expr` | Operador bit a bit AND | `BitAnd` |
+| `&=` | `var &= expr` | Operador bit a bit AND y asignación | `BitAndAssign` |
+| `&&` | `expr && expr` | Operador lógico AND | |
+| `*` | `expr * expr` | Multiplicación | `Mul` |
+| `*=` | `var *= expr` | Multiplicación y asignación | `MulAssign` |
+| `*` | `*expr` | Direferencia | `Deref` |
+| `*` | `*const type`, `*mut type` | Puntero | |
+<!-- TODO: | `+` | `trait + trait`, `'a + trait` | Compound type constraint | | -->
+| `+` | `expr + expr` | Aritmético adición | `Add` |
+| `+=` | `var += expr` | Adición y asignación | `AddAssign` |
+| `,` | `expr, expr` | Separador de argumentos y elementos | |
+| `-` | `- expr` | Aritmético de Negación | `Neg` |
+| `-` | `expr - expr` | Aritmético de sustracción  | `Sub` |
+| `-=` | `var -= expr` | Aritmético de sustracción y asignación | `SubAssign` |
+| `->` | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Tipo de retorno en funciones y clausuras | |
+| `.` | `expr.ident` | Acceso a miembro | |
+| `..` | `..`, `expr..`, `..expr`, `expr..expr` | Rango exclusivo a la derecha | `PartialOrd` |
+| `..=` | `..=expr`, `expr..=expr` | Rango inclusivo a la derecha | `PartialOrd` |
+| `..` | `..expr` | Sintaxis de actualización de estructuras | |
+| `..` | `variant(x, ..)`, `struct_type { x, .. }` | Patrón “y el resto” | |
+| `...` | `expr...expr` | (Obsoleto, use `..=` en su lugar) En un patrón: Patrón de rango inclusivo | |
+| `/` | `expr / expr` | División aritmética | `Div` |
+| `/=` | `var /= expr` | División aritmética y asignación | `DivAssign` |
+| `:` | `pat: type`, `ident: type` | Restricciones | |
+| `:` | `ident: expr` | Inicializador de campo de estructura | |
+| `:` | `'a: loop {...}` | Etiqueta de bucle | |
+| `;` | `expr;` | Terminador de declaración y elemento | |
+| `;` | `[...; len]` | Parte de la sintaxis de matriz de tamaño fijo | |
+| `<<` | `expr << expr` | Desplazamiento a la izquierda | `Shl` |
+| `<<=` | `var <<= expr` | Desplazamiento a la izquierda y asignación | `ShlAssign` |
+| `<` | `expr < expr` | Comparador de menor que | `PartialOrd` |
+| `<=` | `expr <= expr` | Comparador de menor o igual que | `PartialOrd` |
+| `=` | `var = expr`, `ident = type` | Asignación/equivalencia | |
+| `==` | `expr == expr` | Comparador de igualdad | `PartialEq` |
+| `=>` | `pat => expr` | Parte de la sintaxis de match | |
+| `>` | `expr > expr` | Comparador de mayor que | `PartialOrd` |
+| `>=` | `expr >= expr` | Comparador de mayor o igual que | `PartialOrd` |
+| `>>` | `expr >> expr` | Desplazamiento a la derecha | `Shr` |
+| `>>=` | `var >>= expr` | Desplazamiento a la derecha y asignación | `ShrAssign` |
+| `@` | `ident @ pat` | Patrón de enlace | |
+| `^` | `expr ^ expr` | Operador bit a bit XOR | `BitXor` |
+| `^=` | `var ^= expr` | Operador bit a bit XOR y asignación | `BitXorAssign` |
+| <code>&vert;</code> | <code>pat &vert; pat</code> | Patrón alternativo | |
+| <code>&vert;</code> | <code>expr &vert; expr</code> | Operador bit a bit OR | `BitOr` |
+| <code>&vert;=</code> | <code>var &vert;= expr</code> | Operador bit a bit OR y asignación | `BitOrAssign` |
+| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code> | Operador lógico OR | |
+| `?` | `expr?` | Operador de propagación de errores | |
 
-### Non-operator Symbols
+### Simbolos no operadores
 
-The following list contains all symbols that don’t function as operators; that
-is, they don’t behave like a function or method call.
+La siguiente lista contiene todos los símbolos que no funcionan como
+operadores; es decir, no se comportan como una llamada de función o método.
 
-Table B-2 shows symbols that appear on their own and are valid in a variety of
-locations.
+Tabla B-2 muestra los símbolos que aparecen por sí mismos y son válidos en una
+variedad de ubicaciones.
 
-<span class="caption">Table B-2: Stand-Alone Syntax</span>
+<span class="caption">Tabla B-2: Sintaxis únicas</span>
 
-| Symbol | Explanation |
+| Símbolos | Explicación |
 |--------|-------------|
-| `'ident` | Named lifetime or loop label |
-| `...u8`, `...i32`, `...f64`, `...usize`, etc. | Numeric literal of specific type |
-| `"..."` | String literal |
-| `r"..."`, `r#"..."#`, `r##"..."##`, etc. | Raw string literal, escape characters not processed |
-| `b"..."` | Byte string literal; constructs an array of bytes instead of a string |
-| `br"..."`, `br#"..."#`, `br##"..."##`, etc. | Raw byte string literal, combination of raw and byte string literal |
-| `'...'` | Character literal |
-| `b'...'` | ASCII byte literal |
-| <code>&vert;...&vert; expr</code> | Closure |
-| `!` | Always empty bottom type for diverging functions |
-| `_` | “Ignored” pattern binding; also used to make integer literals readable |
+| `'ident` | Lifetime nombrado o etiqueta de bucle |
+| `...u8`, `...i32`, `...f64`, `...usize`, etc. | Literal numérico de un tipo especifico |
+| `"..."` | Literal de tipo String |
+| `r"..."`, `r#"..."#`, `r##"..."##`, etc. | Literal de tipo String sin procesar |
+| `b'...'` | Literal de tipo byte; construye un array de bytes en lugar de una cadena |
+| `br"..."`, `br#"..."#`, `br##"..."##`, etc. | Literal de tipo String sin procesar, combinación de literal de tipo String y literal de tipo byte |
+| `'...'` | Literal de tipo caracter |
+| `b'...'` | Literal de tipo byte ASCII |
+| <code>&vert;...&vert; expr</code> | Clausura |
+| `!` | Tipo de dato vacío siempre vacío para funciones divergentes |
+| `_` | “Ignored” patrón de enlace; también se usa para hacer que los literales enteros sean legibles |
 
-Table B-3 shows symbols that appear in the context of a path through the module
-hierarchy to an item.
+Tabla B-3 muestra los símbolos que aparecen en el contexto de un camino a través
+del módulo de la jerarquía para un elemento.
 
-<span class="caption">Table B-3: Path-Related Syntax</span>
+<span class="caption">Tabla B-3: Sintaxis relacionado a Rutas</span>
 
-| Symbol | Explanation |
+| Símbolos | Explicación |
 |--------|-------------|
-| `ident::ident` | Namespace path |
-| `::path` | Path relative to the crate root (i.e., an explicitly absolute path) |
-| `self::path` | Path relative to the current module (i.e., an explicitly relative path).
-| `super::path` | Path relative to the parent of the current module |
-| `type::ident`, `<type as trait>::ident` | Associated constants, functions, and types |
-| `<type>::...` | Associated item for a type that cannot be directly named (e.g., `<&T>::...`, `<[T]>::...`, etc.) |
-| `trait::method(...)` | Disambiguating a method call by naming the trait that defines it |
-| `type::method(...)` | Disambiguating a method call by naming the type for which it’s defined |
-| `<type as trait>::method(...)` | Disambiguating a method call by naming the trait and type |
+| `ident::ident` | Ruta de espacio de trabajo |
+| `:path` | Ruta relativa a la raíz del espacio de trabajo (es decir, una ruta absoluta explícita) |
+| `self::path` | Ruta relativa al módulo actual (es decir, una ruta relativa explícita).
+| `super::path` | Ruta relativa al padre del módulo actual |
+| `type::ident`, `<type as trait>::ident` | Constantes asociadas, funciones y tipos |
+| `<type>::...` | Elemento asociado para un tipo que no se puede nombrar directamente (por ejemplo, `<&T>::...`, `<[T]>::...`, etc.) |
+| `trait::method(...)` | Desambiguación de una llamada de método nombrando la interfaz que lo define |
+| `type::method(...)` | Desambiguación de una llamada de método nombrando el tipo para el que está definido |
+| `<type as trait>::method(...)` | Desambiguación de una llamada de método nombrando la interfaz y el tipo |
 
-Table B-4 shows symbols that appear in the context of using generic type
-parameters.
+Tabla B-4 muestra los símbolos que aparecen en el contexto de usar parámetros de
+tipo genérico.
 
-<span class="caption">Table B-4: Generics</span>
+<span class="caption">Tabla B-4: Genericos</span>
 
-| Symbol | Explanation |
+| Símbolos | Explicación |
 |--------|-------------|
-| `path<...>` | Specifies parameters to generic type in a type (e.g., `Vec<u8>`) |
-| `path::<...>`, `method::<...>` | Specifies parameters to generic type, function, or method in an expression; often referred to as turbofish (e.g., `"42".parse::<i32>()`) |
-| `fn ident<...> ...` | Define generic function |
-| `struct ident<...> ...` | Define generic structure |
-| `enum ident<...> ...` | Define generic enumeration |
-| `impl<...> ...` | Define generic implementation |
-| `for<...> type` | Higher-ranked lifetime bounds |
-| `type<ident=type>` | A generic type where one or more associated types have specific assignments (e.g., `Iterator<Item=T>`) |
+| `path<...>` | Especifica parámetros de tipo genérico en un tipo (por ejemplo, `Vec<u8>`) |
+| `path::<...>`, `method::<...>` | Especifica parámetros de tipo genérico, función o método en una expresión; a menudo se refiere como pez espada (por ejemplo, `"42".parse::<i32>()`) |
+| `fn ident<...> ...` | Define una función genérica |
+| `struct ident<...> ...` | Define una estructura genérica |
+| `enum ident<...> ...` | Define una enumeración genérica |
+| `impl<...> ...` | Define una implementación genérica |
+| `for<...> type` | Límites de vida de rango superior |
+| `type<ident=type>` | Un tipo genérico donde uno o más tipos asociados tienen asignaciones específicas (por ejemplo, `Iterator<Item=T>`) |
 
-Table B-5 shows symbols that appear in the context of constraining generic type
-parameters with trait bounds.
+Tabla B-5 muestra los símbolos que aparecen en el contexto de restringir
+parámetros de tipo genérico con límites de tipo.
 
-<span class="caption">Table B-5: Trait Bound Constraints</span>
+<span class="caption">Tabla B-5: Restricciones de tipo</span>
 
-| Symbol | Explanation |
+| Simbolos | Explicación |
 |--------|-------------|
-| `T: U` | Generic parameter `T` constrained to types that implement `U` |
-| `T: 'a` | Generic type `T` must outlive lifetime `'a` (meaning the type cannot transitively contain any references with lifetimes shorter than `'a`) |
-| `T: 'static` | Generic type `T` contains no borrowed references other than `'static` ones |
-| `'b: 'a` | Generic lifetime `'b` must outlive lifetime `'a` |
-| `T: ?Sized` | Allow generic type parameter to be a dynamically sized type |
-| `'a + trait`, `trait + trait` | Compound type constraint |
+| `T: U` | Parámetro de tipo genérico `T` restringido a tipos que implementan `U` |
+| `T: 'a` | Tipo genérico `T` debe sobrevivir al tiempo de vida `'a` (es decir, el tipo no puede contener de forma transitiva referencias con tiempos de vida más cortos que `'a`) |
+| `T: 'static` | Tipo genérico `T` no contiene referencias prestadas, excepto las de `'static` |
+| `'b: 'a` | Tiempo de vida genérico `'b` debe sobrevivir al tiempo de vida `'a` |
+| `T: ?Sized` | Permitir que el parámetro de tipo genérico sea un tipo de tamaño dinámico |
+| `'a + trait`, `trait + trait` | Restricción de tipo compuesta |
 
-Table B-6 shows symbols that appear in the context of calling or defining
-macros and specifying attributes on an item.
+Tabla B-6 muestra los símbolos que aparecen en el contexto de llamar o definir
+macros y especificar atributos en un elemento.
 
-<span class="caption">Table B-6: Macros and Attributes</span>
+<span class="caption">Tabla B-6: Macros y Atributos</span>
 
-| Symbol | Explanation |
+| Símbolos | Explicación |
 |--------|-------------|
-| `#[meta]` | Outer attribute |
-| `#![meta]` | Inner attribute |
-| `$ident` | Macro substitution |
-| `$ident:kind` | Macro capture |
-| `$(…)…` | Macro repetition |
-| `ident!(...)`, `ident!{...}`, `ident![...]` | Macro invocation |
+| `#[meta]` | Atributo externo |
+| `#![meta]` | Atributo interno |
+| `$ident` | Sustitución de macro |
+| `$ident:kind` | Captura de macro |
+| `$(...)...` | Repetición de macro |
+| `ident!(...)`, `ident!{...}`, `ident![...]` | Invocación de macro |
 
-Table B-7 shows symbols that create comments.
+Tabla B-7 muestra los símbolos que crean comentarios.
 
-<span class="caption">Table B-7: Comments</span>
+<span class="caption">Tabla B-7: Comentarios</span>
 
-| Symbol | Explanation |
+| Símbolos | Explicación |
 |--------|-------------|
-| `//` | Line comment |
-| `//!` | Inner line doc comment |
-| `///` | Outer line doc comment |
-| `/*...*/` | Block comment |
-| `/*!...*/` | Inner block doc comment |
-| `/**...*/` | Outer block doc comment |
+| `//` | Comentario de línea |
+| `//!` | Comentario de línea de documentación interna |
+| `///` | Comentario de línea de documentación externa |
+| `/*...*/` | Comentario de bloque |
+| `/*!...*/` | Comentario de bloque de documentación interna |
+| `/**...*/` | Comentario de bloque de documentación externa |
+
+Tabla B-8 muestra los símbolos que aparecen en el contexto de usar tuplas.
+
+<span class="caption">Tabla B-8: Tuplas</span>
+
+| Símbolos | Explicación |
+|--------|-------------|
+| `()` | Tupla vacía (también conocida como unidad), tanto literal como tipo |
+| `(expr)` | Expresión entre paréntesis |
+
 
 Table B-8 shows symbols that appear in the context of using tuples.
 
