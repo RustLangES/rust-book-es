@@ -7,7 +7,7 @@
 [nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
 [nsp]: https://nostarch.com/
 
-Bienvenido a *The Rust Programming Language*, un libro introductorio sobre Rust.
+Bienvenido a *El Lenguaje de Programación Rust*, un libro introductorio sobre Rust.
 El lenguaje de programación Rust te ayuda a escribir software más rápido y
 confiable. La ergonomía de alto nivel y el control de bajo nivel a menudo están
 en conflicto en el diseño de lenguajes de programación; Rust desafía ese

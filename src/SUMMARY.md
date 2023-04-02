@@ -11,7 +11,7 @@
     - [¡Hola, Mundo!](ch01-02-hello-world.md)
     - [¡Hola, Cargo!](ch01-03-hello-cargo.md)
 
-- [Programming a Guessing Game](ch02-00-guessing-game-tutorial.md)
+- [Programando un juego de adivinanzas](ch02-00-guessing-game-tutorial.md)
 
 - [Common Programming Concepts](ch03-00-common-programming-concepts.md)
     - [Variables and Mutability](ch03-01-variables-and-mutability.md)
