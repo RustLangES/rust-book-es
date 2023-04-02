@@ -2,7 +2,7 @@
 
 [The Rust Programming Language](title-page.md)
 [Foreword](foreword.md)
-[Introduction](ch00-00-introduction.md)
+[Introducción](ch00-00-introduction.md)
 
 ## Getting started
 
@@ -127,7 +127,7 @@
 
 - [Apéndice](appendix-00.md)
     - [A - Palabras claves](appendix-01-keywords.md)
-    - [B - Operators and Symbols](appendix-02-operators.md)
+    - [B - Operadores y Símbolos](appendix-02-operators.md)
     - [C - Derivable Traits](appendix-03-derivable-traits.md)
     - [D - Useful Development Tools](appendix-04-useful-development-tools.md)
     - [E - Editions](appendix-05-editions.md)
