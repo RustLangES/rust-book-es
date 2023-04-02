@@ -177,40 +177,30 @@ Tabla B-8 muestra los símbolos que aparecen en el contexto de usar tuplas.
 |--------|-------------|
 | `()` | Tupla vacía (también conocida como unidad), tanto literal como tipo |
 | `(expr)` | Expresión entre paréntesis |
+| `(expr,)` | Expresión de tupla de un solo elemento |
+| `(type,)` | Tipo de tupla de un solo elemento |
+| `(expr, ...)` | Expresión de tupla |
+| `(type, ...)` | Tipo de tupla |
+| `expr(expr, ...)` | Expresión de llamada de función; también se usa para inicializar `struct`s de tupla y variantes de `enum` de tupla |
+| `expr.0`, `expr.1`, etc. | Índice de tupla |
 
+Tabla B-9 muestra los contextos en los que se usan las llaves.
 
-Table B-8 shows symbols that appear in the context of using tuples.
+<span class="caption">Tabla B-9: Llaves</span>
 
-<span class="caption">Table B-8: Tuples</span>
-
-| Symbol | Explanation |
-|--------|-------------|
-| `()` | Empty tuple (aka unit), both literal and type |
-| `(expr)` | Parenthesized expression |
-| `(expr,)` | Single-element tuple expression |
-| `(type,)` | Single-element tuple type |
-| `(expr, ...)` | Tuple expression |
-| `(type, ...)` | Tuple type |
-| `expr(expr, ...)` | Function call expression; also used to initialize tuple `struct`s and tuple `enum` variants |
-| `expr.0`, `expr.1`, etc. | Tuple indexing |
-
-Table B-9 shows the contexts in which curly braces are used.
-
-<span class="caption">Table B-9: Curly Brackets</span>
-
-| Context | Explanation |
+| Contexto | Explicación |
 |---------|-------------|
-| `{...}` | Block expression |
-| `Type {...}` | `struct` literal |
+| `{...}` | Expresión de bloque |
+| `Type {...}` | Literal de `struct` |
 
-Table B-10 shows the contexts in which square brackets are used.
+Tabla B-10 muestra los contextos en los que se usan los corchetes.
 
-<span class="caption">Table B-10: Square Brackets</span>
+<span class="caption">Tabla B-10: Corchetes</span>
 
-| Context | Explanation |
+| Contexto | Explicación |
 |---------|-------------|
-| `[...]` | Array literal |
-| `[expr; len]` | Array literal containing `len` copies of `expr` |
-| `[type; len]` | Array type containing `len` instances of `type` |
-| `expr[expr]` | Collection indexing. Overloadable (`Index`, `IndexMut`) |
-| `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Collection indexing pretending to be collection slicing, using `Range`, `RangeFrom`, `RangeTo`, or `RangeFull` as the “index” |
+| `[...]` | Expresión de matriz |
+| `[type; expr]` | Matriz de tipo y tamaño |
+| `expr[expr]` | Índice de colección. Sobrecargable (`Index`, `IndexMut`) |
+| `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Índice de colección fingiendo ser recortes de colección, usando `Range`, `RangeFrom`, `RangeTo`, o `RangeFull` como el “índice” |
+
