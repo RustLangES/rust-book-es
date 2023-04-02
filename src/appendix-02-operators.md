@@ -30,7 +30,7 @@ sobrecargar ese operador.
 | `*=` | `var *= expr` | Multiplicación y asignación | `MulAssign` |
 | `*` | `*expr` | Direferencia | `Deref` |
 | `*` | `*const type`, `*mut type` | Puntero | |
-<!-- TODO: | `+` | `trait + trait`, `'a + trait` | Compound type constraint | | -->
+| `+` | `trait + trait`, `'a + trait` | Restricción de tipo compuesta | |
 | `+` | `expr + expr` | Aritmético adición | `Add` |
 | `+=` | `var += expr` | Adición y asignación | `AddAssign` |
 | `,` | `expr, expr` | Separador de argumentos y elementos | |
