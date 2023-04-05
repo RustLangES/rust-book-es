@@ -11,7 +11,7 @@ Bienvenido a *El Lenguaje de Programación Rust*, un libro introductorio sobre R
 El lenguaje de programación Rust te ayuda a escribir software más rápido y
 confiable. La ergonomía de alto nivel y el control de bajo nivel a menudo están
 en conflicto en el diseño de lenguajes de programación; Rust desafía ese
-conflicto. A través del equilibrio de la capacidad técnica poderosa y una gran
+conflicto. A través del equilibrio entre una capacidad técnica poderosa y una gran
 experiencia de desarrollo, Rust te da la opción de controlar los detalles de
 bajo nivel (como el uso de memoria) sin todo el problema tradicionalmente
 asociado con tal control.
@@ -42,7 +42,7 @@ programación de sistemas:
   consistente en todo el ecosistema de Rust.
 * La herramienta de formateo Rustfmt garantiza un estilo de codificación
   consistente entre los desarrolladores.
-* El servidor de lenguaje Rust proporciona integración con el entorno de
+* El servidor de lenguaje Rust proporciona integración con entornos de
   desarrollo integrado (IDE) para la finalización del código y los mensajes de
   error en línea.
 
@@ -80,8 +80,8 @@ Rust es para personas que anhelan velocidad y estabilidad en un lenguaje. Por
 velocidad, nos referimos tanto a la rapidez con que el código Rust puede
 ejecutarse como a la velocidad con que Rust te permite escribir programas. Las
 verificaciones del compilador de Rust garantizan la estabilidad a través de
-adiciones de funciones y refactorización. Esto contrasta con el código heredado
-quebradizo en lenguajes sin estas verificaciones, que los desarrolladores
+adiciones de funcionalidades y refactorizacione. Esto contrasta con el código
+heredado quebradizo en lenguajes sin estas verificaciones, que los desarrolladores
 a menudo tienen miedo de modificar. Al esforzarse por lograr abstracciones de
 costo cero, características de alto nivel que se compilan en código de bajo
 nivel tan rápido como el código escrito manualmente, Rust se esfuerza por hacer
@@ -93,12 +93,12 @@ ambición de Rust es eliminar los compromisos que los programadores han
 aceptado durante décadas al proporcionar seguridad *y* productividad, velocidad
 *y* ergonomía. Pruébalo y ve si sus elecciones funcionan para ti.
 
-## Para Quién Está Este Libro
+## Para Quién Es Este Libro
 
 Este libro asume que has escrito código en otro lenguaje de programación, pero
 no hace ninguna suposición sobre cuál es. Hemos intentado hacer que el material
 sea ampliamente accesible para aquellos de una amplia variedad de antecedentes
-de programación. No pasamos mucho tiempo hablando de lo que *es* la 
+en programación. No pasamos mucho tiempo hablando de lo que *es* la 
 programación o cómo pensar sobre ella. Si eres completamente nuevo en la 
 programación, sería mejor leer un libro que brinde una introducción específica a
 la programación.
@@ -127,8 +127,8 @@ Rust que son similares a las de otros lenguajes de programación, y en el
 capítulo 4 aprenderás sobre el sistema de propiedad de Rust. Si eres un
 aprendiz particularmente meticuloso que prefiere aprender todos los detalles
 antes de pasar al siguiente, es posible que desees omitir el capítulo 2 y
-dirigirte directamente al capítulo 3, regresando al capítulo 2 cuando te 
-gustaría trabajar en un proyecto aplicando los detalles que has aprendido.
+dirigirte directamente al capítulo 3, regresando al capítulo 2 cuando gustes
+trabajar en un proyecto aplicando los detalles que has aprendido.
 
 El capítulo 5 discute las estructuras y los métodos, y el capítulo 6 cubre las
 enumeraciones, las expresiones `match`, y la construcción de flujo de control
@@ -142,16 +142,16 @@ de colección comunes que proporciona la biblioteca estándar, como vectores,
 cadenas y mapas hash. El capítulo 9 explora la filosofía y técnicas de
 manejo de errores de Rust.
 
-El capítulo 10 se adentra en las genericidades, las características y las
-vidas, que te dan el poder de definir código que se aplique a varios tipos. El
-capítulo 11 trata sobre las pruebas, que incluso con las garantías de seguridad
-de Rust, es necesario para asegurar que la lógica de tu programa sea correcta.
-En el capítulo 12, construiremos nuestra propia implementación de un subconjunto
-de la funcionalidad del comando de línea de comandos `grep` que busca texto
-dentro de archivos. Para esto, usaremos muchos de los conceptos que
-discutimos en los capítulos anteriores.
+El capítulo 10 se adentra en los genéricos, los traits y los lifetimes, que te
+dan el poder de definir código que se aplique a varios tipos. El capítulo 11 trata
+sobre las pruebas, que incluso con las garantías de seguridad de Rust, son
+necesarias para asegurar que la lógica de tu programa sea correcta. En el capítulo
+12, construiremos nuestra propia implementación de un subconjunto de la
+funcionalidad del comando de línea de comandos `grep` que busca texto dentro de
+archivos. Para esto, usaremos muchos de los conceptos que discutimos en los
+capítulos anteriores.
 
-El capítulo 13 explora las clausuras y los iteradores: características de Rust
+El capítulo 13 explora las closures y los iteradores: características de Rust
 que provienen de los lenguajes de programación funcional. En el capítulo 14,
 examinaremos Cargo en más profundidad y hablaremos sobre las mejores prácticas
 para compartir tus bibliotecas con otros. El capítulo 15 discute los punteros
@@ -160,27 +160,25 @@ habilitan su funcionalidad.
 
 En el capítulo 16, recorreremos diferentes modelos de programación concurrente
 y hablaremos sobre cómo Rust te ayuda a programar en múltiples hilos sin
-temor. El capítulo 17 examina cómo los idiomas de Rust se comparan con los
-principios de programación orientada a objetos con los que puede estar
+temor. El capítulo 17 examina cómo los modismos de Rust se comparan con los
+principios de programación orientada a objetos con los que podrías estar
 familiarizado.
 
-El capítulo 18 es una referencia sobre los patrones y el emparejamiento de
-patrones, que son formas poderosas de expresar ideas en todo el programa de
-Rust. El capítulo 19 contiene un banquete de temas avanzados de interés,
-incluyendo Rust inseguro, macros y más sobre tiempos de vida, características, 
-tipos, funciones y clausuras.
+El capítulo 18 es una referencia a los patrones y el emparejamiento de patrones,
+que son formas poderosas de expresar ideas en todo programa de Rust. El capítulo
+19 contiene un banquete de temas avanzados de interés, incluyendo Rust inseguro,
+macros y más sobre lifetimes, traits, tipos, funciones y closures.
 
 En el capítulo 20, ¡completaremos un proyecto en el que implementaremos un
 servidor web de múltiples hilos de bajo nivel!
 
 Finalmente, algunos apéndices contienen información útil sobre el lenguaje en
 un formato más de referencia. El apéndice A cubre las palabras clave de Rust,
-el apéndice B cubre los operadores y símbolos de Rust, el apéndice C cubre las
-características derivables proporcionadas por la biblioteca estándar, el
-apéndice D cubre algunas herramientas de desarrollo útiles, y el apéndice E
-explica las ediciones de Rust. En el apéndice F, puede encontrar traducciones
-del libro, y en el apéndice G cubriremos cómo se hace Rust y qué es Rust
-nightly.
+el apéndice B cubre los operadores y símbolos de Rust, el apéndice C cubre los
+traits derivables proporcionados por la biblioteca estándar, el apéndice D cubre
+algunas herramientas de desarrollo útiles, y el apéndice E explica las ediciones
+de Rust. En el apéndice F, puede encontrar traducciones del libro, y en el
+apéndice G cubriremos cómo se hace Rust y qué es Rust nightly.
 
 No hay una forma incorrecta de leer este libro: ¡si quieres adelantarte, hazlo!
 Es posible que debas volver a los capítulos anteriores si experimentas
@@ -199,8 +197,8 @@ a distinguir el código que no está destinado a funcionar:
 
 | Ferris                                                                                                           | Significado                                          |
 |------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris with a question mark"/>            | Este código no compila!                       |
-| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris throwing up their hands"/>                   | ¡Este código provoca pánico!               |
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris with a question mark"/>            | ¡Este código no compila!                      |
+| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris throwing up their hands"/>                   | ¡Este código provoca un pánico!            |
 | <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris with one claw up, shrugging"/> | Este código no produce el comportamiento deseado. |
 
 En la mayoría de las situaciones, te guiaremos a la versión correcta de cualquier
