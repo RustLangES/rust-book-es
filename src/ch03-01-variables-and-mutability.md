@@ -1,7 +1,8 @@
 ## Variables y Mutabilidad
 
-Como se mencionó en la sección [“Almacenando valores con variables”]
-[storing-values-with-variables]<!-- ignore -->, por defecto, las variables
+Como se mencionó en la sección 
+[“Almacenando valores con variables”][storing-values-with-variables]<!-- ignore -->
+, por defecto, las variables
 son inmutables. Este es uno de los muchos empujes que Rust le da para que
 escriba su código de una manera que aproveche la seguridad y la fácil
 concurrencia que ofrece Rust. Sin embargo, todavía tiene la opción de hacer
