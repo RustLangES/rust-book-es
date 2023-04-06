@@ -17,7 +17,7 @@
     - [Variables y Mutabilidad](ch03-01-variables-and-mutability.md)
     - [Tipos de Datos](ch03-02-data-types.md)
     - [Funciones](ch03-03-how-functions-work.md)
-    - [Comments](ch03-04-comments.md)
+    - [Comentarios](ch03-04-comments.md)
     - [Control Flow](ch03-05-control-flow.md)
 
 - [Understanding Ownership](ch04-00-understanding-ownership.md)

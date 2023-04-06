@@ -1,5 +1,5 @@
 [book]
-title = "El lenguaje de programación Rust"
+title = "El Lenguaje de Programación Rust"
 authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Community"]
 
 [output.html]
