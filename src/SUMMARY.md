@@ -16,7 +16,7 @@
 - [Conceptos Comunes de Programación](ch03-00-common-programming-concepts.md)
     - [Variables y Mutabilidad](ch03-01-variables-and-mutability.md)
     - [Tipos de Datos](ch03-02-data-types.md)
-    - [Functions](ch03-03-how-functions-work.md)
+    - [Funciones](ch03-03-how-functions-work.md)
     - [Comments](ch03-04-comments.md)
     - [Control Flow](ch03-05-control-flow.md)
 
