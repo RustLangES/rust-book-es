@@ -8,7 +8,7 @@ if
 else
 span
 class
-rustdoc_include
+rustdoc
 include
 console
 Rust
