@@ -42,7 +42,7 @@ línea separada por encima del código que está anotando:
 ```
 
 Rust también tiene otro tipo de comentario, comentarios de documentación, que
-discutiremos en la sección [“Publicando una Caja en Crates.io”][publishing]
-<!-- ignore --> del Capítulo 14.
+discutiremos en la sección 
+[“Publicando una Caja en Crates.io”][publishing]<!-- ignore --> del Capítulo 14.
 
 [publishing]: ch14-02-publishing-to-crates-io.html
