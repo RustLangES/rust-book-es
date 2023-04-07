@@ -1,4 +1,18 @@
 personal_ws-1.1 es 0 utf-8
+does
+not
+compile
+loop
+number
+if
+else
+span
+class
+rustdoc_include
+include
+console
+Rust
+Rustaceans
 abcabcabc
 abcd
 abcdefghijklmnopqrstuvwxyz
