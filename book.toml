@@ -3,6 +3,11 @@ title = "El Lenguaje de Programación Rust"
 authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Community"]
 
 [output.html]
-additional-css = ["ferris.css", "theme/2018-edition.css"]
+additional-css = ["ferris.css", "theme/2018-edition.css", "./theme/catppuccin.css", "./theme/catppuccin-highlight.css"]
 additional-js = ["ferris.js"]
 git-repository-url = "https://github.com/Phosphorus-M/rust-book-es"
+
+[preprocessor]
+
+[preprocessor.catppuccin]
+assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`

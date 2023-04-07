@@ -533,17 +533,9 @@ un puntero a la memoria que contiene el contenido de la cadena, una longitud y
 una capacidad. Este grupo de datos se almacena en la pila. A la derecha está la
 memoria en el heap que contiene el contenido.
 
-<img alt="Two tables: the first table contains the representation of s1 on the
-stack, consisting of its length (5), capacity (5), and a pointer to the first
-value in the second table. The second table contains the representation of the
-string data on the heap, byte by byte." src="img/trpl04-01.svg" class="center"
-style="width: 50%;" />
-
-<img alt="Dos tablas: la primera tabla contiene la representación de s1 en la
-pila, que consta de su longitud (5), capacidad (5) y un puntero al primer valor
-en la segunda tabla. La segunda tabla contiene la representación de los datos
-en el heap, byte por byte." src="img/trpl04-01.svg" class="center"
-style="width: 50%;" />
+<div style="width:50%; max-width: 100%;">
+{{#include img/trpl04-01.svg}}
+</div>
 
 <span class="caption">Figure 4-1: Representation in memory of a `String`
 holding the value `"hello"` bound to `s1`</span>
@@ -574,25 +566,29 @@ que copiamos el puntero, la longitud y la capacidad que están en la pila. No
 copiamos los datos en el heap al que hace referencia el puntero. En otras
 palabras, la representación de datos en memoria se ve como la Figura 4-2.
 
-<img alt="Three tables: tables s1 and s2 representing those strings on the
-stack, respectively, and both pointing to the same string data on the heap."
-src="img/trpl04-02.svg" class="center" style="width: 50%;" />
-
-<img alt="Tres tablas: tablas s1 y s2 que representan esas cadenas en la
-pila, respectivamente, y ambas apuntando a los mismos datos de cadena en el
-heap." src="img/trpl04-02.svg" class="center" style="width: 50%;" />
+<div style="width:50%; max-width: 100%;">
+{{#include img/trpl04-02.svg}}
+</div>
 
 <span class="caption">Figure 4-2: Representation in memory of the variable `s2`
 that has a copy of the pointer, length, and capacity of `s1`</span>
+
+<span class="caption">Figura 4-2: Representación en memoria de la variable
+`s2` que tiene una copia del puntero, la longitud y la capacidad de `s1`</span>
 
 The representation does *not* look like Figure 4-3, which is what memory would
 look like if Rust instead copied the heap data as well. If Rust did this, the
 operation `s2 = s1` could be very expensive in terms of runtime performance if
 the data on the heap were large.
 
-<img alt="Four tables: two tables representing the stack data for s1 and s2,
-and each points to its own copy of string data on the heap."
-src="img/trpl04-03.svg" class="center" style="width: 50%;" />
+La representación *no* se ve como la Figura 4-3, que es lo que la memoria
+parecería si Rust copiara además los datos del heap. Si Rust hiciera esto, la
+operación `s2 = s1` podría ser muy costosa en términos de rendimiento de tiempo
+de ejecución si los datos en el heap fueran grandes.
+
+<div style="width:50%; max-width: 100%;">
+{{#include img/trpl04-03.svg}}
+</div>
 
 <span class="caption">Figure 4-3: Another possibility for what `s2 = s1` might
 do if Rust copied the heap data as well</span>
