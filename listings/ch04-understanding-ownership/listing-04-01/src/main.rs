@@ -1,9 +1,9 @@
 fn main() {
     // ANCHOR: here
-    {                      // s is not valid here, it’s not yet declared
-        let s = "hello";   // s is valid from this point forward
+    {                      // s no es valido aquí, aún no está declarado
+        let s = "hola";   // s es valido desde aquí
 
-        // do stuff with s
-    }                      // this scope is now over, and s is no longer valid
+        // Hacer algo con s
+    }                      // este ambito termina aquí, s ya no es valido
     // ANCHOR_END: here
 }
