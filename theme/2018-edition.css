@@ -7,3 +7,9 @@ span.caption code {
     font-size: 0.875em;
     font-weight: 400;
 }
+
+.opacity-background{
+    fill: var(--bg);
+    filter: invert(1);
+    opacity: 0.5;
+}
