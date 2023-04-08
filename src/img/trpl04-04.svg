@@ -6,7 +6,6 @@
 <polygon fill="transparent" stroke="transparent" points="-4,4 -4,-238 233,-238 233,4 -4,4"/>
 <!-- table0 -->
 <g id="node1" class="node">
-<title>table0</title>
 <polygon class="opacity-background" stroke="transparent" points="0,-130 0,-230 96,-230 96,-130 8,-130"/>
 <polyline fill="none" stroke="var(--fg)" points="0,-210 96,-210 "/>
 <text text-anchor="start" x="45.7759" y="-215.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">s1</text>
@@ -28,7 +27,6 @@
 </g>
 <!-- table1 -->
 <g id="node3" class="node">
-<title>table1</title>
 <polygon fill="none" stroke="var(--fg)" points="140.5,-127 140.5,-147 185.5,-147 185.5,-127 148.5,-127"/>
 <text text-anchor="start" x="145.4482" y="-132.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">indice</text>
 <polygon fill="none" stroke="var(--fg)" points="185.5,-127 185.5,-147 221.5,-147 221.5,-127 185.5,-127"/>
@@ -52,13 +50,11 @@
 </g>
 <!-- table0&#45;&gt;table1 -->
 <g id="edge1" class="edge">
-<title>table0:c&#45;&gt;table1:pointee</title>
 <path fill="none" stroke="var(--fg)" d="M78,-180C78,-180 101.9982,-126.912 130.4405,-118.2023"/>
 <polygon fill="var(--fg)" stroke="var(--fg)" points="130.986,-121.6621 140.5,-117 130.1553,-114.7115 130.986,-121.6621"/>
 </g>
 <!-- table3 -->
 <g id="node2" class="node">
-<title>table3</title>
 <polyline fill="none" stroke="var(--fg)" points="0,-84 96,-84 "/>
 <text text-anchor="start" x="45.7759" y="-89.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">s2</text>
 <polygon fill="none" stroke="var(--fg)" points="0,-64 0,-84 60,-84 60,-64 8,-64"/>
@@ -79,7 +75,6 @@
 </g>
 <!-- table3&#45;&gt;table1 -->
 <g id="edge2" class="edge">
-<title>table3:c&#45;&gt;table1:pointee</title>
 <path fill="none" stroke="var(--fg)" d="M78,-54C78,-54 101.9982,-107.088 130.4405,-115.7977"/>
 <polygon fill="var(--fg)" stroke="var(--fg)" points="130.1553,-119.2885 140.5,-117 130.986,-112.3379 130.1553,-119.2885"/>
 </g>
