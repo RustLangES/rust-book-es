@@ -1,9 +1,9 @@
 fn main() {
-    let reference_to_nothing = dangle();
+    let referencia_a_la_nada = colgar();
 }
 
-fn dangle() -> &String {
-    let s = String::from("hello");
+fn colgar() -> &String {
+    let s = String::from("hola");
 
     &s
 }

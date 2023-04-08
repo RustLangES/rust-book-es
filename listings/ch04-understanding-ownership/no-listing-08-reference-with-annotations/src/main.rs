@@ -1,14 +1,14 @@
 fn main() {
-    let s1 = String::from("hello");
+    let s1 = String::from("hola");
 
-    let len = calculate_length(&s1);
+    let len = calcular_longitud(&s1);
 
-    println!("The length of '{}' is {}.", s1, len);
+    println!("La longitud de '{}' es {}.", s1, len);
 }
 
 // ANCHOR: here
-fn calculate_length(s: &String) -> usize { // s is a reference to a String
+fn calcular_longitud(s: &String) -> usize { // es una referencia a un String
     s.len()
-} // Here, s goes out of scope. But because it does not have ownership of what
-  // it refers to, it is not dropped.
+} // Aquí, s sale de ámbito. Pero como no tiene el ownership/la propiedad sino 
+  // que s es solo un prestamo, no se destruye, se regresa al propietario, s1.
 // ANCHOR_END: here

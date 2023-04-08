@@ -1,13 +1,14 @@
 fn main() {
-    let reference_to_nothing = dangle();
+    let referencia_a_la_nada = colgar();
 }
 
 // ANCHOR: here
-fn dangle() -> &String { // dangle returns a reference to a String
+fn colgar() -> &String { // colgar retorna una referencia a un String
 
-    let s = String::from("hello"); // s is a new String
+    let s = String::from("hola"); // s es un nuevo String
 
-    &s // we return a reference to the String, s
-} // Here, s goes out of scope, and is dropped. Its memory goes away.
-  // Danger!
+    &s // retornamos una referencia a la String, s
+} // Aquí, s sale de ámbito y se libera su memoria. 
+  // ¡Pero retornamos una referencia a ella!
+  // ¡Peligro! ¡Esta referencia apunta a memoria que ya no existe!
 // ANCHOR_END: here

@@ -1,9 +1,9 @@
 fn main() {
-    let mut s = String::from("hello");
+    let mut s = String::from("hola");
 
-    change(&mut s);
+    modificar(&mut s);
 }
 
-fn change(some_string: &mut String) {
-    some_string.push_str(", world");
+fn modificar(un_string: &mut String) {
+    un_string.push_str(", mundo");
 }
