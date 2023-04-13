@@ -93,7 +93,7 @@ error porque el contenido de `s` ha cambiado desde que guardamos `5` en `word`.
 
 ¡Tener que preocuparse de que el índice de `word` no esté sincronizado con los 
 datos en `s` es tedioso y propenso a errores! El manejo de estos índices es aún 
-más frágil si escribimos una segunda función llamada `second_word` function. 
+más frágil si escribimos una segunda función llamada `second_word`. 
 Su firma debería ser algo como esto:
 
 ```rust,ignore
