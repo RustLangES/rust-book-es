@@ -1,14 +1,15 @@
-# Using Structs to Structure Related Data
+# Usando Structs para Estructurar Datos Relacionados
 
-A *struct*, or *structure*, is a custom data type that lets you package
-together and name multiple related values that make up a meaningful group. If
-you’re familiar with an object-oriented language, a *struct* is like an
-object’s data attributes. In this chapter, we’ll compare and contrast tuples
-with structs to build on what you already know and demonstrate when structs are
-a better way to group data.
+Un *struct*, o *estructura*, es un tipo de dato personalizado que te permite 
+empaquetar y nombrar multiples valores relacionados que forman un grupo
+significativo. Si estás familiarizado con un lenguaje orientado a objetos, 
+un *struct* es como los atributos de un objeto. En este capítulo, 
+compararemos y contrastaremos tuplas con structs para desarrollar lo que ya
+sabes y demostrar cuando los structs son una mejor manera de agrupar datos.
 
-We’ll demonstrate how to define and instantiate structs. We’ll discuss how to
-define associated functions, especially the kind of associated functions called
-*methods*, to specify behavior associated with a struct type. Structs and enums
-(discussed in Chapter 6) are the building blocks for creating new types in your
-program’s domain to take full advantage of Rust’s compile-time type checking.
+Demostraremos cómo definir e instanciar structs. Discutiremos como definir
+funciones asociadas, especialmente, el tipo de funciones asociadas llamadas
+*métodos*, para especificar el comportamiento asociado con un tipo de struct. 
+Los structs y enums (discutidos en el capítulo 6) son los bloques de 
+construcción para crear nuevos tipos en el dominio de tu programa para
+aprovechar al máximo la comprobación de tipos en tiempo de compilación de Rust.
