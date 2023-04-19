@@ -247,7 +247,7 @@ Nuestra función `area` es muy específica: solo calcula el área de
 rectángulos. Sería útil vincular este comportamiento más estrechamente a nuestra
 estructura `Rectangle` porque no funcionará con ningún otro tipo. Veamos cómo
 podemos continuar refactorizando este código al convertir la función `area` en
-un *método* `area` definido en nuestro tipo `Rectangle`.
+un *método* `area` definido en nuestro tipo `Rectangle`. 
 
 [the-tuple-type]: ch03-02-data-types.html#the-tuple-type
 [app-c]: appendix-03-derivable-traits.md
