@@ -253,7 +253,7 @@ tipo de función asociada que le permite especificar el comportamiento que
 tienen las instancias de sus structs.
 
 Pero los structs no son la única forma de crear tipos personalizados: pasemos
-a la función enum de Rust para agregar otra herramienta a su toolbox.
+a la función enum de Rust para agregar otra herramienta a su toolbox. 
 
 [enums]: ch06-00-enums.html
 [trait-objects]: ch17-02-trait-objects.md
