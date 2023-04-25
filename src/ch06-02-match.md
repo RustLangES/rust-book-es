@@ -1,254 +1,272 @@
 <!-- Old heading. Do not remove or links may break. -->
 <a id="the-match-control-flow-operator"></a>
-## The `match` Control Flow Construct
+## `match` El operador de flujo de control (Control Flow Construct)
 
-Rust has an extremely powerful control flow construct called `match` that
-allows you to compare a value against a series of patterns and then execute
-code based on which pattern matches. Patterns can be made up of literal values,
-variable names, wildcards, and many other things; [Chapter
-18][ch18-00-patterns]<!-- ignore --> covers all the different kinds of patterns
-and what they do. The power of `match` comes from the expressiveness of the
-patterns and the fact that the compiler confirms that all possible cases are
-handled.
+Rust tiene una construcción de flujo de control extremadamente poderosa llamada
+`match` que te permite comparar un valor contra una serie de patrones y luego
+ejecutar código basado en qué patrón coincide. Los patrones pueden estar
+compuestos de valores literales, nombres de variables, comodines y muchas otras
+cosas; El [Capítulo 18][ch18-00-patterns]<!-- ignore --> cubre todos los
+diferentes tipos de patrones y lo que hacen. El poder de `match` viene de la
+expresividad de los patrones y el hecho de que el compilador confirma que se
+tratan todos los casos posibles.
 
-Think of a `match` expression as being like a coin-sorting machine: coins slide
-down a track with variously sized holes along it, and each coin falls through
-the first hole it encounters that it fits into. In the same way, values go
-through each pattern in a `match`, and at the first pattern the value “fits,”
-the value falls into the associated code block to be used during execution.
+Piensa en una expresión `match` como una máquina de clasificación de monedas:
+las monedas deslizan a lo largo de una pista con orificios de diversos tamaños
+a lo largo de ella, y cada moneda cae a través del primer orificio que encuentra
+que se ajusta a ella. De la misma manera, los valores pasan a través de cada
+patrón en un `match`, y en el primer patrón en el que el valor “se ajusta”, el
+valor cae en el bloque de código asociado para ser utilizado durante la
+ejecución.
 
-Speaking of coins, let’s use them as an example using `match`! We can write a
-function that takes an unknown US coin and, in a similar way as the counting
-machine, determines which coin it is and returns its value in cents, as shown
-in Listing 6-3.
+Hablando de monedas, ¡usémoslas como un ejemplo usando `match`! Podemos escribir
+una función que tome una moneda desconocida de los Estados Unidos y, de una
+manera similar a la máquina de conteo, determine qué moneda es y devuelva su
+valor en centavos, como se muestra en el Listing 6-3.
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-3: An enum and a `match` expression that has
-the variants of the enum as its patterns</span>
+<span class="caption">Listing 6-3: Una expresión enum y `match` que tiene
+las variantes del enum como sus patrones</span>
 
-Let’s break down the `match` in the `value_in_cents` function. First we list
-the `match` keyword followed by an expression, which in this case is the value
-`coin`. This seems very similar to a conditional expression used with `if`, but
-there’s a big difference: with `if`, the condition needs to evaluate to a
-Boolean value, but here it can be any type. The type of `coin` in this example
-is the `Coin` enum that we defined on the first line.
+Desglosemos el uso de `match` en la función `value_in_cents`. 
+Primero listamos la palabra clave `match` seguida de una expresión, 
+que en este caso es el valor `coin`. Esto parece muy similar a una expresión 
+condicional utilizada con `if`, pero hay una gran diferencia: con `if`, 
+la condición debe evaluar a un valor Booleano, pero aquí puede ser cualquier 
+tipo. El tipo de `coin` en este ejemplo es el enum `Coin` que definimos en la 
+primera línea.
 
-Next are the `match` arms. An arm has two parts: a pattern and some code. The
-first arm here has a pattern that is the value `Coin::Penny` and then the `=>`
-operator that separates the pattern and the code to run. The code in this case
-is just the value `1`. Each arm is separated from the next with a comma.
+A continuación, dentro de las llaves de `match`, hay un número de Opciones.
+Una Opción tiene dos partes: un patrón y algún código. La primera Opción aquí
+tiene un patrón que es el valor `Coin::Penny` y luego el operador `=>` que
+separa el patrón y el código a ejecutar. El código en este caso es solo el valor
+`1`. Cada Opción está separado del siguiente con una coma.
 
-When the `match` expression executes, it compares the resultant value against
-the pattern of each arm, in order. If a pattern matches the value, the code
-associated with that pattern is executed. If that pattern doesn’t match the
-value, execution continues to the next arm, much as in a coin-sorting machine.
-We can have as many arms as we need: in Listing 6-3, our `match` has four arms.
+Cuando la expresión `match` se ejecuta, compara el valor resultante contra el
+patrón de cada Opción, en orden. Si un patrón coincide con el valor, se ejecuta
+el código asociado con ese patrón. Si ese patrón no coincide con el valor,
+la ejecución continúa en la siguiente Opción, como en una máquina de 
+clasificación de monedas. Podemos tener tantas Opciones como necesitemos: 
+en el Listado 6-3, nuestro `match` tiene cuatro Opciones.
 
-The code associated with each arm is an expression, and the resultant value of
-the expression in the matching arm is the value that gets returned for the
-entire `match` expression.
+El código asociado con cada Opción es una expresión, y el valor resultante de
+la expresión en la Opción coincidente es el valor que se devuelve para la
+expresión `match` completa.
 
-We don’t typically use curly brackets if the match arm code is short, as it is
-in Listing 6-3 where each arm just returns a value. If you want to run multiple
-lines of code in a match arm, you must use curly brackets, and the comma
-following the arm is then optional. For example, the following code prints
-“Lucky penny!” every time the method is called with a `Coin::Penny`, but still
-returns the last value of the block, `1`:
+Por lo general, no usamos llaves si el código de la Opción de match es
+corto, como lo es en el Listado 6-3, donde cada Opción solo devuelve un valor.
+Si desea ejecutar varias líneas de código en una Opción de match, debe
+usar llaves, y la coma que sigue a la Opción es opcional. Por ejemplo, 
+el siguiente código imprime “¡Moneda de la suerte!” cada vez que el método 
+se llama con un `Coin::Penny`, pero aún devuelve el último valor del bloque, 
+`1`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-08-match-arm-multiple-lines/src/main.rs:here}}
 ```
 
-### Patterns That Bind to Values
+### Patrones que vinculan valores
 
-Another useful feature of match arms is that they can bind to the parts of the
-values that match the pattern. This is how we can extract values out of enum
-variants.
+Otra característica útil de las Opciones de match es que pueden vincularse
+a las partes del valor que coinciden con el patrón. Esto es cómo podemos extraer
+valores de las variantes de enum.
 
-As an example, let’s change one of our enum variants to hold data inside it.
-From 1999 through 2008, the United States minted quarters with different
-designs for each of the 50 states on one side. No other coins got state
-designs, so only quarters have this extra value. We can add this information to
-our `enum` by changing the `Quarter` variant to include a `UsState` value
-stored inside it, which we’ve done in Listing 6-4.
+Como ejemplo, podemos cambiar el código de la función `value_in_cents` para
+que, en lugar de devolver un valor, imprima el valor que tiene. Esto nos
+permite ver qué moneda tenemos y cuánto vale. Para hacer esto, necesitamos
+convertir el código de cada Opción en una expresión, y luego usar una
+expresión `println!` en lugar de un valor de retorno. También necesitamos
+cambiar el tipo de `value_in_cents` a `()`, ya que no estamos devolviendo un
+valor entero, sino que estamos ejecutando código. El código completo se muestra
+en el Listing 6-4.
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-4: A `Coin` enum in which the `Quarter` variant
-also holds a `UsState` value</span>
+<span class="caption">Listing 6-4: Un enum `Coin` en el cual la variante 
+`Quarter` también contiene un valor `UsState`</span>
 
-Let’s imagine that a friend is trying to collect all 50 state quarters. While
-we sort our loose change by coin type, we’ll also call out the name of the
-state associated with each quarter so that if it’s one our friend doesn’t have,
-they can add it to their collection.
+Imaginemos que tenemos un amigo que está tratando de coleccionar todas las
+monedas de 50 estados. Mientras clasificamos nuestra moneda suelta por tipo de
+moneda, también llamaremos al nombre del estado asociado con cada moneda de
+50 centavos para que si es uno que no tiene, pueda agregarlo a su colección.
 
-In the match expression for this code, we add a variable called `state` to the
-pattern that matches values of the variant `Coin::Quarter`. When a
-`Coin::Quarter` matches, the `state` variable will bind to the value of that
-quarter’s state. Then we can use `state` in the code for that arm, like so:
+En la expresión `match` en el Listado 6-4, podemos agregar `UsState::Alaska` a
+la variante `Coin::Quarter` para crear una nueva variante de `Coin`. Cuando
+hacemos esto, el estado de Alaska se adjunta a la moneda. Luego, cuando
+ejecutamos el código, podemos ver el valor del estado almacenado en la
+moneda de 50 centavos al imprimirlo. El código completo se muestra en el
+Listing 6-5.
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-09-variable-in-pattern/src/main.rs:here}}
 ```
 
-If we were to call `value_in_cents(Coin::Quarter(UsState::Alaska))`, `coin`
-would be `Coin::Quarter(UsState::Alaska)`. When we compare that value with each
-of the match arms, none of them match until we reach `Coin::Quarter(state)`. At
-that point, the binding for `state` will be the value `UsState::Alaska`. We can
-then use that binding in the `println!` expression, thus getting the inner
-state value out of the `Coin` enum variant for `Quarter`.
+Si llamáramos a `value_in_cents(Coin::Quarter(UsState::Alaska))`, `coin` sería
+`Coin::Quarter(UsState::Alaska)`. Cuando comparamos ese valor con cada una de
+las Opciones de match, ninguno coincide hasta que llegamos a
+`Coin::Quarter(state)`. En ese punto, el enlace para `state` será el valor
+`UsState::Alaska`. Luego podemos usar ese enlace en la expresión `println!`,
+obteniendo así el valor del estado interno de la variante de `Coin` para
+`Quarter`.
 
-### Matching with `Option<T>`
+### Match con `Option<T>`
 
-In the previous section, we wanted to get the inner `T` value out of the `Some`
-case when using `Option<T>`; we can also handle `Option<T>` using `match`, as
-we did with the `Coin` enum! Instead of comparing coins, we’ll compare the
-variants of `Option<T>`, but the way the `match` expression works remains the
-same.
+En la sección anterior, queríamos obtener el valor interno `T` de la variante
+`Some` cuando se usaba `Option<T>`; también podemos manejar `Option<T>` usando
+`match`, como lo hicimos con el enum `Coin`! En lugar de comparar monedas,
+compararemos las variantes de `Option<T>`, pero la forma en que funciona la
+expresión `match` sigue siendo la misma.
 
-Let’s say we want to write a function that takes an `Option<i32>` and, if
-there’s a value inside, adds 1 to that value. If there isn’t a value inside,
-the function should return the `None` value and not attempt to perform any
-operations.
+Digamos que queremos escribir una función que tome un `Option<i32>` y, si
+hay un valor dentro, agregue 1 a ese valor. Si no hay un valor dentro, la
+función debe devolver el valor `None` y no intentar realizar ninguna
+operación.
 
-This function is very easy to write, thanks to `match`, and will look like
+Esta función es muy fácil de escribir, gracias a `match`, y se verá como el
 Listing 6-5.
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-5: A function that uses a `match` expression on
-an `Option<i32>`</span>
+<span class="caption">Listing 6-5: Una función que usa una expresión `match` en
+un `Option<i32>`</span>
 
-Let’s examine the first execution of `plus_one` in more detail. When we call
-`plus_one(five)`, the variable `x` in the body of `plus_one` will have the
-value `Some(5)`. We then compare that against each match arm:
+Examinemos la primera ejecución de `plus_one` en más detalle. Cuando llamamos
+a `plus_one(five)`, la variable `x` en el cuerpo de `plus_one` tendrá el
+valor `Some(5)`. Luego comparamos eso contra cada Opción de match:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:first_arm}}
 ```
 
-The `Some(5)` value doesn’t match the pattern `None`, so we continue to the
-next arm:
+El valor `Some(5)` no coincide con el patrón `None`, por lo que seguimos a la
+siguiente Opción:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:second_arm}}
 ```
 
-Does `Some(5)` match `Some(i)`? It does! We have the same variant. The `i`
-binds to the value contained in `Some`, so `i` takes the value `5`. The code in
-the match arm is then executed, so we add 1 to the value of `i` and create a
-new `Some` value with our total `6` inside.
+¿Coincide `Some(5)` con `Some(i)`? ¡Lo hace! Tenemos la misma variante. Él
+`i` se vincula al valor contenido en `Some`, por lo que `i` toma el valor `5`.
+Luego se ejecuta el código en la Opción de match, por lo que agregamos 1
+al valor de `i` y creamos un nuevo valor `Some` con nuestro total `6` dentro.
 
-Now let’s consider the second call of `plus_one` in Listing 6-5, where `x` is
-`None`. We enter the `match` and compare to the first arm:
+Ahora consideremos la segunda llamada a `plus_one` en el Listing 6-5, donde
+`x` es `None`. Entramos en el `match` y comparamos con la primera Opción:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:first_arm}}
 ```
 
-It matches! There’s no value to add to, so the program stops and returns the
-`None` value on the right side of `=>`. Because the first arm matched, no other
-arms are compared.
+¡Coincide! No hay valor para agregar, por lo que el programa se detiene y
+devuelve el valor `None` en el lado derecho de `=>`. Debido a que la primera
+Opción coincidió, no se comparan otras Opciones.
 
-Combining `match` and enums is useful in many situations. You’ll see this
-pattern a lot in Rust code: `match` against an enum, bind a variable to the
-data inside, and then execute code based on it. It’s a bit tricky at first, but
-once you get used to it, you’ll wish you had it in all languages. It’s
-consistently a user favorite.
+Combinando `match` y enums es útil en muchas situaciones. Verás este patrón
+mucho en el código Rust: `match` contra un enum, vincula una variable a los
+datos internos y luego ejecuta el código en función de él. Es un poco
+complicado al principio, pero una vez que te acostumbras, desearás tenerlo en
+todos los lenguajes. Es consistentemente un favorito de los usuarios.
 
-### Matches Are Exhaustive
+### Los matches son exhaustivos
 
-There’s one other aspect of `match` we need to discuss: the arms’ patterns must
-cover all possibilities. Consider this version of our `plus_one` function,
-which has a bug and won’t compile:
+Hay otro aspecto de `match` que debemos discutir: los patrones de las Opciones
+deben cubrir todas las posibilidades. Considera esta versión de nuestra
+función `plus_one`, que tiene un error y no se compila:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-10-non-exhaustive-match/src/main.rs:here}}
 ```
 
-We didn’t handle the `None` case, so this code will cause a bug. Luckily, it’s
-a bug Rust knows how to catch. If we try to compile this code, we’ll get this
-error:
+No manejamos el caso `None`, por lo que este código causará un error.
+Afortunadamente, es un error que Rust sabe cómo detectar. Si intentamos
+compilar este código, obtendremos este error:
 
 ```console
 {{#include ../listings/ch06-enums-and-pattern-matching/no-listing-10-non-exhaustive-match/output.txt}}
 ```
 
-Rust knows that we didn’t cover every possible case, and even knows which
-pattern we forgot! Matches in Rust are *exhaustive*: we must exhaust every last
-possibility in order for the code to be valid. Especially in the case of
-`Option<T>`, when Rust prevents us from forgetting to explicitly handle the
-`None` case, it protects us from assuming that we have a value when we might
-have null, thus making the billion-dollar mistake discussed earlier impossible.
+Rust sabe que no cubrimos todos los casos posibles, e incluso sabe qué
+patrón olvidamos! Los matches en Rust son *exhaustivos*: debemos agotar
+todas las posibilidades para que el código sea válido. Especialmente en el
+caso de `Option<T>`, cuando Rust nos impide olvidar manejar el caso `None`,
+nos protege de asumir que tenemos un valor cuando podríamos tener nulo,
+haciendo así imposible el error de mil millones de dólares discutido
+anteriormente.
 
-### Catch-all Patterns and the `_` Placeholder
+### Patrones de captura y el Placeholder `_`
 
-Using enums, we can also take special actions for a few particular values, but
-for all other values take one default action. Imagine we’re implementing a game
-where, if you roll a 3 on a dice roll, your player doesn’t move, but instead
-gets a new fancy hat. If you roll a 7, your player loses a fancy hat. For all
-other values, your player moves that number of spaces on the game board. Here’s
-a `match` that implements that logic, with the result of the dice roll
-hardcoded rather than a random value, and all other logic represented by
-functions without bodies because actually implementing them is out of scope for
-this example:
+Usando enums, también podemos tomar acciones especiales para algunos valores
+particulares, pero para todos los demás valores, tomar una acción 
+predeterminada. Imagina que estamos implementando un juego donde, si sacas un 
+3 en un lanzamiento de dados, tu jugador no se mueve, sino que obtiene un nuevo 
+sombrero elegante. Si sacas un 7, tu jugador pierde un sombrero elegante. 
+Para todos los demás valores, tu jugador se mueve esa cantidad de espacios 
+en el tablero de juego. Aquí hay un `match` que implementa esa lógica, con el 
+resultado del lanzamiento de dados codificado en lugar de un valor aleatorio, 
+y toda la lógica representada por funciones sin cuerpos porque implementarlas 
+realmente está fuera del alcance de este ejemplo:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-15-binding-catchall/src/main.rs:here}}
 ```
 
-For the first two arms, the patterns are the literal values `3` and `7`. For
-the last arm that covers every other possible value, the pattern is the
-variable we’ve chosen to name `other`. The code that runs for the `other` arm
-uses the variable by passing it to the `move_player` function.
+Para las primeras dos Opciones, los patrones son los valores literales `3` y
+`7`. Para la última Opción que cubre cualquier otro valor posible, el patrón
+es la variable que hemos elegido para nombrar `other`. El código que se
+ejecuta para la Opción `other` usa la variable pasándola a la función
+`move_player`.
 
-This code compiles, even though we haven’t listed all the possible values a
-`u8` can have, because the last pattern will match all values not specifically
-listed. This catch-all pattern meets the requirement that `match` must be
-exhaustive. Note that we have to put the catch-all arm last because the
-patterns are evaluated in order. If we put the catch-all arm earlier, the other
-arms would never run, so Rust will warn us if we add arms after a catch-all!
+Este código compila, aunque no hemos enumerado todos los posibles valores que
+puede tener un `u8`, porque el último patrón coincidirá con todos los valores
+no especificados específicamente. Este patrón de captura cumple con el
+requisito de que `match` debe ser exhaustivo. Ten en cuenta que tenemos que
+poner la Opción de captura al final porque los patrones se evalúan en orden. Si
+ponemos la Opción de captura antes, las otras Opciones nunca se ejecutarían, por
+lo que Rust nos advertirá si agregamos Opciones después de un catch-all!
 
-Rust also has a pattern we can use when we want a catch-all but don’t want to
-*use* the value in the catch-all pattern: `_` is a special pattern that matches
-any value and does not bind to that value. This tells Rust we aren’t going to
-use the value, so Rust won’t warn us about an unused variable.
+Rust también tiene un patrón que podemos usar cuando queremos un catch-all,
+pero no queremos *usar* el valor en el patrón catch-all: `_` es un patrón
+especial que coincide con cualquier valor y no se vincula a ese valor. Esto le
+dice a Rust que no vamos a usar el valor, por lo que Rust no nos advertirá
+sobre una variable no utilizada.
 
-Let’s change the rules of the game: now, if you roll anything other than a 3 or
-a 7, you must roll again. We no longer need to use the catch-all value, so we
-can change our code to use `_` instead of the variable named `other`:
+Vamos a cambiar las reglas del juego. Ahora, si sacas un 3 o un 7, debes tirar
+de nuevo. Ya no necesitamos usar el valor general, por lo que puede cambiar
+nuestro código para usar `_` en lugar de la variable llamada `other`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-16-underscore-catchall/src/main.rs:here}}
 ```
 
-This example also meets the exhaustiveness requirement because we’re explicitly
-ignoring all other values in the last arm; we haven’t forgotten anything.
+Este ejemplo también cumple con el requisito de exhaustividad porque estamos 
+explícitamente ignorando todos los demás valores en la última Opción; no hemos
+olvidado nada.
 
-Finally, we’ll change the rules of the game one more time so that nothing else
-happens on your turn if you roll anything other than a 3 or a 7. We can express
-that by using the unit value (the empty tuple type we mentioned in [“The Tuple
-Type”][tuples]<!-- ignore --> section) as the code that goes with the `_` arm:
+Finalmente, cambiaremos las reglas del juego una vez más para que nada más
+ocurra en tu turno si sacas algo que no sea un 3 o un 7. Podemos expresar eso
+usando el valor de unidad (el tipo de tupla vacía que mencionamos en [“El tipo
+de tupla”][tuples]<!-- ignore --> sección) como el código que va con la Opción
+`_`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-17-underscore-unit/src/main.rs:here}}
 ```
 
-Here, we’re telling Rust explicitly that we aren’t going to use any other value
-that doesn’t match a pattern in an earlier arm, and we don’t want to run any
-code in this case.
+Aquí, le decimos a Rust explícitamente que no vamos a usar ningún otro valor
+que no coincida con un patrón en una Opción anterior, y no queremos ejecutar
+ningún código en este caso.
 
-There’s more about patterns and matching that we’ll cover in [Chapter
-18][ch18-00-patterns]<!-- ignore -->. For now, we’re going to move on to the
-`if let` syntax, which can be useful in situations where the `match` expression
-is a bit wordy.
+Hay más sobre patrones y coincidencias que cubriremos en el [Capítulo
+18][ch18-00-patterns]<!-- ignore -->. Por ahora, vamos a pasar a la sintaxis
+`if let` que puede ser útil en situaciones en las que la expresión `match` es
+un poco larga.
 
 [tuples]: ch03-02-data-types.html#the-tuple-type
 [ch18-00-patterns]: ch18-00-patterns.html
