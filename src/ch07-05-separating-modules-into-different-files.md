@@ -128,6 +128,6 @@ es privado de forma predeterminada, pero puedes hacer que las definiciones sean
 públicas agregando la palabra clave `pub`.
 
 En el siguiente capítulo, veremos algunas estructuras de datos de colección en
-la biblioteca estándar que puedes usar en tu código bien organizado.
+la biblioteca estándar que puedes usar en tu código bien organizado. 
 
 [paths]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
