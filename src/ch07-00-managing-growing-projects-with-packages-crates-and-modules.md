@@ -1,48 +1,57 @@
-# Managing Growing Projects with Packages, Crates, and Modules
+# Administrando Proyectos en Crecimiento con Paquetes, Crates y Módulos
 
-As you write large programs, organizing your code will become increasingly
-important. By grouping related functionality and separating code with distinct
-features, you’ll clarify where to find code that implements a particular
-feature and where to go to change how a feature works.
+Como escribes programas grandes, organizar tu código se volverá cada vez más
+importante. Al agrupar funcionalidades relacionadas y separar el código con
+características distintas, aclararás dónde encontrar el código que implementa
+una característica particular y dónde ir para cambiar cómo funciona una
+característica.
 
-The programs we’ve written so far have been in one module in one file. As a
-project grows, you should organize code by splitting it into multiple modules
-and then multiple files. A package can contain multiple binary crates and
-optionally one library crate. As a package grows, you can extract parts into
-separate crates that become external dependencies. This chapter covers all
-these techniques. For very large projects comprising a set of interrelated
-packages that evolve together, Cargo provides *workspaces*, which we’ll cover
-in the [“Cargo Workspaces”][workspaces]<!-- ignore --> section in Chapter 14.
+Los programas que hemos escrito hasta ahora han estado en un módulo en un
+archivo. A medida que un proyecto crece, debes organizar el código dividiéndolo
+en múltiples módulos y luego en múltiples archivos. Un paquete puede contener
+múltiples *crates* binarios y opcionalmente un *crate* de biblioteca. A medida
+que un paquete crece, puedes extraer partes en *crates* separados que se
+convierten en dependencias externas. Este capítulo cubre todas estas
+técnicas. Para proyectos muy grandes que comprenden un conjunto de paquetes
+interrelacionados que evolucionan juntos, Cargo proporciona *workspaces*, que
+cubriremos en la sección [“Cargo Workspaces”][workspaces]<!-- ignore --> en el
+Capítulo 14.
 
-We’ll also discuss encapsulating implementation details, which lets you reuse
-code at a higher level: once you’ve implemented an operation, other code can
-call your code via its public interface without having to know how the
-implementation works. The way you write code defines which parts are public for
-other code to use and which parts are private implementation details that you
-reserve the right to change. This is another way to limit the amount of detail
-you have to keep in your head.
+También discutiremos la encapsulación de detalles de implementación, que le
+permite reutilizar el código a un nivel superior: una vez que ha implementado
+una operación, otro código puede llamar a su código a través de su interfaz
+pública sin tener que saber cómo funciona la implementación. La forma en que
+escribes el código define qué partes son públicas para que otro código las use
+y qué partes son detalles de implementación privados que te reservas el
+derecho de cambiar. Esta es otra forma de limitar la cantidad de detalles que
+tienes que mantener en tu cabeza.
 
-A related concept is scope: the nested context in which code is written has a
-set of names that are defined as “in scope.” When reading, writing, and
-compiling code, programmers and compilers need to know whether a particular
-name at a particular spot refers to a variable, function, struct, enum, module,
-constant, or other item and what that item means. You can create scopes and
-change which names are in or out of scope. You can’t have two items with the
-same name in the same scope; tools are available to resolve name conflicts.
+Un concepto relacionado es el alcance: el contexto anidado en el que se escribe
+el código tiene un conjunto de nombres que se definen como “en alcance”. Al
+leer, escribir y compilar código, los programadores y los compiladores deben
+saber si un nombre particular en un lugar particular se refiere a una variable,
+función, estructura, enumeración, módulo, constante u otro elemento y qué
+significa ese elemento. Puedes crear alcances y cambiar qué nombres están en o
+fuera de alcance. No puedes tener dos elementos con el mismo nombre en el mismo
+alcance; hay herramientas disponibles para resolver conflictos de nombres.
 
-Rust has a number of features that allow you to manage your code’s
-organization, including which details are exposed, which details are private,
-and what names are in each scope in your programs. These features, sometimes
-collectively referred to as the *module system*, include:
+Rust tiene una serie de características que te permiten administrar la
+organización de tu código, incluidos los detalles que se exponen, los detalles
+que son privados y los nombres que están en cada alcance en tus programas. Estas
+características, a veces denominadas colectivamente el *sistema de módulos*,
+incluyen:
 
-* **Packages:** A Cargo feature that lets you build, test, and share crates
-* **Crates:** A tree of modules that produces a library or executable
-* **Modules** and **use:** Let you control the organization, scope, and
-  privacy of paths
-* **Paths:** A way of naming an item, such as a struct, function, or module
+* **Paquetes:** Una característica de Cargo que te permite construir, probar y
+  compartir *crates*
+* **Crates:** Un árbol de módulos que produce una biblioteca o ejecutable
+* **Módulos** y **use:** Te permiten controlar la organización, el alcance y
+  la privacidad de las rutas/paths
+* **Rutas o Paths:** Una forma de nombrar un elemento, como una estructura, función o
+  módulo
 
-In this chapter, we’ll cover all these features, discuss how they interact, and
-explain how to use them to manage scope. By the end, you should have a solid
-understanding of the module system and be able to work with scopes like a pro!
+En este capítulo, cubriremos todas estas características, discutiremos cómo
+interactúan y explicaremos cómo usarlas para administrar el alcance. Al final,
+deberías tener una comprensión sólida del sistema de módulos y poder trabajar
+con alcances como un profesional!
 
 [workspaces]: ch14-03-cargo-workspaces.html

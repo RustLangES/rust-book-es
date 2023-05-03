@@ -10,5 +10,3 @@ patrón de coincidencia en la expresión `match` hace que sea fácil
 ejecutar un código diferente para diferentes valores de un enum.
 Finalmente, veremos cómo la construcción `if let` es otro idioma
 conveniente y conciso disponible para manejar enums en su código.
-
-

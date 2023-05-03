@@ -1,33 +1,36 @@
-## Paths for Referring to an Item in the Module Tree
+## Paths para referirse a un item en el árbol de módulos
 
-To show Rust where to find an item in a module tree, we use a path in the same
-way we use a path when navigating a filesystem. To call a function, we need to
-know its path.
+Para mostrarle a Rust dónde encontrar un item en el árbol de módulos, usamos un
+path de la misma manera que usamos un path para navegar un sistema de archivos.
+Para llamar una función, necesitamos saber su path.
 
-A path can take two forms:
+Un path puede tomar dos formas:
 
-* An *absolute path* is the full path starting from a crate root; for code
-  from an external crate, the absolute path begins with the crate name, and for
-  code from the current crate, it starts with the literal `crate`.
-* A *relative path* starts from the current module and uses `self`, `super`, or
-  an identifier in the current module.
+* Un *path absoluto* comienza desde la raíz del crate; para código de un crate
+  externa, el path absoluto comienza con el nombre del crate, y para código del
+  crate actual, comienza con el literal `crate`.
 
-Both absolute and relative paths are followed by one or more identifiers
-separated by double colons (`::`).
+* Un *path relativo* comienza desde el módulo actual y usa `self`, `super`, o un
+  identificador en el módulo actual.
 
-Returning to Listing 7-1, say we want to call the `add_to_waitlist` function.
-This is the same as asking: what’s the path of the `add_to_waitlist` function?
-Listing 7-3 contains Listing 7-1 with some of the modules and functions
-removed.
+Tanto los paths absolutos como los relativos están seguidos por uno o más
+identificadores separados por dos puntos dobles (`::`).
 
-We’ll show two ways to call the `add_to_waitlist` function from a new function
-`eat_at_restaurant` defined in the crate root. These paths are correct, but
-there’s another problem remaining that will prevent this example from compiling
-as-is. We’ll explain why in a bit.
+Volviendo al Listing 7-1, digamos que queremos llamar a la función
+`add_to_waitlist` desde la función `eat_at_restaurant` definida en el crate
+root. Este es el mismo que preguntar: ¿cuál es el path de la función
+`add_to_waitlist`? El Listing 7-3 contiene el Listing 7-1 con algunos de los
+módulos y funciones removidas.
 
-The `eat_at_restaurant` function is part of our library crate’s public API, so
-we mark it with the `pub` keyword. In the [“Exposing Paths with the `pub`
-Keyword”][pub]<!-- ignore --> section, we’ll go into more detail about `pub`.
+Mostraremos dos formas de llamar a la función `add_to_waitlist` desde una nueva
+función `eat_at_restaurant` definida en el crate root. Estos paths son
+correctos, pero hay otro problema que impide que este ejemplo compile tal cual.
+Explicaremos por qué en un momento.
+
+La función `eat_at_restaurant` es parte de la API pública del crate de nuestra
+librería, así que la marcamos con la palabra clave `pub`. En la sección
+[“Exponiendo Paths con la palabra clave `pub`”][pub]<!-- ignore -->, iremos en
+más detalle sobre `pub`.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -35,74 +38,79 @@ Keyword”][pub]<!-- ignore --> section, we’ll go into more detail about `pub`
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-03/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-3: Calling the `add_to_waitlist` function using
-absolute and relative paths</span>
+<span class="caption">Listing 7-3: Llamando a la función `add_to_waitlist` usando
+paths absolutos y relativos</span>
 
-The first time we call the `add_to_waitlist` function in `eat_at_restaurant`,
-we use an absolute path. The `add_to_waitlist` function is defined in the same
-crate as `eat_at_restaurant`, which means we can use the `crate` keyword to
-start an absolute path. We then include each of the successive modules until we
-make our way to `add_to_waitlist`. You can imagine a filesystem with the same
-structure: we’d specify the path `/front_of_house/hosting/add_to_waitlist` to
-run the `add_to_waitlist` program; using the `crate` name to start from the
-crate root is like using `/` to start from the filesystem root in your shell.
+La primera vez que llamamos a la función `add_to_waitlist` en `eat_at_restaurant`,
+usamos un path absoluto. La función `add_to_waitlist` está definida en el mismo
+crate que `eat_at_restaurant`, lo que significa que podemos usar la palabra
+clave `crate` para comenzar un path absoluto. Luego incluimos cada uno de los
+módulos sucesivos hasta que llegamos a `add_to_waitlist`. Puedes imaginar un
+sistema de archivos con la misma estructura: especificaríamos el path
+`/front_of_house/hosting/add_to_waitlist` para ejecutar el programa
+`add_to_waitlist`; usar el nombre `crate` para comenzar desde la raíz del crate
+es como usar `/` para comenzar desde la raíz del sistema de archivos en tu
+shell.
 
-The second time we call `add_to_waitlist` in `eat_at_restaurant`, we use a
-relative path. The path starts with `front_of_house`, the name of the module
-defined at the same level of the module tree as `eat_at_restaurant`. Here the
-filesystem equivalent would be using the path
-`front_of_house/hosting/add_to_waitlist`. Starting with a module name means
-that the path is relative.
+La segunda vez que llamamos a `add_to_waitlist` en `eat_at_restaurant`, usamos
+un path relativo. El path comienza con `front_of_house`, el nombre del módulo
+definido al mismo nivel del árbol de módulos que `eat_at_restaurant`. Aquí el
+equivalente en el sistema de archivos sería usar el path
+`front_of_house/hosting/add_to_waitlist`. Comenzar con el nombre del módulo
+significa que el path es relativo.
 
-Choosing whether to use a relative or absolute path is a decision you’ll make
-based on your project, and depends on whether you’re more likely to move item
-definition code separately from or together with the code that uses the item.
-For example, if we move the `front_of_house` module and the `eat_at_restaurant`
-function into a module named `customer_experience`, we’d need to update the
-absolute path to `add_to_waitlist`, but the relative path would still be valid.
-However, if we moved the `eat_at_restaurant` function separately into a module
-named `dining`, the absolute path to the `add_to_waitlist` call would stay the
-same, but the relative path would need to be updated. Our preference in general
-is to specify absolute paths because it’s more likely we’ll want to move code
-definitions and item calls independently of each other.
+Elegir si usar un path relativo o absoluto es una decisión que tomarás basado
+en tu proyecto, y depende de si es más probable que muevas la definición de un
+item de código separadamente o junto con el código que usa el item. Por
+ejemplo, si movemos el módulo `front_of_house` y la función `eat_at_restaurant`
+a un módulo llamado `customer_experience`, necesitaríamos actualizar el path
+absoluto a `add_to_waitlist`, pero el path relativo seguiría siendo válido.
+Sin embargo, si movemos la función `eat_at_restaurant` separadamente a un
+módulo llamado `dining`, el path absoluto a la llamada de `add_to_waitlist`
+seguiría siendo el mismo, pero el path relativo necesitaría ser actualizado.
+Nuestra preferencia en general es especificar paths absolutos porque es más
+probable que queramos mover definiciones de código y llamadas de items
+independientemente.
 
-Let’s try to compile Listing 7-3 and find out why it won’t compile yet! The
-error we get is shown in Listing 7-4.
+¡Intentemos compilar el Listing 7-3 y averigüemos por qué aún no compila! El
+error que obtenemos se muestra en el Listing 7-4.
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-03/output.txt}}
 ```
 
-<span class="caption">Listing 7-4: Compiler errors from building the code in
-Listing 7-3</span>
+<span class="caption">Listing 7-4: Errores de compilación al hacer building del 
+código del Listing 7-3</span>
 
-The error messages say that module `hosting` is private. In other words, we
-have the correct paths for the `hosting` module and the `add_to_waitlist`
-function, but Rust won’t let us use them because it doesn’t have access to the
-private sections. In Rust, all items (functions, methods, structs, enums,
-modules, and constants) are private to parent modules by default. If you want
-to make an item like a function or struct private, you put it in a module.
+El mensaje de error dice que el módulo `hosting` es privado. En otras palabras,
+tenemos los paths correctos para el módulo `hosting` y la función
+`add_to_waitlist`, pero Rust no nos deja usarlos porque no tiene acceso a las
+secciones privadas. En Rust, todos los items (funciones, métodos, structs,
+enums, módulos, y constantes) son privados a los módulos padres por defecto. Si
+quieres hacer un item como una función o struct privado, lo pones en un módulo.
 
-Items in a parent module can’t use the private items inside child modules, but
-items in child modules can use the items in their ancestor modules. This is
-because child modules wrap and hide their implementation details, but the child
-modules can see the context in which they’re defined. To continue with our
-metaphor, think of the privacy rules as being like the back office of a
-restaurant: what goes on in there is private to restaurant customers, but
-office managers can see and do everything in the restaurant they operate.
+Los items en un módulo privado no pueden ser accedidos por un path externo
+absoluto, porque el módulo padre no puede ver dentro de los módulos privados de
+sus hijos. El módulo padre puede ver el contenido de sus módulos hijos porque
+los módulos hijos están dentro del módulo padre. Para continuar con nuestra
+metáfora, piensa en las reglas de privacidad como la oficina de atrás de un
+restaurante: lo que pasa ahí es privado para los clientes del restaurante, pero
+los gerentes de la oficina pueden ver y hacer todo en el restaurante que
+operan.
 
-Rust chose to have the module system function this way so that hiding inner
-implementation details is the default. That way, you know which parts of the
-inner code you can change without breaking outer code. However, Rust does give
-you the option to expose inner parts of child modules’ code to outer ancestor
-modules by using the `pub` keyword to make an item public.
+Rust elige tener el sistema de módulos funcionando de esta forma para que
+ocultar detalles de implementación internos sea lo predeterminado. De esta
+forma, sabes qué partes del código interno puedes cambiar sin romper el código
+externo. Sin embargo, Rust te da la opción de exponer partes internas del código
+de los módulos hijos a los módulos ancestros externos usando la palabra clave
+`pub` para hacer un item público.
 
-### Exposing Paths with the `pub` Keyword
+### Exponiendo Paths con la palabra clave `pub`
 
-Let’s return to the error in Listing 7-4 that told us the `hosting` module is
-private. We want the `eat_at_restaurant` function in the parent module to have
-access to the `add_to_waitlist` function in the child module, so we mark the
-`hosting` module with the `pub` keyword, as shown in Listing 7-5.
+Volviendo al error en el Listing 7-4 que nos dijo que el módulo `hosting` es
+privado, queremos que la función `eat_at_restaurant` en el módulo padre tenga
+acceso a la función `add_to_waitlist` en el módulo hijo, así que marcamos el
+módulo `hosting` con la palabra clave `pub`, como se muestra en el Listing 7-5.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -110,34 +118,35 @@ access to the `add_to_waitlist` function in the child module, so we mark the
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-5: Declaring the `hosting` module as `pub` to
-use it from `eat_at_restaurant`</span>
+<span class="caption">Listing 7-5: Declarando el módulo `hosting` como `pub` 
+para usarlo desde `eat_at_restaurant`</span>
 
-Unfortunately, the code in Listing 7-5 still results in an error, as shown in
-Listing 7-6.
+Desafortunadamente, el código en el Listing 7-5 aún resulta en un error, como se
+muestra en el Listing 7-6.
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-05/output.txt}}
 ```
 
-<span class="caption">Listing 7-6: Compiler errors from building the code in
-Listing 7-5</span>
+<span class="caption">Listing 7-6: Errores de compilación al hacer building del 
+código del Listing 7-5</span>
 
-What happened? Adding the `pub` keyword in front of `mod hosting` makes the
-module public. With this change, if we can access `front_of_house`, we can
-access `hosting`. But the *contents* of `hosting` are still private; making the
-module public doesn’t make its contents public. The `pub` keyword on a module
-only lets code in its ancestor modules refer to it, not access its inner code.
-Because modules are containers, there’s not much we can do by only making the
-module public; we need to go further and choose to make one or more of the
-items within the module public as well.
+¿Qué pasó? Agregar la palabra clave `pub` al frente del módulo `hosting` hace
+que el módulo sea público. Con este cambio, si podemos acceder a
+`front_of_house`, podemos acceder a `hosting`. Pero el *contenido* de `hosting`
+sigue siendo privado; hacer el módulo público no hace que su contenido sea
+público. La palabra clave `pub` en un módulo solo permite que el código en sus
+módulos ancestros se refiera a él, no acceder a su código interno. Debido a que
+los módulos son contenedores, no hay mucho que podamos hacer solo haciendo que
+el módulo sea público; necesitamos ir más allá y elegir hacer que uno o más de
+los items dentro del módulo sean públicos también.
 
-The errors in Listing 7-6 say that the `add_to_waitlist` function is private.
-The privacy rules apply to structs, enums, functions, and methods as well as
-modules.
+El error en el Listing 7-6 dicen que la función `add_to_waitlist` es privada.
+Las reglas de privacidad se aplican a structs, enums, funciones, y métodos, así
+como a módulos.
 
-Let’s also make the `add_to_waitlist` function public by adding the `pub`
-keyword before its definition, as in Listing 7-7.
+Para hacer que la función `add_to_waitlist` sea pública, necesitamos agregar la
+palabra clave `pub` antes de su definición, como se muestra en el Listing 7-7.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -145,75 +154,76 @@ keyword before its definition, as in Listing 7-7.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-7: Adding the `pub` keyword to `mod hosting`
-and `fn add_to_waitlist` lets us call the function from
+<span class="caption">Listing 7-7: Agregar la keyword `pub` a `mod hosting`
+y `fn add_to_waitlist` nos permite llamar a la función desde 
 `eat_at_restaurant`</span>
 
-Now the code will compile! To see why adding the `pub` keyword lets us use
-these paths in `add_to_waitlist` with respect to the privacy rules, let’s look
-at the absolute and the relative paths.
+¡Ahora el código compilará! Para ver por qué agregar la palabra clave `pub` nos
+permite usar estos paths en `add_to_waitlist` con respecto a las reglas de
+privacidad, veamos los paths absolutos y relativos.
 
-In the absolute path, we start with `crate`, the root of our crate’s module
-tree. The `front_of_house` module is defined in the crate root. While
-`front_of_house` isn’t public, because the `eat_at_restaurant` function is
-defined in the same module as `front_of_house` (that is, `eat_at_restaurant`
-and `front_of_house` are siblings), we can refer to `front_of_house` from
-`eat_at_restaurant`. Next is the `hosting` module marked with `pub`. We can
-access the parent module of `hosting`, so we can access `hosting`. Finally, the
-`add_to_waitlist` function is marked with `pub` and we can access its parent
-module, so this function call works!
+En el path absoluto, comenzamos con `crate`, la raíz de nuestro árbol de módulos
+de la caja. El módulo `front_of_house` está definido en la raíz de la caja. Si
+bien `front_of_house` no es público, porque la función `eat_at_restaurant` está
+definida en el mismo módulo que `front_of_house` (es decir, `eat_at_restaurant`
+y `front_of_house` son hermanos), podemos referirnos a `front_of_house` desde
+`eat_at_restaurant`. A continuación está el módulo `hosting` marcado con `pub`.
+Podemos acceder al módulo padre de `hosting`, por lo que podemos acceder a
+`hosting`. ¡Finalmente, la función `add_to_waitlist` está marcada con `pub` y
+podemos acceder a su módulo padre, por lo que está llamada a función funciona!
 
-In the relative path, the logic is the same as the absolute path except for the
-first step: rather than starting from the crate root, the path starts from
-`front_of_house`. The `front_of_house` module is defined within the same module
-as `eat_at_restaurant`, so the relative path starting from the module in which
-`eat_at_restaurant` is defined works. Then, because `hosting` and
-`add_to_waitlist` are marked with `pub`, the rest of the path works, and this
-function call is valid!
+En el path relativo, la lógica es la misma que el path absoluto, excepto por el
+primer paso: en lugar de comenzar desde la raíz de la caja, el path comienza
+desde `front_of_house`. El módulo `front_of_house` está definido dentro del
+mismo módulo que `eat_at_restaurant`, por lo que el path relativo que comienza
+desde el módulo en el que se define `eat_at_restaurant` funciona. Luego,
+porque `hosting` y `add_to_waitlist` están marcados con `pub`, el resto del path
+funciona, ¡y está llamada a función es válida!
 
-If you plan on sharing your library crate so other projects can use your code,
-your public API is your contract with users of your crate that determines how
-they can interact with your code. There are many considerations around managing
-changes to your public API to make it easier for people to depend on your
-crate. These considerations are out of the scope of this book; if you’re
-interested in this topic, see [The Rust API Guidelines][api-guidelines].
+Si planeas compartir tu caja de biblioteca para que otros proyectos puedan usar
+tu código, tu API pública es tu contrato con los usuarios de tu caja que
+determina cómo pueden interactuar con tu código. Hay muchas consideraciones
+sobre cómo administrar los cambios en tu API pública para que sea más fácil que
+la gente dependa de tu caja. Estas consideraciones están fuera del alcance de
+este libro; si estás interesado en este tema, consulta [The Rust API
+Guidelines][api-guidelines].
 
-> #### Best Practices for Packages with a Binary and a Library
+> #### Buenas prácticas para paquetes con un binario y una biblioteca
 >
-> We mentioned a package can contain both a *src/main.rs* binary crate root as
-> well as a *src/lib.rs* library crate root, and both crates will have the
-> package name by default. Typically, packages with this pattern of containing
-> both a library and a binary crate will have just enough code in the binary
-> crate to start an executable that calls code with the library crate. This
-> lets other projects benefit from the most functionality that the package
-> provides, because the library crate’s code can be shared.
+> Mencionamos que un paquete puede contener tanto un binario *src/main.rs* como
+> una biblioteca *src/lib.rs*, y ambos tendrán el nombre del paquete de forma
+> predeterminada. Típicamente, los paquetes con este patrón de contener tanto
+> una biblioteca como un binario tendrán solo el código suficiente en el binario
+> para iniciar un ejecutable que llame al código con la biblioteca. Esto permite
+> que otros proyectos se beneficien de la mayor funcionalidad que proporciona el
+> paquete, porque el código de la biblioteca se puede compartir.
 >
-> The module tree should be defined in *src/lib.rs*. Then, any public items can
-> be used in the binary crate by starting paths with the name of the package.
-> The binary crate becomes a user of the library crate just like a completely
-> external crate would use the library crate: it can only use the public API.
-> This helps you design a good API; not only are you the author, you’re also a
-> client!
+> El árbol de módulos debería ser definido en *src/lib.rs*. Luego, cualquier
+> item público puede ser usado en el binario comenzando los paths con el nombre
+> del paquete. El binario se convierte en un usuario de la biblioteca de la
+> misma forma que un crate completamente externo usaría la biblioteca: solo
+> puede usar la API pública. Esto te ayuda a diseñar una buena API; no solo eres
+> el autor, ¡también eres un cliente!
 >
-> In [Chapter 12][ch12]<!-- ignore -->, we’ll demonstrate this organizational
-> practice with a command-line program that will contain both a binary crate
-> and a library crate.
+> En el [Capítulo 12][ch12]<!-- ignore -->, demostraremos esta práctica
+> organizativa con un programa de línea de comandos que contendrá tanto un
+> paquete binario como una biblioteca.
 
-### Starting Relative Paths with `super`
+### Comenzando paths relativos con `super`
 
-We can construct relative paths that begin in the parent module, rather than
-the current module or the crate root, by using `super` at the start of the
-path. This is like starting a filesystem path with the `..` syntax. Using
-`super` allows us to reference an item that we know is in the parent module,
-which can make rearranging the module tree easier when the module is closely
-related to the parent, but the parent might be moved elsewhere in the module
-tree someday.
+Podemos construir paths relativos que comienzan en el módulo padre, en lugar del
+módulo actual o la raíz de la caja, usando `super` al comienzo del path. Esto es
+como comenzar un path del sistema de archivos con la sintaxis `..`. Usar `super`
+nos permite hacer referencia a un item que sabemos que está en el módulo padre,
+lo que puede facilitar la reorganización del árbol de módulos cuando el módulo
+está estrechamente relacionado con el padre, pero el padre podría moverse a
+otro lugar en el árbol de módulos algún día.
 
-Consider the code in Listing 7-8 that models the situation in which a chef
-fixes an incorrect order and personally brings it out to the customer. The
-function `fix_incorrect_order` defined in the `back_of_house` module calls the
-function `deliver_order` defined in the parent module by specifying the path to
-`deliver_order` starting with `super`:
+Considere el código en el Listing 7-8 que modela la situación en la que un chef
+arregla un pedido incorrecto y lo trae personalmente al cliente. La función
+`fix_incorrect_order` definida en el módulo `back_of_house` llama a la función
+`deliver_order` definida en el módulo padre especificando el path a
+`deliver_order` comenzando con `super`:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -221,30 +231,31 @@ function `deliver_order` defined in the parent module by specifying the path to
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-08/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-8: Calling a function using a relative path
-starting with `super`</span>
+<span class="caption">Listing 7-8: Llamar a una función usando un path relativo
+que comienza con `super`</span>
 
-The `fix_incorrect_order` function is in the `back_of_house` module, so we can
-use `super` to go to the parent module of `back_of_house`, which in this case
-is `crate`, the root. From there, we look for `deliver_order` and find it.
-Success! We think the `back_of_house` module and the `deliver_order` function
-are likely to stay in the same relationship to each other and get moved
-together should we decide to reorganize the crate’s module tree. Therefore, we
-used `super` so we’ll have fewer places to update code in the future if this
-code gets moved to a different module.
+La función `fix_incorrect_order` está en el módulo `back_of_house`, por lo que
+podemos usar `super` para ir al módulo padre de `back_of_house`, que en este
+caso es `crate`, la raíz. Desde allí, buscamos `deliver_order` y lo encontramos.
+¡Éxito! Pensamos que el módulo `back_of_house` y la función `deliver_order`
+probablemente permanecerán en la misma relación entre sí y se moverán juntos si
+decidimos reorganizar el árbol de módulos de la caja. Por lo tanto, usamos
+`super` para tener menos lugares para actualizar el código en el futuro si este
+código se mueve a un módulo diferente.
 
-### Making Structs and Enums Public
+### Haciendo públicos los structs y enums
 
-We can also use `pub` to designate structs and enums as public, but there are a
-few details extra to the usage of `pub` with structs and enums. If we use `pub`
-before a struct definition, we make the struct public, but the struct’s fields
-will still be private. We can make each field public or not on a case-by-case
-basis. In Listing 7-9, we’ve defined a public `back_of_house::Breakfast` struct
-with a public `toast` field but a private `seasonal_fruit` field. This models
-the case in a restaurant where the customer can pick the type of bread that
-comes with a meal, but the chef decides which fruit accompanies the meal based
-on what’s in season and in stock. The available fruit changes quickly, so
-customers can’t choose the fruit or even see which fruit they’ll get.
+También podemos usar `pub` para designar structs y enums como públicos, pero hay
+algunos detalles adicionales para el uso de `pub` con structs y enums. Si
+usamos `pub` antes de una definición de struct, hacemos que el struct sea
+público, pero los campos del struct seguirán siendo privados. Podemos hacer que
+cada campo sea público o no caso por caso. En el Listing 7-9, hemos definido un
+struct `back_of_house::Breakfast` público con un campo `toast` público pero un
+campo `seasonal_fruit` privado. Esto modela el caso en un restaurante donde el
+cliente puede elegir el tipo de pan que viene con una comida, pero el chef
+decide qué fruta acompaña la comida según lo que está en temporada y en stock.
+La fruta disponible cambia rápidamente, por lo que los clientes no pueden
+elegir la fruta o incluso ver qué fruta obtendrán.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -252,24 +263,26 @@ customers can’t choose the fruit or even see which fruit they’ll get.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-09/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-9: A struct with some public fields and some
-private fields</span>
+<span class="caption">Listing 7-9: Un struct con algunos campos públicos y 
+algunos campos privados</span>
 
-Because the `toast` field in the `back_of_house::Breakfast` struct is public,
-in `eat_at_restaurant` we can write and read to the `toast` field using dot
-notation. Notice that we can’t use the `seasonal_fruit` field in
-`eat_at_restaurant` because `seasonal_fruit` is private. Try uncommenting the
-line modifying the `seasonal_fruit` field value to see what error you get!
+Debido a que el campo `toast` es público, podemos cambiar el valor de `toast`
+en una instancia de `Breakfast` en la función `eat_at_restaurant` en el Listing
+7-10. Ten en cuenta que no podemos usar el campo `seasonal_fruit` en
+`eat_at_restaurant` porque `seasonal_fruit` es privado. ¡Intenta descomentar la
+línea que modifica el valor del campo `seasonal_fruit` para ver qué error
+obtiene!
 
-Also, note that because `back_of_house::Breakfast` has a private field, the
-struct needs to provide a public associated function that constructs an
-instance of `Breakfast` (we’ve named it `summer` here). If `Breakfast` didn’t
-have such a function, we couldn’t create an instance of `Breakfast` in
-`eat_at_restaurant` because we couldn’t set the value of the private
-`seasonal_fruit` field in `eat_at_restaurant`.
+Además, ten en cuenta que debido a que `back_of_house::Breakfast` tiene un
+campo privado, el struct debe proporcionar una función asociada pública que
+construya una instancia de `Breakfast` (lo hemos llamado `summer` aquí). Si
+`Breakfast` no tuviera tal función, no podríamos crear una instancia de
+`Breakfast` en `eat_at_restaurant` porque no podríamos establecer el valor del
+campo privado `seasonal_fruit` en `eat_at_restaurant`.
 
-In contrast, if we make an enum public, all of its variants are then public. We
-only need the `pub` before the `enum` keyword, as shown in Listing 7-10.
+Por el contrario, si hacemos un enum público, todos sus variantes son públicas.
+Solo necesitamos el `pub` antes de la palabra clave `enum`, como se muestra en
+el Listing 7-10.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -277,21 +290,23 @@ only need the `pub` before the `enum` keyword, as shown in Listing 7-10.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-10/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-10: Designating an enum as public makes all its
-variants public</span>
+<span class="caption">Listing 7-10: Designar un enum como público hace que todas
+sus variantes sean públicas</span>
 
-Because we made the `Appetizer` enum public, we can use the `Soup` and `Salad`
-variants in `eat_at_restaurant`.
+Debido a que hicimos el enum `Appetizer` público, podemos usar las variantes
+`Appetizer::Soup` y `Appetizer::Salad` en `eat_at_restaurant`.
 
-Enums aren’t very useful unless their variants are public; it would be annoying
-to have to annotate all enum variants with `pub` in every case, so the default
-for enum variants is to be public. Structs are often useful without their
-fields being public, so struct fields follow the general rule of everything
-being private by default unless annotated with `pub`.
+Los Enums no son muy útiles a menos que sus variantes sean públicas; sería
+molesto tener que anotar todas las variantes de enum con `pub` en todos los
+casos, por lo que el valor predeterminado para las variantes de enum es ser
+público. Los structs a menudo son útiles sin que sus campos sean públicos, por
+lo que los campos de struct siguen la regla general de que todo es privado por
+defecto a menos que se anote con `pub`.
 
-There’s one more situation involving `pub` that we haven’t covered, and that is
-our last module system feature: the `use` keyword. We’ll cover `use` by itself
-first, and then we’ll show how to combine `pub` and `use`.
+Hay una situación más relacionada con `pub` que no hemos cubierto, y es
+nuestra última característica del sistema de módulos: la palabra clave `use`.
+Cubriremos `use` por sí solo primero, y luego mostraremos cómo combinar `pub` y
+`use`.
 
 [pub]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#exposing-paths-with-the-pub-keyword
 [api-guidelines]: https://rust-lang.github.io/api-guidelines/
