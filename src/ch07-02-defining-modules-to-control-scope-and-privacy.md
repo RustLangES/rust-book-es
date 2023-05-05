@@ -57,8 +57,6 @@ funcionan los módulos.
 Aquí crearemos un crate binario llamado `backyard` que ilustra estas reglas. El
 directorio del crate, también llamado `backyard`, contiene estos archivos y
 directorios:
-Here we create a binary crate named `backyard` that illustrates these rules. The
-crate’s directory, also named `backyard`, contains these files and directories:
 
 ```text
 backyard
@@ -167,8 +165,8 @@ crate
          └── take_payment
 ```
 
-<span class="caption">Listing 7-2: El árbol de módulos para el código del Listing
-7-1</span>
+<span class="caption">Listing 7-2: El árbol de módulos para el código del 
+Listing 7-1</span>
 
 Este árbol muestra como algunos de los módulos se anidan dentro de otros; por
 ejemplo, `hosting` se anida dentro de `front_of_house`. El árbol también muestra

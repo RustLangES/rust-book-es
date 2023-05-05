@@ -87,8 +87,8 @@ más al árbol de módulos.
 > archivo. Para un módulo llamado `front_of_house` declarado en la raíz de la
 > caja, el compilador buscará el código del módulo en:
 >
-> * *src/front_of_house.rs* (what we covered)
-> * *src/front_of_house/mod.rs* (older style, still supported path)
+> * *src/front_of_house.rs* (lo que cubrimos)
+> * *src/front_of_house/mod.rs* (estilo antiguo, path aún soportado)
 >
 > Para un módulo llamado `hosting` que es un submódulo de `front_of_house`, el
 > compilador buscará el código del módulo en:
