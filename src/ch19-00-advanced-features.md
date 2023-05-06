@@ -1,22 +1,27 @@
-# Advanced Features
+# Características Avanzadas
 
-By now, you’ve learned the most commonly used parts of the Rust programming
-language. Before we do one more project in Chapter 20, we’ll look at a few
-aspects of the language you might run into every once in a while, but may not
-use every day. You can use this chapter as a reference for when you encounter
-any unknowns. The features covered here are useful in very specific situations.
-Although you might not reach for them often, we want to make sure you have a
-grasp of all the features Rust has to offer.
+Por ahora, has aprendido las partes más comúnmente usadas del lenguaje de
+programación Rust. Antes de hacer otro proyecto en el Capítulo 20, veremos
+algunos aspectos del lenguaje que podrías encontrar de vez en cuando, pero
+que no usarás todos los días. Puede usar este capítulo como referencia para
+cuando encuentre algo desconocido. Las características cubiertas aquí son
+útiles en situaciones muy específicas. Aunque es posible que no alcances
+a menudo, queremos asegurarnos de que tengas un dominio de todas las
+características que Rust tiene para ofrecer.
 
-In this chapter, we’ll cover:
+En este capítulo, cubriremos:
 
-* Unsafe Rust: how to opt out of some of Rust’s guarantees and take
-  responsibility for manually upholding those guarantees
-* Advanced traits: associated types, default type parameters, fully qualified
-  syntax, supertraits, and the newtype pattern in relation to traits
-* Advanced types: more about the newtype pattern, type aliases, the never type,
-  and dynamically sized types
-* Advanced functions and closures: function pointers and returning closures
-* Macros: ways to define code that defines more code at compile time
+* Unsafe Rust: cómo optar por algunas de las garantías de Rust y asumir la
+  responsabilidad de mantener manualmente esas garantías
+* Traits avanzados: tipos asociados, parámetros de tipo predeterminados,
+  sintaxis completamente calificada, supertraits y el patrón newtype en
+  relación con los tratis
+* Tipos avanzados: más sobre el pattern newtype, tipo alias, el tipo never y
+  tipos de tamaño dinámico
+* Funciones y closures avanzados: punteros a funciones y devolución de
+  closures
+* Macros: formas de definir código que define más código en tiempo de
+  compilación
 
-It’s a panoply of Rust features with something for everyone! Let’s dive in!
+¡Es una panoplia de características de Rust con algo para todos! ¡Vamos a
+sumergirnos!

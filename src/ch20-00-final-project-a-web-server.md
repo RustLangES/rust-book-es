@@ -1,33 +1,34 @@
-# Final Project: Building a Multithreaded Web Server
+# Proyecto final: Construyendo un servidor web multitrhead
 
-It’s been a long journey, but we’ve reached the end of the book. In this
-chapter, we’ll build one more project together to demonstrate some of the
-concepts we covered in the final chapters, as well as recap some earlier
-lessons.
+Ha sido un largo viaje, pero hemos llegado al final del libro. En este
+capítulo, construiremos un proyecto más para demostrar algunos de los
+conceptos que cubrimos en los capítulos finales, así como recapitular algunas
+lecciones anteriores.
 
-For our final project, we’ll make a web server that says “hello” and looks like
-Figure 20-1 in a web browser.
+Para nuestro proyecto final, haremos un servidor web que diga "hola" y se vea
+como la Figura 20-1 en un navegador web.
 
 ![hello from rust](img/trpl20-01.png)
 
-<span class="caption">Figure 20-1: Our final shared project</span>
+<span class="caption">Figure 20-1: Nuestro proyecto final compartido</span>
 
-Here is our plan for building the web server:
+Aquí está nuestro plan para construir el web server:
 
-1. Learn a bit about TCP and HTTP.
-2. Listen for TCP connections on a socket.
-3. Parse a small number of HTTP requests.
-4. Create a proper HTTP response.
-5. Improve the throughput of our server with a thread pool.
+1. Aprender un poco sobre TCP y HTTP.
+2. Escuchar conexiones TCP en un socket.
+3. Analizar un pequeño número de peticiones HTTP.
+4. Crear una respuesta HTTP adecuada.
+5. Mejorar el rendimiento de nuestro servidor con un *thread pool*.
 
-Before we get started, we should mention one detail: the method we’ll use won’t
-be the best way to build a web server with Rust. Community members have
-published a number of production-ready crates available on
-[crates.io](https://crates.io/) that provide more complete web server and
-thread pool implementations than we’ll build. However, our intention in this
-chapter is to help you learn, not to take the easy route. Because Rust is a
-systems programming language, we can choose the level of abstraction we want to
-work with and can go to a lower level than is possible or practical in other
-languages. We’ll therefore write the basic HTTP server and thread pool manually
-so you can learn the general ideas and techniques behind the crates you might
-use in the future.
+Antes de comenzar, debemos mencionar un detalle: el método que usaremos no
+será la mejor manera de construir un servidor web con Rust. Los miembros de la
+comunidad han publicado una serie de *crates* listos para producción
+disponibles en [crates.io](https://crates.io/) que proporcionan servidores web
+y *thread pools* más completos que los que construiremos. Sin embargo, nuestra
+intención en este capítulo es ayudarte a aprender, no tomar el camino fácil.
+Debido a que Rust es un lenguaje de programación de sistemas, podemos elegir el
+nivel de abstracción con el que queremos trabajar y podemos ir a un nivel más
+bajo de lo que es posible o práctico en otros lenguajes. Por lo tanto,
+escribiremos el servidor HTTP básico y el *thread pool* manualmente para que
+puedas aprender las ideas y técnicas generales detrás de los *crates* que
+podrías usar en el futuro.

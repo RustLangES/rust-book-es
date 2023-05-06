@@ -1,29 +1,32 @@
 # Patterns and Matching
 
-*Patterns* are a special syntax in Rust for matching against the structure of
-types, both complex and simple. Using patterns in conjunction with `match`
-expressions and other constructs gives you more control over a program’s
-control flow. A pattern consists of some combination of the following:
+Los *Patterns* son una sintaxis especial en Rust para hacer coincidir la
+estructura de los tipos, tanto complejos como simples. El uso de patrones en
+conjunción con expresiones `match` y otros constructos le brinda más control
+sobre el flujo de control de un programa. Un patrón consta de alguna
+combinación de los siguientes:
 
-* Literals
-* Destructured arrays, enums, structs, or tuples
+* Literales
+* Arrays, enums, structs, or tuples destructurados
 * Variables
 * Wildcards
 * Placeholders
 
-Some example patterns include `x`, `(a, 3)`, and `Some(Color::Red)`. In the
-contexts in which patterns are valid, these components describe the shape of
-data. Our program then matches values against the patterns to determine whether
-it has the correct shape of data to continue running a particular piece of code.
+Algunos ejemplos de patrones incluyen `x`, `(a, 3)` y `Some(Color::Red)`. En
+los contextos en los que los patrones son válidos, estos componentes describen
+la forma de los datos. Nuestro programa luego compara los valores con los
+patrones para determinar si tiene la forma correcta de datos para continuar
+ejecutando un código en particular.
 
-To use a pattern, we compare it to some value. If the pattern matches the
-value, we use the value parts in our code. Recall the `match` expressions in
-Chapter 6 that used patterns, such as the coin-sorting machine example. If the
-value fits the shape of the pattern, we can use the named pieces. If it
-doesn’t, the code associated with the pattern won’t run.
+Para usar un patrón, lo comparamos con algún valor. Si el patrón coincide con el
+valor, usamos las partes de valor en nuestro código. Recuerde las expresiones
+`match` en el Capítulo 6 que usaron patrones, como el ejemplo de la máquina
+clasificadora de monedas. Si el valor se ajusta a la forma del patrón, podemos
+usar las piezas con nombre. Si no lo hace, el código asociado con el patrón no
+se ejecutará.
 
-This chapter is a reference on all things related to patterns. We’ll cover the
-valid places to use patterns, the difference between refutable and irrefutable
-patterns, and the different kinds of pattern syntax that you might see. By the
-end of the chapter, you’ll know how to use patterns to express many concepts in
-a clear way.
+Este capítulo es una referencia sobre todo lo relacionado con los patrones.
+Cubriremos los lugares válidos para usar patrones, la diferencia entre patrones
+refutables e irrefutables, y los diferentes tipos de sintaxis de patrones que
+puede ver. Al final del capítulo, sabrá cómo usar patrones para expresar muchos
+conceptos de una manera clara.
