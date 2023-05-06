@@ -1,17 +1,19 @@
-## Extending Cargo with Custom Commands
+## Extendiendo Cargo con comandos personalizados
 
-Cargo is designed so you can extend it with new subcommands without having to
-modify Cargo. If a binary in your `$PATH` is named `cargo-something`, you can
-run it as if it was a Cargo subcommand by running `cargo something`. Custom
-commands like this are also listed when you run `cargo --list`. Being able to
-use `cargo install` to install extensions and then run them just like the
-built-in Cargo tools is a super convenient benefit of Cargo’s design!
+Cargo está diseñado para que puedas extenderlo con nuevos subcomandos sin tener
+que modificar Cargo. Si un binario en tu `$PATH` se llama `cargo-something`, lo
+puedes ejecutar como si fuera un subcomando de Cargo ejecutando `cargo
+something`. Los comandos personalizados como este también se enumeran cuando
+ejecutas `cargo --list`. ¡Poder usar `cargo install` para instalar extensiones y
+luego ejecutarlas como las herramientas integradas de Cargo es un beneficio
+súper conveniente del diseño de Cargo!
 
-## Summary
+## Resumen
 
-Sharing code with Cargo and [crates.io](https://crates.io/)<!-- ignore --> is
-part of what makes the Rust ecosystem useful for many different tasks. Rust’s
-standard library is small and stable, but crates are easy to share, use, and
-improve on a timeline different from that of the language. Don’t be shy about
-sharing code that’s useful to you on [crates.io](https://crates.io/)<!-- ignore
--->; it’s likely that it will be useful to someone else as well!
+Compartir código con Cargo y [crates.io](https://crates.io/)<!-- ignore --> es
+parte de lo que hace que el ecosistema de Rust sea útil para muchas tareas
+diferentes. La biblioteca estándar de Rust es pequeña y estable, pero los crates
+son fáciles de compartir, usar y mejorar en una línea de tiempo diferente a la
+del lenguaje. ¡No seas tímido al compartir código que te sea útil en
+[crates.io](https://crates.io/)<!-- ignore -->; es probable que también sea útil
+para otra persona!

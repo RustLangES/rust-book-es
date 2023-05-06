@@ -1,32 +1,35 @@
-# Writing Automated Tests
+# Escribiendo Tests automatizados
 
-In his 1972 essay “The Humble Programmer,” Edsger W. Dijkstra said that
-“Program testing can be a very effective way to show the presence of bugs, but
-it is hopelessly inadequate for showing their absence.” That doesn’t mean we
-shouldn’t try to test as much as we can!
+En su ensayo de 1972 "El programador humilde", Edsger W. Dijkstra dijo que
+"Los tests de programas pueden ser una forma muy efectiva de mostrar la
+presencia de errores, pero es inútil para mostrar su ausencia". Eso no significa
+que no debamos intentar probar tanto como podamos!
 
-Correctness in our programs is the extent to which our code does what we intend
-it to do. Rust is designed with a high degree of concern about the correctness
-of programs, but correctness is complex and not easy to prove. Rust’s type
-system shoulders a huge part of this burden, but the type system cannot catch
-everything. As such, Rust includes support for writing automated software tests.
+La corrección en nuestros programas es el grado en que nuestro código hace lo
+que pretendemos que haga. Rust está diseñado con un alto grado de preocupación
+por la corrección de los programas, pero la corrección es compleja y no es
+fácil de probar. El sistema de tipos de Rust soporta una gran parte de esta
+carga, pero el sistema de tipos no puede atrapar todo. Como tal, Rust incluye
+soporte para escribir tests de software automatizados.
 
-Say we write a function `add_two` that adds 2 to whatever number is passed to
-it. This function’s signature accepts an integer as a parameter and returns an
-integer as a result. When we implement and compile that function, Rust does all
-the type checking and borrow checking that you’ve learned so far to ensure
-that, for instance, we aren’t passing a `String` value or an invalid reference
-to this function. But Rust *can’t* check that this function will do precisely
-what we intend, which is return the parameter plus 2 rather than, say, the
-parameter plus 10 or the parameter minus 50! That’s where tests come in.
+Digamos que escribimos una función `add_two` que suma 2 a cualquier número que
+se le pase. La firma de esta función acepta un entero como parámetro y devuelve
+un entero como resultado. Cuando implementamos y compilamos esa función, Rust
+hace toda la comprobación de tipos y de préstamos que has aprendido hasta ahora
+para asegurarse de que, por ejemplo, no estamos pasando un valor `String` o una
+referencia no válida a esta función. Pero Rust *no puede* comprobar que esta
+función haga precisamente lo que pretendemos, que es devolver el parámetro más
+2 en lugar de, por ejemplo, el parámetro más 10 o el parámetro menos 50! Ahí es
+donde entran los tests.
 
-We can write tests that assert, for example, that when we pass `3` to the
-`add_two` function, the returned value is `5`. We can run these tests whenever
-we make changes to our code to make sure any existing correct behavior has not
-changed.
+Podemos escribir tests que afirmen, por ejemplo, que cuando pasamos `3` a la
+función `add_two`, el valor devuelto es `5`. Podemos ejecutar estos tests
+siempre que hagamos cambios en nuestro código para asegurarnos de que cualquier
+comportamiento correcto existente no haya cambiado.
 
-Testing is a complex skill: although we can’t cover every detail about how to
-write good tests in one chapter, we’ll discuss the mechanics of Rust’s testing
-facilities. We’ll talk about the annotations and macros available to you when
-writing your tests, the default behavior and options provided for running your
-tests, and how to organize tests into unit tests and integration tests.
+El Testing es una habilidad compleja: aunque no podemos cubrir todos los
+detalles sobre cómo escribir buenos tests en un capítulo, discutiremos los
+mecanismos de las instalaciones de testing de Rust. Hablaremos sobre las
+anotaciones y macros disponibles para ti cuando escribas tus tests, el
+comportamiento predeterminado y las opciones proporcionadas para ejecutar tus
+tests, y cómo organizar los tests en tests unitarios y tests de integración.
