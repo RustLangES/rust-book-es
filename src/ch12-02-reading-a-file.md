@@ -1,11 +1,11 @@
-## Reading a File
+## Leyendo un archivo
 
-Now we’ll add functionality to read the file specified in the `file_path`
-argument. First, we need a sample file to test it with: we’ll use a file with a
-small amount of text over multiple lines with some repeated words. Listing 12-3
-has an Emily Dickinson poem that will work well! Create a file called
-*poem.txt* at the root level of your project, and enter the poem “I’m Nobody!
-Who are you?”
+Ahora agregaremos funcionalidad para leer el archivo especificado en el 
+argumento `file_path`. Primero, necesitamos un archivo de muestra para probarlo:
+¡usaremos un archivo con una pequeña cantidad de texto en varias líneas con 
+algunas palabras repetidas! ¡El Listado 12-3 tiene un poema de Emily Dickinson 
+que funcionará bien! Cree un archivo llamado *poem.txt* en el nivel raíz de su
+proyecto e ingrese el poema "¡Soy nadie! ¿Quién eres tú?"
 
 <span class="filename">Filename: poem.txt</span>
 
@@ -13,11 +13,11 @@ Who are you?”
 {{#include ../listings/ch12-an-io-project/listing-12-03/poem.txt}}
 ```
 
-<span class="caption">Listing 12-3: A poem by Emily Dickinson makes a good test
-case</span>
+<span class="caption">Listing 12-3: Un poema de Emily Dickinson sirve como
+buen caso de test</span>
 
-With the text in place, edit *src/main.rs* and add code to read the file, as
-shown in Listing 12-4.
+Con el texto en su lugar, edite *src/main.rs* y agregue código para leer el
+archivo, como se muestra en el Listado 12-4.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -25,33 +25,34 @@ shown in Listing 12-4.
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-4: Reading the contents of the file specified
-by the second argument</span>
+<span class="caption">Listing 12-4: Leyendo el contenido del archivo 
+especificado por el segundo argumento</span>
 
-First, we bring in a relevant part of the standard library with a `use`
-statement: we need `std::fs` to handle files.
+Primero, importamos la parte relevante de la biblioteca estándar con una
+sentencia `use`: necesitamos `std::fs` para manejar archivos.
 
-In `main`, the new statement `fs::read_to_string` takes the `file_path`, opens
-that file, and returns a `std::io::Result<String>` of the file’s contents.
+En `main`, la nueva sentencia `fs::read_to_string` toma el `file_path`, abre
+ese archivo y devuelve un `std::io::Result<String>` del contenido del archivo.
 
-After that, we again add a temporary `println!` statement that prints the value
-of `contents` after the file is read, so we can check that the program is
-working so far.
+Luego, nuevamente agregamos una declaración `println!` temporal que imprime el
+valor de `contents` después de que se lee el archivo, para que podamos verificar
+que el programa está funcionando hasta ahora.
 
-Let’s run this code with any string as the first command line argument (because
-we haven’t implemented the searching part yet) and the *poem.txt* file as the
-second argument:
+Ejecutemos este código con cualquier string como primer argumento de la línea de
+comandos (porque aún no hemos implementado la parte de búsqueda) y el archivo
+*poem.txt* como segundo argumento:
 
 ```console
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-04/output.txt}}
 ```
 
-Great! The code read and then printed the contents of the file. But the code
-has a few flaws. At the moment, the `main` function has multiple
-responsibilities: generally, functions are clearer and easier to maintain if
-each function is responsible for only one idea. The other problem is that we’re
-not handling errors as well as we could. The program is still small, so these
-flaws aren’t a big problem, but as the program grows, it will be harder to fix
-them cleanly. It’s good practice to begin refactoring early on when developing
-a program, because it’s much easier to refactor smaller amounts of code. We’ll
-do that next.
+¡Genial! El código leyó el archivo y luego imprimió el contenido del archivo.
+Pero el código tiene algunas fallas. En este momento, la función `main` tiene
+múltiples responsabilidades: en general, las funciones son más claras y más
+fáciles de mantener si cada función es responsable de una sola idea. El otro
+problema es que no estamos manejando los errores tan bien como podríamos. El
+programa todavía es pequeño, por lo que estas fallas no son un gran problema,
+pero a medida que el programa crece, será más difícil corregirlos de manera
+limpia. Es una buena práctica comenzar a refactorizar desde el principio al
+desarrollar un programa, porque es mucho más fácil refactorizar cantidades
+menores de código. Haremos eso a continuación.
