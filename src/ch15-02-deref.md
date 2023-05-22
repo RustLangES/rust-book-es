@@ -1,33 +1,34 @@
-## Treating Smart Pointers Like Regular References with the `Deref` Trait
+## Tratando los Smart Pointers como Referencias Regulares con el Trait `Deref`
 
-Implementing the `Deref` trait allows you to customize the behavior of the
-*dereference operator* `*` (not to be confused with the multiplication or glob
-operator). By implementing `Deref` in such a way that a smart pointer can be
-treated like a regular reference, you can write code that operates on
-references and use that code with smart pointers too.
+Implementar el trait `Deref` te permite personalizar el comportamiento del
+*operador de desreferencia* `*` (no confundir con el operador de multiplicación
+o el operador de glob). Al implementar `Deref` de tal manera que un smart
+pointer pueda ser tratado como una referencia regular, puedes escribir código
+que opere en referencias y usar ese código con smart pointers también.
 
-Let’s first look at how the dereference operator works with regular references.
-Then we’ll try to define a custom type that behaves like `Box<T>`, and see why
-the dereference operator doesn’t work like a reference on our newly defined
-type. We’ll explore how implementing the `Deref` trait makes it possible for
-smart pointers to work in ways similar to references. Then we’ll look at
-Rust’s *deref coercion* feature and how it lets us work with either references
-or smart pointers.
+Primero veamos cómo funciona el operador de desreferencia con referencias
+regulares. Luego intentaremos definir un tipo personalizado que se comporte
+como `Box<T>`, y veremos por qué el operador de desreferencia no funciona como
+una referencia en nuestro tipo recién definido. Exploraremos cómo implementar
+el trait `Deref` hace posible que los smart pointers trabajen de manera similar
+a las referencias. Luego veremos la característica de *deref coercion* de Rust
+y cómo nos permite trabajar con referencias o smart pointers.
 
-> Note: there’s one big difference between the `MyBox<T>` type we’re about to
-> build and the real `Box<T>`: our version will not store its data on the heap.
-> We are focusing this example on `Deref`, so where the data is actually stored
-> is less important than the pointer-like behavior.
+> Nota: hay una gran diferencia entre el tipo `MyBox<T>` que estamos a punto de
+> construir y el tipo `Box<T>` real: nuestra versión no almacenará sus datos en
+> el heap. Nos estamos enfocando en este ejemplo en `Deref`, por lo que dónde
+> se almacenan los datos es menos importante que el comportamiento similar al
+> de un puntero.
 
 <!-- Old link, do not remove -->
 <a id="following-the-pointer-to-the-value-with-the-dereference-operator"></a>
 
-### Following the Pointer to the Value
+### Siguiendo el puntero al valor
 
-A regular reference is a type of pointer, and one way to think of a pointer is
-as an arrow to a value stored somewhere else. In Listing 15-6, we create a
-reference to an `i32` value and then use the dereference operator to follow the
-reference to the value:
+Una referencia regular es un tipo de puntero, y una forma de pensar en un
+puntero es como una flecha a un valor almacenado en otro lugar. En el Listado
+15-6, creamos una referencia a un valor `i32` y luego usamos el operador de
+desreferencia para seguir la referencia al valor:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -35,33 +36,33 @@ reference to the value:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-06/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-6: Using the dereference operator to follow a
-reference to an `i32` value</span>
+<span class="caption">Listing 15-6: Utilizando el operador de dereferencia 
+para seguir una referencia a un valor `i32`</span>
 
-The variable `x` holds an `i32` value `5`. We set `y` equal to a reference to
-`x`. We can assert that `x` is equal to `5`. However, if we want to make an
-assertion about the value in `y`, we have to use `*y` to follow the reference
-to the value it’s pointing to (hence *dereference*) so the compiler can compare
-the actual value. Once we dereference `y`, we have access to the integer value
-`y` is pointing to that we can compare with `5`.
+La variable `x` contiene un valor `i32` de `5`. Establecemos `y` igual a una
+referencia a `x`. Podemos afirmar que `x` es igual a `5`. Sin embargo, si
+queremos hacer una afirmación sobre el valor en `y`, tenemos que usar `*y` para
+seguir la referencia al valor al que apunta (de ahí *desreferencia*) para que
+el compilador pueda comparar el valor real. Una vez que desreferenciamos `y`,
+tenemos acceso al valor entero al que apunta `y` que podemos comparar con `5`.
 
-If we tried to write `assert_eq!(5, y);` instead, we would get this compilation
-error:
+Si intentamos escribir `assert_eq!(5, y);` en su lugar, obtendríamos este error
+de compilación:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/output-only-01-comparing-to-reference/output.txt}}
 ```
 
-Comparing a number and a reference to a number isn’t allowed because they’re
-different types. We must use the dereference operator to follow the reference
-to the value it’s pointing to.
+Comparar un número y una referencia a un número no está permitido porque son
+tipos diferentes. Debemos usar el operador de desreferencia para seguir la
+referencia al valor al que apunta.
 
-### Using `Box<T>` Like a Reference
+### Usando `Box<T>` como una referencia
 
-We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a
-reference; the dereference operator used on the `Box<T>` in Listing 15-7
-functions in the same way as the dereference operator used on the reference in
-Listing 15-6:
+Podemos reescribir el código del Listado 15-6 para usar un `Box<T>` en lugar de
+una referencia; el operador de desreferencia usado en el `Box<T>` en el Listado
+15-7 funciona de la misma manera que el operador de desreferencia usado en la
+referencia en el Listado 15-6:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -69,27 +70,28 @@ Listing 15-6:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-7: Using the dereference operator on a
-`Box<i32>`</span>
+<span class="caption">Listing 15-7: Utilizando el operador de dereferencia
+en un `Box<i32>`</span>
 
-The main difference between Listing 15-7 and Listing 15-6 is that here we set
-`y` to be an instance of a `Box<T>` pointing to a copied value of `x` rather
-than a reference pointing to the value of `x`. In the last assertion, we can
-use the dereference operator to follow the pointer of the `Box<T>` in the same
-way that we did when `y` was a reference. Next, we’ll explore what is special
-about `Box<T>` that enables us to use the dereference operator by defining our
-own type.
+La principal diferencia entre el Listado 15-7 y el Listado 15-6 es que aquí
+definimos `y` como una instancia de `Box<T>` apuntando a una copia del valor de
+`x` en lugar de ser una referencia que apunta al valor de `x`. En la última 
+afirmación, podemos usar el operador de desreferencia para seguir el puntero del 
+`Box<T>` de la misma manera que lo hicimos cuando `y` era una referencia. A 
+continuación, exploraremos que es lo especial de `Box<T>` que nos permite el 
+uso del operador de desreferencia al definir nuestro propio tipo.
 
-### Defining Our Own Smart Pointer
+### Definiendo nuestro propio Snart Pointer
 
-Let’s build a smart pointer similar to the `Box<T>` type provided by the
-standard library to experience how smart pointers behave differently from
-references by default. Then we’ll look at how to add the ability to use the
-dereference operator.
+Construyamos un smart pointer similar al tipo `Box<T>` proporcionado por la
+biblioteca estándar para experimentar cómo los smart pointers se comportan de
+manera diferente a las referencias por defecto. Luego veremos cómo agregar la
+capacidad de usar el operador de desreferencia.
 
-The `Box<T>` type is ultimately defined as a tuple struct with one element, so
-Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a
-`new` function to match the `new` function defined on `Box<T>`.
+El tipo `Box<T>` es finalmente definido como una tupla struct con un elemento,
+por lo que el Listado 15-8 define un tipo `MyBox<T>` de la misma manera.
+También definiremos una función `new` para que coincida con la función `new`
+definida en `Box<T>`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -97,17 +99,18 @@ Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-8: Defining a `MyBox<T>` type</span>
+<span class="caption">Listing 15-8: Definiendo un tipo `MyBox<T>`</span>
 
-We define a struct named `MyBox` and declare a generic parameter `T`, because
-we want our type to hold values of any type. The `MyBox` type is a tuple struct
-with one element of type `T`. The `MyBox::new` function takes one parameter of
-type `T` and returns a `MyBox` instance that holds the value passed in.
+Definimos un struct llamado `MyBox` y declaramos un parámetro generic `T`,
+porque queremos que nuestro tipo contenga valores de cualquier tipo. El tipo
+`MyBox` es una tupla struct con un elemento de tipo `T`. La función `MyBox::new`
+toma un parámetro de tipo `T` y devuelve una instancia de `MyBox` que contiene
+el valor pasado.
 
-Let’s try adding the `main` function in Listing 15-7 to Listing 15-8 and
-changing it to use the `MyBox<T>` type we’ve defined instead of `Box<T>`. The
-code in Listing 15-9 won’t compile because Rust doesn’t know how to dereference
-`MyBox`.
+Vamos a intentar añadir la función `main` del Listado 15-7 al Listado 15-8 y
+cambiarla para usar el tipo `MyBox<T>` que hemos definido en lugar de `Box<T>`.
+El código en el Listado 15-9 no se compilará porque Rust no sabe cómo
+desreferenciar `MyBox`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -115,27 +118,28 @@ code in Listing 15-9 won’t compile because Rust doesn’t know how to derefere
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-9: Attempting to use `MyBox<T>` in the same
-way we used references and `Box<T>`</span>
+<span class="caption">Listing 15-9: Intentando usar `MyBox<T>` de la misma 
+manera en que usamos referencias y `Box<T>`</span>
 
-Here’s the resulting compilation error:
+Aquí está el error de compilación resultante:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-09/output.txt}}
 ```
 
-Our `MyBox<T>` type can’t be dereferenced because we haven’t implemented that
-ability on our type. To enable dereferencing with the `*` operator, we
-implement the `Deref` trait.
+Nuestro tipo `MyBox<T>` no puede ser desreferenciado porque no hemos 
+implementado esa capacidad en nuestro tipo. Para habilitar la desreferencia con
+el operador `*`, implementamos el trait `Deref`.
 
-### Treating a Type Like a Reference by Implementing the `Deref` Trait
+### Tratando un tipo como una referencia implementando el trait `Deref`
 
-As discussed in the [“Implementing a Trait on a Type”][impl-trait]<!-- ignore
---> section of Chapter 10, to implement a trait, we need to provide
-implementations for the trait’s required methods. The `Deref` trait, provided
-by the standard library, requires us to implement one method named `deref` that
-borrows `self` and returns a reference to the inner data. Listing 15-10
-contains an implementation of `Deref` to add to the definition of `MyBox`:
+Como discutimos en la sección del Capítulo 10 
+[“Implementando un Trait en un Tipo”][impl-trait]<!-- ignore--> , para 
+implementar un trait, necesitamos proporcionar implementaciones para los métodos
+requeridos del trait. El trait `Deref`, proporcionado por la biblioteca
+estándar, requiere que implementemos un método llamado `deref` que tome `self`
+y devuelva una referencia al dato interno. El Listado 15-10 contiene una
+implementación de `Deref` para agregar a la definición de `MyBox`:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -143,72 +147,74 @@ contains an implementation of `Deref` to add to the definition of `MyBox`:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-10: Implementing `Deref` on `MyBox<T>`</span>
+<span class="caption">Listing 15-10: Implementando `Deref` en `MyBox<T>`</span>
 
-The `type Target = T;` syntax defines an associated type for the `Deref`
-trait to use. Associated types are a slightly different way of declaring a
-generic parameter, but you don’t need to worry about them for now; we’ll cover
-them in more detail in Chapter 19.
+La sintaxis `type Target = T;` define un tipo asociado que será utilizado por el
+trait `Deref`. Los tipos asociados son una forma ligeramente diferente de
+declarar un parámetro genérico, pero no necesitas preocuparte por ellos por
+ahora; los cubriremos con más detalle en el Capítulo 19.
 
-We fill in the body of the `deref` method with `&self.0` so `deref` returns a
-reference to the value we want to access with the `*` operator; recall from the
-[“Using Tuple Structs without Named Fields to Create Different
-Types”][tuple-structs]<!-- ignore --> section of Chapter 5 that `.0` accesses
-the first value in a tuple struct. The `main` function in Listing 15-9 that
-calls `*` on the `MyBox<T>` value now compiles, and the assertions pass!
+Rellenamos el cuerpo del método `deref` con `&self.0` para que `deref` devuelva
+una referencia al valor al que queremos acceder con el operador `*`. Recordemos
+de la sección [“Usando Tuplas Structs sin Campos Nombrados para Crear Diferentes
+Tipos”][tuple-structs]<!-- ignore --> del Capítulo 5 que `.0` accede al primer
+valor en una tupla struct. ¡La función `main` en el Listado 15-9 que llama a `*`
+en el valor `MyBox<T>` ahora compila, y las afirmaciones pasan!
 
-Without the `Deref` trait, the compiler can only dereference `&` references.
-The `deref` method gives the compiler the ability to take a value of any type
-that implements `Deref` and call the `deref` method to get a `&` reference that
-it knows how to dereference.
+Sin el trait `Deref`, el compilador no sabe cómo desreferenciar referencias `&`.
+El método `deref` le da al compilador la capacidad de tomar un valor de 
+cualquier tipo que implemente `Deref` y llamar al método `deref` para obtener
+una referencia `&` que sabe cómo desreferenciar.
 
-When we entered `*y` in Listing 15-9, behind the scenes Rust actually ran this
-code:
+Cuando ingresamos `*y` en el Listado 15-9, en realidad Rust ejecuta este código:
 
 ```rust,ignore
 *(y.deref())
 ```
 
-Rust substitutes the `*` operator with a call to the `deref` method and then a
-plain dereference so we don’t have to think about whether or not we need to
-call the `deref` method. This Rust feature lets us write code that functions
-identically whether we have a regular reference or a type that implements
-`Deref`.
+Rust sustituye el operador `*` con una llamada al método `deref`, y luego
+realiza una desreferenciación directa, por lo que no tenemos que pensar si
+necesitamos llamar al método `deref`. Esta característica de Rust nos permite
+escribir código que funciona de manera idéntica si tenemos una referencia
+regular o un tipo que implementa `Deref`.
 
-The reason the `deref` method returns a reference to a value, and that the
-plain dereference outside the parentheses in `*(y.deref())` is still necessary,
-is to do with the ownership system. If the `deref` method returned the value
-directly instead of a reference to the value, the value would be moved out of
-`self`. We don’t want to take ownership of the inner value inside `MyBox<T>` in
-this case or in most cases where we use the dereference operator.
+La razón por la cual el método `deref` devuelve una referencia a un valor, y
+por qué la desreferenciación simple fuera de los paréntesis en `*(y.deref())`
+todavía es necesaria, tiene que ver con el sistema de propiedad. Si el método
+`deref` devolviera el valor directamente en lugar de una referencia al valor,
+el valor se movería fuera de `self`. No queremos tomar posesión del valor
+interno dentro de `MyBox<T>` en este caso o en la mayoría de los casos en los
+que usamos el operador de desreferencia.
 
-Note that the `*` operator is replaced with a call to the `deref` method and
-then a call to the `*` operator just once, each time we use a `*` in our code.
-Because the substitution of the `*` operator does not recurse infinitely, we
-end up with data of type `i32`, which matches the `5` in `assert_eq!` in
-Listing 15-9.
+Nota que el operador `*` es reemplazado con una llamada al método `deref` y
+luego una llamada al operador `*` solo una vez, cada vez que usamos un `*` en
+nuestro código. Debido a que la sustitución del operador `*` no se repite
+infinitamente, terminamos con datos de tipo `i32`, que coincide con el `5` en
+`assert_eq!` en el Listado 15-9.
 
-### Implicit Deref Coercions with Functions and Methods
+### Coerciones implícitas de Deref con funciones y métodos
 
-*Deref coercion* converts a reference to a type that implements the `Deref`
-trait into a reference to another type. For example, deref coercion can convert
-`&String` to `&str` because `String` implements the `Deref` trait such that it
-returns `&str`. Deref coercion is a convenience Rust performs on arguments to
-functions and methods, and works only on types that implement the `Deref`
-trait. It happens automatically when we pass a reference to a particular type’s
-value as an argument to a function or method that doesn’t match the parameter
-type in the function or method definition. A sequence of calls to the `deref`
-method converts the type we provided into the type the parameter needs.
+La *coerción Deref* convierte una referencia a un tipo que implementa el trait
+`Deref` en una referencia a otro tipo. Por ejemplo, la coerción Deref puede
+convertir `&String` en `&str` porque `String` implementa el trait `Deref` de
+manera que devuelve `&str`. La coerción Deref es una conveniencia que Rust
+realiza en los argumentos de las funciones y métodos, y solo funciona en tipos
+que implementan el trait `Deref`. Sucede automáticamente cuando pasamos una
+referencia al valor de un tipo particular como argumento a una función o método
+que no coincide con el tipo de parámetro en la definición de la función o
+método. Una secuencia de llamadas al método `deref` convierte el tipo que
+proporcionamos en el tipo que necesita el parámetro.
 
-Deref coercion was added to Rust so that programmers writing function and
-method calls don’t need to add as many explicit references and dereferences
-with `&` and `*`. The deref coercion feature also lets us write more code that
-can work for either references or smart pointers.
+La coerción Deref se agregó a Rust para que los programadores que escriben
+llamadas a funciones y métodos no necesiten agregar tantas referencias y
+desreferencias explícitas con `&` y `*`. La característica de coerción Deref
+también nos permite escribir más código que puede funcionar para referencias o
+smart pointers.
 
-To see deref coercion in action, let’s use the `MyBox<T>` type we defined in
-Listing 15-8 as well as the implementation of `Deref` that we added in Listing
-15-10. Listing 15-11 shows the definition of a function that has a string slice
-parameter:
+Para ver la coerción Deref en acción, usemos el tipo `MyBox<T>` que definimos
+en el Listado 15-8 y la implementación de `Deref` que agregamos en el Listado
+15-10. El Listado 15-11 muestra la definición de una función que tiene un
+parámetro de tipo string slice:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -216,12 +222,13 @@ parameter:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-11: A `hello` function that has the parameter
-`name` of type `&str`</span>
+<span class="caption">Listing 15-11: Una función `hello` que tiene el parámetro
+`name` de tipo `&str`</span>
 
-We can call the `hello` function with a string slice as an argument, such as
-`hello("Rust");` for example. Deref coercion makes it possible to call `hello`
-with a reference to a value of type `MyBox<String>`, as shown in Listing 15-12:
+Llamamos a la función `hello` con un string slice como un argumento, como
+`hello("Rust");` por ejemplo. La coerción Deref hace posible llamar a `hello`
+con una referencia a un valor de tipo `MyBox<String>`, como se muestra en el
+Listado 15-12:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -229,20 +236,21 @@ with a reference to a value of type `MyBox<String>`, as shown in Listing 15-12:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-12: Calling `hello` with a reference to a
-`MyBox<String>` value, which works because of deref coercion</span>
+<span class="caption">Listing 15-12: Llamando a `hello` con una referencia a un
+valor `MyBox<String>`, lo cual funciona debido a la coerción deref</span>
 
-Here we’re calling the `hello` function with the argument `&m`, which is a
-reference to a `MyBox<String>` value. Because we implemented the `Deref` trait
-on `MyBox<T>` in Listing 15-10, Rust can turn `&MyBox<String>` into `&String`
-by calling `deref`. The standard library provides an implementation of `Deref`
-on `String` that returns a string slice, and this is in the API documentation
-for `Deref`. Rust calls `deref` again to turn the `&String` into `&str`, which
-matches the `hello` function’s definition.
+Aquí estamos llamando a la función `hello` con el argumento `&m`, que es una
+referencia a un valor `MyBox<String>`. Debido a que implementamos el trait
+`Deref` en `MyBox<T>` en el Listado 15-10, Rust puede convertir `&MyBox<String>`
+en `&String` llamando a `deref`. La biblioteca estándar proporciona una
+implementación de `Deref` en `String` que devuelve una cadena de texto, y esto
+está en la documentación de la API de `Deref`. Rust llama a `deref` nuevamente
+para convertir el `&String` en `&str`, que coincide con la definición de la
+función `hello`.
 
-If Rust didn’t implement deref coercion, we would have to write the code in
-Listing 15-13 instead of the code in Listing 15-12 to call `hello` with a value
-of type `&MyBox<String>`.
+Si Rust no implementara la coerción Deref, tendríamos que escribir el código
+en el Listado 15-13 en lugar del código en el Listado 15-12 para llamar a
+`hello` con un valor de tipo `&MyBox<String>`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -250,50 +258,52 @@ of type `&MyBox<String>`.
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-13/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-13: The code we would have to write if Rust
-didn’t have deref coercion</span>
+<span class="caption">Listing 15-13: El código que tendríamos que escribir si
+Rust no tuviera deref coerción</span>
 
-The `(*m)` dereferences the `MyBox<String>` into a `String`. Then the `&` and
-`[..]` take a string slice of the `String` that is equal to the whole string to
-match the signature of `hello`. This code without deref coercions is harder to
-read, write, and understand with all of these symbols involved. Deref coercion
-allows Rust to handle these conversions for us automatically.
+El `(*m)` desreferencia el `MyBox<String>` en un `String`. Luego, el `&` y
+`[..]` toman un string slice del `String` que es igual a todo el string para
+coincidir con la firma de `hello`. Este código sin coerciones de desreferencia
+es más difícil de leer, escribir y entender con todos estos símbolos 
+involucrados. La coerción Deref permite que Rust maneje estas conversiones 
+automáticamente.
 
-When the `Deref` trait is defined for the types involved, Rust will analyze the
-types and use `Deref::deref` as many times as necessary to get a reference to
-match the parameter’s type. The number of times that `Deref::deref` needs to be
-inserted is resolved at compile time, so there is no runtime penalty for taking
-advantage of deref coercion!
+Cuando el trait `Deref` está definido para el tipo involucrado, Rust analizará
+los tipos y usará `Deref::deref` tantas veces como sea necesario para obtener
+una referencia que coincida con el tipo del parámetro. El número de veces que
+`Deref::deref` necesita ser insertado se resuelve en tiempo de compilación, por
+lo que no hay penalización en tiempo de ejecución por aprovechar la coerción
+Deref!
 
-### How Deref Coercion Interacts with Mutability
+### Cómo interactúa la coerción Deref con la mutabilidad
 
-Similar to how you use the `Deref` trait to override the `*` operator on
-immutable references, you can use the `DerefMut` trait to override the `*`
-operator on mutable references.
+Similar a cómo usas el trait `Deref` para anular el operador `*` en
+referencias inmutables, puedes usar el trait `DerefMut` para anular el operador
+`*` en referencias mutables. 
 
-Rust does deref coercion when it finds types and trait implementations in three
-cases:
+Rust realiza la coerción Deref cuando encuentra tipos e implementaciones de 
+traits en tres casos:
 
-* From `&T` to `&U` when `T: Deref<Target=U>`
-* From `&mut T` to `&mut U` when `T: DerefMut<Target=U>`
-* From `&mut T` to `&U` when `T: Deref<Target=U>`
+* De `&T` a `&U` cuando `T: Deref<Target=U>`
+* De `&mut T` a `&mut U` cuando `T: DerefMut<Target=U>`
+* De `&mut T` a `&U` cuando `T: Deref<Target=U>`
 
-The first two cases are the same as each other except that the second
-implements mutability. The first case states that if you have a `&T`, and `T`
-implements `Deref` to some type `U`, you can get a `&U` transparently. The
-second case states that the same deref coercion happens for mutable references.
+Los dos primeros casos son iguales entre sí, excepto que el segundo implementa
+mutabilidad. El primer caso establece que si tienes un `&T`, y `T` implementa
+`Deref` a algún tipo `U`, puedes obtener un `&U` de forma transparente. El
+segundo caso establece que la misma coerción de desreferencia ocurre para
+referencias mutables.
 
-The third case is trickier: Rust will also coerce a mutable reference to an
-immutable one. But the reverse is *not* possible: immutable references will
-never coerce to mutable references. Because of the borrowing rules, if you have
-a mutable reference, that mutable reference must be the only reference to that
-data (otherwise, the program wouldn’t compile). Converting one mutable
-reference to one immutable reference will never break the borrowing rules.
-Converting an immutable reference to a mutable reference would require that the
-initial immutable reference is the only immutable reference to that data, but
-the borrowing rules don’t guarantee that. Therefore, Rust can’t make the
-assumption that converting an immutable reference to a mutable reference is
-possible.
+El tercer caso es más complicado. Rust también convertirá una referencia mutable
+en una inmutable. Pero lo contrario no es posible: una referencia inmutable
+nunca se puede convertir en una referencia mutable. Debido a las reglas de
+borrowing, si tienes una referencia mutable, esa referencia debe ser la única
+referencia a ese dato (de lo contrario, el programa no se compilaría). Convertir
+una referencia mutable a una inmutable nunca romperá las reglas de borrowing.
+Convertir una referencia inmutable a una mutable requeriría que la referencia
+inmutable inicial sea la única referencia inmutable a esos datos, pero las
+reglas de borrowing no garantizan eso. Por lo tanto, Rust no puede hacer la
+suposición de que convertir una referencia inmutable en una mutable es posible.
 
 [impl-trait]: ch10-02-traits.html#implementing-a-trait-on-a-type
 [tuple-structs]: ch05-01-defining-structs.html#using-tuple-structs-without-named-fields-to-create-different-types
