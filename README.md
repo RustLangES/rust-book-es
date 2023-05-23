@@ -1,4 +1,5 @@
-# The Rust Programming Language
+![Rust Book Spanish Translation](/docs/RustBookLogoSpanish.png)
+# The Rust Programming Language [Spanish Ed.]
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
