@@ -2,8 +2,21 @@
 # The Rust Programming Language [Spanish Ed.]
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
+[![Telegram Group
+](https://img.shields.io/badge/Telegram-Group-blue.svg?logo=telegram)](
+https://t.me/rust_book_spanish_translation)
 
 This repository contains the source of "The Rust Programming Language" book.
+
+This is unofficial Spanish translation of the book. The original book is
+available in [rust-lang/book].
+
+We do a best effort approach to keep this translation up to date with the
+original book, but we can't guarantee that it is 100% accurate. If you find
+any errors, please open an issue or a pull request or write us in the
+[Telegram Group](https://t.me/rust_book_spanish_translation).
+
+[rust-lang/book]: https://doc.rust-lang.org/stable/book/
 
 [The book is available in dead-tree form from No Starch Press][nostarch].
 
