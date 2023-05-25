@@ -1,49 +1,54 @@
-# Fearless Concurrency
+# Concurrencia sin miedo
 
-Handling concurrent programming safely and efficiently is another of Rust’s
-major goals. *Concurrent programming*, where different parts of a program
-execute independently, and *parallel programming*, where different parts of a
-program execute at the same time, are becoming increasingly important as more
-computers take advantage of their multiple processors. Historically,
-programming in these contexts has been difficult and error prone: Rust hopes to
-change that.
+Manejar la programación concurrente de forma segura y eficiente es otro de los
+principales objetivos de Rust. La *programación concurrente*, donde diferentes
+partes de un programa se ejecutan de forma independiente, y la *programación
+paralela*, donde diferentes partes de un programa se ejecutan al mismo tiempo,
+son cada vez más importantes a medida que más computadoras aprovechan sus
+múltiples procesadores. Históricamente, la programación en estos contextos ha
+sido difícil y propensa a errores: ¡Rust espera cambiar eso!
 
-Initially, the Rust team thought that ensuring memory safety and preventing
-concurrency problems were two separate challenges to be solved with different
-methods. Over time, the team discovered that the ownership and type systems are
-a powerful set of tools to help manage memory safety *and* concurrency
-problems! By leveraging ownership and type checking, many concurrency errors
-are compile-time errors in Rust rather than runtime errors. Therefore, rather
-than making you spend lots of time trying to reproduce the exact circumstances
-under which a runtime concurrency bug occurs, incorrect code will refuse to
-compile and present an error explaining the problem. As a result, you can fix
-your code while you’re working on it rather than potentially after it has been
-shipped to production. We’ve nicknamed this aspect of Rust *fearless*
-*concurrency*. Fearless concurrency allows you to write code that is free of
-subtle bugs and is easy to refactor without introducing new bugs.
+Inicialmente, el equipo de Rust pensó que garantizar la seguridad de la memoria
+y prevenir los problemas de concurrencia eran dos desafíos separados que se
+resolverían con diferentes métodos. Con el tiempo, el equipo descubrió que los
+sistemas de propiedad y tipos son un conjunto de herramientas poderosas para
+ayudar a administrar la seguridad de la memoria *y* los problemas de
+concurrencia. Al aprovechar la propiedad y la comprobación de tipos, muchos
+errores de concurrencia son errores de tiempo de compilación en Rust en lugar
+de errores de tiempo de ejecución. Por lo tanto, en lugar de hacer que pase
+mucho tiempo tratando de reproducir las circunstancias exactas en las que se
+produce un error de concurrencia en tiempo de ejecución, el código incorrecto
+se negará a compilar y presentará un error que explica el problema. Como
+resultado, puede corregir su código mientras lo está trabajando en lugar de
+potencialmente después de que se haya enviado a producción. Hemos apodado este
+aspecto de Rust como *concurrencia sin miedo*. La concurrencia sin miedo le
+permite escribir código que no tiene errores sutiles y es fácil de refactorizar
+sin introducir nuevos bugs.
 
-> Note: For simplicity’s sake, we’ll refer to many of the problems as
-> *concurrent* rather than being more precise by saying *concurrent and/or
-> parallel*. If this book were about concurrency and/or parallelism, we’d be
-> more specific. For this chapter, please mentally substitute *concurrent
-> and/or parallel* whenever we use *concurrent*.
+> Nota: Para simplificar, nos referiremos a muchos de los problemas como
+> *concurrentes* en lugar de ser más precisos al decir *concurrentes y/o
+> paralelos*. Si este libro tratara sobre concurrencia y/o paralelismo, seríamos
+> más específicos. Para este capítulo, por favor sustituya mentalmente
+> *concurrente y/o paralelo* cada vez que usemos *concurrente*.
 
-Many languages are dogmatic about the solutions they offer for handling
-concurrent problems. For example, Erlang has elegant functionality for
-message-passing concurrency but has only obscure ways to share state between
-threads. Supporting only a subset of possible solutions is a reasonable
-strategy for higher-level languages, because a higher-level language promises
-benefits from giving up some control to gain abstractions. However, lower-level
-languages are expected to provide the solution with the best performance in any
-given situation and have fewer abstractions over the hardware. Therefore, Rust
-offers a variety of tools for modeling problems in whatever way is appropriate
-for your situation and requirements.
+Muchos lenguajes son dogmáticos sobre las soluciones que ofrecen para manejar
+problemas concurrentes. Por ejemplo, Erlang tiene una funcionalidad elegante
+para la concurrencia de paso de mensajes, pero solo tiene formas oscuras de
+compartir estado entre hilos. Soportar solo un subconjunto de soluciones
+posibles es una estrategia razonable para los lenguajes de más alto nivel,
+porque un lenguaje de más alto nivel promete beneficios al renunciar a cierto
+control para obtener abstracciones. Sin embargo, se espera que los lenguajes de
+nivel inferior proporcionen la solución con el mejor rendimiento en cualquier
+situación dada y tengan menos abstracciones sobre el hardware. Por lo tanto,
+Rust ofrece una variedad de herramientas para modelar problemas de la manera
+que sea apropiada para su situación y requisitos.
 
-Here are the topics we’ll cover in this chapter:
+Aquí están los temas que cubriremos en este capítulo:
 
-* How to create threads to run multiple pieces of code at the same time
-* *Message-passing* concurrency, where channels send messages between threads
-* *Shared-state* concurrency, where multiple threads have access to some piece
-  of data
-* The `Sync` and `Send` traits, which extend Rust’s concurrency guarantees to
-  user-defined types as well as types provided by the standard library
+* Cómo crear hilos para ejecutar múltiples piezas de código al mismo tiempo
+* *Message-passing* concurrencia, donde los canales envían mensajes entre hilos
+* *Shared-state* concurrencia, donde múltiples hilos tienen acceso a alguna
+  pieza de datos
+* Los traits `Sync` y `Send`, que extienden las garantías de concurrencia de
+  Rust a los tipos definidos por el usuario, así como a los tipos proporcionados
+  por la biblioteca estándar
