@@ -1,43 +1,44 @@
-## Using Threads to Run Code Simultaneously
+## Usando Threads para Ejecutar Código Simultáneamente
 
-In most current operating systems, an executed program’s code is run in a
-*process*, and the operating system will manage multiple processes at once.
-Within a program, you can also have independent parts that run simultaneously.
-The features that run these independent parts are called *threads*. For
-example, a web server could have multiple threads so that it could respond to
-more than one request at the same time.
+En la mayoría de los sistemas operativos actuales, el código de un programa
+ejecutado se ejecuta en un *proceso*, y el sistema operativo administrará
+múltiples procesos a la vez. Dentro de un programa, también puede tener partes
+independientes que se ejecutan simultáneamente. Las características que ejecutan
+estas partes independientes se llaman *threads*. Por ejemplo, un servidor web
+podría tener múltiples hilos para que pudiera responder a más de una solicitud 
+al mismo tiempo.
 
-Splitting the computation in your program into multiple threads to run multiple
-tasks at the same time can improve performance, but it also adds complexity.
-Because threads can run simultaneously, there’s no inherent guarantee about the
-order in which parts of your code on different threads will run. This can lead
-to problems, such as:
+Dividir la computación en su programa en múltiples hilos para ejecutar múltiples
+tareas al mismo tiempo puede mejorar el rendimiento, pero también agrega
+complejidad. Debido a que los hilos pueden ejecutarse simultáneamente, no hay
+ninguna garantía inherente sobre el orden en que las partes de su código en
+diferentes hilos se ejecutarán. Esto puede conducir a problemas, como:
 
-* Race conditions, where threads are accessing data or resources in an
-  inconsistent order
-* Deadlocks, where two threads are waiting for each other, preventing both
-  threads from continuing
-* Bugs that happen only in certain situations and are hard to reproduce and fix
-  reliably
+* Race conditions, donde los hilos están accediendo a datos o recursos en
+  un orden inconsistente
+* Deadlocks, donde dos hilos están esperando el uno al otro, evitando que ambos
+  hilos continúen
+* Bugs que ocurren solo en ciertas situaciones y son difíciles de reproducir
+  y arreglar de manera confiable
 
-Rust attempts to mitigate the negative effects of using threads, but
-programming in a multithreaded context still takes careful thought and requires
-a code structure that is different from that in programs running in a single
-thread.
+Rust intenta mitigar los efectos negativos de usar hilos, pero la programación
+en un contexto multihilo aún requiere un pensamiento cuidadoso y requiere una
+estructura de código que sea diferente de la de los programas que se ejecutan en
+un solo hilo.
 
-Programming languages implement threads in a few different ways, and many
-operating systems provide an API the language can call for creating new
-threads. The Rust standard library uses a *1:1* model of thread implementation,
-whereby a program uses one operating system thread per one language thread.
-There are crates that implement other models of threading that make different
-tradeoffs to the 1:1 model.
+Los lenguajes de programación implementan hilos de varias maneras diferentes, y
+muchos sistemas operativos proporcionan una API que el lenguaje puede llamar
+para crear nuevos hilos. La biblioteca estándar de Rust utiliza un modelo *1:1*
+de implementación de hilos, mediante el cual un programa utiliza un hilo del
+sistema operativo por un hilo de lenguaje. Hay crates que implementan otros
+modelos de enhebrado que hacen diferentes compensaciones al modelo 1:1.
 
-### Creating a New Thread with `spawn`
+### Creando un Nuevo Hilo con `spawn`
 
-To create a new thread, we call the `thread::spawn` function and pass it a
-closure (we talked about closures in Chapter 13) containing the code we want to
-run in the new thread. The example in Listing 16-1 prints some text from a main
-thread and other text from a new thread:
+Para crear un nuevo hilo, llamamos a la función `thread::spawn` y pasamos un
+closure (hablamos sobre closures en el Capítulo 13) que contiene el código que
+queremos ejecutar en el nuevo hilo. El ejemplo en el Listado 16-1 imprime
+algunos textos desde un hilo principal y otros textos desde un nuevo hilo:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -45,13 +46,13 @@ thread and other text from a new thread:
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-1: Creating a new thread to print one thing
-while the main thread prints something else</span>
+<span class="caption">Listing 16-1: Creando un nuevo hilo para imprimir una cosa
+mientras el hilo principal imprime algo más</span>
 
-Note that when the main thread of a Rust program completes, all spawned threads
-are shut down, whether or not they have finished running. The output from this
-program might be a little different every time, but it will look similar to the
-following:
+Nota que cuando el hilo principal de un programa Rust se completa, todos los
+hilos creados se apagan, independientemente de si han terminado de ejecutarse o
+no. La salida de este programa podría ser un poco diferente cada vez, pero se
+verá similar a lo siguiente:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -69,31 +70,32 @@ hi number 4 from the spawned thread!
 hi number 5 from the spawned thread!
 ```
 
-The calls to `thread::sleep` force a thread to stop its execution for a short
-duration, allowing a different thread to run. The threads will probably take
-turns, but that isn’t guaranteed: it depends on how your operating system
-schedules the threads. In this run, the main thread printed first, even though
-the print statement from the spawned thread appears first in the code. And even
-though we told the spawned thread to print until `i` is 9, it only got to 5
-before the main thread shut down.
+Las llamadas a `thread::sleep` fuerzan a un hilo a detener su ejecución durante
+una corta duración, permitiendo que se ejecute un hilo diferente. Los hilos
+probablemente se turnarán, pero eso no está garantizado: depende de cómo su
+sistema operativo programe los hilos. En esta ejecución, el hilo principal
+imprimió primero, a pesar de que la instrucción de impresión del hilo creado
+aparece primero en el código. Y aunque le dijimos al hilo creado que imprimiera
+hasta que `i` sea 9, solo llegó a 5 antes de que el hilo principal se apagara.
 
-If you run this code and only see output from the main thread, or don’t see any
-overlap, try increasing the numbers in the ranges to create more opportunities
-for the operating system to switch between the threads.
+Si ejecutas este código y solo ves el output del hilo principal, o no ves 
+ninguna superposición, intenta aumentar los números en los rangos para crear
+más oportunidades para que el sistema operativo cambie entre los hilos.
 
-### Waiting for All Threads to Finish Using `join` Handles
+### Esperando a que todos los hilos terminen usando `join` Handles
 
-The code in Listing 16-1 not only stops the spawned thread prematurely most of
-the time due to the main thread ending, but because there is no guarantee on
-the order in which threads run, we also can’t guarantee that the spawned thread
-will get to run at all!
+El código en el Listado 16-1 no solo detiene el hilo creado prematuramente la
+mayoría de las veces debido a que el hilo principal termina, sino que debido a
+que no hay garantía sobre el orden en que se ejecutan los hilos, ¡tampoco
+podemos garantizar que el hilo creado se ejecute en absoluto!
 
-We can fix the problem of the spawned thread not running or ending prematurely
-by saving the return value of `thread::spawn` in a variable. The return type of
-`thread::spawn` is `JoinHandle`. A `JoinHandle` is an owned value that, when we
-call the `join` method on it, will wait for its thread to finish. Listing 16-2
-shows how to use the `JoinHandle` of the thread we created in Listing 16-1 and
-call `join` to make sure the spawned thread finishes before `main` exits:
+Podemos solucionar el problema de que el hilo creado no se ejecute o termine
+prematuramente guardando el valor de retorno de `thread::spawn` en una variable.
+El tipo de retorno de `thread::spawn` es `JoinHandle`. Un `JoinHandle` es un
+valor de propiedad que, cuando llamamos al método `join` en él, esperará a que
+su hilo termine. El Listado 16-2 muestra cómo usar el `JoinHandle` del hilo que
+creamos en el Listado 16-1 y llamar a `join` para asegurarnos de que el hilo
+creado termine antes de que `main` salga:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -101,14 +103,14 @@ call `join` to make sure the spawned thread finishes before `main` exits:
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-2: Saving a `JoinHandle` from `thread::spawn`
-to guarantee the thread is run to completion</span>
+<span class="caption">Listing 16-2: Guardando un `JoinHandle` devuelto por 
+`thread::spawn` para garantizar que el hilo se ejecute hasta completarse</span>
 
-Calling `join` on the handle blocks the thread currently running until the
-thread represented by the handle terminates. *Blocking* a thread means that
-thread is prevented from performing work or exiting. Because we’ve put the call
-to `join` after the main thread’s `for` loop, running Listing 16-2 should
-produce output similar to this:
+Llamar a `join` en el handle bloquea el hilo que está actualmente en ejecución
+hasta que el hilo representado por el handle termine. Bloquear un hilo significa
+que ese hilo se impide realizar un trabajo o salir. Debido a que hemos puesto la
+llamada a `join` después del bucle `for` del hilo principal, ejecutar el Listado
+16-2 debería producir una salida similar a esta:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -130,11 +132,11 @@ hi number 8 from the spawned thread!
 hi number 9 from the spawned thread!
 ```
 
-The two threads continue alternating, but the main thread waits because of the
-call to `handle.join()` and does not end until the spawned thread is finished.
+Los dos hilos continuan alternándose, pero el hilo principal espera debido a la
+llamada a `handle.join()` y no termina hasta que el hilo creado haya terminado.
 
-But let’s see what happens when we instead move `handle.join()` before the
-`for` loop in `main`, like this:
+Pero veamos que sucede cuando movemos la llamada a `handle.join()` antes del
+bucle `for` en `main`, como esto:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -142,8 +144,9 @@ But let’s see what happens when we instead move `handle.join()` before the
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/no-listing-01-join-too-early/src/main.rs}}
 ```
 
-The main thread will wait for the spawned thread to finish and then run its
-`for` loop, so the output won’t be interleaved anymore, as shown here:
+El hilo principal ahora espera a que el hilo creado termine antes de comenzar su
+bucle `for`, para que el output no se intercale más. La salida ahora se verá
+así:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -165,24 +168,24 @@ hi number 3 from the main thread!
 hi number 4 from the main thread!
 ```
 
-Small details, such as where `join` is called, can affect whether or not your
-threads run at the same time.
+Pequeños detalles, como dónde se llama a `join`, pueden afectar si sus hilos se
+ejecutan al mismo tiempo.
 
-### Using `move` Closures with Threads
+### Usando `move` Closures con Threads
 
-We'll often use the `move` keyword with closures passed to `thread::spawn`
-because the closure will then take ownership of the values it uses from the
-environment, thus transferring ownership of those values from one thread to
-another. In the [“Capturing References or Moving Ownership”][capture]<!-- ignore
---> section of Chapter 13, we discussed `move` in the context of closures. Now,
-we’ll concentrate more on the interaction between `move` and `thread::spawn`.
+A menudo usamos la keyword `move` con closures pasadas a `thread::spawn` porque
+el closure tomará posesión de los valores que usa del entorno, transfiriendo así
+el ownership de esos valores de un hilo a otro. En la sección ["Capturando
+referencias o moviendo la propiedad"][capture]<!-- ignore --> del Capítulo 13,
+discutimos `move` en el contexto de las closures. Ahora, nos concentraremos más
+en la interacción entre `move` y `thread::spawn`.
 
-Notice in Listing 16-1 that the closure we pass to `thread::spawn` takes no
-arguments: we’re not using any data from the main thread in the spawned
-thread’s code. To use data from the main thread in the spawned thread, the
-spawned thread’s closure must capture the values it needs. Listing 16-3 shows
-an attempt to create a vector in the main thread and use it in the spawned
-thread. However, this won’t yet work, as you’ll see in a moment.
+Observa en el Listado 16-1 que el closure que pasamos a `thread::spawn` no tiene
+argumentos: no estamos usando ningún dato del hilo principal en el código del
+hilo creado. Para usar datos del hilo principal en el hilo creado, el closure
+del hilo creado debe capturar los valores que necesita. El Listado 16-3 muestra
+un intento de crear un vector en el hilo principal y usarlo en el hilo creado.
+Sin embargo, esto aún no funcionará, como verás en un momento.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -190,25 +193,25 @@ thread. However, this won’t yet work, as you’ll see in a moment.
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-03/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-3: Attempting to use a vector created by the
-main thread in another thread</span>
+<span class="caption">Listing 16-3: Intentando usar un vector creado por el hilo
+principal en otro hilo</span>
 
-The closure uses `v`, so it will capture `v` and make it part of the closure’s
-environment. Because `thread::spawn` runs this closure in a new thread, we
-should be able to access `v` inside that new thread. But when we compile this
-example, we get the following error:
+El closure usa `v`, por lo que capturará `v` y lo hará parte del entorno del
+closure. Debido a que `thread::spawn` ejecuta este closure en un nuevo hilo,
+deberíamos poder acceder a `v` dentro de ese nuevo hilo. Pero cuando compilamos
+este ejemplo, obtenemos el siguiente error:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-03/output.txt}}
 ```
 
-Rust *infers* how to capture `v`, and because `println!` only needs a reference
-to `v`, the closure tries to borrow `v`. However, there’s a problem: Rust can’t
-tell how long the spawned thread will run, so it doesn’t know if the reference
-to `v` will always be valid.
+Rust *infiere* cómo capturar `v`, y porque `println!` solo necesita una
+referencia a `v`, el closure intenta pedir prestado `v`. Sin embargo, hay un
+problema: Rust no puede decir cuánto tiempo se ejecutará el hilo creado, por lo
+que no sabe si la referencia a `v` siempre será válida.
 
-Listing 16-4 provides a scenario that’s more likely to have a reference to `v`
-that won’t be valid:
+El Listado 16-4 proporciona un escenario que es más probable que tenga una
+referencia a `v` que no sea válida:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -216,18 +219,18 @@ that won’t be valid:
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-4: A thread with a closure that attempts to
-capture a reference to `v` from a main thread that drops `v`</span>
+<span class="caption">Listing 16-4: Un hilo con un closure que intenta capturar
+una referencia a `v` desde un hilo principal que deja de tener `v`</span>
 
-If Rust allowed us to run this code, there’s a possibility the spawned thread
-would be immediately put in the background without running at all. The spawned
-thread has a reference to `v` inside, but the main thread immediately drops
-`v`, using the `drop` function we discussed in Chapter 15. Then, when the
-spawned thread starts to execute, `v` is no longer valid, so a reference to it
-is also invalid. Oh no!
+Si Rust nos permitiera ejecutar este código, existe la posibilidad de que el
+hilo creado se ponga inmediatamente en segundo plano sin ejecutarse en absoluto.
+El hilo creado tiene una referencia a `v` dentro, pero el hilo principal
+inmediatamente deja caer `v`, usando la función `drop` que discutimos en el
+Capítulo 15. Luego, cuando el hilo creado comienza a ejecutarse, `v` ya no es
+válido, por lo que una referencia a él también es inválida. ¡Oh no!
 
-To fix the compiler error in Listing 16-3, we can use the error message’s
-advice:
+Para solucionar el error en el Listado 16-3, podemos seguir el consejo del mensaje
+de error:
 
 <!-- manual-regeneration
 after automatic regeneration, look at listings/ch16-fearless-concurrency/listing-16-03/output.txt and copy the relevant part
@@ -240,10 +243,10 @@ help: to force the closure to take ownership of `v` (and any other referenced va
   |                                ++++
 ```
 
-By adding the `move` keyword before the closure, we force the closure to take
-ownership of the values it’s using rather than allowing Rust to infer that it
-should borrow the values. The modification to Listing 16-3 shown in Listing
-16-5 will compile and run as we intend:
+Al agregar la keyword `move` antes del closure, forzamos al closure a tomar
+ownership de los valores que está usando en lugar de permitir que Rust infiera
+que debería pedir prestado los valores. La modificación al Listado 16-3 que se
+muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -251,31 +254,32 @@ should borrow the values. The modification to Listing 16-3 shown in Listing
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-5: Using the `move` keyword to force a closure
-to take ownership of the values it uses</span>
+<span class="caption">Listing 16-5: Usando la keyword `move` para forzar a un 
+closure a tomar ownership de los valores que utiliza</span>
 
-We might be tempted to try the same thing to fix the code in Listing 16-4 where
-the main thread called `drop` by using a `move` closure. However, this fix will
-not work because what Listing 16-4 is trying to do is disallowed for a
-different reason. If we added `move` to the closure, we would move `v` into the
-closure’s environment, and we could no longer call `drop` on it in the main
-thread. We would get this compiler error instead:
+Podríamos sentir la tentación de intentar lo mismo para arreglar el código en el
+Listado 16-4 donde el hilo principal llamó a `drop` usando un closure `move`.
+Sin embargo, esta solución no funcionará porque lo que el Listado 16-4 está
+intentando hacer está prohibido por una razón diferente. Si agregáramos `move`
+al closure, moveríamos `v` al entorno del closure, y ya no podríamos llamar a
+`drop` en el hilo principal. En su lugar, obtendríamos este error del
+compilador:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/output-only-01-move-drop/output.txt}}
 ```
 
-Rust’s ownership rules have saved us again! We got an error from the code in
-Listing 16-3 because Rust was being conservative and only borrowing `v` for the
-thread, which meant the main thread could theoretically invalidate the spawned
-thread’s reference. By telling Rust to move ownership of `v` to the spawned
-thread, we’re guaranteeing Rust that the main thread won’t use `v` anymore. If
-we change Listing 16-4 in the same way, we’re then violating the ownership
-rules when we try to use `v` in the main thread. The `move` keyword overrides
-Rust’s conservative default of borrowing; it doesn’t let us violate the
-ownership rules.
+Las reglas de ownership de Rust nos han salvado de nuevo! Obtenemos un error del
+código en el Listado 16-3 porque Rust es conservador y solo pide prestado `v`
+para el hilo, lo que significa que el hilo principal podría teóricamente
+invalidar la referencia del hilo creado. Al decirle a Rust que mueva la
+propiedad de `v` al hilo creado, le garantizamos a Rust que el hilo principal no
+usará `v` nunca más. Si cambiamos el Listado 16-4 de la misma manera, entonces
+estamos violando las reglas de ownership cuando intentamos usar `v` en el hilo
+principal. La keyword `move` anula la conservadora predeterminada de Rust de
+pedir prestado; no nos permite violar las reglas de ownership.
 
-With a basic understanding of threads and the thread API, let’s look at what we
-can *do* with threads.
+Con una comprensión básica de los hilos y la API de hilos, veamos qué podemos
+*hacer* con los hilos.
 
 [capture]: ch13-01-closures.html#capturing-references-or-moving-ownership
