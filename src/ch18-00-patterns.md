@@ -7,7 +7,7 @@ sobre el flujo de control de un programa. Un patrón consta de alguna
 combinación de los siguientes:
 
 * Literales
-* Arrays, enums, structs, or tuples destructurados
+* Arrays, enums, structs, o tuplas desestructuradas
 * Variables
 * Wildcards
 * Placeholders
