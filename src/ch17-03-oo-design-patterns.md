@@ -546,7 +546,7 @@ fortalezas de Rust, pero es una opción disponible.
 
 A continuación, veremos los patterns, que son otra de las características de 
 Rust que permiten mucha flexibilidad. Hemos visto brevemente los patterns a lo
-largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá!
+largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá! 
 
 [more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#cases-in-which-you-have-more-information-than-the-compiler
 [macros]: ch19-06-macros.html#macros
