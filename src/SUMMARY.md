@@ -22,25 +22,25 @@
 
 - [Entendiendo el Ownership](ch04-00-understanding-ownership.md)
     - [¿Qué es el Ownership?](ch04-01-what-is-ownership.md)
-    - [References and Borrowing](ch04-02-references-and-borrowing.md)
-    - [The Slice Type](ch04-03-slices.md)
+    - [Referencias y Prestamos](ch04-02-references-and-borrowing.md)
+    - [El Tipo Slice](ch04-03-slices.md)
 
 - [Usando Structs para Estructurar Datos Relacionados](ch05-00-structs.md)
     - [Definiendo e Instanciando Structs](ch05-01-defining-structs.md)
     - [Un Programa de Ejemplo Usando Structs](ch05-02-example-structs.md)
-    - [Method Syntax](ch05-03-method-syntax.md)
+    - [Sintaxis de Métodos](ch05-03-method-syntax.md)
 
-- [Enums and Pattern Matching](ch06-00-enums.md)
-    - [Defining an Enum](ch06-01-defining-an-enum.md)
-    - [The `match` Control Flow Construct](ch06-02-match.md)
-    - [Concise Control Flow with `if let`](ch06-03-if-let.md)
+- [Enums y Pattern Matching](ch06-00-enums.md)
+    - [Definiendo un Enum](ch06-01-defining-an-enum.md)
+    - [El operador de control de flujo `match`](ch06-02-match.md)
+    - [Flujo de Control Conciso con `if let`](ch06-03-if-let.md)
 
-## Basic Rust Literacy
+## Conocimientos básicos de Rust
 
-- [Managing Growing Projects with Packages, Crates, and Modules](ch07-00-managing-growing-projects-with-packages-crates-and-modules.md)
-    - [Packages and Crates](ch07-01-packages-and-crates.md)
-    - [Defining Modules to Control Scope and Privacy](ch07-02-defining-modules-to-control-scope-and-privacy.md)
-    - [Paths for Referring to an Item in the Module Tree](ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md)
+- [Administrando Proyectos en Crecimiento con Paquetes, Crates y Módulos](ch07-00-managing-growing-projects-with-packages-crates-and-modules.md)
+    - [Paquetes y Crates](ch07-01-packages-and-crates.md)
+    - [Definiendo módulos para controlar el scope y la privacidad](ch07-02-defining-modules-to-control-scope-and-privacy.md)
+    - [Paths para referirse a un item en el árbol de módulos](ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md)
     - [Bringing Paths Into Scope with the `use` Keyword](ch07-04-bringing-paths-into-scope-with-the-use-keyword.md)
     - [Separating Modules into Different Files](ch07-05-separating-modules-into-different-files.md)
 
