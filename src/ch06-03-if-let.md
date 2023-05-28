@@ -1,4 +1,4 @@
-## Flujo de control Conciso con `if let` (Control Flow con `if let`)
+## Flujo de Control Conciso con `if let`
 
 La sintaxis `if let` te permite combinar `if` y `let` en una forma menos
 verbosa de manejar valores que coinciden con un patrón mientras se ignoran el

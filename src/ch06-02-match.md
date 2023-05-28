@@ -1,6 +1,6 @@
 <!-- Old heading. Do not remove or links may break. -->
 <a id="the-match-control-flow-operator"></a>
-## `match` El operador de flujo de control (Control Flow Construct)
+## El operador de control de flujo `match`
 
 Rust tiene una construcción de flujo de control extremadamente poderosa llamada
 `match` que te permite comparar un valor contra una serie de patrones y luego
