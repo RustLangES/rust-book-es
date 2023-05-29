@@ -235,7 +235,7 @@ cada método en su propio bloque `impl`.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-16: Rescribiendo Listing 5-15 usando multiples 
+<span class="caption">Listing 5-16: Reescribiendo Listing 5-15 usando múltiples 
 bloques `impl`</span>
 
 No hay razón para separar estos métodos en múltiples bloques `impl` aquí, pero

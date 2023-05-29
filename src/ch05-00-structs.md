@@ -1,7 +1,7 @@
 # Usando Structs para Estructurar Datos Relacionados
 
 Un *struct*, o *estructura*, es un tipo de dato personalizado que te permite 
-empaquetar y nombrar multiples valores relacionados que forman un grupo
+empaquetar y nombrar múltiples valores relacionados que forman un grupo
 significativo. Si estás familiarizado con un lenguaje orientado a objetos, 
 un *struct* es como los atributos de un objeto. En este capítulo, 
 compararemos y contrastaremos tuplas con structs para desarrollar lo que ya

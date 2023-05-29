@@ -396,9 +396,9 @@ let s = 3.to_string();
 Las implementaciones generales aparecen en la documentación del trait en la
 sección “Implementors”.
 
-Traits y trait bounds nos permiten usar generics para reducir la duplicación de
-código, pero también para especificar a la compiladora que queremos que un tipo
-generic tenga un comportamiento particular. La compiladora puede usar la
+Traits y trait bounds nos permiten usar genéricos para reducir la duplicación de
+código, pero también para especificar a el compilador que queremos que un tipo
+generic tenga un comportamiento particular. El compilador puede usar la
 información de los trait bounds para verificar que todos los tipos concretos que
 usamos con nuestro código proporcionan el comportamiento correcto. En lenguajes
 de tipado dinámico, obtendríamos un error en tiempo de ejecución si llamamos a
