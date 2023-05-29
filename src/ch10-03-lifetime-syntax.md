@@ -150,7 +150,7 @@ devuelve se refiere a `x` o `y`. De hecho, nosotros tampoco lo sabemos, porque
 el bloque `if` en el cuerpo de esta función devuelve una referencia a `x` y el
 bloque `else` devuelve una referencia a `y`!
 
-Cuando esttamos definiendo esta función, no sabemos los valores concretos que
+Cuando estamos definiendo esta función, no sabemos los valores concretos que
 se pasarán a esta función, por lo que no sabemos si se ejecutará el caso `if` o
 el caso `else`. Tampoco conocemos los lifetimes concretos de las referencias
 que se pasarán, por lo que no podemos mirar los scopes como lo hicimos en los
@@ -291,7 +291,7 @@ compilará.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-23: Intentando utilizar `result` despues de que
+<span class="caption">Listing 10-23: Intentando utilizar `result` después de que
 `string2` haya quedado fuera del scope</span>
 
 Cuando intentamos compilar este código, obtenemos este error:
@@ -352,9 +352,9 @@ se compilará:
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/src/main.rs:here}}
 ```
 
-Aqui, aunque hemos especificado un parámetro de lifetime `'a` para el tipo de
+Aquí, aunque hemos especificado un parámetro de lifetime `'a` para el tipo de
 retorno, esta implementación no se compilará porque el lifetime del valor 
-retornado no está relacionado en absoluto con el lfietime de los parámetros. 
+retornado no está relacionado en absoluto con el lifetime de los parámetros. 
 Este es el mensaje de error que obtenemos:
 
 ```console

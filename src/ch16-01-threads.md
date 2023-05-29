@@ -132,7 +132,7 @@ hi number 8 from the spawned thread!
 hi number 9 from the spawned thread!
 ```
 
-Los dos hilos continuan alternándose, pero el hilo principal espera debido a la
+Los dos hilos continúan alternándose, pero el hilo principal espera debido a la
 llamada a `handle.join()` y no termina hasta que el hilo creado haya terminado.
 
 Pero veamos que sucede cuando movemos la llamada a `handle.join()` antes del

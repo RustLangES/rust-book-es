@@ -196,7 +196,7 @@ valor:
 ```
 
 <span class="caption">Listing 13-4: Definiendo y llamando a un closure que
-captura una referencia immutable</span>
+captura una referencia inmutable</span>
 
 Este ejemplo también ilustra que una variable puede vincularse a una definición
 de closure, y luego podemos llamar al closure usando el nombre de la variable y

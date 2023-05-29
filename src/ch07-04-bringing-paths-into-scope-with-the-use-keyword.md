@@ -70,7 +70,7 @@ Listado 7-13.
 ```
 
 <span class="caption">Listing 7-13: Incorporando la función `add_to_waitlist`
-en el scope con `use`, que es unidiomático</span>
+en el scope con `use`, que no es idiomático</span>
 
 Aunque el Listado 7-11 y 7-13 logran la misma tarea, el Listado 7-11 es la
 forma idiomática de traer una función al ámbito con `use`. Traer el módulo
@@ -290,7 +290,7 @@ una instrucción `use`</span>
 
 Esta línea trae `std::io` y `std::io::Write` al Scope.
 
-### El Operador Glob
+### El Operador Asterisco (Glob)
 
 Si queremos incluir al Scope *todos* los items públicos definidos en un path,
 podemos especificar ese path seguido del operador glob `*`:
@@ -300,12 +300,12 @@ use std::collections::*;
 ```
 
 Este `use` trae todos los items públicos definidos en `std::collections` al
-Scope actual. ¡Ten cuidado cuando uses el operador glob! Glob puede hacer más
+Scope actual. ¡Ten cuidado cuando uses el operador asterisco! Glob puede hacer más
 difícil decir qué nombres están en el Scope y dónde se definió un nombre usado
 en tu programa.
 
-El operador glob es a veces usado cuando se prueba para traer todo bajo prueba
-al módulo `tests`; hablaremos de eso en la sección [“Cómo Escribir
+El operador asterisco es a veces usado cuando se prueba para traer todo bajo
+prueba al módulo `tests`; hablaremos de eso en la sección [“Cómo Escribir
 Pruebas”][writing-tests]<!-- ignore --> en el Capítulo 11. El operador glob
 también es usado a veces como parte del patrón prelude: ve [la documentación de
 la biblioteca estándar](../std/prelude/index.html#other-preludes)<!-- ignore -->
