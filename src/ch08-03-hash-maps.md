@@ -1,4 +1,4 @@
-## Almacenar Keys con valores asociados en HashMaps
+## Almacenar Claves con Valores Asociados en HashMaps
 
 La última de nuestras colecciones comunes es el *hash map*. El tipo `HashMap<K,
 V>` almacena un mapeo de keys de tipo `K` a valores de tipo `V` usando una

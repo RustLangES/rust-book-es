@@ -1,13 +1,13 @@
 # Patterns and Matching
 
-Los *Patterns* son una sintaxis especial en Rust para hacer coincidir la
-estructura de los tipos, tanto complejos como simples. El uso de patrones en
+Los *Patterns* (Patrones) son una sintaxis especial en Rust para hacer coincidir
+la estructura de los tipos, tanto complejos como simples. El uso de patrones en
 conjunción con expresiones `match` y otros constructos le brinda más control
 sobre el flujo de control de un programa. Un patrón consta de alguna
 combinación de los siguientes:
 
 * Literales
-* Arrays, enums, structs, o tuplas desestructuradas
+* Arrays, Enums, Structs, o Tuplas desestructuradas
 * Variables
 * Wildcards
 * Placeholders

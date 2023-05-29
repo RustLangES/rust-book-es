@@ -1,4 +1,4 @@
-# Error Handling
+# Manejo de Errores
 
 Los errores son un hecho de la vida en el software, por lo que Rust tiene una
 serie de características para manejar situaciones en las que algo sale mal. En

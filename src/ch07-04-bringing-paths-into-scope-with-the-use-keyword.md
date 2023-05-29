@@ -1,4 +1,4 @@
-## Llevando rutas al Scope con la palabra clave `use`
+## Incluyendo rutas al Scope con la palabra clave `use`
 
 Tener que escribir las rutas para llamar a las funciones puede sentirse
 inconveniente y repetitivo. En el Listado 7-7, si elegimos la ruta absoluta o

@@ -1,4 +1,4 @@
-## Comparando Performance: Loops vs. Iterators
+## Comparando Performance: Bucles vs. Iteradores
 
 Para determinar si usar loops o iterators, necesitas saber cuál implementación
 es más rápida: la versión de la función `search` con un `for` loop explícito o

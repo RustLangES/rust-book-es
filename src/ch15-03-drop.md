@@ -1,4 +1,4 @@
-## Ejecutando código en la limpieza con el trait `Drop`
+## Ejecutando Código al Limpiar con el Trait `Drop`
 
 El segundo trait importante para el patrón de smart pointer es `Drop`, el cual
 permite personalizar qué pasa cuando un valor está a punto de salir del scope.
