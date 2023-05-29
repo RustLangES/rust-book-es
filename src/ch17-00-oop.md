@@ -1,4 +1,4 @@
-# Rust como un lenguaje de programación orientado a objetos
+# Rust como un Lenguaje de Programación Orientado a Objetos
 
 La programación orientada a objetos (POO) es una forma de modelar programas. Los
 objetos como concepto programático fueron introducidos en el lenguaje de

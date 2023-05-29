@@ -7,6 +7,10 @@ genérico puede ser cualquier tipo que tenga cierto comportamiento.
 
 > Nota: Los traits son similares a una característica a menudo llamada
 > *interfaces* en otros lenguajes, aunque con algunas diferencias.
+> En español también se les conoce como *rasgos* pero en el libro intentaremos
+> mantener la palabra clave sin traducir, no obstante creamos esta [encuesta](
+> https://github.com/Phosphorus-M/rust-book-es/discussions/29) para futuras
+> revisiones.
 
 ### Definiendo un Trait
 
@@ -16,7 +20,7 @@ mismos métodos en todos esos tipos. Las definiciones de traits son una manera
 de agrupar firmas de métodos para definir un conjunto de comportamientos
 necesarios para lograr algún propósito.
 
-Por ejmplo, digamos que tenemos múltiples structs que contienen varios tipos y
+Por ejemplo, digamos que tenemos múltiples structs que contienen varios tipos y
 cantidades de texto: un struct `NewsArticle` que contiene una historia de
 noticias archivada en una ubicación particular y un `Tweet` que puede tener
 como máximo 280 caracteres junto con metadatos que indican si es un nuevo

@@ -1,14 +1,14 @@
-## Tipos de datos generics
+## Tipos de Datos Genéricos
 
-Utilizamos generics para crear definiciones para elementos como firmas de
+Utilizamos genéricos para crear definiciones para elementos como firmas de
 funciones o structs, que luego podemos usar con muchos tipos de datos
 concretos diferentes. Primero veamos cómo definir funciones, structs,
-enums y métodos usando generics. Luego discutiremos cómo los generics
+enums y métodos usando genéricos. Luego discutiremos cómo los genéricos
 afectan el rendimiento del código.
 
 ### Definiciones in function 
 
-Al definir una función que usa generics, colocamos los generics en la firma de
+Al definir una función que usa genéricos, colocamos los genéricos en la firma de
 la función donde normalmente especificaríamos los tipos de datos de los
 parámetros y el valor de retorno. Hacerlo hace que nuestro código sea más
 flexible y brinda más funcionalidad a los llamadores de nuestra función al
@@ -16,7 +16,7 @@ tiempo que evita la duplicación de código.
 
 Continuando con nuestra función `largest`, el Listado 10-4 muestra dos
 funciones que encuentran el valor más grande en una rebanada. Luego
-combinaremos estos en una sola función que usa generics.
+combinaremos estos en una sola función que usa genéricos.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -45,7 +45,7 @@ Cuando usamos un parámetro en el cuerpo de la función, tenemos que declarar el
 nombre del parámetro en la firma para que el compilador sepa qué significa ese
 nombre. De manera similar, cuando usamos un nombre de parámetro de tipo en la
 firma de una función, tenemos que declarar el nombre del parámetro de tipo
-antes de usarlo. Para definir la función generic `largest`, coloque las
+antes de usarlo. Para definir la función genérico `largest`, coloque las
 declaraciones de nombre de tipo dentro de corchetes angulares, `<>`, entre el
 nombre de la función y la lista de parámetros, así:
 
@@ -53,13 +53,13 @@ nombre de la función y la lista de parámetros, así:
 fn largest<T>(list: &[T]) -> &T {
 ```
 
-Leemos esta definición como: la función `largest` es generic sobre algún tipo
+Leemos esta definición como: la función `largest` es genérico sobre algún tipo
 `T`. Esta función tiene un parámetro llamado `list`, que es un slice de valores
 de tipo `T`. La función `largest` devolverá una referencia a un valor del mismo
 tipo `T`.
 
 El Listado 10-5 muestra la definición de la función `largest` combinada usando
-el tipo de datos generic en su firma. La lista también muestra cómo podemos
+el tipo de datos genérico en su firma. La lista también muestra cómo podemos
 llamar a la función con un slice de valores `i32` o valores `char`. Tenga en
 cuenta que este código aún no se compilará, pero lo arreglaremos más adelante
 en este capítulo.
@@ -71,7 +71,7 @@ en este capítulo.
 ```
 
 <span class="caption">Listing 10-5: La función `largest` está usando parámetros 
-de tipo generic; esto aún no se compila</span>
+de tipo genérico; esto aún no se compila</span>
 
 Si compilamos este código ahora, obtendremos este error:
 
@@ -93,7 +93,7 @@ implementa `PartialOrd` tanto en `i32` como en `char`.
 
 ### Definiciones In Struct
 
-También podemos definir structs para usar tipos generics en uno o más campos
+También podemos definir structs para usar tipos genéricos en uno o más campos
 usando la sintaxis `<>`. El Listado 10-6 define un struct `Point<T>` para
 contener valores `x` e `y` de cualquier tipo `T`.
 
@@ -106,14 +106,14 @@ contener valores `x` e `y` de cualquier tipo `T`.
 <span class="caption">Listing 10-6: Un struct `Point<T>` que contiene valores
 `x` and `y` de tipo `T`</span>
 
-La sintaxis para usar generics en las definiciones de structs es similar a la
+La sintaxis para usar genéricos en las definiciones de structs es similar a la
 que se usa en las definiciones de funciones. Primero, declaramos el nombre del
 parámetro de tipo dentro de corchetes angulares, justo después del nombre del
 struct. Luego, usamos el tipo genérico en la definición del struct donde
 especificaríamos tipos de datos concretos.
 
-Ten en cuenta que porque hemos usado un solo tipo generic para definir
-`Point<T>`, esta definición dice que el struct `Point<T>` es generic sobre algún
+Ten en cuenta que porque hemos usado un solo tipo genérico para definir
+`Point<T>`, esta definición dice que el struct `Point<T>` es genérico sobre algún
 tipo `T`, y los campos `x` e `y` son *ambos* ese mismo tipo, sea cual sea ese
 tipo. Si creamos una instancia de un `Point<T>` que tenga valores de diferentes
 tipos, como en el Listado 10-7, nuestro código no se compilará.
@@ -125,7 +125,7 @@ tipos, como en el Listado 10-7, nuestro código no se compilará.
 ```
 
 <span class="caption">Listing 10-7: Los campos `x` e `y` deben ser del mismo
-tipo porque ambos tienen el mismo tipo de dato generic `T`.</span>
+tipo porque ambos tienen el mismo tipo de dato genérico `T`.</span>
 
 En este ejemplo, cuando asignamos el valor entero 5 a `x`, le decimos al
 compilador que el tipo genérico `T` será un entero para esta instancia de
@@ -137,8 +137,8 @@ este:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/output.txt}}
 ```
 
-Para definir un struct `Point` donde `x` e `y` son ambos generics pero podrían
-tener diferentes tipos, podemos usar múltiples parámetros de tipo generic. Por
+Para definir un struct `Point` donde `x` e `y` son ambos genéricos pero podrían
+tener diferentes tipos, podemos usar múltiples parámetros de tipo genérico. Por
 ejemplo, en el Listado 10-8, cambiamos la definición de `Point` para que sea
 generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
 `U`.
@@ -149,21 +149,21 @@ generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-08/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-8: A `Point<T, U>` generic over two types so
+<span class="caption">Listing 10-8: A `Point<T, U>` genérico over two types so
 that `x` and `y` can be values of different types</span>
 
-<span class="caption">Listing 10-8: un generic `Point<T, U>` sobre dos tipos
+<span class="caption">Listing 10-8: un genérico `Point<T, U>` sobre dos tipos
 que `x` e `y` pueden ser valores de diferentes tipos</span>
 
 ¡Ahora todas las instancias de `Point` que se muestran se permiten! Puede usar
-tantos parámetros de tipo generic en una definición como desee, pero usar más
+tantos parámetros de tipo genérico en una definición como desee, pero usar más
 de unos pocos hace que su código sea difícil de leer. Si encuentra que necesita
-muchos tipos generic en su código, podría indicar que su código necesita
+muchos tipos genérico en su código, podría indicar que su código necesita
 reestructurarse en piezas más pequeñas.
 
 ### Definiciones In Enum
 
-Como hicimos con structs, podemos definir enums para contener tipos generic en
+Como hicimos con structs, podemos definir enums para contener tipos genérico en
 sus variantes. Echemos otro vistazo al enum `Option<T>` que la biblioteca
 estándar proporciona, que usamos en el Capítulo 6:
 
@@ -175,13 +175,13 @@ enum Option<T> {
 ```
 
 Esta definición debería tener más sentido para ti ahora. Como puede ver, el
-enum `Option<T>` es generic sobre el tipo `T` y tiene dos variantes: `Some`,
+enum `Option<T>` es genérico sobre el tipo `T` y tiene dos variantes: `Some`,
 que contiene un valor de tipo `T`, y `None`, que no contiene ningún valor.
 Al usar el enum `Option<T>`, podemos expresar el concepto abstracto de un valor
-opcional, y porque `Option<T>` es generic, podemos usar esta abstracción sin
+opcional, y porque `Option<T>` es genérico, podemos usar esta abstracción sin
 importar el tipo del valor opcional.
 
-Los enums también pueden usar múltiples tipos generic. La definición del enum
+Los enums también pueden usar múltiples tipos genérico. La definición del enum
 `Result` que usamos en el Capítulo 9 es un ejemplo:
 
 ```rust
@@ -191,7 +191,7 @@ enum Result<T, E> {
 }
 ```
 
-El enum `Result` es un generic en dos tipos, `T` y `E`. Tiene dos variantes:
+El enum `Result` es un genérico en dos tipos, `T` y `E`. Tiene dos variantes:
 `Ok`, que contiene un valor de tipo `T`, y `Err`, que contiene un valor de tipo
 `E`. Esta definición es apropiada porque el significado de `Result` es que uno
 de estos dos tipos, `T` o `E`, será el tipo del valor que se devuelve cuando se
@@ -203,11 +203,11 @@ usamos para abrir un archivo en el Listado 9-3, donde `T` se llenó con el tipo
 
 Cuando reconoces situaciones en tu código con múltiples definiciones de struct
 o enum que difieren solo en los tipos de los valores que contienen, puedes
-evitar la duplicación usando tipos generic en su lugar.
+evitar la duplicación usando tipos genérico en su lugar.
 
 ### Definiciones In Method
 
-Podemos implementar métodos en structs y enums y usar tipos generic en sus
+Podemos implementar métodos en structs y enums y usar tipos genérico en sus
 definiciones también. El Listado 10-9 muestra el struct `Point<T>` que
 definimos en el Listado 10-6 con un método llamado `x` implementado en él.
 
@@ -225,19 +225,19 @@ referencia a la data en el campo `x`.
 
 Ten en cuenta que tenemos que declarar `T` justo después de `impl` para que
 podamos usar `T` para especificar que estamos implementando métodos en el tipo
-`Point<T>`. Al declarar `T` como un tipo generic después de `impl`, Rust puede
+`Point<T>`. Al declarar `T` como un tipo genérico después de `impl`, Rust puede
 identificar que el tipo en los corchetes angulares en `Point` es un tipo
 generic en lugar de un tipo concreto. Podríamos haber elegido un nombre
-diferente para este parámetro generic que el parámetro generic declarado en la
+diferente para este parámetro genérico que el parámetro genérico declarado en la
 definición del struct, pero usar el mismo nombre es convencional. Los métodos
-escritos dentro de un `impl` que declara el tipo generic se definirán en
+escritos dentro de un `impl` que declara el tipo genérico se definirán en
 cualquier instancia del tipo, sin importar qué tipo concreto termine
-sustituyendo al tipo generic.
+sustituyendo al tipo genérico.
 
-También podemos especificar restricciones en los tipos generic al definir
+También podemos especificar restricciones en los tipos genérico al definir
 métodos en el tipo. Por ejemplo, podríamos implementar métodos solo en
 instancias de `Point<T>` con un tipo `f32` concreto en lugar de en instancias
-de `Point<T>` con cualquier tipo generic. En el Listado 10-10 usamos el tipo
+de `Point<T>` con cualquier tipo genérico. En el Listado 10-10 usamos el tipo
 concreto `f32`, lo que significa que no declaramos ningún tipo después de
 `impl`.
 
@@ -248,7 +248,7 @@ concreto `f32`, lo que significa que no declaramos ningún tipo después de
 ```
 
 <span class="caption">Listing 10-10: Un bloque `impl` que solo aplica a un
-struct con un tipo concreto particular para el parámetro del tipo generic
+struct con un tipo concreto particular para el parámetro del tipo genérico
 `T`</span>
 
 Este código significa que el tipo `Point<f32>` tendrá un método 
@@ -257,9 +257,9 @@ de tipo `f32` no tendrán este método definido. El método mide qué tan lejos
 está nuestro punto del punto en las coordenadas (0.0, 0.0) y usa operaciones
 matemáticas que solo están disponibles para tipos de punto flotante.
 
-Los parámetros de tipo generic en una definición de struct no siempre son los
+Los parámetros de tipo genérico en una definición de struct no siempre son los
 mismos que los que usas en las firmas de métodos de ese mismo struct. El
-Listado 10-11 usa los tipos generic `X1` e `Y1` para el struct `Point` y `X2`
+Listado 10-11 usa los tipos genérico `X1` e `Y1` para el struct `Point` y `X2`
 `Y2` para la firma del método `mixup` para hacer el ejemplo más claro. El
 método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 (de tipo `X1`) y el valor `y` del `Point` pasado (de tipo `Y2`).
@@ -270,7 +270,7 @@ método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-11: Un método que usa diferentes tipos generic 
+<span class="caption">Listing 10-11: Un método que usa diferentes tipos genérico 
 de la definición de su struct</span>
 
 En `main`, hemos definido un `Point` que tiene un `i32` para `x` (con valor `5`)
@@ -282,25 +282,25 @@ un `char` para `y`, porque `y` vino de `p2`. La llamada al macro `println!`
 imprimirá `p3.x = 5, p3.y = c`.
 
 El propósito de este ejemplo es demostrar una situación en la que algunos
-parámetros generic se declaran con `impl` y otros se declaran con la definición
-del método. Aquí, los parámetros generic `X1` e `Y1` se declaran después de
-`impl` porque van con la definición del struct. Los parámetros generic `X2` e
+parámetros genérico se declaran con `impl` y otros se declaran con la definición
+del método. Aquí, los parámetros genérico `X1` e `Y1` se declaran después de
+`impl` porque van con la definición del struct. Los parámetros genérico `X2` e
 `Y2` se declaran después de `fn mixup`, porque solo son relevantes para el
 método.
 
-### Rendimiento de código usando Generics
+### Rendimiento de código usando genéricos
 
 Quizás te estés preguntando si hay un costo de rendimiento al usar parámetros
-de tipo generic. La buena noticia es que usar tipos generic no hará que tu
+de tipo genérico. La buena noticia es que usar tipos genérico no hará que tu
 programa se ejecute más lento de lo que lo haría con tipos concretos.
 
-Rust logra esto realizando *monomorfización* del código usando generics en
+Rust logra esto realizando *monomorfización* del código usando genéricos en
 tiempo de compilación. *Monomorfización* es el proceso de convertir código
 genérico en código específico llenando los tipos concretos que se usan cuando
 se compila. En este proceso, el compilador hace lo contrario de los pasos que
 usamos para crear la función genérica en el Listado 10-5: el compilador mira
 todos los lugares donde se llama el código genérico y genera código para los
-tipos concretos con los que se llama el código generico.
+tipos concretos con los que se llama el código genérico.
 
 Veamos como funciona esto usando el enum genérico de la biblioteca estándar
 `Option<T>`:
@@ -339,10 +339,10 @@ fn main() {
 }
 ```
 
-El generic `Option<T>` se reemplaza con las definiciones específicas creadas por
+El genérico `Option<T>` se reemplaza con las definiciones específicas creadas por
 el compilador. Debido a que Rust compila código genérico en código que
 especifica el tipo en cada instancia, no pagamos ningún costo de rendimiento
-por usar generics. Cuando el código se ejecuta, se comporta de la misma manera
+por usar genéricos. Cuando el código se ejecuta, se comporta de la misma manera
 que si hubiéramos duplicado cada definición a mano. El proceso de
-monomorfización hace que los generics de Rust sean extremadamente eficientes
+monomorfización hace que los genéricos de Rust sean extremadamente eficientes
 en tiempo de ejecución.

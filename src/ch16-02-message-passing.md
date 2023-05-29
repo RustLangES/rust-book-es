@@ -1,4 +1,4 @@
-## Usando el paso de mensajes para transferir datos entre hilos
+## Usando el Pasaje de Mensajes para Transferir Datos entre Hilos
 
 Un enfoque cada vez más popular para garantizar una concurrencia segura es
 *message passing*, donde los hilos o actores se comunican enviándose mensajes

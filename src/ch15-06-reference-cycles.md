@@ -1,4 +1,4 @@
-## Los Ciclos de Referencias Pueden Fugar Memoria
+## Referencias Circulares Pueden Fugar Memoria
 
 Las garantías de seguridad de memoria de Rust hacen difícil, pero no imposible,
 crear accidentalmente memoria que nunca se limpia (conocido como una *fuga de
@@ -9,9 +9,9 @@ crear referencias donde los elementos se refieren entre sí en un ciclo. Esto
 crea fugas de memoria porque el recuento de referencias de cada elemento en el
 ciclo nunca alcanzará 0, y los valores nunca serán descartados.
 
-### Creando un Ciclo de Referencias
+### Creando una Referencia Circular
 
-Vamos a ver cómo podría ocurrir un ciclo de referencia y cómo prevenirlo, 
+Vamos a ver cómo podría ocurrir una referencia circular y cómo prevenirla, 
 comenzando con la definición del enum `List` y un método `tail` en el Listado
 15-25:
 
@@ -21,9 +21,9 @@ comenzando con la definición del enum `List` y un método `tail` en el Listado
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-25/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-25: Una definición de lista de cons que 
-contiene un `RefCell<T>` para poder modificar a que se refiere una variante 
-`Cons`</span>
+<span class="caption">Listing 15-25: Una definición de lista de desventajas 
+(cons) que  contiene un `RefCell<T>` para poder modificar a que se refiere una
+variante `Cons`</span>
 
 Estamos usando otra variación de la definición de `List` del Listado 15-5. El
 segundo elemento en la variante `Cons` es ahora `RefCell<Rc<List>>`, lo que
