@@ -1,4 +1,3 @@
-## Packages and Crates
 ## Paquetes y Crates
 
 Las primeras partes del sistema de módulos que cubriremos son los paquetes y los

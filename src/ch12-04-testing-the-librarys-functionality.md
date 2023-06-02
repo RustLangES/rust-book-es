@@ -1,4 +1,4 @@
-## Desarrollando la funcionalidad de la biblioteca con el desarrollo Test-Driven
+## Desarrollando la funcionalidad de la biblioteca con T.D.D.
 
 Ahora que hemos extraído la lógica en *src/lib.rs* y dejado la recolección de
 argumentos y el manejo de errores en *src/main.rs*, es mucho más fácil escribir

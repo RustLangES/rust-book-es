@@ -1,9 +1,9 @@
 ## Definiendo un Enum
 
-Los structs te permiten agrupar campos relacionados y datos, como un `Rectangulo`
+Los structs te permiten agrupar campos relacionados y datos, como un `Rectángulo`
 con su `ancho` y `largo`. Por otro lado, las enumeraciones te permiten decir que
 un valor es uno de un conjunto de posibles valores. Por ejemplo, podríamos querer
-decir que `Rectangulo` es uno de un conjunto de posibles formas que también
+decir que `Rectángulo` es uno de un conjunto de posibles formas que también
 incluye `Circulo` y `Triangulo`. Para hacer esto, Rust nos permite codificar estas
 posibilidades como una enumeración.
 

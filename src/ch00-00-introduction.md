@@ -80,7 +80,7 @@ Rust es para personas que anhelan velocidad y estabilidad en un lenguaje. Por
 velocidad, nos referimos tanto a la rapidez con que el código Rust puede
 ejecutarse como a la velocidad con que Rust te permite escribir programas. Las
 verificaciones del compilador de Rust garantizan la estabilidad a través de
-adiciones de funcionalidades y refactorizacione. Esto contrasta con el código
+adiciones de funcionalidades y refactorizaciones. Esto contrasta con el código
 heredado quebradizo en lenguajes sin estas verificaciones, que los desarrolladores
 a menudo tienen miedo de modificar. Al esforzarse por lograr abstracciones de
 costo cero, características de alto nivel que se compilan en código de bajo

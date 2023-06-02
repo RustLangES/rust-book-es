@@ -1,7 +1,7 @@
 ## Definiendo e Instanciando Structs
 
 Los Structs son similares a las tuplas, discutido en la sección 
-[“The Tuple Type”][tuples]<!--ignore --> en ambos casos mantenemos multiples 
+[“The Tuple Type”][tuples]<!--ignore --> en ambos casos mantenemos múltiples 
 valores relativos. Como en las tuplas, las partes de un struct pueden ser de 
 diferentes tipos. A diferencia de las tuplas, en un struct tú nombras a cada 
 pieza de datos para que quede claro, que significan estos valores. 

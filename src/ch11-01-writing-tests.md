@@ -220,7 +220,7 @@ visibilidad habituales que cubrimos en el Capítulo 7 en la sección
 [“Paths para referirse a un item en el árbol de 
 módulos”][paths-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->.
 Como el módulo `tests` es un módulo interno, necesitamos traer el código bajo
-test en el módulo externo al alcance del módulo interno. Usamos un glob aquí
+test en el módulo externo al alcance del módulo interno. Usamos un asterisco aquí
 para que cualquier cosa que definamos en el módulo externo esté disponible para
 este módulo `tests`.
 

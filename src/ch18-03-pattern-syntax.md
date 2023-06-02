@@ -542,7 +542,7 @@ solo se aplica a `6`.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-28/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-28: Combinando multiples patterns con un match
+<span class="caption">Listing 18-28: Combinando múltiples patterns con un match
 guard</span>
 
 La condición de match establece que la opción solo coincide si el valor de `x` 

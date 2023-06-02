@@ -1,4 +1,4 @@
-## Concurrencia de estado compartido
+## Concurrencia con Estado Compartido
 
 El paso de mensajes es una buena manera de manejar la concurrencia, pero no es
 la única. Otro método sería que varios hilos accedan a los mismos datos
