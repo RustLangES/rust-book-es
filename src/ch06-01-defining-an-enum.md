@@ -332,6 +332,6 @@ constructo de flujo de control que hace exactamente esto cuando se usa con
 enums: ejecutará diferente código dependiendo de la variante del enum que
 tenga, y ese código puede usar los datos dentro del valor que coincida.
 
-[IpAddr]: ../std/net/enum.IpAddr.html
-[option]: ../std/option/enum.Option.html
-[docs]: ../std/option/enum.Option.html
+[IpAddr]: https://doc.rust-lang.org/std/net/enum.IpAddr.html
+[option]: https://doc.rust-lang.org/std/option/enum.Option.html
+[docs]: https://doc.rust-lang.org/std/option/enum.Option.html

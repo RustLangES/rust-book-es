@@ -326,4 +326,4 @@ información útil.
 A continuación, hablaremos sobre la concurrencia en Rust. Incluso aprenderás
 sobre algunos nuevos smart pointers.
 
-[nomicon]: ../nomicon/index.html
+[nomicon]: https://doc.rust-lang.org/nomicon/index.html

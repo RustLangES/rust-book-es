@@ -434,4 +434,4 @@ hacen uso de closures. En la siguiente sección, discutiremos los iteradores.
 Muchos métodos de iteradores toman argumentos de closure, ¡así que tenga en
 cuenta estos detalles de closure a medida que continuamos!
 
-[unwrap-or-else]: ../std/option/enum.Option.html#method.unwrap_or_else
+[unwrap-or-else]: https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_else
