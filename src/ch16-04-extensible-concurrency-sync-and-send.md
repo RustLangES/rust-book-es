@@ -93,4 +93,4 @@ puede estar familiarizado con la programación orientada a objetos.
 
 [sharing-a-mutext-between-multiple-threads]:
 ch16-03-shared-state.html#sharing-a-mutext-between-multiple-threads
-[nomicon]: ../nomicon/index.html
+[nomicon]: https://doc.rust-lang.org/nomicon/index.html

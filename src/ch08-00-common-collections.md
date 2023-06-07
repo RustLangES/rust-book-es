@@ -25,4 +25,4 @@ biblioteca estándar, consulte [la documentación][collections].
 Discutiremos cómo crear y actualizar vectores, strings y hash maps, así como
 lo que hace que cada uno sea especial.
 
-[collections]: ../std/collections/index.html
+[collections]: https://doc.rust-lang.org/std/collections/index.html

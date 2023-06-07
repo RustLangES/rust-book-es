@@ -64,7 +64,7 @@ funcionalidad descrita.
 * `where` - denota cláusulas que restringen un tipo
 * `while` - bucle condicionalmente basado en el resultado de una expresión
 
-[union]: ../reference/items/unions.html
+[union]: https://doc.rust-lang.org/reference/items/unions.html
 
 ### Palabras clave reservadas para uso futuro
 

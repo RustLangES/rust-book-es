@@ -529,7 +529,7 @@ como referencia para guiarte hacia soluciones.
 ¡A continuación, pondremos en práctica todo lo que hemos discutido a lo largo
 del libro y haremos un proyecto más!
 
-[ref]: ../reference/macros-by-example.html
+[ref]: https://doc.rust-lang.org/reference/macros-by-example.html
 [tlborm]: https://veykril.github.io/tlborm/
 [`syn`]: https://crates.io/crates/syn
 [`quote`]: https://crates.io/crates/quote

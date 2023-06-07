@@ -201,4 +201,4 @@ ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-número-secr
 [data-types]: ch03-02-data-types.html#data-types
 [storing-values-with-variables]: 
 ch02-00-guessing-game-tutorial.html#almacenando-valores-con-variables
-[const-eval]: ../reference/const_eval.html
+[const-eval]: https://doc.rust-lang.org/reference/const_eval.html

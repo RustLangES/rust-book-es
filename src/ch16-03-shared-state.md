@@ -260,4 +260,4 @@ información útil.
 Terminaremos este capítulo hablando sobre los traits `Send` y `Sync` y cómo
 podemos usarlos con tipos personalizados.
 
-[atomic]: ../std/sync/atomic/index.html
+[atomic]: https://doc.rust-lang.org/std/sync/atomic/index.html
