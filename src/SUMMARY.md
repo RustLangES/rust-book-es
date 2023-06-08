@@ -132,4 +132,4 @@
     - [D - Useful Development Tools](appendix-04-useful-development-tools.md)
     - [E - Editions](appendix-05-editions.md)
     - [F - Translations of the Book](appendix-06-translation.md)
-    - [G - How Rust is Made and “Nightly Rust”](appendix-07-nightly-rust.md)
+    - [G - Cómo se hace Rust y “Rust Nightly”](appendix-07-nightly-rust.md)

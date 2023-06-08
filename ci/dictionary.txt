@@ -41,6 +41,11 @@ dropeada
 dropped
 dereferenciación
 tail
+desaloca
+referenciados
+information
+could
+above
 downgrade
 Duration
 cannot
@@ -49,6 +54,7 @@ empoderamiento
 edition
 Nicholas
 enumerate
+null
 Chapter
 clear
 ending
