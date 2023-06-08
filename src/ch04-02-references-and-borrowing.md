@@ -138,10 +138,6 @@ ocurren estos tres comportamientos:
 * No hay ningún mecanismo que se esté utilizando para sincronizar el acceso a
   los datos.
 
-Data races cause undefined behavior and can be difficult to diagnose and fix
-when you’re trying to track them down at runtime; Rust prevents this problem by
-refusing to compile code with data races!
-
 Las carreras de datos causan un comportamiento indefinido y pueden ser
 difíciles de diagnosticar y corregir cuando intentas rastrearlas en tiempo de
 ejecución; ¡Rust evita este problema al negarse a compilar código con carreras
