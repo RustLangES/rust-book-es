@@ -21,6 +21,6 @@ Press][nsprust].
 [nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
 [translations]: appendix-06-translation.html
 
-> **🚨 Want a more interactive learning experience? Try out a different version
-> of the Rust Book, featuring: quizzes, highlighting, visualizations, and
-> more**: <https://rust-book.cs.brown.edu>
+> **🚨 ¿Quieres una experiencia de aprendizaje más interactiva? Prueba una
+> versión diferente del Libro de Rust, con: cuestionarios, resaltado,
+> visualizaciones y más**: <https://rust-book.cs.brown.edu> (en inglés)

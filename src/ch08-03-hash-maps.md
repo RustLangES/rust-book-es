@@ -5,7 +5,7 @@ V>` almacena un mapeo de keys de tipo `K` a valores de tipo `V` usando una
 *función hash*, que determina cómo coloca estas keys y valores en la memoria.
 Muchos lenguajes de programación admiten este tipo de estructura de datos, pero
 a menudo usan un nombre diferente, como hash, map, object, hash table,
-diccionario o associative array, solo para nombrar algunos.
+diccionario o arreglos asociativos, solo para nombrar algunos.
 
 Los hash maps son útiles cuando desea buscar datos no usando un índice, como
 puede hacerlo con vectores, sino usando una clave que puede ser de cualquier
