@@ -4,7 +4,7 @@ fn main() {
 
     {
         let r1 = &mut s;
-    } // r1 se sale de su ambito aquí, por lo que no hay problema 
+    } // r1 se sale de su ámbito aquí, por lo que no hay problema 
       // si creamos otra referencia mutable
 
     let r2 = &mut s;

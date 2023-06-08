@@ -108,7 +108,7 @@ mente mientras trabajamos a través de los ejemplos que las ilustran:
 * Solo puede haber un propietario a la vez.
 * Cuando el propietario sale del alcance, el valor se descartará.
 
-### Ambito de las Variables
+### ámbito de las Variables
 
 Ahora que hemos pasado la sintaxis básica de Rust, no incluiremos todo el código
 `fn main() {` en los ejemplos, por lo que si está siguiendo, asegúrese de
@@ -116,7 +116,7 @@ colocar los siguientes ejemplos dentro de una función `main` manualmente. Como
 resultado, nuestros ejemplos serán un poco más concisos, permitiéndonos
 centrarnos en los detalles reales en lugar del código de la caldera.
 
-Como primer ejemplo de ownership, veremos el *ambito* de algunas variables.
+Como primer ejemplo de ownership, veremos el *ámbito* de algunas variables.
 Un ámbito es el rango dentro de un programa para el que un elemento es válido.
 Toma la siguiente variable:
 
@@ -126,7 +126,7 @@ let s = "hola";
 
 La variable `s` se refiere a un literal de cadena, donde el valor de la cadena
 está codificado en el texto de nuestro programa. La variable es válida desde el
-punto en que se declara hasta el final del *ambito* actual. El listado 4-1
+punto en que se declara hasta el final del *ámbito* actual. El listado 4-1
 muestra un programa con comentarios que anotan dónde sería válida la variable
 `s`.
 
@@ -139,8 +139,8 @@ válida</span>
 
 En otras palabras, hay dos puntos importantes en el tiempo aquí:
 
-* Cuando `s` entra en *ambito*, es válido.
-* Permanece válido hasta que sale de *ambito*.
+* Cuando `s` entra en *ámbito*, es válido.
+* Permanece válido hasta que sale de *ámbito*.
 
 En este punto, la relación entre los ámbitos y cuándo las variables son válidas
 es similar a la de otros lenguajes de programación. Ahora construiremos sobre
