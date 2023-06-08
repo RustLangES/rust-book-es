@@ -1,7 +1,8 @@
-## Appendix F: Translations of the Book
+## Apéndice F: Traducciones del libro
 
-For resources in languages other than English. Most are still in progress; see
-[the Translations label][label] to help or let us know about a new translation!
+Para recursos en idiomas distintos al inglés. La mayoría aún están en progreso;
+consulte [la etiqueta de traducciones][label] para ayudar o informarnos sobre
+una nueva traducción.
 
 [label]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
 
@@ -11,6 +12,7 @@ For resources in languages other than English. Most are still in progress; see
 - [正體中文](https://github.com/rust-tw/book-tw)
 - [Українська](https://github.com/pavloslav/rust-book-uk-ua)
 - [Español](https://github.com/thecodix/book), [alternate](https://github.com/ManRR/rust-book-es)
+, [esta versión](https://github.com/Phosphorus-M/rust-book-es)
 - [Italiano](https://github.com/EmanueleGurini/book_it)
 - [Русский](https://github.com/rust-lang-ru/book)
 - [한국어](https://github.com/rinthel/rust-lang-book-ko)
