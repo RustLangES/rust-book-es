@@ -44,7 +44,7 @@ heap:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-1: Almacenando un valor `i32` en el heap usando
+<span class="caption">Listado 15-1: Almacenando un valor `i32` en el heap usando
 un box</span>
 
 Declaramos una variable `b` para tener el valor de un `Box` que apunta al valor
@@ -118,7 +118,7 @@ lo cual demostraremos.
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-2: El primer intento de definir un enum para
+<span class="caption">Listado 15-2: El primer intento de definir un enum para
 representar una estructura de datos de lista de cons con valores `i32`</span>
 
 > Nota: Estamos implementando una const list que solo contiene valores `i32` con
@@ -135,7 +135,7 @@ en el Listado 15-3:
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-3: Usando el enum `List` para almacenar la 
+<span class="caption">Listado 15-3: Usando el enum `List` para almacenar la 
 lista `1, 2, 3`</span>
 
 El primer valor `Cons` contiene `1` y otro valor `List`. Este valor `List` es
@@ -150,7 +150,7 @@ se muestra en el Listado 15-4:
 {{#include ../listings/ch15-smart-pointers/listing-15-03/output.txt}}
 ```
 
-<span class="caption">Listing 15-4: El error que obtenemos al intentar definir
+<span class="caption">Listado 15-4: El error que obtenemos al intentar definir
 un enum recursivo</span>
 
 El error muestra que este tipo “tiene un tamaño infinito”. La razón es que
@@ -188,7 +188,7 @@ infinitamente, como se muestra en la Figura 15-1.
 
 <img alt="An infinite Cons list" src="img/trpl15-01.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 15-1: Un `List` infinito consistente en variantes
+<span class="caption">Figura 15-1: Un `List` infinito consistente en variantes
 `Cons` infinitas</span>
 
 #### Usando `Box<T>` para Obtener un Tipo Recursivo con un Tamaño Conocido
@@ -225,13 +225,13 @@ del otro.
 Podemos cambiar la definición del enum `List` en el Listado 15-2 y el uso de
 `List` en el Listado 15-3 al código del Listado 15-5, el cual compilará:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-5: Definición de `List` que utiliza `Box<T>` 
+<span class="caption">Listado 15-5: Definición de `List` que utiliza `Box<T>` 
 para tener un tamaño conocido</span>
 
 La variante `Cons` necesita el tamaño de un `i32` más el espacio para almacenar
@@ -242,9 +242,9 @@ puntero de un Box. Al usar un Box, hemos roto la cadena infinita y recursiva,
 por lo que el compilador puede averiguar el tamaño que necesita para almacenar
 un valor de `List`. La Figura 15-2 muestra cómo se ve la variante `Cons` ahora.
 
-<img alt="A finite Cons list" src="img/trpl15-02.svg" class="center" />
+<img alt="Una lista Cons finita" src="img/trpl15-02.svg" class="center" />
 
-<span class="caption">Figure 15-2: Una `List` que no tiene un tamaño infinito
+<span class="caption">Figura 15-2: Una `List` que no tiene un tamaño infinito
 porque `Cons` contiene una `Box`</span>
 
 Los Boxes proporcionan indirección y asignación de heap; no tienen ninguna otra

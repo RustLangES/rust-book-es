@@ -51,9 +51,9 @@ dependencias de tu crate) y abrirá el resultado en un navegador web. Navega
 hasta la función `add_one` y verás cómo se renderiza el texto en los comentarios
 de documentación, como se muestra en la Figura 14-1:
 
-<img alt="Rendered HTML documentation for the `add_one` function of `my_crate`" src="img/trpl14-01.png" class="center" />
+<img alt="Documentación HTML renderizada para la función `add_one` de `my_crate`" src="img/trpl14-01.png" class="center" />
 
-<span class="caption">Figure 14-1: HTML documentación para la función 
+<span class="caption">Figura 14-1: documentación en HTML para la función 
 `add_one`</span>
 
 #### Secciones comúnmente usadas
@@ -124,13 +124,13 @@ Por ejemplo, para agregar documentación que describe el propósito del crate
 documentación que comienzan con `//!` al principio del archivo *src/lib.rs*,
 como se muestra en el Listado 14-2:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nombre de archivo: src/lib.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-02/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 14-2: Documentación para el crate `my_crate` como
+<span class="caption">Listado 14-2: Documentación para el crate `my_crate` como
 un todo</span>
 
 Observa que no hay ningún código después de la última línea que comienza con
@@ -143,9 +143,9 @@ Cuando ejecutamos `cargo doc --open` ahora, veremos la documentación para el
 crate `my_crate` en lugar de la documentación para la función `add_one`, como
 se muestra en la Figura 14-2:
 
-<img alt="Rendered HTML documentation with a comment for the crate as a whole" src="img/trpl14-02.png" class="center" />
+<img alt="Documentación HTML renderizada con un comentario para el crate como un todo" src="img/trpl14-02.png" class="center" />
 
-<span class="caption">Figure 14-2: Documentación renderizada para `my_crate`,
+<span class="caption">Figura 14-2: Documentación renderizada para `my_crate`,
 incluido el comentario que describe el crate como un todo</span>
 
 Los comentarios de documentación dentro de los items son útiles para describir
@@ -183,13 +183,13 @@ conceptos artísticos. Dentro de esta biblioteca hay dos módulos: un módulo
 módulo `utils` que contiene una función llamada `mix`, como se muestra en el
 Listado 14-3:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nombre de archivo: src/lib.rs</span>
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-03/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 14-3: Una biblioteca llamada `art` con items 
+<span class="caption">Listado 14-3: Una biblioteca llamada `art` con items 
 organizados en los módulos `kinds` y `utils`</span>
 
 La Figura 14-3 muestra cómo se vería la página frontal de la documentación para
@@ -209,13 +209,13 @@ traigan los items de `art` al scope, especificando la estructura de módulos
 actualmente definida. El Listado 14-4 muestra un ejemplo de un crate que usa
 los items `PrimaryColor` y `mix` del crate `art`:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 14-4: Un crate que utiliza los items del crate 
+<span class="caption">Listado 14-4: Un crate que utiliza los items del crate 
 `art` con su estructura interna exportada</span>
 
 El autor del código en el Listado 14-4, que usa el crate `art`, tuvo que
@@ -232,13 +232,13 @@ código del crate `art` en el Listado 14-3 para agregar declaraciones `pub use`
 para reexportar los items en el nivel superior, como se muestra en el Listado
 14-5:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nombre de archivo: src/lib.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-05/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 14-5: Agregando declaraciones `pub use` para 
+<span class="caption">Listado 14-5: Agregando declaraciones `pub use` para 
 re-exportar items</span>
 
 La documentación de la API que `cargo doc` genera para este crate ahora
@@ -246,22 +246,22 @@ listará y enlazará los reexports en la página principal, como se muestra en l
 Figura 14-4, haciendo que los tipos `PrimaryColor` y `SecondaryColor` y la
 función `mix` sean más fáciles de encontrar.
 
-<img alt="Rendered documentation for the `art` crate with the re-exports on the front page" src="img/trpl14-04.png" class="center" />
+<img alt="Documentación renderizada para el crate `art` con las re-exportaciones en la página principal" src="img/trpl14-04.png" class="center" />
 
-<span class="caption">Figure 14-4: La página principal de la documentación para
+<span class="caption">Figura 14-4: La página principal de la documentación para
 `art` que lista las re-exportaciones</span>
 
 Los usuarios del crate `art` aún pueden ver y usar la estructura interna del
 Listado 14-3 como se demuestra en el Listado 14-4, o pueden usar la estructura
 más conveniente del Listado 14-5, como se muestra en el Listado 14-6:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 14-6: Un programa que utiliza los items 
+<span class="caption">Listado 14-6: Un programa que utiliza los items 
 reexportados del crate `art`</span>
 
 En casos donde hay muchos módulos anidados, reexportar los tipos en el nivel
@@ -315,7 +315,7 @@ usar. Si el nombre ha sido usado, deberás encontrar otro nombre y editar el
 campo `name` en el archivo *Cargo.toml* bajo la sección `[package]` para usar
 el nuevo nombre para publicar, como se muestra a continuación:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nombre de archivo: Cargo.toml</span>
 
 ```toml
 [package]
@@ -353,7 +353,7 @@ enumera los identificadores que puedes usar para este valor. Por ejemplo, para
 especificar que has licenciado tu crate usando la Licencia MIT, agrega el
 identificador `MIT`:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nombre de archivo: Cargo.toml</span>
 
 ```toml
 [package]
@@ -377,7 +377,7 @@ Con un nombre único, la versión, una descripción y una licencia agregados, el
 archivo *Cargo.toml* para un proyecto que está listo para publicar podría
 verse así:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nombre de archivo: Cargo.toml</span>
 
 ```toml
 [package]

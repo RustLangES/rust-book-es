@@ -10,8 +10,8 @@ el valor es la variante `Some`.
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-6: A `match` that only cares about executing
-code when the value is `Some`</span>
+<span class="caption">Listado 6-6: Un `match` que solo se preocupa por ejecutar
+código cuando el valor es `Some`</span>
 
 Si el valor es `Some`, imprimimos el valor en la variante `Some` vinculando el
 valor a la variable `max` en el patrón. No queremos hacer nada con el valor
