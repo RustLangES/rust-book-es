@@ -55,7 +55,7 @@ parámetro `s` es una referencia. Vamos a agregar algunas anotaciones
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}
 ```
 
-El ambito en el que la variable `s` es válida es el mismo que el ambito de
+El ámbito en el que la variable `s` es válida es el mismo que el ámbito de
 cualquier parámetro de función, pero el valor al que apunta la referencia no se
 descarta cuando `s` deja de usarse, porque `s` no tiene la propiedad. Cuando
 las funciones tienen referencias como parámetros en lugar de los valores
