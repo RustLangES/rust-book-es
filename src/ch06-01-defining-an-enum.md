@@ -247,7 +247,7 @@ enum Option<T> {
 }
 ```
 
-El enum `Option<T>` es tan útil que incluso está incluido en el prelude; no
+El enum `Option<T>` es tan útil que incluso está incluido en el [prelude][prelude]; no
 necesitas traerlo a ámbito explícitamente. Sus variantes también están
 incluidas en el prelude: puedes usar `Some` y `None` directamente sin el
 prefijo `Option::`. El enum `Option<T>` es aún un enum regular, y `Some(T)`
@@ -333,5 +333,6 @@ enums: ejecutará diferente código dependiendo de la variante del enum que
 tenga, y ese código puede usar los datos dentro del valor que coincida.
 
 [IpAddr]: https://doc.rust-lang.org/std/net/enum.IpAddr.html
+[prelude]: ch02-00-guessing-game-tutorial.html#prelude-meaning
 [option]: https://doc.rust-lang.org/std/option/enum.Option.html
 [docs]: https://doc.rust-lang.org/std/option/enum.Option.html
