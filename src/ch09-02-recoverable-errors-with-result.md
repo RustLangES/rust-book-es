@@ -71,7 +71,7 @@ forma de manejar él `Result` usando una herramienta básica, la expresión
 variantes `Result` que podrían devolverse</span>
 
 Ten en cuenta que, al igual que el enum `Option`, el enum `Result` y sus
-variantes se han traído al alcance por el preludio, por lo que no necesitamos
+variantes se han traído al scope por el [prelude][prelude], por lo que no necesitamos
 especificar `Result::` antes de las variantes `Ok` y `Err` en las opciones de
 `match`.
 
@@ -552,5 +552,6 @@ Ahora que hemos discutido los detalles de llamar a `panic!` o devolver
 `Result`, volvamos al tema de cómo decidir cuál es apropiado usar en qué casos.
 
 [handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-result
+[prelude]: ch02-00-guessing-game-tutorial.html#prelude-meaning
 [trait-objects]: ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
 [termination]: https://doc.rust-lang.org/std/process/trait.Termination.html

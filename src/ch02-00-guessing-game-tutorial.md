@@ -92,6 +92,9 @@ necesitamos traer la biblioteca de entrada/salida `io` al alcance. La biblioteca
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:io}}
 ```
 
+<!-- Old heading. Do not remove or links may break. -->
+<a id="prelude-meaning"></a>
+
 Por defecto, Rust tiene un conjunto de elementos definidos en la biblioteca
 estándar que trae al alcance de cada programa. Este conjunto se llama
 *prelude*, y puedes ver todo lo que contiene [en la documentación de la

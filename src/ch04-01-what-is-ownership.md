@@ -286,8 +286,7 @@ Esto se ve muy similar, por lo que podríamos suponer que la forma en que
 funciona sería la misma: es decir, la segunda línea haría una copia del valor en
 `s1` y lo vincularía a `s2`. Pero esto no es exactamente lo que sucede.
 
-Mire la Figura 4-1 para ver lo que está sucediendo con `String` bajo las
-coberturas.
+Mire la Figura 4-1 para ver lo que está sucediendo en realidad con el `String`.
 Un `String` está compuesto por tres partes, mostradas a la izquierda:
 un puntero a la memoria que contiene el contenido de la cadena, una longitud y
 una capacidad. Este grupo de datos se almacena en la pila. A la derecha está la
