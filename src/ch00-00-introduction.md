@@ -209,4 +209,4 @@ código que no se compile.
 Los archivos de origen de los que se genera este libro se pueden encontrar en
 [GitHub][book].
 
-[book]: https://github.com/Phosphorus-M/rust-book-es/tree/main/src
+[book]: https://github.com/RustLangES/rust-book-es/tree/main/src
