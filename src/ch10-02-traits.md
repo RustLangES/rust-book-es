@@ -9,7 +9,7 @@ genérico puede ser cualquier tipo que tenga cierto comportamiento.
 > *interfaces* en otros lenguajes, aunque con algunas diferencias.
 > En español también se les conoce como *rasgos* pero en el libro intentaremos
 > mantener la palabra clave sin traducir, no obstante creamos esta [encuesta](
-> https://github.com/Phosphorus-M/rust-book-es/discussions/29) para futuras
+> https://github.com/RustLangES/rust-book-es/discussions/29) para futuras
 > revisiones.
 
 ### Definiendo un Trait

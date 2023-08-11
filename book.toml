@@ -5,7 +5,7 @@ authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Commun
 [output.html]
 additional-css = ["ferris.css", "theme/2018-edition.css", "./theme/catppuccin.css", "./theme/catppuccin-highlight.css"]
 additional-js = ["ferris.js"]
-git-repository-url = "https://github.com/Phosphorus-M/rust-book-es"
+git-repository-url = "https://github.com/RustLangES/rust-book-es"
 
 [preprocessor]
 
