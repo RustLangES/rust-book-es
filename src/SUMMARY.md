@@ -61,8 +61,8 @@
 
 - [Escribiendo Tests Automatizados](ch11-00-testing.md)
     - [Cómo Escribir Tests](ch11-01-writing-tests.md)
-    - [Controlling How Tests Are Run](ch11-02-running-tests.md)
-    - [Test Organization](ch11-03-test-organization.md)
+    - [Controlando Cómo Los Tests Son Ejecutados](ch11-02-running-tests.md)
+    - [Organización De Los Tests](ch11-03-test-organization.md)
 
 - [Un proyecto de I/O: Construyendo un programa de línea de comandos](ch12-00-an-io-project.md)
     - [Aceptando argumentos de línea de comandos](ch12-01-accepting-command-line-arguments.md)
