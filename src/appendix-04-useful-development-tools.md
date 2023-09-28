@@ -178,6 +178,6 @@ Code][vscode].
 Visite la [página de inicio del proyecto `rust-analyzer`][rust-analyzer]<!-- ignore -->
 para obtener instrucciones de instalación, luego instale el soporte del servidor
 de lenguaje en su IDE en particular. Su IDE ganará habilidades como
-autocompletado, salto a la definición y errores en línea.
+autocompletado, salto a la definición y errores en línea. 
 
 [rust-analyzer]: https://rust-analyzer.github.io
