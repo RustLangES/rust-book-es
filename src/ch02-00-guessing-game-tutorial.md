@@ -145,9 +145,9 @@ let apples = 5;
 Esta línea crea una nueva variable llamada `apples` y la enlaza con el valor 5.
 En Rust, las variables son inmutables por defecto, lo que significa que una vez
 que le damos a la variable un valor, el valor no cambiará. Vamos a discutir
-este concepto en detalle en la sección [“Variables y Mutabilidad”][variables-
-and-mutability]<!-- ignore --> del Capítulo 3. Para hacer una variable mutable,
-agregamos `mut` antes del nombre de la variable:
+este concepto en detalle en la sección [“Variables y Mutabilidad”][variables-y-mutabilidad]<!-- ignore -->
+del Capítulo 3. Para hacer una variable mutable, agregamos `mut` antes del 
+nombre de la variable:
 
 ```rust,ignore
 let apples = 5; // immutable
