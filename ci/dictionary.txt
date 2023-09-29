@@ -1606,6 +1606,10 @@ nonequality
 nongeneric
 noplayground
 NotFound
+instalacion
+solucion
+despues
+metodos
 hreads
 jobs
 unlock
