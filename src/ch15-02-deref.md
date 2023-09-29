@@ -81,7 +81,7 @@ afirmación, podemos usar el operador de desreferencia para seguir el puntero de
 continuación, exploraremos que es lo especial de `Box<T>` que nos permite el 
 uso del operador de desreferencia al definir nuestro propio tipo.
 
-### Definiendo nuestro propio Snart Pointer
+### Definiendo nuestro propio Smart Pointer
 
 Construyamos un smart pointer similar al tipo `Box<T>` proporcionado por la
 biblioteca estándar para experimentar cómo los smart pointers se comportan de
