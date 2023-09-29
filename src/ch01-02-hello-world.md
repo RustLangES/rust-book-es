@@ -91,7 +91,7 @@ programa en Rust. Eso te convierte en un programador de Rust, ¡bienvenido!
 
 ### Anatomía de un programa en Rust
 
-Reviesemos este programa “¡Hola, mundo!” en detalle. Aquí está la primera
+Revisemos este programa “¡Hola, mundo!” en detalle. Aquí está la primera
 parte del rompecabezas:
 
 ```rust

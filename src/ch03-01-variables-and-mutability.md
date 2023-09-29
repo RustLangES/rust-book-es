@@ -178,7 +178,7 @@ luego queremos almacenar esa entrada como un número:
 ```
 
 La primera variable `spaces` es de tipo *string* y la segunda variable `spaces`
-es de tipo *numerico*. El *shadowing* nos ahorra tener que pensar en nombres
+es de tipo *numérico*. El *shadowing* nos ahorra tener que pensar en nombres
 diferentes, como `spaces_str` y `spaces_num`; en su lugar, podemos reutilizar
 el nombre más simple `spaces`. Sin embargo, si intentamos usar `mut` para esto,
 como se muestra aquí, obtendremos un error de tiempo de compilación:

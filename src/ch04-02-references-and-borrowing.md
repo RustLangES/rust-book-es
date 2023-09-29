@@ -230,7 +230,7 @@ this function's return type contains a borrowed value, but there is no value
 for it to be borrowed from
 ```
 
-Se traduciria algo así como:
+Se traduciría algo así como:
 
 ```text
 el tipo de retorno de la función contiene un valor prestado, pero no hay valor

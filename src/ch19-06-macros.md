@@ -204,7 +204,7 @@ hacen que las otras formas sean diferentes.
 
 ### Cómo Escribir una Macro `derive` Personalizada
 
-Creemos un crato llamado `hello_macro` que defina un trait llamado
+Creemos un crate llamado `hello_macro` que defina un trait llamado
 `HelloMacro` con una función asociada llamada `hello_macro`. En lugar de hacer
 que nuestros usuarios implementen el trait `HelloMacro` para cada uno de sus
 tipos, proporcionaremos una macro procedural para que los usuarios puedan
