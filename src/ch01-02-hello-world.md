@@ -204,5 +204,5 @@ tu proyecto crece, querrás administrar todas las opciones y facilitar el
 compartir tu código. A continuación, te presentaremos la herramienta
 Cargo, que te ayudará a escribir programas de Rust reales.
 
-[troubleshooting]: ch01-01-installation.html#troubleshooting
+[troubleshooting]: ch01-01-installation.html#solucion-de-problemas
 [devtools]: appendix-04-useful-development-tools.md

@@ -602,6 +602,8 @@ You guessed: 5
 Debería obtener números aleatorios diferentes, y todos deberían ser números
 entre 1 y 100. ¡Gran trabajo!
 
+<a id="comparando-la-adivinanza-con-el-numero-secreto"></a>
+
 ## Comparando la Adivinanza con el Número Secreto
 
 Ahora que tenemos la entrada del usuario y un número aleatorio, podemos
@@ -737,7 +739,7 @@ lógicamente en números y, por lo tanto, pueden causar fácilmente errores. Si,
 por ejemplo, la cadena contiene `A👍%`, no habría manera de convertir eso en un
 número. Debido a que podría fallar, el método `parse` devuelve un tipo `Result`,
 tal como lo hace el método `read_line` (discutido anteriormente en
-[“Manejo de posibles fallas con `Result`”](#handling-potential-failure-with-result)<!-- ignore-->).
+[“Manejo de posibles fallas con `Result`”](#handling-potential-failure-with-the-result-type)<!-- ignore-->).
 Trataremos este `Result` de la misma manera usando el método `expect` de nuevo.
 Si `parse` devuelve una variante `Err` del tipo `Result` porque no pudo crear
 un número a partir de la cadena, la llamada `expect` hará que el juego se
@@ -799,7 +801,7 @@ usuario no puede salir!
 El usuario siempre podría interrumpir el programa usando el atajo de teclado
 <span class="keystroke">ctrl-c</span>. Pero hay otra forma de escapar de este
 monstruo insaciable, como se mencionó en la discusión de `parse` en
-[“Comparando la adivinanza con el número secreto”](#comparando-la-adivinanza-con-el-número-secreto)<!--
+[“Comparando la adivinanza con el número secreto”](#comparando-la-adivinanza-con-el-numero-secreto)<!--
 ignore -->: si el usuario ingresa una respuesta que no es un número, el
 programa se bloqueará. Podemos aprovechar eso para permitir que el usuario
 salga, como se muestra aquí:
@@ -842,6 +844,8 @@ Al escribir `quit` se cerrará el juego, pero como notará, también lo hará al
 ingresar cualquier otra entrada que no sea un número. Esto es lo menos
 óptimo, para decir lo menos; queremos que el juego también se detenga cuando se
 adivine el número correcto.
+
+<a id="salir-despues-de-una-adivinanza-correcta"></a>
 
 ### Salir después de una adivinanza correcta
 
@@ -961,7 +965,7 @@ diferente de otros lenguajes. El capítulo 5 discute las estructuras y la
 sintaxis de los métodos, y el capítulo 6 explica cómo funcionan los enums.
 
 [prelude]: https://doc.rust-lang.org/std/prelude/index.html
-[variables-and-mutability]: ch03-01-variables-and-mutability.html#variables-and-mutability
+[variables-y-mutabilidad]: ch03-01-variables-and-mutability.html#variables-y-mutabilidad
 [comments]: ch03-04-comments.html
 [string]: https://doc.rust-lang.org/std/string/struct.String.html
 [iostdin]: https://doc.rust-lang.org/std/io/struct.Stdin.html
@@ -978,4 +982,4 @@ sintaxis de los métodos, y el capítulo 6 explica cómo funcionan los enums.
 [match]: ch06-02-match.html
 [shadowing]: ch03-01-variables-and-mutability.html#shadowing
 [parse]: https://doc.rust-lang.org/std/primitive.str.html#method.parse
-[integers]: ch03-02-data-types.html#integer-types
+[integers]: ch03-02-data-types.html#tipos-de-enteros

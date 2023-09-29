@@ -1,3 +1,5 @@
+<a id="sintaxis-de-metodos"></a>
+
 ## Sintaxis de Métodos
 
 Los métodos son similares a las funciones: los declaramos con la palabra clave

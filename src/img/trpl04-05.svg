@@ -1,11 +1,11 @@
 <svg
  viewBox="0.00 0.00 1500.00 650.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(4.1667 4.1667) rotate(0) translate(4 152)">
+<g  class="graph" transform="scale(4.1667 4.1667) rotate(0) translate(4 152)">
 <title>Tres tablas: la tabla para s contiene solo un puntero a la tabla para s1. La tabla para s1 contiene los datos de la pila para s1 y apunta a los datos de la cadena en la pila.</title>
-<desc id="desc">Tres tablas: la tabla para s contiene solo un puntero a la tabla para s1. La tabla para s1 contiene los datos de la pila para s1 y apunta a los datos de la cadena en la pila.</desc>
+<desc >Tres tablas: la tabla para s contiene solo un puntero a la tabla para s1. La tabla para s1 contiene los datos de la pila para s1 y apunta a los datos de la cadena en la pila.</desc>
 <polygon fill="transparent" stroke="transparent" points="-4,4 -4,-152 357,-152 357,4 -4,4"/>
 <!-- table0 -->
-<g id="node1" class="node">
+<g  class="node">
 <polyline fill="none" stroke="var(--fg)" points="0,-124 90,-124 "/>
 <text text-anchor="start" x="41.2759" y="-129.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">s</text>
 <polygon fill="none" stroke="var(--fg)" points="0,-104 0,-124 54,-124 54,-104 8,-104"/>
@@ -17,7 +17,7 @@
 <polygon fill="none" stroke="var(--fg)" points="54,-84 54,-104 90,-104 90,-84 54,-84"/>
 </g>
 <!-- table1 -->
-<g id="node2" class="node">
+<g  class="node">
 <polyline fill="none" stroke="var(--fg)" points="122,-124 220,-124 "/>
 <text text-anchor="start" x="169.7759" y="-129.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">s1</text>
 <polygon fill="none" stroke="var(--fg)" points="122,-104 122,-124 184,-124 184,-104 122,-104"/>
@@ -37,12 +37,12 @@
 <text text-anchor="start" x="198.5" y="-49.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">4</text>
 </g>
 <!-- table0&#45;&gt;table1 -->
-<g id="edge2" class="edge">
+<g  class="edge">
 <path fill="none" stroke="var(--fg)" d="M62,-94C62,-94 93.1184,-94 121.9514,-94"/>
 <polygon fill="var(--fg)" stroke="var(--fg)" points="112,-97.5001 122,-94 112,-90.5001 112,-97.5001"/>
 </g>
 <!-- table2 -->
-<g id="node3" class="node">
+<g  class="node">
 <polygon fill="none" stroke="var(--fg)" points="272.5,-104 272.5,-124 309.5,-124 309.5,-104 272.5,-104"/>
 <text text-anchor="start" x="275.4482" y="-109.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">indice</text>
 <polygon fill="none" stroke="var(--fg)" points="309.5,-104 309.5,-124 345.5,-124 345.5,-104 309.5,-104"/>
@@ -65,7 +65,7 @@
 <text text-anchor="start" x="325.5552" y="-29.8" font-family="Times,serif" font-size="14.00" fill="var(--fg)">a</text>
 </g>
 <!-- table1&#45;&gt;table2 -->
-<g id="edge1" class="edge">
+<g  class="edge">
 <path fill="none" stroke="var(--fg)" d="M202,-94C202,-94 233.3406,-94 262.3797,-94"/>
 <polygon fill="var(--fg)" stroke="var(--fg)" points="262.5,-97.5001 272.5,-94 262.5,-90.5001 262.5,-97.5001"/>
 </g>

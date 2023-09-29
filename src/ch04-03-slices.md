@@ -331,6 +331,6 @@ de estos conceptos más adelante en el libro. Vamos a pasar al Capítulo 5 y
 ver cómo agrupar piezas de datos en un `struct`.
 
 [ch13]: ch13-02-iterators.html
-[ch6]: ch06-02-match.html#patterns-that-bind-to-values
-[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
+[ch6]: ch06-02-match.html#patrones-que-vinculan-valores
+[strings]: ch08-02-strings.html#almacenando-texto-codificado-en-utf-8-con-strings
 [deref-coercions]: ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods
