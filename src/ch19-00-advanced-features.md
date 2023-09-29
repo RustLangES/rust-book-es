@@ -15,7 +15,7 @@ En este capítulo, cubriremos:
   responsabilidad de mantener manualmente esas garantías
 * Traits avanzados: tipos asociados, parámetros de tipo predeterminados,
   sintaxis completamente calificada, supertraits y el patrón newtype en
-  relación con los tratis
+  relación con los traits
 * Tipos avanzados: más sobre el pattern newtype, tipo alias, el tipo never y
   tipos de tamaño dinámico
 * Funciones y closures avanzados: punteros a funciones y devolución de
