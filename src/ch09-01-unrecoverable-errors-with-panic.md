@@ -72,7 +72,7 @@ acceder a un índice en un vector más allá del rango de índices válidos.
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 9-1: Intentando acceder a un elemento más alla del
+<span class="caption">Listing 9-1: Intentando acceder a un elemento más allá del
 fin de un vector, que provocará una llamada a `panic!`</span>
 
 Aquí, estamos intentando acceder al elemento 100 de nuestro vector (que está

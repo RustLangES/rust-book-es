@@ -306,7 +306,7 @@ Rust, esos bytes se ven así:
 ['न', 'म', 'स', '्', 'त', 'े']
 ```
 
-Aqui hay seis valores `char`, pero el cuarto y el sexto no son letras: son
+Aquí hay seis valores `char`, pero el cuarto y el sexto no son letras: son
 diacríticos que no tienen sentido por sí mismos. Finalmente, si los miramos
 como grupos de grafemas, obtendríamos lo que una persona llamaría las cuatro
 letras que componen la palabra hindi:
