@@ -219,7 +219,7 @@ La palabra clave `Self` en el tipo de retorno y en el cuerpo de la función es
 un alias para el tipo que aparece después de la palabra clave `impl`, que en
 este caso es `Rectangle`.
 
-Para llamar a esra función asociada, usamos la sintaxis `::` con el nombre de
+Para llamar a esa función asociada, usamos la sintaxis `::` con el nombre de
 la estructura; `let sq = Rectangle::square(3);` es un ejemplo. Esta función
 está en el espacio de nombres de la estructura: la sintaxis `::` se usa tanto
 para las funciones asociadas como para los espacios de nombres creados por los
