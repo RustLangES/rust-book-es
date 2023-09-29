@@ -108,7 +108,7 @@ mente mientras trabajamos a través de los ejemplos que las ilustran:
 * Solo puede haber un propietario a la vez.
 * Cuando el propietario sale del alcance, el valor se descartará.
 
-### ámbito de las Variables
+### Ámbito de las Variables
 
 Ahora que hemos pasado la sintaxis básica de Rust, no incluiremos todo el código
 `fn main() {` en los ejemplos, por lo que si está siguiendo, asegúrese de
@@ -515,6 +515,6 @@ usar un valor sin transferir la propiedad, llamada *referencias*.
 [ch8]: ch08-02-strings.html
 [traits]: ch10-02-traits.html
 [derivable-traits]: appendix-03-derivable-traits.html
-[method-syntax]: ch05-03-method-syntax.html#method-syntax
+[method-syntax]: ch05-03-method-syntax.html#sintaxis-de-metodos
 [paths-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
 [drop]: https://doc.rust-lang.org/std/ops/trait.Drop.html#tymethod.drop

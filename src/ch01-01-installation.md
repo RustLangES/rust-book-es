@@ -1,3 +1,5 @@
+<a id="instalacion"></a>
+
 ## Instalación
 
 El primer paso es instalar Rust. Descargaremos Rust a través de `rustup`, una
@@ -75,6 +77,8 @@ incluye:
 
 El resto de este libro usa comandos que funcionan tanto en *cmd.exe* como en
 PowerShell. Si hay diferencias específicas, explicaremos cuál usar.
+
+<a id="solucion-de-problemas"></a>
 
 ### Solución de problemas
 

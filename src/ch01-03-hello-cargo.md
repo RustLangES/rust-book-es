@@ -267,7 +267,7 @@ programa de juego de adivinanzas. Si prefieres comenzar aprendiendo cómo
 funcionan los conceptos de programación comunes en Rust, consulta el capítulo 3
 y luego regresa al capítulo 2.
 
-[installation]: ch01-01-installation.html#installation
+[installation]: ch01-01-installation.html#instalacion
 [toml]: https://toml.io
 [appendix-e]: appendix-05-editions.html
 [cargo]: https://doc.rust-lang.org/cargo/

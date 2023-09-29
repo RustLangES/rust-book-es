@@ -197,7 +197,7 @@ Ahora que hemos explorado cómo funcionan las variables, veamos más tipos de
 datos que pueden tener.
 
 [comparing-the-guess-to-the-secret-number]:
-ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-número-secreto
+ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-numero-secreto
 [data-types]: ch03-02-data-types.html#data-types
 [storing-values-with-variables]: 
 ch02-00-guessing-game-tutorial.html#almacenando-valores-con-variables

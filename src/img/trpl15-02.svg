@@ -6,11 +6,11 @@
 <!-- Title: %3 Pages: 1 -->
 <svg width="250pt"
  viewBox="0.00 0.00 363.00 342.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(4.1667 4.1667) rotate(0) translate(4 78)">
+<g  class="graph" transform="scale(4.1667 4.1667) rotate(0) translate(4 78)">
 <title>%3</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-78 83,-78 83,4 -4,4"/>
 <!-- table0 -->
-<g id="node1" class="node">
+<g  class="node">
 <title>table0</title>
 <polyline fill="none" stroke="#000000" points="8.5,-50 71.5,-50 "/>
 <text text-anchor="start" x="25.6069" y="-55.8" font-family="Times,serif" font-size="14.00" fill="#000000">Cons</text>

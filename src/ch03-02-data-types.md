@@ -393,11 +393,11 @@ la gestión de errores de Rust y cómo puede escribir código legible y seguro q
 ni se pone en pánico ni permite el acceso a la memoria inválida.
 
 [comparing-the-guess-to-the-secret-number]:
-ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-número-secreto
+ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-numero-secreto
 [twos-complement]: https://es.wikipedia.org/wiki/Complemento_a_dos
-[control-flow]: ch03-05-control-flow.html#control-flow
-[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
-[stack-and-heap]: ch04-01-what-is-ownership.html#the-stack-and-the-heap
+[control-flow]: ch03-05-control-flow.html#flujo-de-control
+[strings]: ch08-02-strings.html#almacenando-texto-codificado-en-utf-8-con-strings
+[stack-and-heap]: ch04-01-what-is-ownership.html#el-stack-y-el-heap
 [vectors]: ch08-01-vectors.html
 [unrecoverable-errors-with-panic]: ch09-01-unrecoverable-errors-with-panic.html
 [appendix_b]: appendix-02-operators.md
