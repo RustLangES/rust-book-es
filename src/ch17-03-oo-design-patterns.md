@@ -399,7 +399,7 @@ compilación.
 
 #### Codificando estados y comportamiento como tipos
 
-Vamos a mostrarte cómo replantear el State Patter para obtener un conjunto
+Vamos a mostrarte cómo replantear el State Pattern para obtener un conjunto
 diferente de compensaciones. En lugar de encapsular los estados y las
 transiciones por completo para que el código externo no tenga conocimiento de
 ellos, codificaremos los estados en diferentes tipos. En consecuencia, el

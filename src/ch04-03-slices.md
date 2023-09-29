@@ -231,7 +231,7 @@ Aquí está el error del compilador:
 Recordemos que las reglas del borrowing si tenemos una referencia immutable a
 algo, no podemos tomar también una referencia mutable. Debido a que `clear`
 necesita truncar el `String`, necesita obtener una referencia mutable. 
-El `println!` despises de la llamada a `clear` usa la referencia en `word`,
+El `println!` después de la llamada a `clear` usa la referencia en `word`,
 por lo que la referencia inmutable debe seguir activa en ese punto. Rust
 impide que la referencia mutable en `clear` y la referencia inmutable en `word`
 existan al mismo tiempo, y la compilación falla. No solo Rust ha hecho más fácil

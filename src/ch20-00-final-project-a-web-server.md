@@ -1,4 +1,4 @@
-# Proyecto final: Construyendo un servidor web multitrhead
+# Proyecto final: Construyendo un servidor web multithread
 
 Ha sido un largo viaje, pero hemos llegado al final del libro. En este
 capítulo, construiremos un proyecto más para demostrar algunos de los
