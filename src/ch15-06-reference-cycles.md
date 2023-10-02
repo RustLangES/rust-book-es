@@ -21,8 +21,8 @@ comenzando con la definición del enum `List` y un método `tail` en el Listado
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-25/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-25: Una definición de lista de desventajas 
-(cons) que  contiene un `RefCell<T>` para poder modificar a que se refiere una
+<span class="caption">Listing 15-25: Una definición de lista enlazada 
+que contiene un `RefCell<T>` para poder modificar a que se refiere una
 variante `Cons`</span>
 
 Estamos usando otra variación de la definición de `List` del Listado 15-5. El
