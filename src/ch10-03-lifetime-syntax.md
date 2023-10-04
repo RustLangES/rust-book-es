@@ -94,7 +94,7 @@ se compile sin errores.
 <span class="caption">Listing 10-18: Una referencia válida porque los datos 
 tienen un lifetime más largo que la referencia</span>
 
-Aquí, `x` tiene el lifetime `b'` que en este caso es más grande que `'a`. Esto
+Aquí, `x` tiene el lifetime `'b` que en este caso es más grande que `'a`. Esto
 significa que `r` puede hacer referencia a `x` porque Rust sabe que la
 referencia en `r` siempre será válida mientras `x` sea válida.
 
