@@ -42,7 +42,7 @@ Recibió el mensaje de error `` cannot assign twice to immutable variable `x`
 
 Es importante que obtengamos errores en tiempo de compilación cuando intentamos
 cambiar un valor que está designado como inmutable, porque esta situación
-muy puede conducir a errores. Si una parte de nuestro código opera bajo la
+puede conducir a errores. Si una parte de nuestro código opera bajo la
 suposición de que un valor nunca cambiará y otra parte de nuestro código
 cambia ese valor, es posible que la primera parte del código no haga lo que
 estaba diseñado para hacer. La causa de este tipo de error puede ser difícil
