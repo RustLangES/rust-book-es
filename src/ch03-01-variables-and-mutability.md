@@ -1,13 +1,13 @@
 ## Variables y Mutabilidad
 
-Como se mencionó en la sección 
+Como se mencionó en la sección
 [“Almacenando valores con variables”][storing-values-with-variables]<!-- ignore -->
 , por defecto, las variables
 son inmutables. Este es uno de los muchos empujes que Rust le da para que
 escriba su código de una manera que aproveche la seguridad y la fácil
 concurrencia que ofrece Rust. Sin embargo, todavía tiene la opción de hacer
 sus variables mutables. Exploremos cómo y por qué Rust le anima a favorecer
-inmutabilidad y por qué a veces podría querer optar por no hacerlo. 
+la inmutabilidad y por qué a veces podría querer optar por no hacerlo.
 
 Cuando una variable es inmutable, una vez que un valor está vinculado a un
 nombre, no puede cambiar ese valor. Para ilustrar esto, genere un nuevo
@@ -112,9 +112,8 @@ es usar mayúsculas con guiones bajos entre palabras. El compilador es capaz de
 evaluar un conjunto limitado de operaciones en tiempo de compilación, lo que
 nos permite elegir escribir este valor de una manera que sea más fácil de
 entender y verificar, en lugar de establecer esta constante en el valor 10,800.
-Vea la [sección de la Referencia de Rust sobre la evaluación constante]
-[const-eval] para más información sobre qué operaciones se pueden 
-usar al declarar constantes.
+Vea la ["sección de la Referencia de Rust sobre la evaluación constante"][const-eval]
+para más información sobre qué operaciones se pueden usar al declarar constantes.
 
 Las constantes son válidas durante todo el tiempo que se ejecuta un programa,
 dentro del ámbito en el que se declararon. Esta propiedad hace que las
@@ -147,7 +146,7 @@ el uso de la palabra clave `let` de la siguiente manera:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/src/main.rs}}
 ```
 
-Este programa primero vincula `x` a un valor de `5`. Luego crea una nueva
+Este programa primero vincula a `x` el valor de `5`. Luego crea una nueva
 variable `x` repitiendo `let x =`, tomando el valor original y agregando `1`
 para que el valor de `x` sea entonces `6`. Luego, dentro de un ámbito interno
 creado con las llaves, la tercera declaración `let` también proyecta `x` y
