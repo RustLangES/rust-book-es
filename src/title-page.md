@@ -19,7 +19,7 @@ Press][nsprust].
 [install]: ch01-01-installation.html
 [editions]: appendix-05-editions.html
 [nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
-[translations]: appendix-06-translation.html
+[traducciones]: appendix-06-translation.html
 
 > **🚨 ¿Quieres una experiencia de aprendizaje más interactiva? Prueba una
 > versión diferente del Libro de Rust, con: cuestionarios, resaltado,
