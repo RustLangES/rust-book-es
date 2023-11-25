@@ -1,16 +1,15 @@
 ## Tipos de datos
 
 Cada valor en Rust es de un cierto *tipo de dato*, que le dice a Rust qué tipo
-de dato se está especificando para que sepa cómo trabajar con ese dato. Veremos
-dos subconjuntos de tipos de datos: escalar y compuesto.
+de dato se está especificando para que sepa cómo trabajar con ese dato. Veremos dos subconjuntos de tipos de datos: escalares y compuestos.
 
 Tenga en cuenta que Rust es un lenguaje *estáticamente tipado*, lo que significa
 que debe conocer los tipos de todas las variables en tiempo de compilación. El
 compilador generalmente puede inferir qué tipo queremos usar en función del
 valor y cómo lo usamos. En los casos en que muchos tipos son posibles, como
-cuando convertimos un `String` en un tipo numérico usando `parse` en la
-[sección “Comparando la Adivinanza con el Número Secreto”][comparing-the-guess-to-the-secret-number]
-<!-- ignore --> del capítulo 2, debemos agregar una anotación de tipo, como
+cuando convertimos un `String` en un tipo numérico usando `parse` en la sección
+[“Comparando la Adivinanza con el Número Secreto”][comparing-the-guess-to-the-secret-number]
+del capítulo 2, debemos agregar una anotación de tipo, como
 esta:
 
 ```rust
@@ -54,26 +53,26 @@ estas variantes para declarar el tipo de un valor entero.
 | 128-bit | `i128`  | `u128`   |
 | arch    | `isize` | `usize`  |
 
-Cada variante puede ser *signed* (con signo) o *unsigned* (sin signo) y tiene 
+Cada variante puede ser *signed* (con signo) o *unsigned* (sin signo) y tiene
 un tamaño explícito. *Signed* y *unsigned* se refieren a si es posible que el
-número sea negativo, es decir, si el número necesita tener un signo con él 
+número sea negativo, es decir, si el número necesita tener un signo con él
 (signed) o si solo será positivo y por lo tanto puede representarse sin signo
 (unsigned). Es como escribir números en papel: cuando el signo importa,
 un número se muestra con un signo más o un signo menos; sin embargo, cuando es
-seguro suponer que el número es positivo, se muestra sin signo. 
+seguro suponer que el número es positivo, se muestra sin signo.
 Los números con signo se almacenan usando la
-[representación de complemento a dos][twos-complement]<!-- ignore -->.
+representación de [complemento a dos][twos-complement].
 
-Cada variante con signo puede almacenar números de -(2<sup>n - 1</sup>) 
-a 2<sup>n - 1</sup> - 1, donde *n* es el número de bits que usa la variante. 
-Así, un `i8` puede almacenar números de -(2<sup>7</sup>) a 2<sup>7</sup> - 1, 
-lo que equivale a -128 a 127. Las variantes sin signo pueden almacenar números 
-de 0 a 2<sup>n</sup> - 1, por lo que un `u8` puede almacenar números de 0 a 2<sup>8</sup> - 1, 
+Cada variante con signo puede almacenar números de -(2<sup>n - 1</sup>)
+a 2<sup>n - 1</sup> - 1, donde *n* es el número de bits que usa la variante.
+Así, un `i8` puede almacenar números de -(2<sup>7</sup>) a 2<sup>7</sup> - 1,
+lo que equivale a -128 a 127. Las variantes sin signo pueden almacenar números
+de 0 a 2<sup>n</sup> - 1, por lo que un `u8` puede almacenar números de 0 a 2<sup>8</sup> - 1,
 lo que equivale a 0 a 255.
 
-Además, los tipos `isize` y `usize` dependen de la arquitectura de la 
-computadora en la que se ejecuta su programa, que se denota en la tabla como 
-“arch”: 64 bits si está en una arquitectura de 64 bits y 32 bits si está en una 
+Además, los tipos `isize` y `usize` dependen de la arquitectura de la
+computadora en la que se ejecuta su programa, que se denota en la tabla como
+“arch”: 64 bits si está en una arquitectura de 64 bits y 32 bits si está en una
 arquitectura de 32 bits.
 
 Puede escribir literales enteros en cualquiera de las formas que se muestran en
@@ -115,12 +114,12 @@ colección.
 > Cuando está compilando en modo de lanzamiento con la bandera `--release`,
 > Rust *no* incluye comprobaciones para el desbordamiento de enteros que
 > provocan desbordamientos. En su lugar, si ocurre un desbordamiento, Rust
-> realiza *complemento de dos envolviendo*. En resumen, los valores mayores que
+> realiza una *envoltura de complemento a dos*. En resumen, los valores mayores que
 > el valor máximo que el tipo puede contener “se envuelven” al mínimo de los
 > valores que el tipo puede contener. En el caso de un `u8`, el valor 256 se
 > convierte en 0, el valor 257 se convierte en 1, y así sucesivamente. El
 > programa no se desbordará, pero la variable tendrá un valor que probablemente
-> no sea el que esperaba que tuviera. Depender del comportamiento de envoltura
+> no sea el que esperaba que tuviera. Depender del comportamiento de la envoltura
 > del desbordamiento de enteros se considera un error.
 >
 > Para manejar explícitamente la posibilidad de desbordamiento, puede usar estas
@@ -170,8 +169,8 @@ código muestra cómo usaría cada operación numérica en una declaración `let
 ```
 
 Cada expresión en estas instrucciones usa un operador matemático y se evalúa a
-un solo valor, que luego se vincula a una variable. [Apéndice
-B][appendix_b]<!-- ignore --> contiene una lista de todos los operadores que
+un solo valor, que luego se vincula a una variable. El [Apéndice
+B][appendix_b] contiene una lista de todos los operadores que
 Rust proporciona.
 
 #### El tipo booleano
@@ -193,8 +192,7 @@ la sección [“Control de flujo”][control-flow]<!-- ignore -->.
 
 #### El tipo de carácter
 
-El tipo `char` de Rust es el tipo alfabético más primitivo del lenguaje. Aquí
-hay algunos ejemplos de declarar valores `char`:
+El tipo `char` de Rust es el tipo alfabético más primitivo del lenguaje. Estos son algunos ejemplos de declaración de valores `char`:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -203,9 +201,7 @@ hay algunos ejemplos de declarar valores `char`:
 ```
 
 Tenga en cuenta que especificamos literales `char` con comillas simples, en
-oposición a literales de cadena, que usan comillas dobles. El tipo `char` de
-Rust tiene cuatro bytes de tamaño y representa un valor escalar de Unicode,
-lo que significa que puede representar mucho más que solo ASCII. Letras
+oposición a literales de cadena, que usan comillas dobles. El tipo `char` de Rust tiene un tamaño de cuatro bytes y representa un valor escalar Unicode, lo que significa que puede representar mucho más que ASCII. Letras
 acentuadas; Caracteres chinos, japoneses y coreanos; Emojis; y espacios de ancho
 cero son todos valores `char` válidos en Rust. Los valores escalar de Unicode
 van desde `U+0000` a `U+D7FF` y `U+E000` a `U+10FFFF` inclusive. Sin embargo,
@@ -221,14 +217,10 @@ tiene dos tipos compuestos primitivos: tuplas y matrices.
 
 #### El Tipo Tupla
 
-Una *tupla* es una forma general de agrupar juntos un número de valores con
-una variedad de tipos en un solo tipo compuesto. Las tuplas tienen una
-longitud fija: una vez declaradas, no pueden crecer ni disminuir en tamaño.
+Una *tupla* es una forma general de agrupar varios valores de distintos tipos en un tipo compuesto. Las tuplas tienen una longitud fija: una vez declaradas, su tamaño no puede aumentar ni disminuir.
 
-Creamos una tupla escribiendo una lista separada por comas de valores dentro de
-paréntesis. Cada posición en la tupla tiene un tipo, y los tipos de los
-valores diferentes en la tupla no tienen que ser los mismos. Hemos agregado
-anotaciones de tipo opcionales en este ejemplo:
+Creamos una tupla escribiendo una lista de valores separados por comas dentro de
+paréntesis. Cada posición de la tupla tiene un tipo, y los tipos de los distintos valores de la tupla no tienen por qué ser iguales. En este ejemplo hemos añadido anotaciones de tipo opcionales:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -236,10 +228,7 @@ anotaciones de tipo opcionales en este ejemplo:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
 ```
 
-La variable `tup` se vincula a toda la tupla porque se considera que una tupla
-es un único elemento compuesto. Para obtener los valores individuales de una
-tupla, podemos usar el emparejamiento de patrones para descomponer un valor de
-tupla, así:
+La variable `tup` se vincula a toda la tupla porque una tupla se considera un único elemento compuesto. Para obtener los valores individuales de una tupla, podemos utilizar la concordancia de patrones para desestructurar un valor de tupla, así:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -288,7 +277,7 @@ de corchetes:
 ```
 
 Los arreglos son útiles cuando desea que sus datos se asignen en el stack (pila)
-en lugar del heap (montículo) (hablaremos más sobre el stack y el heap en el 
+en lugar del heap (montículo) (hablaremos más sobre el stack y el heap en el
 [Capítulo 4][stack-and-heap]<!-- ignore -->) o cuando desea asegurarse de que
 siempre tenga un número fijo de elementos. Sin embargo, un arreglo no es tan
 flexible como el tipo vector. Un *vector* es un tipo de colección similar
@@ -331,10 +320,7 @@ de una manera más concisa.
 
 ##### Accediendo a los Elementos del Arreglo
 
-
-Un arreglo es un solo fragmento de memoria de un tamaño conocido y fijo que se
-puede asignar en el stack. Puede acceder a los elementos de un arreglo usando
-indexación, así:
+Un arreglo es un trozo de memoria de tamaño fijo y conocido que puede asignarse a la pila. Se puede acceder a los elementos de una matriz utilizando la indexación, de la siguiente manera:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -374,23 +360,9 @@ thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 10
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-El programa resultó en un error de *ejecución* en el punto de uso de un valor
-inválido en la operación de indexación. El programa salió con un mensaje de
-error y no ejecutó la última instrucción `println!`. Cuando intenta acceder a un
-elemento usando indexación, Rust verificará que el índice que ha especificado
-es menor que la longitud del arreglo. Si el índice es mayor o igual que la
-longitud, Rust entrará en pánico. Esta verificación debe ocurrir en tiempo de
-ejecución, especialmente en este caso, porque el compilador no puede
-posiblemente saber qué valor ingresará un usuario cuando ejecuten el código
-después.
+El programa dio lugar a un *error en tiempo de ejecución* al momento de utilizar un valor no válido en la operación de indexación. El programa salió con un mensaje de error y no ejecutó la sentencia final `println!`. Cuando intentas acceder a un elemento utilizando la indexación, Rust comprobará que el índice que has especificado es menor que la longitud del array. Si el índice es mayor o igual que la longitud, Rust entrará en pánico. Esta comprobación tiene que ocurrir en tiempo de ejecución, especialmente en este caso, porque el compilador no puede saber qué valor introducirá el usuario cuando ejecute el código más tarde.
 
-Este es un ejemplo de los principios de seguridad de la memoria de Rust en
-acción. En muchos lenguajes de bajo nivel, esta clase de verificación no se
-realiza, y cuando proporciona un índice incorrecto, se puede acceder a la memoria
-inválida. Rust lo protege contra este tipo de error al salir inmediatamente en
-vez de permitir el acceso a la memoria y continuar. El Capítulo 9 discute más de
-la gestión de errores de Rust y cómo puede escribir código legible y seguro que
-ni se pone en pánico ni permite el acceso a la memoria inválida.
+Este es un ejemplo de los principios de seguridad de memoria de Rust en acción. En muchos lenguajes de bajo nivel, este tipo de comprobación no se hace, y cuando proporcionas un índice incorrecto, se puede acceder a memoria inválida. Rust te protege contra este tipo de error saliendo inmediatamente en lugar de permitir el acceso a la memoria y continuar. El Capítulo 9 discute más sobre el manejo de errores de Rust y cómo puedes escribir código legible y seguro que no entre en pánico ni permita el acceso a memoria inválida.
 
 [comparing-the-guess-to-the-secret-number]:
 ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-numero-secreto
