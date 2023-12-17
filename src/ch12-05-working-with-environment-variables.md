@@ -173,7 +173,7 @@ que contenga la palabra "to" en minúsculas:
 establecido en `1` pero con la misma consulta `to`.
 
 ```console
-$ IGNORE_CASE=1 cargo run -- to poem.txt
+$ export IGNORE_CASE=1; cargo run -- to poem.txt
 ```
 
 Si estás usando PowerShell, deberás establecer la variable de entorno y
