@@ -188,7 +188,7 @@ Las funciones pueden devolver valores al código que las llama. No nombramos los
 valores de retorno, pero debemos declarar su tipo después de una flecha (`->`).
 En Rust, el valor de retorno de la función es sinónimo del valor de la última
 expresión en el bloque del cuerpo de una función. Puedes devolver un valor antes de que la función
-finalize utilizando la palabra clave`return` y especificando un valor, pero la
+finalice utilizando la palabra clave`return` y especificando un valor, pero la
 mayoría de las funciones devuelven la última expresión implícitamente. Aquí
 hay un ejemplo de una función que devuelve un valor:
 
