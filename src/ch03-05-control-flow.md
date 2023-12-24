@@ -1,8 +1,8 @@
 ## Flujo de Control
 
-La capacidad de ejecutar algún código dependiendo de si una condición es `true`
+La capacidad de ejecutar algún código dependiendo de si una condición es `true` 
 y ejecutar algún código repetidamente mientras una condición es `true` son
-bloques de construcción básicos en la mayoría de los lenguajes de programación.
+elementos básicos en la mayoría de los lenguajes de programación.
 Las construcciones más comunes que le permiten controlar el flujo de ejecución
 del código Rust son las expresiones `if` y los bucles.
 
@@ -23,7 +23,7 @@ explorar la expresión `if`. En el archivo *src/main.rs*, ingrese lo siguiente:
 ```
 
 Todas las expresiones `if` comienzan con la palabra clave `if`, seguida de una
-condición. En este caso, la condición verifica si la variable `number` tiene un
+condición. En este caso, la condición comprueba si la variable `number` tiene un
 valor menor que 5. Colocamos el bloque de código para ejecutar si la condición
 es `true` inmediatamente después de la condición dentro de llaves. Los bloques
 de código asociados con las condiciones en las expresiones `if` a veces se
@@ -35,8 +35,8 @@ del Capítulo 2.
 
 Opcionalmente, también podemos incluir una expresión `else`, que elegimos
 hacer aquí, para dar al programa un bloque de código alternativo para ejecutar
-si la condición se evalúa como `false`. Si no proporciona una expresión `else`
-y la condición es `false`, el programa solo omitirá el bloque `if` y continuará
+si la condición evaluada es `false`. Si no proporciona una expresión `else`
+y la condición es `false`, el programa va a ignorar el bloque `if` y continuará
 con el siguiente fragmento de código.
 
 Intente ejecutar este código; Debería ver la siguiente salida:
@@ -77,7 +77,7 @@ error:
 
 El error indica que Rust esperaba un `bool` pero obtuvo un entero. A diferencia
 de los lenguajes como Ruby y JavaScript, Rust no intentará convertir
-automáticamente los tipos no booleanos en un booleano. Debe ser explícito y
+automáticamente los tipos no booleanos en un booleano. Debes ser explícito y
 siempre proporcionar a `if` un booleano como su condición. Si queremos que el
 bloque de código `if` se ejecute solo cuando un número no sea igual a `0`, por
 ejemplo, podemos cambiar la expresión `if` a lo siguiente:
@@ -261,7 +261,7 @@ usamos un punto y coma para terminar la instrucción que asigna el valor a
 `result`. Finalmente, imprimimos el valor en `result`, que en este caso es
 `20`.
 
-#### Etiquetas de bucle para desambiguar entre varios bucles
+#### Etiquetas de bucle para distinguir entre varios bucles
 
 Si tiene bucles dentro de bucles, `break` y `continue` se aplican al bucle más
 interior en ese punto. Opcionalmente, puede especificar una *etiqueta de bucle*
