@@ -1,12 +1,12 @@
 ## Funciones
 
-Las Funciones son son muy comunes en el código de Rust. Ya has visto una de las
+Las Funciones son muy comunes en el código Rust. Ya has visto una de las
 funciones más importantes del lenguaje: la función `main`, que es el punto de
 entrada de muchos programas. También has visto la palabra clave `fn`, que te
 permite declarar nuevas funciones.
 
-El código en Rust usa *snake case* como estilo convencional para las funciones
-y nombres de variables, en el que todas las letras son minúsculas y los
+El código en Rust usa *snake case* como estilo convencional para los nombres
+de funciones y variables, en el que todas las letras son minúsculas y los
 guiones bajos separan las palabras. Aquí hay un programa que contiene un
 ejemplo de definición de una función:
 
@@ -24,9 +24,9 @@ Podemos llamar a cualquier función que hayamos definido escribiendo su nombre
 seguido de un conjunto de paréntesis. Como `another_function` está definida en
 el programa, se puede llamar desde dentro de la función `main`. Ten en cuenta
 que definimos `another_function` *después* de la función `main` en el código
-fuente; también podríamos haberla definido antes. Rust no se preocupa por dónde
-definimos nuestras funciones, sino que estén definidas en algún lugar de un
-alcance que pueda ser visto por el que llama.
+fuente; también podríamos haberla definido antes. A Rust no le importa dónde
+definas tus funciones, sólo que estén definidas en algún lugar en un ámbito que
+pueda ser visto por el invocador.
 
 Empecemos un nuevo proyecto binario llamado *functions* para explorar las
 funciones más a fondo. Coloca el ejemplo de `another_function` en
@@ -45,8 +45,8 @@ se imprime su mensaje.
 Podemos definir funciones para que tengan *parámetros*, que son variables
 especiales que forman parte de la firma de una función. Cuando una función
 tiene parámetros, puedes proporcionarle valores concretos para esos
-parámetros. Técnicamente, los valores concretos se llaman *argumentos*, pero en
-la conversación informal, la gente tiende a usar las palabras *parámetro* y
+parámetros. Técnicamente, los valores concretos se llaman *argumentos*, pero coloquialmente,
+la gente tiende a usar las palabras *parámetro* y
 *argumento* indistintamente para las variables en la definición de una función
 o los valores concretos que se pasan cuando llamas a una función.
 
@@ -72,9 +72,8 @@ cadena de formato.
 En las firmas de las funciones, *debes* declarar el tipo de cada parámetro. Esta
 es una decisión deliberada en el diseño de Rust: requerir anotaciones de tipo en
 las definiciones de las funciones significa que el compilador casi nunca necesita
-que las uses en otro lugar del código para averiguar qué tipo quieres decir. El
-compilador también puede dar mensajes de error más útiles si sabe qué tipos de
-función espera.
+que las uses en otro lugar del código para averiguar a qué tipo te refieres. El
+compilador también puede dar mensajes de error más útiles si sabe qué tipos espera la función.
 
 Al definir múltiples parámetros, separa las declaraciones de parámetros con
 comas, como esto:
@@ -86,11 +85,11 @@ comas, como esto:
 ```
 
 Este ejemplo crea una función llamada `print_labeled_measurement` con dos
-parámetros. El primer parámetro se llama `value` y es un `i32`. El segundo se
+parámetros. El primer parámetro se llama `value` y es un `i32`. El segundo parámetro se
 llama `unit_label` y es de tipo `char`. Luego, la función imprime texto que
 contiene tanto el `value` como el `unit_label`.
 
-Intentemos ejecutar este código. Reemplaza el programa actualmente en tu
+Intentemos ejecutar este código. Reemplaza el programa actual en tu
 proyecto *functions* en el archivo *src/main.rs* con el ejemplo anterior y
 ejecútalo usando `cargo run`:
 
@@ -98,7 +97,7 @@ ejecútalo usando `cargo run`:
 {{#include ../listings/ch03-common-programming-concepts/no-listing-18-functions-with-multiple-parameters/output.txt}}
 ```
 
-Porque llamamos a la función con `5` como el valor para `value` y `'h'` como el
+Como hemos llamamos a la función con `5` como valor para `value` y `'h'` como
 valor para `unit_label`, la salida del programa contiene esos valores.
 
 ### Sentencias y Expresiones
@@ -146,10 +145,10 @@ Cuando ejecutes este programa, el error que obtendrás se verá así:
 {{#include ../listings/ch03-common-programming-concepts/no-listing-19-statements-vs-expressions/output.txt}}
 ```
 
-La sentencia `let y = 6` no devuelve un valor, por lo que no hay nada para lo
-que `x` pueda enlazar. Esto es diferente a lo que ocurre en otros lenguajes,
+La sentencia `let y = 6` no devuelve un valor, por lo que no hay nada a lo
+que `x` se pueda vincular. Esto es diferente a lo que ocurre en otros lenguajes,
 como C y Ruby, donde la asignación devuelve el valor de la asignación. En esos
-lenguajes, puedes escribir `x = y = 6` y tener tanto `x` como `y` el valor `6`;
+lenguajes, puedes escribir `x = y = 6` y hacer que tanto `x` como `y` tengan el valor `6`;
 eso no es el caso en Rust.
 
 Las expresiones evalúan a un valor y componen la mayor parte del resto del
@@ -188,8 +187,8 @@ exploras los valores de retorno de las funciones y las expresiones a continuaci�
 Las funciones pueden devolver valores al código que las llama. No nombramos los
 valores de retorno, pero debemos declarar su tipo después de una flecha (`->`).
 En Rust, el valor de retorno de la función es sinónimo del valor de la última
-expresión en el bloque del cuerpo de una función. Puedes devolver temprano de
-una función usando la palabra clave `return` y especificando un valor, pero la
+expresión en el bloque del cuerpo de una función. Puedes devolver un valor antes de que la función
+finalice utilizando la palabra clave`return` y especificando un valor, pero la
 mayoría de las funciones devuelven la última expresión implícitamente. Aquí
 hay un ejemplo de una función que devuelve un valor:
 
