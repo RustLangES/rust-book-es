@@ -1,6 +1,8 @@
 [book]
 title = "El Lenguaje de Programación Rust"
 authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Community"]
+description = "El libro oficial para aprender el lenguaje de programación Rust, con tutoriales y guias"
+language = "es"
 
 [output.html]
 additional-css = ["ferris.css", "theme/2018-edition.css", "./theme/catppuccin.css", "./theme/catppuccin-highlight.css"]
