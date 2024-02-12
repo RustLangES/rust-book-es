@@ -30,7 +30,7 @@ datos muy común: las cadenas de caracteres.
 > La analogía es que el ownership es como la propiedad de un objeto, por ejemplo
 > si tienes un libro, el libro es tuyo. Si lo prestas a alguien, el libro sigue
 > siendo tuyo, pero ahora el libro esta en posesión de otra persona. Cuando
-> te devuelven el libro, el libro regresa a tu posesión. 
+> te devuelven el libro, el libro regresa a tu posesión.
 
 > ### El Stack y el Heap
 >
@@ -481,7 +481,7 @@ similares a las de la Lista 4-3.
 <span class="caption">Lista 4-4: Transferencia de propiedad de los valores
 de retorno</span>
 
-La propiedad (ownership) de una variable sigue el mismo patrón cada vez: 
+La propiedad (ownership) de una variable sigue el mismo patrón cada vez:
 asignar un valor a otra variable lo mueve. Cuando una variable que incluye datos
 en el heap sale del contexto de ejecución, el valor se limpiará por `drop` a menos que la
 propiedad de los datos se haya movido a otra variable.
