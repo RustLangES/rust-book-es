@@ -4,7 +4,7 @@ El problema con la tupla de código en el Listado 4-5 es que tenemos que devolve
 el `String` a la función que lo llama para que podamos seguir usando el
 `String` después de la llamada a `calcular_longitud`, porque el `String` se
 movió a `calcular_longitud`. En lugar de eso, podemos proporcionar una
-referencia al valor `String`. Una _referencia_ es como un puntero en que es una
+referencia al valor `String`. Una *referencia* es como un puntero en que es una
 dirección que podemos seguir para acceder a los datos almacenados en esa
 dirección; esos datos son propiedad de otra variable. A diferencia de un
 puntero, una referencia garantiza que apunte a un valor válido de un tipo
@@ -33,7 +33,7 @@ _referencia_, y te permiten referirte a algún valor sin tomar la propiedad de
 <span class="caption">Figura 4-5: Un diagrama de `&String s` apuntando a `String
 s1`</span>
 
-> Nota: Lo opuesto a la referencia usando `&` es _desreferenciar_, que se
+> Nota: Lo opuesto a la referencia usando `&` es *desreferenciar*, que se
 > logra con el operador de desreferencia, `*`. Veremos algunos usos del
 > operador de desreferencia en el Capítulo 8 y discutiremos detalles de la
 > desreferenciación en el Capítulo 15.
@@ -44,11 +44,7 @@ Vamos a echar un vistazo más de cerca a la llamada de función aquí:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:here}}
 ```
 
-<<<<<<< HEAD
-La sintaxis `&s1` nos permite crear una referencia que _se refiere_ al valor de
-=======
 La sintaxis `&s1` nos permite crear una referencia que *se refiere* al valor de
->>>>>>> 256e2846 (fix: improve readability and translations)
 `s1` pero sin ser el propietario. Por este motivo, el valor al que apunta no se
 descartará cuando la referencia deje de usarse.
 
@@ -66,11 +62,7 @@ las funciones tienen referencias como parámetros en lugar de los valores
 reales, no necesitaremos devolver los valores para devolver la propiedad,
 porque nunca tuvimos la propiedad.
 
-<<<<<<< HEAD
-Llamamos a la acción de crear una referencia _prestar_ (borrowing en ingles).
-=======
 Llamamos a la acción de crear una referencia *prestar* (borrowing en ingles).
->>>>>>> 256e2846 (fix: improve readability and translations)
 Como en la vida real, si una persona posee algo, puedes pedir prestado.
 Cuando termines, tienes que devolverlo. No lo posees.
 
@@ -141,9 +133,9 @@ Rust puede prevenir las carreras de datos en tiempo de compilación. Una
 _carrera de datos_ es similar a una condición de carrera y ocurre cuando
 ocurren estos tres comportamientos:
 
-- Dos o más punteros acceden a los mismos datos al mismo tiempo.
-- Al menos uno de los punteros se está utilizando para escribir en los datos.
-- No hay ningún mecanismo que se esté utilizando para sincronizar el acceso a
+* Dos o más punteros acceden a los mismos datos al mismo tiempo.
+* Al menos uno de los punteros se está utilizando para escribir en los datos.
+* No hay ningún mecanismo que se esté utilizando para sincronizar el acceso a
   los datos.
 
 Las carreras de datos causan un comportamiento indefinido y pueden ser
@@ -152,11 +144,7 @@ ejecución; ¡Rust evita este problema al negarse a compilar código con carrera
 de datos!
 
 Como siempre, podemos usar llaves para crear un nuevo contexto de ejecución, permitiendo
-<<<<<<< HEAD
-múltiples referencias mutables, solo no _simultáneas_:
-=======
 múltiples referencias mutables, solo no *simultáneas*:
->>>>>>> 256e2846 (fix: improve readability and translations)
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-11-muts-in-separate-scopes/src/main.rs:here}}
@@ -175,7 +163,7 @@ Aquí está el error:
 {{#include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/output.txt}}
 ```
 
-¡Uf! _También_ no podemos tener una referencia mutable mientras tenemos una
+¡Uf! *También* no podemos tener una referencia mutable mientras tenemos una
 inmutable al mismo valor.
 
 ¡Los usuarios de una referencia inmutable no esperan que el valor cambie
@@ -207,7 +195,7 @@ que pensabas que eran.
 
 ### Referencias colgantes
 
-En lenguajes con punteros, es fácil crear accidentalmente un _puntero colgante_:
+En lenguajes con punteros, es fácil crear accidentalmente un *puntero colgante*:
 un puntero que hace referencia a una ubicación en la memoria que puede haber
 sido otorgada a otra persona, al liberar algo de memoria mientras se preserva
 un puntero a esa memoria. En Rust, por el contrario, el compilador garantiza
@@ -244,7 +232,7 @@ for it to be borrowed from
 Se traduciría algo así como:
 
 ````text
-el tipo de retorno de la función contiene un valor prestado, pero no hay ningun valor
+el tipo de retorno de la función contiene un valor prestado, pero no hay ningún valor
 que pueda ser prestado```
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
@@ -270,11 +258,7 @@ Esto funciona sin problemas. La propiedad se mueve fuera y nada se desaloca.
 
 Repasemos lo que hemos discutido sobre las referencias:
 
-<<<<<<< HEAD
-- En cualquier momento dado, puedes tener _o bien_ una referencia mutable _o_
-=======
 - En cualquier momento dado, puedes tener *o bien* una referencia mutable *o*
->>>>>>> 256e2846 (fix: improve readability and translations)
   cualquier número de referencias inmutables.
 - Las referencias deben ser siempre válidas.
 
