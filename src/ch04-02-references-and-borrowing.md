@@ -44,7 +44,11 @@ Vamos a echar un vistazo más de cerca a la llamada de función aquí:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:here}}
 ```
 
+<<<<<<< HEAD
 La sintaxis `&s1` nos permite crear una referencia que _se refiere_ al valor de
+=======
+La sintaxis `&s1` nos permite crear una referencia que *se refiere* al valor de
+>>>>>>> 256e2846 (fix: improve readability and translations)
 `s1` pero sin ser el propietario. Por este motivo, el valor al que apunta no se
 descartará cuando la referencia deje de usarse.
 
@@ -62,7 +66,11 @@ las funciones tienen referencias como parámetros en lugar de los valores
 reales, no necesitaremos devolver los valores para devolver la propiedad,
 porque nunca tuvimos la propiedad.
 
+<<<<<<< HEAD
 Llamamos a la acción de crear una referencia _prestar_ (borrowing en ingles).
+=======
+Llamamos a la acción de crear una referencia *prestar* (borrowing en ingles).
+>>>>>>> 256e2846 (fix: improve readability and translations)
 Como en la vida real, si una persona posee algo, puedes pedir prestado.
 Cuando termines, tienes que devolverlo. No lo posees.
 
@@ -144,7 +152,11 @@ ejecución; ¡Rust evita este problema al negarse a compilar código con carrera
 de datos!
 
 Como siempre, podemos usar llaves para crear un nuevo contexto de ejecución, permitiendo
+<<<<<<< HEAD
 múltiples referencias mutables, solo no _simultáneas_:
+=======
+múltiples referencias mutables, solo no *simultáneas*:
+>>>>>>> 256e2846 (fix: improve readability and translations)
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-11-muts-in-separate-scopes/src/main.rs:here}}
@@ -258,7 +270,11 @@ Esto funciona sin problemas. La propiedad se mueve fuera y nada se desaloca.
 
 Repasemos lo que hemos discutido sobre las referencias:
 
+<<<<<<< HEAD
 - En cualquier momento dado, puedes tener _o bien_ una referencia mutable _o_
+=======
+- En cualquier momento dado, puedes tener *o bien* una referencia mutable *o*
+>>>>>>> 256e2846 (fix: improve readability and translations)
   cualquier número de referencias inmutables.
 - Las referencias deben ser siempre válidas.
 
