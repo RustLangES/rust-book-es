@@ -44,7 +44,7 @@ datos muy común: las cadenas de caracteres.
 > Tanto el stack como el heap son partes de la memoria disponible para su código
 > para usar en tiempo de ejecución, pero están estructurados de formas
 > diferentes. El stack almacena valores en el orden en que los recibe y elimina
-> los valores en el orden opuesto. Esto se conoce como LIFO que es el acrónimo inlés de *Last In, First Out* o en español *El último en entrar, es el primero en salir*. Piense en una pila de platos: cuando agrega más platos, los coloca en
+> los valores en el orden opuesto. Esto se conoce como LIFO que es el acrónimo inglés de *Last In, First Out* o en español *El último en entrar, es el primero en salir*. Piense en una pila de platos: cuando agrega más platos, los coloca en
 > la parte superior de la pila, y cuando necesita un plato, toma uno de la
 > parte superior. Agregar o eliminar platos del medio o de la parte inferior no
 > funcionaría tan bien! Agregar datos se llama *empujar en el stack*, y
