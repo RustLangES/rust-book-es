@@ -1335,6 +1335,8 @@ dereferencing
 DerefMut
 DeriveInput
 Dest
+inglés
+ningún
 destructor
 destructure
 destructured
@@ -2055,3 +2057,4 @@ xcode
 xpression
 yyyy
 ZipImpl
+LIFO

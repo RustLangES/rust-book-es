@@ -1,6 +1,6 @@
 ## ¿Qué es el Ownership?
 
-El *ownership* es un conjunto de reglas que gobiernan cómo un programa de Rust
+El *ownership* es un conjunto de reglas que definen cómo un programa de Rust
 administra la memoria. Todos los programas tienen que administrar la forma en
 que usan la memoria de un computador mientras se ejecutan. Algunos lenguajes
 tienen recolección de basura que busca regularmente la memoria que ya no se
@@ -30,7 +30,7 @@ datos muy común: las cadenas de caracteres.
 > La analogía es que el ownership es como la propiedad de un objeto, por ejemplo
 > si tienes un libro, el libro es tuyo. Si lo prestas a alguien, el libro sigue
 > siendo tuyo, pero ahora el libro esta en posesión de otra persona. Cuando
-> devuelves el libro, el libro regresa a tu posesión. 
+> te devuelven el libro, el libro regresa a tu posesión.
 
 > ### El Stack y el Heap
 >
@@ -44,8 +44,7 @@ datos muy común: las cadenas de caracteres.
 > Tanto el stack como el heap son partes de la memoria disponible para su código
 > para usar en tiempo de ejecución, pero están estructurados de formas
 > diferentes. El stack almacena valores en el orden en que los recibe y elimina
-> los valores en el orden opuesto. Esto se conoce como *último en, primero
-> fuera*. Piense en una pila de platos: cuando agrega más platos, los coloca en
+> los valores en el orden opuesto. Esto se conoce como LIFO que es el acrónimo inglés de *Last In, First Out* o en español *El último en entrar, es el primero en salir*. Piense en una pila de platos: cuando agrega más platos, los coloca en
 > la parte superior de la pila, y cuando necesita un plato, toma uno de la
 > parte superior. Agregar o eliminar platos del medio o de la parte inferior no
 > funcionaría tan bien! Agregar datos se llama *empujar en el stack*, y
@@ -114,10 +113,10 @@ Ahora que hemos pasado la sintaxis básica de Rust, no incluiremos todo el códi
 `fn main() {` en los ejemplos, por lo que si está siguiendo, asegúrese de
 colocar los siguientes ejemplos dentro de una función `main` manualmente. Como
 resultado, nuestros ejemplos serán un poco más concisos, permitiéndonos
-centrarnos en los detalles reales en lugar del código de la caldera.
+centrarnos en los detalles reales en lugar del código repetitivo.
 
-Como primer ejemplo de ownership, veremos el *ámbito* de algunas variables.
-Un ámbito es el rango dentro de un programa para el que un elemento es válido.
+Como primer ejemplo de ownership, veremos el *contexto de ejecución* de algunas variables.
+Un contexto de ejecución es el rango o espacio dentro de un programa para el que un elemento es válido.
 Toma la siguiente variable:
 
 ```rust
@@ -126,7 +125,7 @@ let s = "hola";
 
 La variable `s` se refiere a un literal de cadena, donde el valor de la cadena
 está codificado en el texto de nuestro programa. La variable es válida desde el
-punto en que se declara hasta el final del *ámbito* actual. El listado 4-1
+punto en que se declara hasta el final del *contexto de ejecución* actual. El listado 4-1
 muestra un programa con comentarios que anotan dónde sería válida la variable
 `s`.
 
@@ -134,15 +133,14 @@ muestra un programa con comentarios que anotan dónde sería válida la variable
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 4-1: Una variable y el ámbito en el que es
-válida</span>
+<span class="caption">Listado 4-1: Una variable y el contexto de ejecución en el que es válida</span>
 
 En otras palabras, hay dos puntos importantes en el tiempo aquí:
 
-* Cuando `s` entra en *ámbito*, es válido.
-* Permanece válido hasta que sale de *ámbito*.
+* Cuando `s` está el *contexto de ejecución*, es válido.
+* Permanece válido hasta que sale de *contexto de ejecución*.
 
-En este punto, la relación entre los ámbitos y cuándo las variables son válidas
+En este punto, la relación entre los contextos de ejecución y cuándo las variables son válidas
 es similar a la de otros lenguajes de programación. Ahora construiremos sobre
 este entendimiento al introducir el tipo `String`.
 
@@ -151,10 +149,9 @@ este entendimiento al introducir el tipo `String`.
 Para ilustrar las reglas de ownership, necesitamos un tipo de datos más complejo
 que los que cubrimos en la sección [“Tipos de Datos”][data-types]<!-- ignore -->
 del Capítulo 3. Los tipos cubiertos anteriormente son de un tamaño conocido,
-pueden almacenarse en el stack y se pueden sacar del stack cuando su ámbito
-termina, y se pueden copiar rápidamente y trivialmente para crear una nueva
+pueden almacenarse en el stack y se pueden sacar del stack cuando su contexto de ejecución termina, y se pueden copiar rápidamente y trivialmente para crear una nueva
 instancia independiente si otra parte del código necesita usar el mismo valor
-en un ámbito diferente. Pero queremos ver los datos que se almacenan en el heap
+en un contexto de ejecución diferente. Pero queremos ver los datos que se almacenan en el heap
 y explorar cómo Rust sabe cuándo limpiar esos datos, y el tipo `String` es un
 gran ejemplo.
 
@@ -220,7 +217,7 @@ universal en los lenguajes de programación.
 Sin embargo, la segunda parte es diferente. En los lenguajes con un *recolector
 de basura (Garbage Collector)*, el recolector de basura rastrea y limpia la
 memoria que ya no se está usando y no necesitamos pensar en ello. En la mayoría
-de los lenguajes sin un GC, es nuestra responsabilidad identificar cuándo la
+de los lenguajes sin un recolector de basura, es nuestra responsabilidad identificar cuándo la
 memoria ya no se está usando y llamar al código para liberarla explícitamente,
 tal como lo hicimos para solicitarla. Hacer esto correctamente ha sido
 históricamente un problema difícil de programación. Si lo olvidamos,
@@ -229,7 +226,7 @@ inválida. Si lo hacemos dos veces, eso también es un error. Necesitamos
 emparejar exactamente una `asignación` con exactamente una `liberación`.
 
 Rust toma un camino diferente: la memoria se devuelve automáticamente una vez
-que la variable que la posee sale del alcance. Aquí hay una versión de nuestro
+que la variable que la posee sale del contexto de ejecución. Aquí hay una versión de nuestro
 ejemplo de alcance de la Lista 4-1 usando un `String` en lugar de un literal
 de cadena:
 
@@ -239,7 +236,7 @@ de cadena:
 
 Hay un punto natural en el que podemos devolver la memoria que necesita nuestro
 `String` al administrador: cuando `s` sale del alcance. Cuando una variable
-sale del alcance, Rust llama a una función especial para nosotros. Esta
+sale del contexto de ejecución, Rust llama a una función especial para nosotros. Esta
 función se llama [`drop`][drop]<!-- ignore -->, y es donde el autor de `String`
 puede poner el código para devolver la memoria. Rust llama a `drop`
 automáticamente en la llave de cierre.
@@ -329,10 +326,10 @@ de ejecución si los datos en el heap fueran grandes.
 <span class="caption">Figura 4-3: Otra posibilidad de lo que `s2 = s1` podría
 hacer si Rust copiara también los datos del heap</span>
 
-Anteriormente, dijimos que cuando una variable sale de ámbito, Rust llama
+Anteriormente, dijimos que cuando una variable sale de contexto de ejecución, Rust llama
 automáticamente a la función `drop` y limpia la memoria del heap para esa
 variable. Pero la Figura 4-2 muestra que ambos punteros de datos apuntan al
-mismo lugar. Esto es un problema: cuando `s2` y `s1` salen de ámbito, ambos
+mismo lugar. Esto es un problema: cuando `s2` y `s1` salen de contexto de ejecución, ambos
 intentarán liberar la misma memoria. Esto se conoce como un error de *doble
 liberación* y es uno de los errores de seguridad de la memoria que mencionamos
 anteriormente. Liberar la memoria dos veces puede conducir a la corrupción de
@@ -484,9 +481,9 @@ similares a las de la Lista 4-3.
 <span class="caption">Lista 4-4: Transferencia de propiedad de los valores
 de retorno</span>
 
-La propiedad (ownership) de una variable sigue el mismo patrón cada vez: 
+La propiedad (ownership) de una variable sigue el mismo patrón cada vez:
 asignar un valor a otra variable lo mueve. Cuando una variable que incluye datos
-en el heap sale del alcance, el valor se limpiará por `drop` a menos que la
+en el heap sale del contexto de ejecución, el valor se limpiará por `drop` a menos que la
 propiedad de los datos se haya movido a otra variable.
 
 Aunque esto funciona, tomar la propiedad y luego devolver la propiedad con cada
