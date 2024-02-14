@@ -23,7 +23,7 @@ Primero, ten en cuenta que todo el código de la tupla en la declaración de la
 variable y el valor de retorno de la función ha desaparecido. En segundo
 lugar, observe que pasamos `&s1` a `calcular_longitud` y, en su definición,
 tomamos `&String` en lugar de `String`. Este signo ampersands (&) representa
-_referencia_, y te permiten referirte a algún valor sin tomar la propiedad de
+*referencia*, y te permiten referirte a algún valor sin tomar la propiedad de
 él. La Figura 4-5 representa este concepto.
 
 <div class="center">
@@ -90,7 +90,7 @@ referencias. No se nos permite modificar algo al que tenemos una referencia.
 
 Podemos arreglar el código del Listado 4-6 para permitirnos modificar un valor
 prestado con solo unos pequeños cambios que usen, en su lugar, una
-_referencia mutable_:
+*referencia mutable*:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -130,7 +130,7 @@ mismo tiempo permite la mutación pero de una manera muy controlada. Es algo
 con lo que los nuevos Rustaceans luchan porque la mayoría de los lenguajes te
 permiten mutar cuando quieras. El beneficio de tener esta restricción es que
 Rust puede prevenir las carreras de datos en tiempo de compilación. Una
-_carrera de datos_ es similar a una condición de carrera y ocurre cuando
+*carrera de datos* es similar a una condición de carrera y ocurre cuando
 ocurren estos tres comportamientos:
 
 * Dos o más punteros acceden a los mismos datos al mismo tiempo.
