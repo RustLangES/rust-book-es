@@ -35,7 +35,7 @@ El problema con este código es evidente en la firma de `area`:
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-08/src/main.rs:here}}
 ```
 
-La función `area` está supuesta para calcular el área de un rectángulo, pero
+La función `area` está supuestamente para calcular el área de un rectángulo, pero
 la función que escribimos tiene dos parámetros, y no está claro en ningún
 lugar de nuestro programa que los parámetros están relacionados. Sería más
 legible y más manejable agrupar el ancho y el alto juntos. Ya hemos discutido
@@ -72,8 +72,7 @@ más fácil introducir errores.
 ### Refactorizando con Structs: Añadiendo Más Significado
 
 Hemos usado structs para agregar significado al etiquetar los datos. Podemos
-transformar la tupla que estamos usando en un struct con un nombre para el
-todo y nombres para las partes, como se muestra en la lista 5-10.
+transformar la tupla que estamos usando en un struct con un nombre para la estructura y nombres para los campos, como se muestra en la lista 5-10.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -226,11 +225,10 @@ siguiente llamada. Aquí está el output de este ejemplo:
 {{#include ../listings/ch05-using-structs-to-structure-related-data/no-listing-05-dbg-macro/output.txt}}
 ```
 
-Podemos ver que la primera parte de la salida proviene de *src/main.rs* línea
-10 donde estamos depurando la expresión `30 * scale`, y su valor resultante es
-`60` (la formateo `Debug` implementado para enteros es imprimir solo su valor).
-La llamada `dbg!` en la línea 14 de *src/main.rs* produce el valor de `&rect1`,
-que es la estructura `Rectangle`. Esta salida usa el formateo `Debug` de la
+Podemos ver que el primer bit de salida proviene de la linea 10 de *src/main.rs* donde estamos depurando la expresión `30 * scale`, y su valor resultante es
+`60` (el formato de `Debug` implementado para enteros es imprimir sólo su valor).
+La llamada a `dbg!` en la línea 14 de *src/main.rs* produce el valor de `&rect1`,
+que es la estructura de `Rectangle`. Esta salida usa el formato `Debug` de la
 estructura `Rectangle`. La macro `dbg!` puede ser realmente útil cuando está
 tratando de averiguar qué está haciendo su código.
 
