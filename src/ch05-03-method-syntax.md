@@ -29,7 +29,7 @@ como se muestra en el Listado 5-13.
 Para definir la función dentro del contexto de `Rectangle`, iniciamos un bloque
 `impl` (implementación). Todo lo que esté dentro de este bloque `impl` estará
 asociado al tipo `Rectangle`. Luego movemos la función `area` dentro de las
-llaves del `impl` y cambiamos el primer (y en este caso, único) parámetro para
+llaves del bloque `impl` y cambiamos el primer (y en este caso, único) parámetro para
 ser `self` en la firma y en todas partes dentro del cuerpo. En `main`, donde
 llamamos a la función `area` y pasamos `rect1` como argumento, podemos en vez
 de eso usar la *sintaxis de método* para llamar al método `area` en nuestra
@@ -42,10 +42,10 @@ En la firma para `area`, usamos `&self` en vez de `rectangle: &Rectangle`. El
 `impl`. Los métodos deben tener un parámetro llamado `self` de tipo `Self` para
 su primer parámetro, por lo que Rust nos permite abreviar esto con solo el
 nombre `self` en el primer parámetro. Ten en cuenta que aún necesitamos usar el
-`&` antes de la abreviatura `self` para indicar que este método presta la
+`&` antes de la abreviatura `self` para indicar que este método toma prestada la
 instancia `Self`, al igual que hicimos en `rectangle: &Rectangle`. Los métodos
-pueden tomar la propiedad de `self`, prestar `self` inmutablemente, como lo
-hemos hecho aquí, o prestar `self` mutably, al igual que pueden hacerlo con
+pueden tomar la propiedad de `self`, tomarlo prestado de forma inmutable, como
+hemos hecho aquí, o tomarlo prestado de forma mutable, al igual que pueden hacerlo con
 cualquier otro parámetro.
 
 Elegimos `&self` aquí por la misma razón que usamos `&Rectangle` en la versión
@@ -223,8 +223,8 @@ este caso es `Rectangle`.
 
 Para llamar a esa función asociada, usamos la sintaxis `::` con el nombre de
 la estructura; `let sq = Rectangle::square(3);` es un ejemplo. Esta función
-está en el espacio de nombres de la estructura: la sintaxis `::` se usa tanto
-para las funciones asociadas como para los espacios de nombres creados por los
+está dentro del namespace de la estructura. La sintaxis `::` se usa tanto
+para las funciones asociadas como para los namespaces creados por los
 módulos. Discutiremos los módulos en el [Capítulo 7][modules]<!-- ignore -->.
 
 ### Bloques `impl` múltiples
