@@ -37,7 +37,7 @@ valor no coincide con el patrón.
 
 Usar `if let` significa menos escritura, menos indentación y menos código repetitivo. Sin embargo, pierdes la verificación exhaustiva que hace cumplir
 `match`. Elegir entre `match` e `if let` depende de lo que estés haciendo en tu
-situación particular y de si ser más conciso a cambio verificación exhaustiva es un intercambio adecuado.
+situación particular y de si ser más conciso a cambio de la verificación exhaustiva es un intercambio adecuado.
 
 En otras palabras, puedes pensar en `if let` como una sintaxis dulce para un
 `match` que ejecuta código cuando el valor coincide con un patrón y luego
