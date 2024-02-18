@@ -221,7 +221,8 @@ Aquí está el error:
 ```
 
 Este mensaje de error se refiere a una característica que aún no hemos cubierto:
-los tiempos de vida. Discutiremos los tiempos de vida en detalle en el Capítulo 10. Pero, si ignora las partes sobre los tiempos de vida, el mensaje contiene la
+los tiempos de vida. Discutiremos los tiempos de vida en detalle en el Capítulo 
+10. Pero, si ignora las partes sobre los tiempos de vida, el mensaje contiene la
 clave para saber por qué este código es un problema:
 
 ```text
@@ -232,8 +233,9 @@ for it to be borrowed from
 Se traduciría algo así como:
 
 ````text
-el tipo de retorno de la función contiene un valor prestado, pero no hay ningún valor
-que pueda ser prestado```
+el tipo de retorno de la función contiene un valor prestado, pero no hay ningún 
+valor que pueda ser prestado
+```
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
