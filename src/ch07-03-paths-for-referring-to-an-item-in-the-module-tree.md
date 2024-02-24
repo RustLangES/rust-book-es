@@ -21,7 +21,7 @@ root. Este es el mismo que preguntar: ¿cuál es la ruta de la función
 módulos y funciones removidas.
 
 Mostraremos dos formas de llamar a la función `add_to_waitlist` desde una nueva
-función `eat_at_restaurant` definida en el crate de la raiz. Estas rutas son
+función `eat_at_restaurant` definida en el crate de la raíz. Estas rutas son
 correctas, pero hay otro problema que impide que este ejemplo compile tal cual.
 Explicaremos por qué en un momento.
 
@@ -81,7 +81,7 @@ error que obtenemos se muestra en el listado 7-4.
 código del listado 7-3</span>
 
 El mensaje de error dice que el módulo `hosting` es privado. En otras palabras,
-tenemos las rutas corrects para el módulo `hosting` y la función
+tenemos las rutas correctas para el módulo `hosting` y la función
 `add_to_waitlist`, pero Rust no nos deja usarlos porque no tiene acceso a las
 secciones privadas. En Rust, todos los items (funciones, métodos, structs,
 enums, módulos, y constantes) son privados a los módulos padres por defecto. Si
