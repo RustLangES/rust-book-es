@@ -19,8 +19,8 @@ fn first_word(s: &String) -> ?
 
 La función `first_word` tiene un `&String` como parámetro. No queremos el
 ownership, así que esto está bien. Pero ¿Que deberíamos retornar? Realmente no
-tenemos una forma de hablar sobre "una _porción_ de un string". Sin embargo, podríamos
-retornar el índice del final de la palabra, indicado por un espacio.
+tenemos una forma de hablar sobre "una _porción_ de un string". Sin embargo, 
+podríamos retornar el índice del final de la palabra, indicado por un espacio.
 Probemos eso, como se muestra en Listing 4-7.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -47,18 +47,20 @@ A continuación, creamos un iterator sobre el array de bytes utilizando el méto
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}
 ```
 
-Hablaremos más detalladamente sobre los iterators en [Procesando una serie de elementos con Iteradores][ch13]<!-- ignore -->.
-Por ahora, sabemos que `iter` es un método que retorna cada elemento en una
-colección y que `enumerate` envuelve el resultado de `iter` y retorna cada
-elemento como parte de una tupla. El primer elemento de la tupla que retorna
-`enumerate` es el índice, y el segundo elemento es una referencia al elemento.
+Hablaremos más detalladamente sobre los iterators en [Procesando una serie de
+elementos con Iteradores][ch13]<!-- ignore -->. Por ahora, sabemos que `iter` es
+un método que retorna cada elemento en una colección y que `enumerate` envuelve 
+el resultado de `iter` y retorna cada elemento como parte de una tupla. El 
+primer elemento de la tupla que retorna `enumerate` es el índice, y el segundo
+elemento es una referencia al elemento. 
 Esto es un poco más conveniente que calcular el índice nosotros mismos.
 
 Debido a que el método `enumerate` retorna una tupla, podemos usar patrones para
-desestructurar esa tupla. Hablaremos más sobre los patrones en [Patrones que vinculan valores][ch6]<!-- ignore -->. En el ciclo `for`, especificamos un patrón que tiene `i`
-para el índice de la tupla e `&item` para el byte único en la tupla.
-Debido a que tomamos una referencia al elemento de `.iter().enumerate()`,
-podemos usar`&` en el patrón.
+desestructurar esa tupla. Hablaremos más sobre los patrones en 
+[Patrones que vinculan valores][ch6]<!-- ignore -->. En el ciclo `for`, 
+especificamos un patrón que tiene `i` para el índice de la tupla e `&item` para
+el byte único en la tupla. Debido a que tomamos una referencia al elemento de 
+`.iter().enumerate()`, podemos usar`&` en el patrón.
 
 Dentro del ciclo `for`, buscamos el byte que representa el espacio usando
 la sintaxis literal del byte. Si encontramos un espacio, retornamos su posición.
@@ -279,7 +281,9 @@ para el tipo del parámetro de`s`</span>
 Si tenemos un string slice, podemos pasar directamente ese valor. Si tenemos
 un `String`, podemos pasar un slice del `String` o una referencia al `String`.
 Esta flexibilidad aprovecha las _deref coercions_, una característica que
-veremos en la sección ["Tratando los Smart Pointers como Referencias Regulares con el Trait Deref"][deref-coercions]<!--ignore--> del Capítulo 15.
+veremos en la sección 
+["Tratando los Smart Pointers como Referencias Regulares con el Trait Deref"]<!--ignore--> 
+del Capítulo 15.
 
 Definir una función para tomar un string slice en lugar de una referencia a un
 `String` hace que nuestra API sea más general y útil sin perder ninguna
@@ -332,4 +336,4 @@ ver cómo agrupar piezas de datos en un `struct`.
 [ch13]: ch13-02-iterators.html
 [ch6]: ch06-02-match.html#patrones-que-vinculan-valores
 [strings]: ch08-02-strings.html#almacenando-texto-codificado-en-utf-8-con-strings
-[deref-coercions]: ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods
+["Tratando los Smart Pointers como Referencias Regulares con el Trait Deref"]: ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods
