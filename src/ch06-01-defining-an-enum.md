@@ -19,7 +19,7 @@ Cualquier dirección IP puede ser una dirección de la versión cuatro o la vers
 seis, pero no ambas al mismo tiempo. Esa propiedad de las direcciones IP hace
 que la estructura de datos `enum` sea apropiada porque un valor `enum` puede ser
 sólo una de sus variantes. Tanto las direcciones de la versión cuatro como la versión seis
-siguen siendo fundamentalmente direcciones direcciones IP, por lo que deben ser
+siguen siendo fundamentalmente direcciones IP, por lo que deben ser
 tratadas como el mismo tipo cuando el código está manejando situaciones que se
 aplican a cualquier tipo de dirección IP.
 
