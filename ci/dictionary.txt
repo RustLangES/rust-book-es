@@ -442,6 +442,7 @@ Taiwán
 Arc
 Professional
 patrón
+patron
 Four
 Gang
 Four

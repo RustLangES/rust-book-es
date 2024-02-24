@@ -269,7 +269,7 @@ para que podamos usar los valores que nos interesan por separado.
 El uso de patrones para desestructurar es una forma conveniente de utilizar
 partes de valores, como el valor de cada campo en un struct, por separado.
 
-### Ignorando valores en un patrón
+### Ignorando valores en un patron
 
 Has visto que a veces es útil ignorar valores en un pattern, como en la última
 opción de un `match`, para obtener una opción que no hace nada, pero que abarca
