@@ -1,14 +1,14 @@
 ## Traits: Definiendo Comportamiento Compartido
 
-Un *trait* define funcionalidad que un tipo particular tiene y puede compartir
+Un _trait_ define funcionalidad que un tipo particular tiene y puede compartir
 con otros tipos. Podemos usar traits para definir comportamiento compartido de
-una manera abstracta. Podemos usar *trait bounds* para especificar que un tipo
+una manera abstracta. Podemos usar _trait bounds_ para especificar que un tipo
 genérico puede ser cualquier tipo que tenga cierto comportamiento.
 
 > Nota: Los traits son similares a una característica a menudo llamada
-> *interfaces* en otros lenguajes, aunque con algunas diferencias.
-> En español también se les conoce como *rasgos* pero en el libro intentaremos
-> mantener la palabra clave sin traducir, no obstante creamos esta 
+> _interfaces_ en otros lenguajes, aunque con algunas diferencias.
+> En español también se les conoce como _rasgos_ pero en el libro intentaremos
+> mantener la palabra clave sin traducir, no obstante creamos esta
 > [encuesta](https://github.com/RustLangES/rust-book-es/discussions/29) para futuras
 > revisiones.
 
@@ -118,7 +118,7 @@ funcionalidad de crate `aggregator`. Esto no es posible porque tanto `Display`
 como `Vec<T>` están definidos en la biblioteca estándar y no son locales a
 nuestro crate `aggregator`. La restricción de implementar un trait en un tipo
 solo si uno de ellos es local a nuestro crate es parte de una propiedad
-llamada *coherencia*, y más específicamente la *regla huérfana*, así llamada
+llamada _coherencia_, y más específicamente la _regla huérfana_, así llamada
 porque el tipo padre no está presente. Esta regla asegura que el código de
 otras personas no pueda romper su código y viceversa. Sin la regla, dos crates
 podrían implementar el mismo trait para el mismo tipo, y Rust no sabría qué
@@ -142,7 +142,7 @@ como hicimos en el Listado 10-12.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-14/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 10-14: Definición de un trait `Summary` con un 
+<span class="caption">Listing 10-14: Definición de un trait `Summary` con un
 valor predeterminado implementado del método `summarize`</span>
 
 Para usar una implementación predeterminada para resumir instancias de
@@ -187,11 +187,11 @@ cuando implementamos el trait en un tipo:
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:impl}}
 ```
 
-Después de definir `summarize_author`, podemos llamar a `summarize` en 
-instancias de la estructura `Tweet`, y la implementación predeterminada de 
-`summarize` llamará a la definición de `summarize_author` que hemos 
-proporcionado. Debido a que hemos implementado `summarize_author`, el trait 
-`Summary` nos ha dado el comportamiento del método `summarize` sin requerirnos 
+Después de definir `summarize_author`, podemos llamar a `summarize` en
+instancias de la estructura `Tweet`, y la implementación predeterminada de
+`summarize` llamará a la definición de `summarize_author` que hemos
+proporcionado. Debido a que hemos implementado `summarize_author`, el trait
+`Summary` nos ha dado el comportamiento del método `summarize` sin requerirnos
 escribir más código.
 
 ```rust,ignore
@@ -200,7 +200,7 @@ escribir más código.
 
 Este código imprime `1 new tweet: (Read more from @horse_ebooks...)`.
 
-Ten en cuenta que no es posible llamar a la implementación predeterminada desde 
+Ten en cuenta que no es posible llamar a la implementación predeterminada desde
 una implementación primordial de ese mismo método.
 
 ### Traits como parámetros
@@ -223,12 +223,13 @@ código que llama a la función `notify` con cualquier otro tipo, como un `Strin
 o un `i32`, no compilará porque esos tipos no implementan `Summary`.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="fixing-the-largest-function-with-trait-bounds"></a>
 
 #### Sintaxis de trait bound
 
 La sintaxis `impl Trait` funciona para casos sencillos, pero en realidad es
-azúcar sintáctico para una forma más larga conocida como *trait bound*; se ve
+azúcar sintáctico para una forma más larga conocida como _trait bound_; se ve
 así:
 
 ```rust,ignore
@@ -357,7 +358,7 @@ implementa la función `new` para devolver una nueva instancia de `Pair<T>`
 Capítulo 5 que `Self` es un alias de tipo para el tipo del bloque `impl`, que en
 este caso es `Pair<T>`). Pero en el siguiente bloque `impl`, `Pair<T>` solo
 implementa el método `cmp_display` si su tipo interno `T` implementa el trait
-`PartialOrd` que permite la comparación *y* el trait `Display` que permite la
+`PartialOrd` que permite la comparación _y_ el trait `Display` que permite la
 impresión.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -371,7 +372,7 @@ tipo generic dependiendo de los trait bounds</span>
 
 También podemos implementar condicionalmente un trait para cualquier tipo que
 implemente otro trait. Implementaciones de un trait en cualquier tipo que
-satisfaga los trait bounds se llaman *implementaciones blanket* y se usan
+satisfaga los trait bounds se llaman _implementaciones blanket_ y se usan
 extensivamente en la biblioteca estándar de Rust. Por ejemplo, la biblioteca
 estándar implementa el trait `ToString` en cualquier tipo que implemente el
 trait `Display`. El bloque `impl` en la biblioteca estándar se ve similar a este

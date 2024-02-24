@@ -5,10 +5,10 @@ programa que calcule el área de un rectángulo. Empezaremos usando variables
 individuales, y luego refactorizaremos el programa hasta que estemos usando
 structs.
 
-Hagamos un nuevo proyecto binario con Cargo llamado *rectangles* que tomará
+Hagamos un nuevo proyecto binario con Cargo llamado _rectangles_ que tomará
 el ancho y el alto de un rectángulo especificado en píxeles y calculará el área
 del rectángulo. La lista 5-8 muestra un programa corto con una forma de hacer
-exactamente eso en el *src/main.rs* de nuestro proyecto.
+exactamente eso en el _src/main.rs_ de nuestro proyecto.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -39,7 +39,7 @@ La función `area` está supuestamente para calcular el área de un rectángulo,
 la función que escribimos tiene dos parámetros, y no está claro en ningún
 lugar de nuestro programa que los parámetros están relacionados. Sería más
 legible y más manejable agrupar el ancho y el alto juntos. Ya hemos discutido
-una forma de hacerlo en la sección [“El Tipo Tupla”][the-tuple-type]<!-- ignore
+una forma de hacerlo en la sección [“El Tipo Tupla”][el-tipo-tupla]<!-- ignore
 --> del Capítulo 3: usando tuplas.
 
 ### Refactorizando con Tuplas
@@ -116,7 +116,7 @@ capítulos anteriores. Sin embargo, esto no funcionará.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-11: Intentando imprimir una instancia de 
+<span class="caption">Listing 5-11: Intentando imprimir una instancia de
 `Rectangle`</span>
 
 Cuando compilamos este código, obtenemos un error con este mensaje principal:
@@ -162,7 +162,7 @@ Pero otra vez, el compilador nos da una nota útil:
 {{#include ../listings/ch05-using-structs-to-structure-related-data/output-only-01-debug/output.txt:9:10}}
 ```
 
-Rust *si* incluye la funcionalidad para imprimir información de depuración,
+Rust _si_ incluye la funcionalidad para imprimir información de depuración,
 pero tenemos que optar explícitamente para hacer que esa funcionalidad esté
 disponible para nuestra estructura. Para hacer eso, agregamos el atributo
 externo `#[derive(Debug)]` justo antes de la definición de la estructura, como
@@ -174,7 +174,7 @@ se muestra en la lista 5-12.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-12/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-12: Agregando el atributo para derivar el trait 
+<span class="caption">Listing 5-12: Agregando el atributo para derivar el trait
 `Debug` e imprimiendo la instancia `Rectangle` usando el formato debug</span>
 
 Ahora, cuando compilamos el código, no obtendremos ningún error, y veremos la
@@ -225,9 +225,9 @@ siguiente llamada. Aquí está el output de este ejemplo:
 {{#include ../listings/ch05-using-structs-to-structure-related-data/no-listing-05-dbg-macro/output.txt}}
 ```
 
-Podemos ver que el primer bit de salida proviene de la linea 10 de *src/main.rs* donde estamos depurando la expresión `30 * scale`, y su valor resultante es
+Podemos ver que el primer bit de salida proviene de la linea 10 de _src/main.rs_ donde estamos depurando la expresión `30 * scale`, y su valor resultante es
 `60` (el formato de `Debug` implementado para enteros es imprimir sólo su valor).
-La llamada a `dbg!` en la línea 14 de *src/main.rs* produce el valor de `&rect1`,
+La llamada a `dbg!` en la línea 14 de _src/main.rs_ produce el valor de `&rect1`,
 que es la estructura de `Rectangle`. Esta salida usa el formato `Debug` de la
 estructura `Rectangle`. La macro `dbg!` puede ser realmente útil cuando está
 tratando de averiguar qué está haciendo su código.
@@ -245,9 +245,9 @@ Nuestra función `area` es muy específica: solo calcula el área de
 rectángulos. Sería útil vincular este comportamiento más estrechamente a nuestra
 estructura `Rectangle` porque no funcionará con ningún otro tipo. Veamos cómo
 podemos continuar refactorizando este código al convertir la función `area` en
-un *método* `area` definido en nuestro tipo `Rectangle`. 
+un _método_ `area` definido en nuestro tipo `Rectangle`.
 
-[the-tuple-type]: ch03-02-data-types.html#the-tuple-type
+[el-tipo-tupla]: ch03-02-data-types.html#el-tipo-tupla
 [app-c]: appendix-03-derivable-traits.md
 [println]: https://doc.rust-lang.org/std/macro.println.html
 [dbg]: https://doc.rust-lang.org/std/macro.dbg.html

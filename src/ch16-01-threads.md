@@ -1,11 +1,11 @@
 ## Usando Threads para Ejecutar Código Simultáneamente
 
 En la mayoría de los sistemas operativos actuales, el código de un programa
-ejecutado se ejecuta en un *proceso*, y el sistema operativo administrará
+ejecutado se ejecuta en un _proceso_, y el sistema operativo administrará
 múltiples procesos a la vez. Dentro de un programa, también puede tener partes
 independientes que se ejecutan simultáneamente. Las características que ejecutan
-estas partes independientes se llaman *threads*. Por ejemplo, un servidor web
-podría tener múltiples hilos para que pudiera responder a más de una solicitud 
+estas partes independientes se llaman _threads_. Por ejemplo, un servidor web
+podría tener múltiples hilos para que pudiera responder a más de una solicitud
 al mismo tiempo.
 
 Dividir la computación en su programa en múltiples hilos para ejecutar múltiples
@@ -14,11 +14,11 @@ complejidad. Debido a que los hilos pueden ejecutarse simultáneamente, no hay
 ninguna garantía inherente sobre el orden en que las partes de su código en
 diferentes hilos se ejecutarán. Esto puede conducir a problemas, como:
 
-* Race conditions, donde los hilos están accediendo a datos o recursos en
+- Race conditions, donde los hilos están accediendo a datos o recursos en
   un orden inconsistente
-* Deadlocks, donde dos hilos están esperando el uno al otro, evitando que ambos
+- Deadlocks, donde dos hilos están esperando el uno al otro, evitando que ambos
   hilos continúen
-* Bugs que ocurren solo en ciertas situaciones y son difíciles de reproducir
+- Bugs que ocurren solo en ciertas situaciones y son difíciles de reproducir
   y arreglar de manera confiable
 
 Rust intenta mitigar los efectos negativos de usar hilos, pero la programación
@@ -28,7 +28,7 @@ un solo hilo.
 
 Los lenguajes de programación implementan hilos de varias maneras diferentes, y
 muchos sistemas operativos proporcionan una API que el lenguaje puede llamar
-para crear nuevos hilos. La biblioteca estándar de Rust utiliza un modelo *1:1*
+para crear nuevos hilos. La biblioteca estándar de Rust utiliza un modelo _1:1_
 de implementación de hilos, mediante el cual un programa utiliza un hilo del
 sistema operativo por un hilo de lenguaje. Hay crates que implementan otros
 modelos de enhebrado que hacen diferentes compensaciones al modelo 1:1.
@@ -78,7 +78,7 @@ imprimió primero, a pesar de que la instrucción de impresión del hilo creado
 aparece primero en el código. Y aunque le dijimos al hilo creado que imprimiera
 hasta que `i` sea 9, solo llegó a 5 antes de que el hilo principal se apagara.
 
-Si ejecutas este código y solo ves el output del hilo principal, o no ves 
+Si ejecutas este código y solo ves el output del hilo principal, o no ves
 ninguna superposición, intenta aumentar los números en los rangos para crear
 más oportunidades para que el sistema operativo cambie entre los hilos.
 
@@ -103,7 +103,7 @@ creado termine antes de que `main` salga:
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-2: Guardando un `JoinHandle` devuelto por 
+<span class="caption">Listing 16-2: Guardando un `JoinHandle` devuelto por
 `thread::spawn` para garantizar que el hilo se ejecute hasta completarse</span>
 
 Llamar a `join` en el handle bloquea el hilo que está actualmente en ejecución
@@ -205,7 +205,7 @@ este ejemplo, obtenemos el siguiente error:
 {{#include ../listings/ch16-fearless-concurrency/listing-16-03/output.txt}}
 ```
 
-Rust *infiere* cómo capturar `v`, y porque `println!` solo necesita una
+Rust _infiere_ cómo capturar `v`, y porque `println!` solo necesita una
 referencia a `v`, el closure intenta pedir prestado `v`. Sin embargo, hay un
 problema: Rust no puede decir cuánto tiempo se ejecutará el hilo creado, por lo
 que no sabe si la referencia a `v` siempre será válida.
@@ -254,7 +254,7 @@ muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos:
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-5: Usando la keyword `move` para forzar a un 
+<span class="caption">Listing 16-5: Usando la keyword `move` para forzar a un
 closure a tomar ownership de los valores que utiliza</span>
 
 Podríamos sentir la tentación de intentar lo mismo para arreglar el código en el
@@ -280,6 +280,6 @@ principal. La keyword `move` anula la conservadora predeterminada de Rust de
 pedir prestado; no nos permite violar las reglas de ownership.
 
 Con una comprensión básica de los hilos y la API de hilos, veamos qué podemos
-*hacer* con los hilos.
+_hacer_ con los hilos.
 
-[capture]: ch13-01-closures.html#capturing-references-or-moving-ownership
+[capture]: ch13-01-closures.html#capturando-referencias-o-moviendo-el-ownership

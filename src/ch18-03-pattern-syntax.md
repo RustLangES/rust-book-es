@@ -65,8 +65,7 @@ scope del `y` interno. El último `println!` produce `at the end: x = Some(5), y
 Para crear una expresión `match` que compare los valores del `x` e `y` externos
 en lugar de introducir una variable sombreada, necesitaríamos usar una
 condición de guardia de `match`. Hablaremos de las guardias de `match` más
-adelante en la sección [“Condicionales extra con guardias de
-`match`”](#extra-conditionals-with-match-guards)<!-- ignore -->
+adelante en la sección [“Condicionales adicionales con `match` guards”](#condicionales-adicionales-con-match-guards)<!-- ignore -->
 
 ### Múltiples Patterns
 

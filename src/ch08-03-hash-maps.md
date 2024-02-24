@@ -1,8 +1,8 @@
 ## Almacenar Claves con Valores Asociados en HashMaps
 
-La última de nuestras colecciones comunes es el *hash map*. El tipo `HashMap<K,
+La última de nuestras colecciones comunes es el _hash map_. El tipo `HashMap<K,
 V>` almacena un mapeo de keys de tipo `K` a valores de tipo `V` usando una
-*función hash*, que determina cómo coloca estas keys y valores en la memoria.
+_función hash_, que determina cómo coloca estas keys y valores en la memoria.
 Muchos lenguajes de programación admiten este tipo de estructura de datos, pero
 a menudo usan un nombre diferente, como hash, map, object, hash table,
 diccionario o arreglos asociativos, solo para nombrar algunos.
@@ -23,24 +23,24 @@ estándar para obtener más información.
 
 Una forma de crear un hash map vacío es usar `new` y agregar elementos con
 `insert`. En el Listado 8-20, estamos realizando un seguimiento de las
-puntuaciones de dos equipos cuyos nombres son *Blue* y *Yellow*. El equipo
+puntuaciones de dos equipos cuyos nombres son _Blue_ y _Yellow_. El equipo
 Blue comienza con 10 puntos y el equipo Yellow comienza con 50.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-20/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-20: Creando un nuevo hash map e insertando 
+<span class="caption">Listing 8-20: Creando un nuevo hash map e insertando
 algunas keys y valores</span>
 
-Ten en cuenta que es importante importar primero el módulo `HashMap` de la 
-biblioteca estándar de colecciones. De nuestras tres colecciones comunes, 
-ésta es la menos utilizada, por lo que no se incluye automáticamente en las 
-características del *prelude*. Además, los hash maps tienen menos soporte por 
-parte de la biblioteca estándar; por ejemplo, no hay una macro incorporada para 
+Ten en cuenta que es importante importar primero el módulo `HashMap` de la
+biblioteca estándar de colecciones. De nuestras tres colecciones comunes,
+ésta es la menos utilizada, por lo que no se incluye automáticamente en las
+características del _prelude_. Además, los hash maps tienen menos soporte por
+parte de la biblioteca estándar; por ejemplo, no hay una macro incorporada para
 construirlos.
 
-Al igual que los vectores, los hash maps almacenan sus datos en el *heap*. Este
+Al igual que los vectores, los hash maps almacenan sus datos en el _heap_. Este
 `HashMap` tiene keys de tipo `String` y valores de tipo `i32`. Al igual que los
 vectores, los hash maps son homogéneos: todas las keys deben tener el mismo
 tipo entre sí y todos los valores deben tener el mismo tipo.
@@ -89,7 +89,7 @@ en el Listing 8-22.
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-22/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-22: Mostrando que keys y valores son propiedad 
+<span class="caption">Listing 8-22: Mostrando que keys y valores son propiedad
 del hash map una vez que se insertan</span>
 
 No podemos usar `field_name` y `field_value` después de que se hayan movido al
@@ -99,7 +99,7 @@ Si insertamos referencias a valores en el hash map, los valores no se moverán
 al hash map. Los valores a los que apuntan las referencias deben ser válidos
 al menos mientras el hash map sea válido. Hablaremos más sobre estos problemas
 en la sección [“Validating References with
-Lifetimes”][validating-references-with-lifetimes]<!-- ignore --> en el 
+Lifetimes”][validando-referencias-con-lifetimes]<!-- ignore --> en el
 Capítulo 10.
 
 ### Actualizando un HashMap
@@ -113,14 +113,14 @@ Cuando queremos cambiar los datos en un hash map, tenemos que decidir cómo
 manejar el caso en el que una key ya tiene un valor asignado. Podrías
 reemplazar el valor antiguo por el nuevo valor, ignorando completamente el
 valor antiguo. Podrías mantener el valor antiguo e ignorar el nuevo valor,
-agregando el nuevo valor solo si la key *no* tiene ya un valor. O podrías
+agregando el nuevo valor solo si la key _no_ tiene ya un valor. O podrías
 combinar el valor antiguo y el nuevo valor. ¡Veamos cómo hacer cada una de
 estas!
 
 #### Reemplazando un valor
 
 Si insertamos una key y un valor en un hash map y luego insertamos esa misma
-key con un valor diferente, el valor asociado con esa key se reemplazará. 
+key con un valor diferente, el valor asociado con esa key se reemplazará.
 Aunque el código en el Listing 8-23 llama a `insert` dos veces, el hash map
 solo contendrá un par key/valor porque estamos insertando el valor para la key
 del equipo Blue dos veces.
@@ -136,6 +136,7 @@ Este código imprimirá `{"Blue": 25}`. El valor original de `10` ha sido
 sobrescrito.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="only-inserting-a-value-if-the-key-has-no-value"></a>
 
 #### Insertando una Key y un valor solo si una Key no está presente
@@ -184,7 +185,7 @@ vez que vemos una palabra, primero insertaremos el valor 0.
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-25/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-25: Contando ocurrencias de palabras usando un 
+<span class="caption">Listing 8-25: Contando ocurrencias de palabras usando un
 hash map que almacena palabras y cuenta</span>
 
 Este código imprimirá `{"world": 2, "hello": 1, "wonderful": 1}`. Es posible
@@ -202,17 +203,17 @@ que todos estos cambios son seguros y permitidos por las reglas del borrowing.
 
 ### Funciones de Hashing
 
-Por defecto, `HashMap` usa una función de hashing llamada *SipHash* que puede
+Por defecto, `HashMap` usa una función de hashing llamada _SipHash_ que puede
 proporcionar resistencia a ataques de Denegación de Servicio (DoS) que
 involucran tablas hash[^siphash]<!-- ignore -->. Este no es el algoritmo de
 hashing más rápido disponible, pero el compromiso por una mejor seguridad que
 viene con la caída en el rendimiento vale la pena. Si perfilas tu código y
 encuentras que la función de hash predeterminada es demasiado lenta para tus
 propósitos, puedes cambiar a otra función especificando un hasher diferente. Un
-*hasher* es un tipo que implementa el trait `BuildHasher`. Hablaremos sobre
+_hasher_ es un tipo que implementa el trait `BuildHasher`. Hablaremos sobre
 traits y cómo implementarlos en el Capítulo 10. No necesariamente tienes que
-implementar tu propio hasher desde cero; 
-[crates.io](https://crates.io/)<!-- ignore --> 
+implementar tu propio hasher desde cero;
+[crates.io](https://crates.io/)<!-- ignore -->
 tiene bibliotecas compartidas por otros usuarios de Rust que proporcionan
 hashes que implementan muchos algoritmos de hashing comunes.
 
@@ -224,15 +225,15 @@ Los vectores, los strings y los hash maps proporcionan una funcionalidad
 importante que necesitarás cuando quieras almacenar, acceder y modificar datos.
 Aquí hay algunos ejercicios que ahora deberías estar equipado para resolver:
 
-* Dada una lista de enteros, usa un vector y devuelve la mediana (cuando se
+- Dada una lista de enteros, usa un vector y devuelve la mediana (cuando se
   ordena, el valor en la posición media) y la moda (el valor que ocurre con más
   frecuencia; un hash map será útil aquí) de la lista.
-* Convierte strings a pig latin. La primera consonante de cada palabra se
+- Convierte strings a pig latin. La primera consonante de cada palabra se
   mueve al final de la palabra y se agrega "ay", por lo que "primero" se
   convierte en "rimepay". Sin embargo, si la palabra comienza con una vocal,
   simplemente agregue "hay" al final de la palabra ("manzanaay"). ¡Ten en
   cuenta las reglas de UTF-8!
-* Usando un has map y vectores, cree un texto de interfaz para permitir que un
+- Usando un has map y vectores, cree un texto de interfaz para permitir que un
   usuario agregue nombres de empleados a un departamento en una empresa. Por
   ejemplo, "Agregar Sally a Ingeniería" o "Agregar Amir a Ventas". Luego,
   permita que el usuario recupere una lista de todas las personas en un
@@ -246,6 +247,5 @@ Nos estamos adentrando en programas más complejos en los que las operaciones
 pueden fallar, por lo que es un momento perfecto para discutir el manejo de
 errores. ¡Haremos eso a continuación!
 
-[validating-references-with-lifetimes]:
-ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
+[validando-referencias-con-lifetimes]: ch10-03-lifetime-syntax.html#validando-referencias-con-lifetimes
 [access]: #accessing-values-in-a-hash-map

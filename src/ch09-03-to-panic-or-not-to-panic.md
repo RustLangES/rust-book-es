@@ -62,7 +62,7 @@ compilador aún nos hará manejar el `Result` como si la variante `Err` fuera un
 posibilidad porque el compilador no es lo suficientemente inteligente como
 para ver que esta cadena es siempre una dirección IP válida. Si la cadena de
 dirección IP proviniera de un usuario en lugar de estar codificada en el
-programa y, por lo tanto, *tuviera* una posibilidad de falla, definitivamente
+programa y, por lo tanto, _tuviera_ una posibilidad de falla, definitivamente
 querríamos manejar el `Result` de una manera más robusta en su lugar. Mencionar
 la suposición de que esta dirección IP está codificada nos indicará que
 cambiemos `expect` a un mejor código de manejo de errores si en el futuro
@@ -71,17 +71,17 @@ necesitamos obtener la dirección IP de otra fuente.
 ### Pautas para el manejo de errores
 
 Es aconsejable que tu código entre en panic cuando sea posible que tu código
-termine en un estado incorrecto. En este contexto, un *estado incorrecto* es
+termine en un estado incorrecto. En este contexto, un _estado incorrecto_ es
 cuando se ha roto alguna suposición, garantía, contrato o invariante, como
 cuando se pasan valores no válidos, valores contradictorios o valores
 faltantes a tu código, más uno o más de los siguientes:
 
-* El mal estado es algo inesperado, a diferencia de algo que probablemente
+- El mal estado es algo inesperado, a diferencia de algo que probablemente
   suceda ocasionalmente, como un usuario que ingresa datos en el formato
   incorrecto.
-* Tu código después de este punto debe confiar en no estar en este mal estado,
+- Tu código después de este punto debe confiar en no estar en este mal estado,
   en lugar de verificar el problema en cada paso.
-* No hay una buena manera de codificar esta información en los tipos que
+- No hay una buena manera de codificar esta información en los tipos que
   usas. Trabajaremos a través de un ejemplo de lo que queremos decir en la
   sección [“Codificación de estados y comportamientos como tipos”][encoding]
   <!-- ignore --> del Capítulo 17.
@@ -110,7 +110,7 @@ puede exponer tu código a vulnerabilidades. Esta es la razón principal por la
 que la biblioteca estándar llamará a `panic!` si intentas un acceso a memoria
 fuera de los límites: intentar acceder a la memoria que no pertenece a la
 estructura de datos actual es un problema de seguridad común. Las funciones
-suelen tener *contratos*: su comportamiento solo está garantizado si las
+suelen tener _contratos_: su comportamiento solo está garantizado si las
 entradas cumplen con requisitos particulares. Entrar en panic cuando se viola
 el contrato tiene sentido porque una violación del contrato siempre indica un
 error del lado del llamador y no es un tipo de error que deseas que el código
@@ -127,14 +127,14 @@ para hacer muchas de las comprobaciones por ti. Si tu función tiene un tipo
 particular como parámetro, puedes proceder con la lógica de tu código sabiendo
 que el compilador ya se ha asegurado de que tengas un valor válido. Por
 ejemplo, si tienes un tipo en lugar de un `Option`, tu programa espera tener
-*algo* en lugar de *nada*. Tu código entonces no tiene que manejar dos casos
+_algo_ en lugar de _nada_. Tu código entonces no tiene que manejar dos casos
 para las variantes `Some` y `None`: solo tendrá un caso para tener
 definitivamente un valor. El código que intenta pasar nada a tu función ni
 siquiera se compilará, por lo que tu función no tiene que verificar ese caso
 en tiempo de ejecución. Otro ejemplo es usar un tipo de entero sin signo como
 `u32`, que garantiza que el parámetro nunca sea negativo.
 
-### Creación de tipos personalizados para validación
+### Creacion de tipos personalizados para validacion
 
 Tomemos la idea de usar el sistema de tipos de Rust para garantizar que
 tengamos un valor válido un paso más allá y veamos cómo crear un tipo
@@ -203,16 +203,16 @@ condiciones en las que `Guess::new` podría entrar en pánico deben discutirse
 en la documentación de la API de cara al público; cubriremos las convenciones
 de documentación que indican la posibilidad de un `panic!` en la documentación
 de la API que creas en el Capítulo 14. Si `value` pasa la prueba, creamos un
-nuevo `Guess` con su campo `value` establecido en el `value` y devolvemos el 
+nuevo `Guess` con su campo `value` establecido en el `value` y devolvemos el
 `Guess`.
 
 A continuación, implementamos un método llamado `value` que toma prestado
 `self`, no tiene otros parámetros y devuelve un `i32`. Este tipo de método se
-llama a veces *getter*, porque su propósito es obtener algunos datos de sus
+llama a veces _getter_, porque su propósito es obtener algunos datos de sus
 campos y devolverlos. Este método público es necesario porque el campo `value`
 del struct `Guess` es privado. Es importante que el campo `value` sea privado
 para que el código que usa el struct `Guess` no pueda establecer `value`
-directamente: el código fuera del módulo *debe* usar la función `Guess::new`
+directamente: el código fuera del módulo _debe_ usar la función `Guess::new`
 para crear una instancia de `Guess`, lo que garantiza que no hay forma de que
 un `Guess` tenga un `value` que no haya sido verificado por las condiciones en
 la función `Guess::new`.

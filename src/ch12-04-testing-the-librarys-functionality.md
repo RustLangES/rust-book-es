@@ -1,7 +1,7 @@
 ## Desarrollando la funcionalidad de la biblioteca con T.D.D.
 
-Ahora que hemos extraído la lógica en *src/lib.rs* y dejado la recolección de
-argumentos y el manejo de errores en *src/main.rs*, es mucho más fácil escribir
+Ahora que hemos extraído la lógica en _src/lib.rs_ y dejado la recolección de
+argumentos y el manejo de errores en _src/main.rs_, es mucho más fácil escribir
 pruebas para la funcionalidad principal de nuestro código. Podemos llamar a las
 funciones directamente con varios argumentos y verificar los valores de
 retorno sin tener que llamar a nuestro binario desde la línea de comandos.
@@ -30,8 +30,8 @@ llamada `search`.
 ### Escribiendo un test fallido
 
 Debido a que ya no los necesitamos, eliminemos las declaraciones `println!` de
-*src/lib.rs* y *src/main.rs* que usamos para verificar el comportamiento del
-programa. Luego, en *src/lib.rs*, agregue un módulo `tests` con una función de
+_src/lib.rs_ y _src/main.rs_ que usamos para verificar el comportamiento del
+programa. Luego, en _src/lib.rs_, agregue un módulo `tests` con una función de
 prueba, como lo hicimos en [Capítulo 11][ch11-anatomy]<!-- ignore -->. La
 función de prueba especifica el comportamiento que queremos que tenga la
 función `search`: tomará una consulta y el texto a buscar, y devolverá solo las
@@ -102,7 +102,7 @@ retorno usando la sintaxis de lifetime.
 Otros lenguajes de programación no requieren que conectes argumentos a valores
 de retorno en la firma, pero esta práctica será más fácil con el tiempo. Quizás
 quiera comparar este ejemplo con la sección ["Validando referencias con
-lifetimes"][validating-references-with-lifetimes]<!-- ignore --> en el 
+lifetimes"][validando-referencias-con-lifetimes]<!-- ignore --> en el
 Capítulo 10.
 
 Ahora ejecutemos el test:
@@ -120,11 +120,11 @@ Actualmente, nuestro test falla porque siempre devolvemos un vector vacío. Para
 solucionar eso e implementar `search`, nuestro programa debe seguir estos
 pasos:
 
-* Iterar a través de cada línea del contenido.
-* Compruebe si la línea contiene nuestro string de consulta.
-* Si es así, agréguelo a la lista de valores que estamos devolviendo.
-* Si no lo hace, no haga nada.
-* Devuelve la lista de resultados que coinciden.
+- Iterar a través de cada línea del contenido.
+- Compruebe si la línea contiene nuestro string de consulta.
+- Si es así, agréguelo a la lista de valores que estamos devolviendo.
+- Si no lo hace, no haga nada.
+- Devuelve la lista de resultados que coinciden.
 
 Trabajaremos en cada paso, comenzando por iterar a través de las líneas.
 
@@ -205,8 +205,8 @@ exploraremos los iteradores en detalle y veremos cómo mejorarlo.
 #### Usando la función `search` en la función `run`
 
 Ahora que la función `search` funciona y está probada, necesitamos llamar a
-`search` desde nuestra función `run`. Necesitamos pasar el valor de 
-`config.query` y el `contents` que `run` lee del archivo a la función `search`. 
+`search` desde nuestra función `run`. Necesitamos pasar el valor de
+`config.query` y el `contents` que `run` lee del archivo a la función `search`.
 Luego, `run` imprimirá cada línea devuelta por `search`:
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -247,9 +247,8 @@ Para completar nuestro proyecto, demostraremos brevemente cómo trabajar con
 variables de entorno y cómo imprimir en el error estándar, ambas son útiles
 cuando se escriben programas de línea de comandos.
 
-[validating-references-with-lifetimes]:
-ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
-[ch11-anatomy]: ch11-01-writing-tests.html#the-anatomy-of-a-test-function
+[validando-referencias-con-lifetimes]: ch10-03-lifetime-syntax.html#validando-referencias-con-lifetimes
+[ch11-anatomy]: ch11-01-writing-tests.html#la-anatomia-de-una-funcion-de-test
 [ch10-lifetimes]: ch10-03-lifetime-syntax.html
-[ch3-iter]: ch03-05-control-flow.html#looping-through-a-collection-with-for
+[ch3-iter]: ch03-05-control-flow.html#bucle-a-traves-de-una-coleccion-con-for
 [ch13-iterators]: ch13-02-iterators.html

@@ -7,7 +7,7 @@ entrar en los detalles más minuciosos.
 
 ### Especificando Tipos de Marcador en Definiciones de Traits con Tipos Asociados
 
-Los *tipos asociados* conectan un marcador de tipo con un trait de modo que los
+Los _tipos asociados_ conectan un marcador de tipo con un trait de modo que los
 métodos de definición de trait puedan usar estos marcadores de tipo en sus
 firmas. El implementador de un trait especificará el tipo concreto que se
 utilizará en lugar del tipo de marcador para la implementación particular. De
@@ -86,7 +86,7 @@ documentación de la API es una buena práctica.
 
 ### Parámetros Generics Predeterminados y Sobrecarga de Operadores
 
-Cuando utilizamos parámetros de tipo generic, podemos especificar un tipo 
+Cuando utilizamos parámetros de tipo generic, podemos especificar un tipo
 concreto predeterminado para el tipo generic. Esto elimina la necesidad de que
 los implementadores del trait especifiquen un tipo concreto si el tipo
 predeterminado funciona. Especificas un tipo predeterminado al declarar un tipo
@@ -109,7 +109,7 @@ trait `Add` en un struct `Point`:
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-14/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-14: Implementando el trait `Add` para 
+<span class="caption">Listing 19-14: Implementando el trait `Add` para
 sobrecargar el operador `+` para instancias `Point`</span>
 
 El método `add` suma los valores `x` de dos instancias `Point` y los valores `y`
@@ -129,8 +129,8 @@ trait Add<Rhs=Self> {
 ```
 
 Este código debería resultar familiar en general: un trait con un método y un
-tipo asociado. La nueva parte es `Rhs=Self`: esta sintaxis se llama *parámetros
-de tipo predeterminados*. El parámetro de tipo generic `Rhs` (abreviatura de
+tipo asociado. La nueva parte es `Rhs=Self`: esta sintaxis se llama _parámetros
+de tipo predeterminados_. El parámetro de tipo generic `Rhs` (abreviatura de
 “lado derecho”) define el tipo del parámetro `rhs` en el método `add`. Si no
 especificamos un tipo concreto para `Rhs` cuando implementamos el trait `Add`,
 el tipo de `Rhs` será predeterminado a `Self`, que será el tipo en el que
@@ -143,7 +143,7 @@ lugar de usar el predeterminado.
 
 Tenemos dos structs, `Millimeters` y `Meters`, que contienen valores en
 unidades diferentes. Este envoltorio ligero de un tipo existente en otro struct
-se conoce como el *patrón newtype*, que describimos con más detalle en la
+se conoce como el _patrón newtype_, que describimos con más detalle en la
 sección [“Usando el Patrón Newtype para Implementar Traits Externos en Tipos
 Externos”][newtype]. Queremos agregar valores en milímetros a valores en metros
 y que la implementación de `Add` haga la conversión correctamente. Podemos
@@ -160,13 +160,13 @@ el Listado 19-15.
 `Millimeters` para sumar `Millimeters` a `Meters`</span>
 
 Para agregar `Millimeters` y `Meters`, especificamos `impl Add<Meters>` para
-establecer el valor del parámetro de tipo `Rhs` en lugar de usar el 
+establecer el valor del parámetro de tipo `Rhs` en lugar de usar el
 predeterminado de `Self`.
 
 Se utilizan los parámetros de tipo predeterminados en dos casos principales:
 
-* Para extender un tipo sin romper el código existente
-* Para permitir la personalización en casos específicos que la mayoría de los
+- Para extender un tipo sin romper el código existente
+- Para permitir la personalización en casos específicos que la mayoría de los
   usuarios no necesitarán
 
 El trait `Add` de la biblioteca estándar es un ejemplo del segundo propósito:
@@ -201,8 +201,8 @@ implementamos ambos traits en un tipo `Human` que ya tiene un método llamado
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-16: Se definen dos traits para tener un 
-método `fly` y se implementan en el tipo `Human`, además se implementa 
+<span class="caption">Listing 19-16: Se definen dos traits para tener un
+método `fly` y se implementan en el tipo `Human`, además se implementa
 directamente un método `fly` en `Human`</span>
 
 Cuando llamamos al método `fly` en una instancia de `Human`, el compilador
@@ -215,7 +215,7 @@ se muestra en el Listado 19-17.
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-17/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-17: Llamando al método `fly` en una instancia 
+<span class="caption">Listing 19-17: Llamando al método `fly` en una instancia
 de `Human`</span>
 
 Ejecutando este código imprimirá `*waving arms furiously*`, mostrando que Rust
@@ -246,15 +246,15 @@ Al ejecutar este código imprime lo siguiente:
 ```
 
 Debido a que el método `fly` toma un parámetro `self`, si tuviéramos dos
-*tipos* que implementan el mismo *trait*, Rust podría determinar cuál implementación
+_tipos_ que implementan el mismo _trait_, Rust podría determinar cuál implementación
 del trait utilizar en función del tipo de `self`.
 
 Sin embargo, las funciones asociadas que no son métodos no tienen un parámetro
 `self`. Cuando hay múltiples tipos o traits que definen funciones no métodos
 con el mismo nombre de función, Rust no siempre sabe a qué tipo te refieres a
-menos que uses *sintaxis completamente calificada*. Por ejemplo, en el Listado
+menos que uses _sintaxis completamente calificada_. Por ejemplo, en el Listado
 19-19 creamos un trait para un refugio de animales que quiere nombrar a todos
-los perros bebés *Spot*. Creamos un trait `Animal` con una función no método
+los perros bebés _Spot_. Creamos un trait `Animal` con una función no método
 asociada `baby_name`. El trait `Animal` se implementa para la estructura `Dog`,
 en la que también proporcionamos una función no método asociada `baby_name`
 directamente.
@@ -277,7 +277,7 @@ implementación del trait `Animal` en `Dog` en la función `baby_name` asociada
 con el trait `Animal`.
 
 En `main`, llamamos a la función `Dog::baby_name`, que llama directamente a la
-función asociada definida en `Dog` directamente. Este código imprime lo 
+función asociada definida en `Dog` directamente. Este código imprime lo
 siguiente:
 
 ```console
@@ -351,11 +351,11 @@ quieres llamar.
 ### Usando supertraits para requerir la funcionalidad de un trait dentro de otro trait
 
 A veces, es posible que desees escribir una definición de trait que dependa de
-otro trait: para que un tipo implemente el primer trait, quieres exigir que 
-este tipo también implemente el segundo trait. Esto se hace para que la 
+otro trait: para que un tipo implemente el primer trait, quieres exigir que
+este tipo también implemente el segundo trait. Esto se hace para que la
 definición de tu trait pueda hacer uso de los elementos asociados del segundo
 trait. El trait en el que se basa la definición de tu trait se llama
-*supertrait* de tu trait.
+_supertrait_ de tu trait.
 
 Por ejemplo, supongamos que queremos crear un trait llamado `OutlinePrint` con
 un método `outline_print` que imprima un valor dado enmarcado entre asteriscos.
@@ -428,22 +428,22 @@ para mostrarla dentro de un contorno de asteriscos.
 ### Usando el pattern Newtype para implementar traits externos en tipos externos
 
 En el capítulo 10 en la sección [“Implementando un trait en un
-tipo”][implementing-a-trait-on-a-type]<!-- ignore -->, mencionamos los orphan
+tipo”][implementando-un-trait-en-un-tipo]<!-- ignore -->, mencionamos los orphan
 rules que establecen que solo podemos implementar un trait en un tipo si
 bien el trait o el tipo son locales a nuestro crate. Es posible evitar esta
-restricción usando el *patrón newtype*, que implica crear un nuevo tipo en un
+restricción usando el _patrón newtype_, que implica crear un nuevo tipo en un
 struct de tupla. (Cubrimos los structs de tupla en la sección [“Usando
 structs de tupla sin campos nombrados para crear diferentes
 tipos”][tuple-structs]<!-- ignore --> del capítulo 5.) El struct de tupla
 tendrá un campo y será un envoltorio delgado alrededor del tipo en el que
 queremos implementar un trait. Entonces, el tipo de envoltorio es local a
-nuestro crate, y podemos implementar el trait en el envoltorio. *Newtype* es
+nuestro crate, y podemos implementar el trait en el envoltorio. _Newtype_ es
 un término que se origina en el lenguaje de programación Haskell. No hay
 penalización de rendimiento en tiempo de ejecución por usar este patrón, y el
 tipo de wrapper se omite en tiempo de compilación.
 
-Como ejemplo, supongamos que queremos implementar `Display` en `Vec<T>`, lo 
-cual nos impide hacerlo directamente debido a regla de los "orphan rules", ya 
+Como ejemplo, supongamos que queremos implementar `Display` en `Vec<T>`, lo
+cual nos impide hacerlo directamente debido a regla de los "orphan rules", ya
 que el trait `Display` y el tipo `Vec<T>` están definidos fuera de nuestro
 crate. Podemos hacer un struct llamado `Wrapper` que contenga una instancia de
 `Vec<T>`. Luego podemos implementar `Display` en `Wrapper` y usar el valor de
@@ -480,9 +480,7 @@ Ahora cambiemos de enfoque y exploremos algunas formas avanzadas de interactuar
 con el sistema de tipos de Rust.
 
 [newtype]: ch19-03-advanced-traits.html#using-the-newtype-pattern-to-implement-external-traits-on-external-types
-[implementing-a-trait-on-a-type]:
-ch10-02-traits.html#implementing-a-trait-on-a-type
-[traits-defining-shared-behavior]:
-ch10-02-traits.html#traits-defining-shared-behavior
+[implementando-un-trait-en-un-tipo]: ch10-02-traits.html#implementando-un-trait-en-un-tipo
+[traits-defining-shared-behavior]: ch10-02-traits.html#traits-defining-shared-behavior
 [smart-pointer-deref]: ch15-02-deref.html#treating-smart-pointers-like-regular-references-with-the-deref-trait
-[tuple-structs]: ch05-01-defining-structs.html#using-tuple-structs-without-named-fields-to-create-different-types
+[tuple-structs]: ch05-01-defining-structs.html#usand-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos

@@ -38,7 +38,7 @@ nuestros usuarios finales.
 
 Abordemos estos cuatro problemas refactorizando nuestro proyecto.
 
-### Separación de preocupaciones para proyectos binarios
+### Separacion de preocupaciones para proyectos binarios
 
 El problema organizativo de asignar la responsabilidad de múltiples tareas a la
 función `main` es común a muchos proyectos binarios. Como resultado, la
@@ -46,27 +46,27 @@ comunidad de Rust ha desarrollado pautas para dividir las preocupaciones
 separadas de un programa binario cuando `main` comienza a crecer. Este proceso
 tiene los siguientes pasos:
 
-* Divide tu programa en un *main.rs* y un *lib.rs* y mueve la lógica de tu
-  programa a *lib.rs*.
-* Mientras la lógica de análisis de línea de comandos sea pequeña, puede
-  permanecer en *main.rs*.
-* Cuando la lógica de análisis de línea de comandos comience a complicarse,
-  extráela de *main.rs* y muévala a *lib.rs*.
+- Divide tu programa en un _main.rs_ y un _lib.rs_ y mueve la lógica de tu
+  programa a _lib.rs_.
+- Mientras la lógica de análisis de línea de comandos sea pequeña, puede
+  permanecer en _main.rs_.
+- Cuando la lógica de análisis de línea de comandos comience a complicarse,
+  extráela de _main.rs_ y muévala a _lib.rs_.
 
 Las responsabilidades que quedan en la función `main` después de este proceso
 deberían limitarse a lo siguiente:
 
-* Llamar a la lógica de análisis de línea de comandos con los valores de
+- Llamar a la lógica de análisis de línea de comandos con los valores de
   argumento
-* Configuración de cualquier otra configuración
-* Llamando a una función `run` en *lib.rs*
-* Manejo del error si `run` devuelve un error
+- Configuración de cualquier otra configuración
+- Llamando a una función `run` en _lib.rs_
+- Manejo del error si `run` devuelve un error
 
-Este patrón se trata de separar las preocupaciones: *main.rs* maneja la
-ejecución del programa, y *lib.rs* maneja toda la lógica de la tarea en
+Este patrón se trata de separar las preocupaciones: _main.rs_ maneja la
+ejecución del programa, y _lib.rs_ maneja toda la lógica de la tarea en
 cuestión. Debido a que no puede probar la función `main` directamente, esta
 estructura le permite probar toda la lógica de su programa moviéndola a
-funciones en *lib.rs*. El código que permanece en *main.rs* será lo
+funciones en _lib.rs_. El código que permanece en _main.rs_ será lo
 suficientemente pequeño como para verificar su corrección leyéndolo. Rehagamos
 nuestro programa siguiendo este proceso.
 
@@ -74,8 +74,8 @@ nuestro programa siguiendo este proceso.
 
 Extraeremos la funcionalidad para analizar los argumentos en una función que
 `main` llamará para prepararse para mover la lógica de análisis de línea de
-comandos a *src/lib.rs*. La lista 12-5 muestra el nuevo inicio de `main` que
-llama a una nueva función `parse_config`, que definiremos en *src/main.rs* por
+comandos a _src/lib.rs_. La lista 12-5 muestra el nuevo inicio de `main` que
+llama a una nueva función `parse_config`, que definiremos en _src/main.rs_ por
 el momento.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -116,8 +116,8 @@ relacionados y ambos son parte de un valor de configuración. Actualmente, no
 estamos transmitiendo este significado en el struct de los datos que no sea
 agrupar los dos valores en una tupla; en su lugar, pondremos los dos valores en
 un struct y daremos a cada uno de los campos del struct un nombre significativo.
-Hacerlo hará que sea más fácil para los futuros mantenedores de este código 
-comprender cómo se relacionan los diferentes valores entre sí y cuál es su 
+Hacerlo hará que sea más fácil para los futuros mantenedores de este código
+comprender cómo se relacionan los diferentes valores entre sí y cuál es su
 propósito.
 
 Listing 12-6 muestra las mejoras a la función `parse_config`.
@@ -128,7 +128,7 @@ Listing 12-6 muestra las mejoras a la función `parse_config`.
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-6: Refactorizando `parse_config` para que 
+<span class="caption">Listing 12-6: Refactorizando `parse_config` para que
 devuelva una instancia de un struct `Config`</span>
 
 Hemos agregado un struct llamado `Config` definido para tener campos llamados
@@ -161,7 +161,7 @@ es un intercambio válido.
 > tener un programa que funcione un poco ineficiente que intentar
 > hiperoptimizar el código en tu primer paso. A medida que adquieras más
 > experiencia con Rust, será más fácil comenzar con la solución más eficiente,
->, pero por ahora, es perfectamente aceptable llamar a `clone`.
+> , pero por ahora, es perfectamente aceptable llamar a `clone`.
 
 Hemos actualizado `main` para que coloque la instancia de `Config` devuelta por
 `parse_config` en una variable llamada `config`, y hemos actualizado el código
@@ -169,7 +169,7 @@ que anteriormente usaba las variables separadas `query` y `file_path` para que
 ahora use los campos en el struct `Config` en su lugar.
 
 Ahora nuestro código transmite más claramente que `query` y `file_path` están
-relacionados y que su propósito es configurar cómo funcionará el programa. 
+relacionados y que su propósito es configurar cómo funcionará el programa.
 Cualquier código que use estos valores sabe que debe buscarlos en la instancia
 `config` en los campos nombrados por su propósito.
 
@@ -185,7 +185,7 @@ de struct desde la función `parse_config`.
 
 Así que ahora el propósito de la función `parse_config` es crear una instancia
 de `Config`, podemos cambiar `parse_config` de una función normal a una función
-llama `new` que es asociada con `Config`. que esté asociada con el struct 
+llama `new` que es asociada con `Config`. que esté asociada con el struct
 `Config`. Haciendo este cambio, el código será más idiomático. Podemos crear
 instancias de tipos en la biblioteca estándar, como `String`, llamando a
 `String::new`. De manera similar, al cambiar `parse_config` a una función
@@ -198,7 +198,7 @@ asociada con `Config`, podremos crear instancias de `Config` llamando a
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-7: Cambiando `parse_config` a 
+<span class="caption">Listing 12-7: Cambiando `parse_config` a
 `Config::new`</span>
 
 Hemos actualizado `main` donde estábamos llamando a `parse_config` para que en
@@ -258,13 +258,14 @@ Este output es mejor: ahora tenemos un mensaje de error razonable. Sin embargo,
 también tenemos información superflua que no queremos dar a nuestros usuarios.
 Quizás usar la técnica que usamos en el Listado 9-13 no es la mejor para usar
 aquí: una llamada a `panic!` es más apropiada para un problema de programación
-que para un problema de uso, 
-[como se discutió en el Capítulo 9][ch9-error-guidelines]<!-- ignore -->. 
-En su lugar, usaremos la otra técnica que aprendiste en el Capítulo 9: 
-[devolver un `Result`][ch9-result]<!-- ignore --> que indique el éxito o un 
+que para un problema de uso,
+[como se discutió en el Capítulo 9][ch9-error-guidelines]<!-- ignore -->.
+En su lugar, usaremos la otra técnica que aprendiste en el Capítulo 9:
+[devolver un `Result`][ch9-result]<!-- ignore --> que indique el éxito o un
 error.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="returning-a-result-from-new-instead-of-calling-panic"></a>
 
 #### Devolver un `Result` en lugar de llamar a `panic!`
@@ -308,6 +309,7 @@ Devolviendo un valor `Err` desde `Config::build` permite que la función
 de manera más limpia en el caso de error.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="calling-confignew-and-handling-errors"></a>
 
 #### Llamando a `Config::build` y manejando errores
@@ -335,7 +337,7 @@ estándar. Usar `unwrap_or_else` nos permite definir un manejo de errores
 personalizado que no sea `panic!`. Si el `Result` es un valor `Ok`, el
 comportamiento de este método es similar a `unwrap`: devuelve el valor interno
 que `Ok` está envolviendo. Sin embargo, si el valor es un valor `Err`, este
-método llama al código en el *closure*, que es una función anónima que
+método llama al código en el _closure_, que es una función anónima que
 definimos y pasamos como argumento a `unwrap_or_else`. Cubriremos los closures
 con más detalle en el [Capítulo 13][ch13]<!-- ignore -->. Por ahora, solo
 necesitas saber que `unwrap_or_else` pasará el valor interno del `Err`, que en
@@ -362,7 +364,7 @@ salida. Esto es similar al manejo basado en `panic!` que usamos en el Listado
 
 Ahora que hemos terminado de refactorizar el análisis de configuración, pasemos
 a la lógica del programa. Como dijimos en [“Separación de preocupaciones para
-proyectos 
+proyectos
 binarios”](#separacion-de-preocupaciones-para-proyectos-binarios)<!-- ignore -->
 , extraeremos una función llamada `run` que contendrá toda la lógica actualmente
 en la función `main` que no está involucrada con la configuración o el manejo
@@ -371,7 +373,7 @@ inspección, y podremos escribir pruebas para toda la otra lógica.
 
 El Listado 12-11 muestra la función `run` extraída. Por ahora, solo estamos
 haciendo la pequeña mejora incremental de extraer la función. Todavía estamos
-definiendo la función en *src/main.rs*.
+definiendo la función en _src/main.rs_.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -410,9 +412,9 @@ retorno de la función `run` a `Result<(), Box<dyn Error>>`. Esta función
 anteriormente devolvía el tipo unitario, `()`, y lo mantenemos como el valor
 devuelto en el caso `Ok`.
 
-Para el tipo de error, usamos el *trait object* `Box<dyn Error>` (y hemos
+Para el tipo de error, usamos el _trait object_ `Box<dyn Error>` (y hemos
 traído `std::error::Error` al alcance con una declaración `use` en la parte
-superior). Cubriremos los *trait objects* en el [Capítulo 17][ch17]<!-- ignore
+superior). Cubriremos los _trait objects_ en el [Capítulo 17][ch17]<!-- ignore
 -->. Por ahora, solo sepa que `Box<dyn Error>` significa que la función
 devolverá un tipo que implementa el trait `Error`, pero no tenemos que
 especificar qué tipo particular será el valor de retorno. Esto nos da
@@ -426,7 +428,7 @@ que el llamador lo maneje.
 
 Tercero, la función `run` ahora devuelve un valor `Ok` en caso de éxito. Hemos
 declarado con éxito la función `run` como `()` en la firma, lo que significa
-que necesitamos envolver el valor unitario en el valor `Ok`. Esta sintaxis 
+que necesitamos envolver el valor unitario en el valor `Ok`. Esta sintaxis
 `Ok(())` puede parecer un poco extraña al principio, pero usar `()` de esta
 manera es la forma idiomática de indicar que estamos llamando a `run` solo por
 sus efectos secundarios; no devuelve un valor que necesitamos.
@@ -436,6 +438,7 @@ Cuando ejecutamos el código, se compila, pero no muestra nada:
 ```console
 {{#include ../listings/ch12-an-io-project/listing-12-12/output.txt}}
 ```
+
 Rust nos dice que nuestro código ignoró el valor `Result` y el valor `Result`
 podría indicar que ocurrió un error. Pero no estamos comprobando si hubo un
 error o no, ¡y el compilador nos recuerda que probablemente quisimos tener algo
@@ -465,21 +468,21 @@ ambos casos: imprimimos el error y salimos.
 ### Dividiendo el código en un crate de biblioteca
 
 Nuestro proyecto `minigrep` se ve bien hasta ahora. Ahora dividiremos el archivo
-*src/main.rs* y pondremos parte del código en el archivo *src/lib.rs*. De esa
-manera podemos probar el código y tener un archivo *src/main.rs* con menos
+_src/main.rs_ y pondremos parte del código en el archivo _src/lib.rs_. De esa
+manera podemos probar el código y tener un archivo _src/main.rs_ con menos
 responsabilidades.
 
-Vamos a mover todo el código que no sea la función `main` de *src/main.rs* a
-*src/lib.rs*:
+Vamos a mover todo el código que no sea la función `main` de _src/main.rs_ a
+_src/lib.rs_:
 
-* La función `run`
-* Las declaraciones `use` relevantes
-* La definición de `Config`
-* La función `Config::build`
+- La función `run`
+- Las declaraciones `use` relevantes
+- La definición de `Config`
+- La función `Config::build`
 
-El contenido de *src/main.rs* debería tener la firma que se muestra en el
+El contenido de _src/main.rs_ debería tener la firma que se muestra en el
 Listado 12-13 (omitimos los cuerpos de las funciones por brevedad). Ten en
-cuenta que esto no se compilará hasta que modifiquemos *src/main.rs* en el
+cuenta que esto no se compilará hasta que modifiquemos _src/main.rs_ en el
 Listado 12-14.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -489,14 +492,14 @@ Listado 12-14.
 ```
 
 <span class="caption">Listing 12-13: Moviendo `Config` y `run` a
-*src/lib.rs*</span>
+_src/lib.rs_</span>
 
 Hemos hecho uso de la palabra clave `pub`: en `Config`, en sus campos y en su
 método `build`, y en la función `run`. ¡Ahora tenemos un crate de biblioteca que
 tiene una API pública que podemos probar!.
 
-Ahora necesitamos traer el código que movimos a *src/lib.rs* al scope del crate
-binario en *src/main.rs*, como se muestra en el Listado 12-14.
+Ahora necesitamos traer el código que movimos a _src/lib.rs_ al scope del crate
+binario en _src/main.rs_, como se muestra en el Listado 12-14.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -505,7 +508,7 @@ binario en *src/main.rs*, como se muestra en el Listado 12-14.
 ```
 
 <span class="caption">Listing 12-14: Usando el crate biblioteca `minigrep` en
-*src/main.rs*</span>
+_src/main.rs_</span>
 
 Agregamos una línea `use minigrep::Config` para traer el tipo `Config` desde el
 crate de biblioteca al scope del crate binario, y agregamos el prefijo
@@ -515,7 +518,7 @@ de que todo funcione correctamente.
 
 ¡Uf! Eso fue mucho trabajo, pero nos hemos preparado para el éxito en el
 futuro. Ahora es mucho más fácil manejar errores, y hemos hecho que el código
-sea más modular. Casi todo nuestro trabajo se hará en *src/lib.rs* a partir de
+sea más modular. Casi todo nuestro trabajo se hará en _src/lib.rs_ a partir de
 ahora.
 
 ¡Aprovechemos esta nueva modularidad haciendo algo que habría sido difícil con
@@ -523,8 +526,8 @@ el código antiguo, pero es fácil con el nuevo código: escribiremos algunas
 pruebas!
 
 [ch13]: ch13-00-functional-features.html
-[ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#creating-custom-types-for-validation
-[ch9-error-guidelines]: ch09-03-to-panic-or-not-to-panic.html#guidelines-for-error-handling
+[ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#creacion-de-tipos-personalizados-para-validacion
+[ch9-error-guidelines]: ch09-03-to-panic-or-not-to-panic.html#pautas-para-el-manejo-de-errores
 [ch9-result]: ch09-02-recoverable-errors-with-result.html
 [ch17]: ch17-00-oop.html
-[ch9-question-mark]: ch09-02-recoverable-errors-with-result.html#a-shortcut-for-propagating-errors-the--operator
+[ch9-question-mark]: ch09-02-recoverable-errors-with-result.html#un-atajo-para-propagar-errores-el-operador-
