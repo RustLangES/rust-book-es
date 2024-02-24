@@ -1,4 +1,4 @@
-## Incluyendo rutas al Scope con la palabra clave `use`
+## Incluyendo rutas al ámbito con la palabra clave `use`
 
 Tener que escribir las rutas para llamar a las funciones puede sentirse
 inconveniente y repetitivo. En el Listado 7-7, si elegimos la ruta absoluta o
@@ -8,7 +8,7 @@ Afortunadamente, hay una manera de simplificar este proceso: podemos crear un
 atajo a una ruta con la palabra clave `use` una vez, y luego usar el nombre
 más corto en todas partes en el ámbito.
 
-En el Listing 7-11, traemos el módulo `crate::front_of_house::hosting` al ámbito
+En el listado 7-11, traemos el módulo `crate::front_of_house::hosting` al ámbito
 de la función `eat_at_restaurant` para que solo tengamos que especificar
 `hosting::add_to_waitlist` para llamar a la función `add_to_waitlist` en
 `eat_at_restaurant`.
@@ -19,20 +19,19 @@ de la función `eat_at_restaurant` para que solo tengamos que especificar
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-11: Colocando un módulo en el scope con
-`use`</span>
+<span class="caption">Listado 7-11: Introducir un módulo en el ámbito de aplicación con `use`</span>
 
-Agregar `use` y un path en un ámbito es similar a crear un enlace simbólico
+Agregar `use` y una ruta en un ámbito es similar a crear un enlace simbólico
 en el sistema de archivos. Al agregar `use crate::front_of_house::hosting` en
-la raíz del crate, `hosting` es ahora un nombre válido en ese ámbito, como si
-el módulo `hosting` hubiera sido definido en la raíz del crate. Los paths
+la raíz del crate, hace que `hosting` sea ahora un nombre válido en ese ámbito, como si
+el módulo `hosting` hubiera sido definido en la raíz del crate. Las rutas
 traídas al ámbito con `use` también verifican la privacidad, como cualquier
-otro path.
+otra ruta.
 
 Ten en cuenta que `use` solo crea el atajo para el ámbito particular en el que
 ocurre él `use`. El Listado 7-12 mueve la función `eat_at_restaurant` a un
-nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente que
-el `use` declaración, por lo que el cuerpo de la función no se compilará:
+nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente al de la sentencia `use`,
+por lo que el cuerpo de la función no compilará:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -40,26 +39,26 @@ el `use` declaración, por lo que el cuerpo de la función no se compilará:
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-12: Una declaración de `use` solo aplica en el 
-scope</span>
+<span class="caption">Listado 7-12: La sentencia `use` solo aplica en el
+ámbito donde se encuentra declarado</span>
 
-El compilador muestra un error que el atajo ya no se aplica dentro del módulo
+El error del compilador muestra que el acceso directo ya no se aplica dentro del módulo del
 `customer`:
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-12/output.txt}}
 ```
 
-Observa que también hay una advertencia de que él `use` ya no se usa en su
-ámbito. Para solucionar este problema, mueve él `use` dentro del módulo
-`customer` también, o referencia el atajo en el módulo padre con
+Observe que también hay una advertencia de que él `use` ya no se utiliza en su
+ámbito. Para solucionar este problema, mueva también él `use` dentro del módulo
+`customer`, o haga referencia al acceso directo en el módulo padre con
 `super::hosting` dentro del módulo hijo `customer`.
 
-### Creando Paths `use` Idiomáticos
+### Creando rutas de `use` idiomáticas
 
 En el Listado 7-11, podrías haberte preguntado por qué especificamos
 `use crate::front_of_house::hosting` y luego llamamos a `hosting::add_to_waitlist`
-en `eat_at_restaurant` en lugar de especificar la ruta `use` todo el camino
+en `eat_at_restaurant` en lugar de especificar toda la ruta
 hasta la función `add_to_waitlist` para lograr el mismo resultado, como en el
 Listado 7-13.
 
@@ -69,8 +68,8 @@ Listado 7-13.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-13/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-13: Incorporando la función `add_to_waitlist`
-en el scope con `use`, que no es idiomático</span>
+<span class="caption">Listado 7-13: Incorporando la función `add_to_waitlist`
+en el ámbito con `use`, que no es idiomático</span>
 
 Aunque el Listado 7-11 y 7-13 logran la misma tarea, el Listado 7-11 es la
 forma idiomática de traer una función al ámbito con `use`. Traer el módulo
@@ -92,15 +91,15 @@ un crate binario.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-14/src/main.rs}}
 ```
 
-<span class="caption">Listing 7-14: Trayendo `HashMap` al scope de una
+<span class="caption">Listado 7-14: Trayendo `HashMap` al ámbito de una
 manera idiomática</span>
 
-No hay una razón fuerte detrás de este idiom: es solo la convención que ha
+No hay una razón fuerte detrás de este idioma: es solo la convención que ha
 surgido, y la gente se ha acostumbrado a leer y escribir código Rust de esta
 manera.
 
-La excepción a este idiom es si estamos trayendo dos items con el mismo nombre
-en el ámbito con declaraciones `use`, porque Rust no lo permite. El Listado
+La excepción a este idioma es si estamos trayendo dos elementos con el mismo nombre
+al ámbito con declaraciones `use`, porque Rust no lo permite. El Listado
 7-15 muestra cómo traer dos tipos `Result` al ámbito que tienen el mismo nombre
 pero módulos padres diferentes y cómo referirse a ellos.
 
@@ -110,19 +109,19 @@ pero módulos padres diferentes y cómo referirse a ellos.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-15/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 7-15: Incorporando dos tipos con el mismo nombre 
-en el mismo scope requiere el uso de sus módulos principales.</span>
+<span class="caption">Listado 7-15: Incorporando dos tipos con el mismo nombre
+en el mismo ámbito requiere el uso de sus módulos principales.</span>
 
 Como puedes ver, usar los módulos padres distingue los dos tipos `Result`. Sí,
-en cambio, especificamos `use std::fmt::Result` y `use std::io::Result`, 
-tendríamos dos tipos `Result` en el mismo ámbito y Rust no sabría a cuál nos 
+en cambio, especificamos `use std::fmt::Result` y `use std::io::Result`,
+tendríamos dos tipos `Result` en el mismo ámbito y Rust no sabría a cuál nos
 referimos cuando usamos `Result`.
 
 ### Proporcionando nuevos nombres con el Keyword `as`
 
-Hay otra solución a este problema de traer dos tipos con el mismo nombre en el
+Hay otra solución a este problema de traer dos elementos con el mismo nombre al
 ámbito con `use`: después de la ruta, podemos especificar `as` y un nuevo
-nombre local, o *alias*, para el tipo. El Listado 7-16 muestra otra forma de
+nombre local, o _alias_, para el tipo. El Listado 7-16 muestra otra forma de
 escribir el código en el Listado 7-15 renombrando uno de los dos tipos
 `Result` usando `as`.
 
@@ -132,8 +131,8 @@ escribir el código en el Listado 7-15 renombrando uno de los dos tipos
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 7-16: Cambiando el nombre de un tipo cuando se
-introduce en el scope con la keyword `as`</span>
+<span class="caption">Listado 7-16: Cambiando el nombre de un tipo cuando se
+introduce en el ámbito con la keyword `as`</span>
 
 En la segunda declaración `use`, elegimos el nuevo nombre `IoResult` para el
 tipo `std::io::Result`, que no entrará en conflicto con el `Result` de
@@ -142,14 +141,14 @@ consideran idiomáticos, ¡así que la elección depende de ti!
 
 ### Re-exportando nombres con `pub use`
 
-Cuando traemos un nombre al Scope con la keyword `use`, el nombre está
+Cuando traemos un nombre al ámbito con la keyword `use`, el nombre está
 disponible en ese ámbito de forma privada. Si queremos que el nombre esté
 disponible para que el código que llama a nuestro código lo use, podemos
-combinar `pub` y `use`. Esta técnica se llama *re-exporting* porque estamos
-trayendo un item al ámbito, pero también haciendo que ese item esté disponible
-para que otros lo traigan a su Scope.
+combinar `pub` y `use`. Esta técnica se llama _re-exporting_ porque estamos
+trayendo un elemento al ámbito, pero también haciendo que ese elemento esté disponible
+para que otros lo traigan a su ámbito.
 
-Listing 7-11 muestra el código en Listing 7-10 con `use` en el módulo
+El listado 7-17 muestra el código del listado 7-11 con `use` en el módulo
 `front_of_house` cambiado a `pub use`.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -158,13 +157,13 @@ Listing 7-11 muestra el código en Listing 7-10 con `use` en el módulo
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-17/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-17: Hacer que un nombre esté disponible para que 
-lo use cualquier código desde un nuevo scope con `pub use`</span>
+<span class="caption">Listado 7-17: Hacer que un nombre esté disponible para que
+lo use cualquier código desde un nuevo ámbito con `pub use`</span>
 
 Antes de este cambio, el código externo tendría que llamar a la función
-`add_to_waitlist` usando la ruta 
-`restaurant::front_of_house::hosting::add_to_waitlist()`. Ahora que este 
-`pub use` ha reexportado el módulo `hosting` desde el módulo raíz, el código 
+`add_to_waitlist` usando la ruta
+`restaurant::front_of_house::hosting::add_to_waitlist()`. Ahora que este
+`pub use` ha reexportado el módulo `hosting` desde el módulo raíz, el código
 externo puede usar la ruta `restaurant::hosting::add_to_waitlist()` en su lugar.
 
 Re-exportar es útil cuando la estructura interna de tu código es diferente de
@@ -177,14 +176,13 @@ pero exponer una estructura diferente. Hacerlo hace que nuestra biblioteca esté
 bien organizada para los programadores que trabajan en la biblioteca y los
 programadores que llaman a la biblioteca. Veremos otro ejemplo de `pub use` y
 cómo afecta la documentación de tu crate en la sección [“Exportando una API
-pública conveniente con `pub use`”][ch14-pub-use]<!-- ignore --> del Capítulo
-14.
+pública conveniente con `pub use`”][ch14-pub-use]<!-- ignore --> del Capítulo 14.
 
 ### Usando paquetes externos
 
 En el Capítulo 2, programamos un proyecto de juego de adivinanzas que usaba un
 paquete externo llamado `rand` para obtener números aleatorios. Para usar
-`rand` en nuestro proyecto, agregamos esta línea a *Cargo.toml*:
+`rand` en nuestro proyecto, agregamos esta línea a _Cargo.toml_:
 
 <!-- When updating the version of `rand` used, also update the version of
 `rand` used in these files so they all match:
@@ -198,15 +196,15 @@ paquete externo llamado `rand` para obtener números aleatorios. Para usar
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:9:}}
 ```
 
-Añadir `rand` como dependencia en *Cargo.toml* le dice a Cargo que descargue el
+Añadir `rand` como dependencia en _Cargo.toml_ le dice a Cargo que descargue el
 paquete `rand` y cualquier dependencia de [crates.io](https://crates.io/) y
 haga que `rand` esté disponible para nuestro proyecto.
 
-Luego, para llevar las definiciones de `rand` al Scope de nuestro paquete,
+Luego, para llevar las definiciones de `rand` al ámbito de nuestro paquete,
 agregamos una línea `use` que comienza con el nombre del paquete, `rand`, y
-enumera los items que queremos traer al Scope. Recuerda que en la sección
+enumera los items que queremos traer al ámbito. Recuerda que en la sección
 [“Generando un número aleatorio”][rand]<!-- ignore --> del Capítulo 2,
-traíamos el trait `Rng` al Scope y llamábamos a la función `rand::thread_rng`:
+traíamos el trait `Rng` al ámbito y llamábamos a la función `rand::thread_rng`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:ch07-04}}
@@ -214,28 +212,28 @@ traíamos el trait `Rng` al Scope y llamábamos a la función `rand::thread_rng`
 
 Los miembros de la comunidad de Rust han puesto muchos paquetes disponibles en
 [crates.io](https://crates.io/), y traer cualquiera de ellos a tu paquete
-involucra estos mismos pasos: listarlos en el archivo *Cargo.toml* de tu
-paquete y usar `use` para traer items de sus crates al Scope.
+involucra estos mismos pasos: listarlos en el archivo _Cargo.toml_ de tu
+paquete y usar `use` para traer items de sus crates al ámbito.
 
 Ten en cuenta que la biblioteca estándar `std` también es una crate externa a
 nuestro paquete. Debido a que la biblioteca estándar se envía con el lenguaje
-Rust, no necesitamos cambiar *Cargo.toml* para incluir `std`. Pero sí
-necesitamos referirnos a él con `use` para traer items de allí al Scope de
+Rust, no necesitamos cambiar _Cargo.toml_ para incluir `std`. Pero sí
+necesitamos referirnos a él con `use` para traer items de allí al ámbito de
 nuestro paquete. Por ejemplo, con `HashMap` usaríamos esta línea:
 
 ```rust
 use std::collections::HashMap;
 ```
 
-Esta es un path absoluto que comienza con `std`, el nombre del crate de la
+Esta es una ruta absoluta que comienza con `std`, el nombre del crate de la
 biblioteca estándar. También podríamos escribir este `use` como:
 
-### Usando Paths Anidados para Limpiar Listas `use` Grandes
+### Usando rutas anidadas para limpiar listas `use` grandes
 
-Si estamos usando varios items definidos en el mismo crate o el mismo módulo,
-enumerar cada item en su propia línea puede ocupar mucho espacio vertical en
+Si estamos usando varios elementos definidos en el mismo crate o el mismo módulo,
+enumerar cada elemento en su propia línea puede ocupar mucho espacio vertical en
 nuestros archivos. Por ejemplo, estas dos declaraciones `use` que teníamos en
-el juego de adivinanzas en el Listado 2-4 traen items de `std` al Scope:
+el juego de adivinanzas en el Listado 2-4 traen items de `std` al ámbito:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -243,10 +241,9 @@ el juego de adivinanzas en el Listado 2-4 traen items de `std` al Scope:
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/no-listing-01-use-std-unnested/src/main.rs:here}}
 ```
 
-En su lugar, podemos usar paths anidados para traer los mismos items al Scope
-en una línea. Hacemos esto especificando la parte común del path, seguida de
-dos puntos y luego llaves alrededor de una lista de las partes de los paths que
-difieren, como se muestra en el Listado 7-18.
+En su lugar, podemos utilizar rutas anidadas para incluir los mismos elementos en una sola línea.
+Hacemos esto especificando la parte común de la ruta, seguida de
+dos puntos y luego entre llaves los elementos, como se muestra en el Listado 7-18.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -254,17 +251,16 @@ difieren, como se muestra en el Listado 7-18.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 7-18: Especificación de un path anidado 
-path para incluir varios items con el mismo prefix en el scope</span>
+<span class="caption">Listado 7-18: Especificación de una ruta anidada para incluir en el ámbito varios elementos con el mismo prefijo</span>
 
-En programas más grandes, traer muchos items al Scope desde el mismo crate o
-módulo usando paths anidados puede reducir la cantidad de declaraciones `use`
-separadas necesarias en gran medida.
+En programas más grandes, traer muchos items al ámbito desde el mismo crate o
+módulo usando rutas anidadas puede reducir la cantidad de declaraciones `use`
+necesarias en gran medida.
 
-Podemos usar un path anidado en cualquier nivel de un path, lo cual es útil
-cuando combinamos dos declaraciones `use` que comparten un subpath. Por
-ejemplo, el Listado 7-19 muestra dos declaraciones `use`: una que trae `std::io`
-al Scope y otra que trae `std::io::Write` al Scope.
+Podemos usar una ruta anidada en cualquier nivel de una ruta, lo que es útil cuando
+combinamos dos sentencias `use` que comparten una sub-ruta. Por ejemplo, el Listado
+7-19 muestra dos sentencias use: una que trae `std::io` al ámbito y
+otra que trae `std::io::Write` al ámbito.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -272,11 +268,10 @@ al Scope y otra que trae `std::io::Write` al Scope.
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-19/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-19: Dos sentencias `use` donde una es un 
-sub-path del otro</span>
+<span class="caption">Listado 7-19: Dos sentencias `use` donde una es una sub-ruta de la otra</span>
 
-La parte común de estos dos paths es `std::io`, así que podemos usar un path
-anidado para traer ambos al Scope en una línea, como se muestra en el Listado
+La parte común de estas dos rutas es `std::io`, así que podemos usar una ruta
+anidada para traer ambos al ámbito en una línea, como se muestra en el Listado
 7-20.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -285,31 +280,23 @@ anidado para traer ambos al Scope en una línea, como se muestra en el Listado
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-20/src/lib.rs}}
 ```
 
-<span class="caption">Listing 7-20: Combinando los paths del Listing 7-19 en
-una instrucción `use`</span>
+<span class="caption">Listado 7-20: Combinando las rutas del listado 7-19 en
+una sentencia `use`</span>
 
-Esta línea trae `std::io` y `std::io::Write` al Scope.
+Esta línea trae `std::io` y `std::io::Write` al ámbito.
 
 ### El Operador Asterisco (Glob)
 
-Si queremos incluir al Scope *todos* los items públicos definidos en un path,
-podemos especificar ese path seguido del operador glob `*`:
+Si queremos incluir al ámbito _todos_ los elementos públicos definidos en una ruta,
+podemos especificar esa ruta seguido del operador glob `*`:
 
 ```rust
 use std::collections::*;
 ```
 
-Este `use` trae todos los items públicos definidos en `std::collections` al
-Scope actual. ¡Ten cuidado cuando uses el operador asterisco! Glob puede hacer más
-difícil decir qué nombres están en el Scope y dónde se definió un nombre usado
-en tu programa.
+Esta sentencia `use` trae todos los elementos públicos definidos en `std::collections` al ámbito actual. Tenga cuidado al utilizar el operador `glob`. El operador `glob` puede hacer más difícil saber qué elementos están en el ámbito y dónde se definió un elemento que este siendo utilizado en su programa.
 
-El operador asterisco es a veces usado cuando se prueba para traer todo bajo
-prueba al módulo `tests`; hablaremos de eso en la sección [“Cómo Escribir
-Pruebas”][writing-tests]<!-- ignore --> en el Capítulo 11. El operador glob
-también es usado a veces como parte del patrón prelude: ve [la documentación de
-la biblioteca estándar](../std/prelude/index.html#other-preludes)<!-- ignore -->
-para más información sobre ese patrón.
+El operador glob se utiliza a menudo cuando se realizan pruebas para llevar todo lo que se está probando al módulo de `pruebas`; hablaremos de ello en la sección ["Cómo escribir pruebas"][writing-tests]<!-- ignore --> del capítulo 11. El operador glob también se utiliza a veces como parte del patrón prelude: consulte [la documentación de la biblioteca estándar](../std/prelude/index.html#other-preludes)<!-- ignore --> para obtener más información sobre ese patrón.
 
 [ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api-with-pub-use
 [rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
