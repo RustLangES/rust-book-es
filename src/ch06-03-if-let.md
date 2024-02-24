@@ -35,11 +35,9 @@ el cuerpo del bloque `if let` de la misma manera que usamos `max` en el brazo
 `match` correspondiente. El código en el bloque `if let` no se ejecuta si el
 valor no coincide con el patrón.
 
-Usar `if let` significa menos escritura, menos sangría y menos código de
-plantilla. Sin embargo, pierdes la verificación exhaustiva que hace cumplir
-`match`. Elegir entre `match` y `if let` depende de lo que estés haciendo en tu
-situación particular y si ganar concisión es un intercambio apropiado para
-perder la verificación exhaustiva.
+Usar `if let` significa menos escritura, menos indentación y menos código repetitivo. Sin embargo, pierdes la verificación exhaustiva que hace cumplir
+`match`. Elegir entre `match` e `if let` depende de lo que estés haciendo en tu
+situación particular y de si ser más conciso a cambio verificación exhaustiva es un intercambio adecuado.
 
 En otras palabras, puedes pensar en `if let` como una sintaxis dulce para un
 `match` que ejecuta código cuando el valor coincide con un patrón y luego

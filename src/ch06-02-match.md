@@ -28,7 +28,7 @@ valor en centavos, como se muestra en el Listing 6-3.
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-3: Una expresión enum y `match` que tiene
+<span class="caption">Listing 6-3: Una expresión `enum` y `match` que tiene
 las variantes del enum como sus patrones</span>
 
 Desglosemos el uso de `match` en la función `value_in_cents`. 

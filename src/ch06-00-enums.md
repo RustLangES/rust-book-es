@@ -8,5 +8,5 @@ exploraremos un enum particularmente útil, llamado `Option`, que
 expresa que un valor puede ser algo o nada. Luego veremos cómo el
 patrón de coincidencia en la expresión `match` hace que sea fácil
 ejecutar un código diferente para diferentes valores de un enum.
-Finalmente, veremos cómo la construcción `if let` es otro idioma
-conveniente y conciso disponible para manejar enums en su código.
+Finalmente, veremos cómo la construcción `if let` es otra expresión
+conveniente y concisa disponible para manejar enums en su código.

@@ -1,31 +1,31 @@
 ## Definiendo un Enum
 
-Los structs te permiten agrupar campos relacionados y datos, como un `Rectángulo`
-con su `ancho` y `largo`. Por otro lado, las enumeraciones te permiten decir que
+Los `struct` te permiten agrupar campos relacionados y datos, como un `Rectángulo`
+con su `ancho` y `largo`. Por otro lado, los enums te permiten decir que
 un valor es uno de un conjunto de posibles valores. Por ejemplo, podríamos querer
 decir que `Rectángulo` es uno de un conjunto de posibles formas que también
 incluye `Circulo` y `Triangulo`. Para hacer esto, Rust nos permite codificar estas
-posibilidades como una enumeración.
+posibilidades como un `enum`.
 
 Vamos a ver una situación que podemos expresar en código y veremos por qué
 los enums son útiles y más apropiados que los structs en este caso. Digamos
-que tenemos que trabajar con direcciones IP. Actualmente, dos estándares
-son los que se usan para direcciones IP: la versión cuatro y la versión seis.
+que tenemos que trabajar con direcciones IP. Actualmente, existen dos estándares 
+que se usan para direcciones IP: la versión cuatro y la versión seis.
 Como estos son los únicos posibles tipos de direcciones IP que nuestro
 programa encontrará, podemos *enumerar* todas las variantes posibles, de
-donde viene el nombre de enumeración.
+donde viene el nombre de `enum`.
 
 Cualquier dirección IP puede ser una dirección de la versión cuatro o la versión
 seis, pero no ambas al mismo tiempo. Esa propiedad de las direcciones IP hace
-que la estructura de datos enum sea apropiada porque un valor enum puede ser
-sólo una de sus variantes. Tanto la versión cuatro como la versión seis
-direcciones son todavía fundamentalmente direcciones IP, por lo que deben ser
+que la estructura de datos `enum` sea apropiada porque un valor `enum` puede ser
+sólo una de sus variantes. Tanto las direcciones de la versión cuatro como la versión seis
+siguen siendo fundamentalmente direcciones direcciones IP, por lo que deben ser
 tratadas como el mismo tipo cuando el código está manejando situaciones que se
 aplican a cualquier tipo de dirección IP.
 
-Podemos expresar este concepto en código definiendo una enumeración `IpAddrKind`
+Podemos expresar este concepto en código definiendo el enum `IpAddrKind`
 y enumerando los posibles tipos de direcciones IP, `V4` y `V6`. Estas son las
-variantes del enum:
+variantes del `enum`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:def}}
@@ -43,7 +43,7 @@ esta manera:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:instance}}
 ```
 
-Nota que las variantes del enum están en el mismo espacio de nombres bajo su
+Nota que las variantes del `enum` están en el mismo espacio de nombres bajo su
 identificador, y usamos dos puntos para separar los dos. Esto es útil porque
 ahora ambos valores `IpAddrKind::V4` e `IpAddrKind::V6` son del mismo tipo:
 `IpAddrKind`. Podemos entonces, por ejemplo, definir una función que tome
@@ -59,7 +59,7 @@ Y podemos llamar a esta función con cualquiera de las variantes:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:fn_call}}
 ```
 
-Usando enums tiene aún más ventajas. Pensando más en nuestro tipo de dirección
+Usando `enum` tiene aún más ventajas. Pensando más en nuestro tipo de dirección
 IP, en este momento no tenemos una forma de almacenar los datos reales de la
 dirección IP; solo sabemos qué tipo es. Dado que acabas de aprender sobre los
 structs en el Capítulo 5, podrías estar tentado a abordar este problema con
@@ -73,7 +73,7 @@ structs como se muestra en el Listing 6-1.
 `IpAddrKind` de una dirección IP usando un `struct`</span>
 
 Aquí, hemos definido un struct `IpAddr` que tiene dos campos: un campo `kind`
-que es de tipo `IpAddrKind` (el enum que definimos anteriormente) y un campo
+que es de tipo `IpAddrKind` (el `enum` que definimos anteriormente) y un campo
 `address` de tipo `String`. Tenemos dos instancias de este struct. La primera
 es `home`, y tiene el valor `IpAddrKind::V4` como su `kind` como datos de
 dirección asociados de `127.0.0.1`. La segunda instancia es `loopback`. Tiene
@@ -82,24 +82,24 @@ dirección `::1` asociada con ella. Hemos usado un struct para agrupar los
 valores `kind` y `address` juntos, así que ahora la variante está asociada con
 el valor.
 
-Sin embargo, representar el mismo concepto usando sólo un enum es más conciso:
-en lugar de un enum dentro de un struct, podemos poner datos directamente en
-cada variante de enum. Esta nueva definición del enum `IpAddr` dice que tanto
+Sin embargo, representar el mismo concepto usando sólo un `enum` es más conciso:
+en lugar de un `enum` dentro de un struct, podemos poner datos directamente en
+cada variante de `enum`. Esta nueva definición del enum `IpAddr` dice que tanto
 las variantes `V4` como `V6` tendrán valores `String` asociados:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-02-enum-with-data/src/main.rs:here}}
 ```
 
-Adjuntamos datos a cada variante del enum directamente, por lo que no hay
+Adjuntamos datos a cada variante del `enum` directamente, por lo que no hay
 necesidad de un struct extra. Aquí, también es más fácil ver otro detalle
-de cómo funcionan los enums: el nombre de cada variante de enum que definimos
-también se convierte en una función que construye una instancia del tipo enum.
+de cómo funcionan los enums: el nombre de cada variante de `enum` que definimos
+también se convierte en una función que construye una instancia del tipo `enum`.
 Es decir, `IpAddr::V4()` es una llamada a función que toma un argumento
 `String` y devuelve una instancia del tipo `IpAddr`. Obtenemos automáticamente
-esta función constructora definida como resultado de definir el enum.
+esta función constructora definida como resultado de definir el `enum`.
 
-Hay otra ventaja de usar un enum en lugar de un struct: cada variante puede
+Hay otra ventaja de usar un `enum` en lugar de un struct: cada variante puede
 tener diferentes tipos y cantidades de datos asociados con ella. La versión
 cuatro de las direcciones IP siempre tendrá cuatro componentes numéricos que
 tendrán valores entre 0 y 255. Si quisiéramos almacenar las direcciones `V4`
@@ -113,9 +113,9 @@ con facilidad:
 
 Hemos mostrado varias formas diferentes de definir estructuras de datos para
 almacenar direcciones IP de la versión cuatro y de la versión seis. Sin embargo,
-resulta que querer almacenar direcciones IP y codificar cuál es tan común
+resulta que querer almacenar direcciones IP y codificar de que tipo son es tan común
 que [la biblioteca estándar tiene una definición que podemos usar!][IpAddr]<!-- ignore -->
-Veamos cómo define la biblioteca estándar `IpAddr`: tiene el enum exacto y las
+Veamos cómo define la biblioteca estándar `IpAddr`: tiene el `enum` exacto y las
 variantes que hemos definido y usado, pero incrusta los datos de dirección
 dentro de las variantes en forma de dos structs diferentes, que se definen de
 manera diferente para cada variante:
@@ -136,14 +136,14 @@ enum IpAddr {
 ```
 
 Este código ilustra que puedes poner cualquier tipo de datos dentro de una
-variante de enum: strings, tipos numéricos o structs, por ejemplo. ¡Incluso
-puedes incluir otro enum! Además, los tipos de biblioteca estándar a menudo no
+variante de `enum`: strings, tipos numéricos o structs, por ejemplo. ¡Incluso
+puedes incluir otro `enum`! Además, los tipos de biblioteca estándar a menudo no
 son mucho más complicados de lo que podrías idear.
 
 Ten en cuenta que aunque la biblioteca estándar contiene una definición para
 `IpAddr`, aún podemos crear y usar nuestra propia definición sin conflicto
 porque no hemos traído la definición de la biblioteca estándar a nuestro
-ámbito. Hablaremos más sobre cómo traer tipos al ámbito en el Capítulo 7.
+contexto de ejecución. Hablaremos más sobre cómo traer tipos al contexto de ejecución en el Capítulo 7.
 
 Veamos otro ejemplo de una enumeración en el Listing 6-2: este tiene una amplia
 variedad de tipos incrustados en sus variantes.
@@ -155,18 +155,18 @@ variedad de tipos incrustados en sus variantes.
 <span class="caption">Listing 6-2: Un enum `Message` cuyas variantes almacenan 
 diferentes cantidades y tipos de valores</span>
 
-Este enum tiene cuatro variantes con diferentes tipos:
+Este `enum` tiene cuatro variantes con diferentes tipos:
 
 * `Quit` no tiene ningún dato asociado.
 * `Move` tiene campos nombrados, como lo haría un struct.
 * `Write` incluye un solo `String`.
 * `ChangeColor` incluye tres valores `i32`.
 
-Definiendo un enum con variantes como las del Listing 6-2 es similar a
-definir diferentes tipos de definiciones de struct, excepto que el enum no
+Definiendo un `enum` con variantes como las del Listing 6-2 es similar a
+definir diferentes tipos de definiciones de struct, excepto que el `enum` no
 use la palabra clave `struct` y todas las variantes están agrupadas juntas
 bajo el tipo `Message`. Los siguientes structs podrían contener los mismos
-datos que las variantes de enum anteriores:
+datos que las variantes de `enum` anteriores:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-04-structs-similar-to-message-enum/src/main.rs:here}}
@@ -191,11 +191,11 @@ el método. En este ejemplo, hemos creado una variable `m` que tiene el valor
 `Message::Write(String::from("hello"))`, y eso es lo que será `self` en el
 cuerpo del método `call` cuando se ejecute `m.call()`.
 
-Veamos otro enum en la librería estándar que es muy común y útil: `Option`.
+Veamos otro `enum` en la librería estándar que es muy común y útil: `Option`.
 
 ### El Enum `Option` y Sus Ventajas Sobre los Valores Null
 
-Esta sección explora un caso de estudio de `Option`, que es otro enum definido
+Esta sección explora un caso de estudio de `Option`, que es otro `enum` definido
 por la biblioteca estándar. El tipo `Option` codifica el escenario muy común en
 el que un valor podría ser algo o podría ser nada.
 
@@ -221,22 +221,22 @@ Tony Hoare, el inventor de null, tiene esto que decir:
 > programación orientado a objetos. Mi objetivo era asegurarme de que todo el
 > uso de referencias fuera absolutamente seguro, con verificación realizada
 > automáticamente por el compilador. Pero no pude resistir la tentación de
-> poner un valor nulo, simplemente porque era tan fácil de implementar. Esto a
+> poner un valor null, simplemente porque era tan fácil de implementar. Esto a
 > dado lugar a innumerables errores, vulnerabilidades y bloqueos del sistema,
 > que probablemente han causado un billón de dólares de dolor y daños en los
 > últimos cuarenta años.
 
-El problema con los valores nulos es que si intentas utilizar un valor nulo como
-un valor no nulo, obtendrás un error de algún tipo. Debido a que esta propiedad
-nula o no nula es pervasiva, es extremadamente fácil cometer este tipo de error.
+El problema con los valores null es que si intentas utilizar un valor null como
+un valor no null, obtendrás un error de algún tipo. Debido a que esta propiedad
+nula o no nula es omnipresente, es extremadamente fácil cometer este tipo de error.
 
 Sin embargo, el concepto que null está tratando de expresar sigue siendo
 útil: un null es un valor que es actualmente inválido o ausente por alguna
 razón.
 
 El problema no es realmente con el concepto, sino con la implementación
-particular. Como tal, Rust no tiene null, pero tiene un enum que puede
-codificar el concepto de un valor presente o ausente. Este enum es
+particular. Como tal, Rust no tiene null, pero tiene un `enum` que puede
+codificar el concepto de un valor presente o ausente. Este `enum` es
 `Option<T>`, y está [definido por la biblioteca estándar][option]<!-- ignore -->
 de la siguiente manera:
 
@@ -248,9 +248,9 @@ enum Option<T> {
 ```
 
 El enum `Option<T>` es tan útil que incluso está incluido en el [prelude][prelude]; no
-necesitas traerlo a ámbito explícitamente. Sus variantes también están
+necesitas traerlo al contexto de ejecución explícitamente. Sus variantes también están
 incluidas en el prelude: puedes usar `Some` y `None` directamente sin el
-prefijo `Option::`. El enum `Option<T>` es aún un enum regular, y `Some(T)`
+prefijo `Option::`. El enum `Option<T>` es aún un `enum` regular, y `Some(T)`
 y `None` son aún variantes de tipo `Option<T>`.
 
 La sintaxis `<T>` es una característica de Rust que aún no hemos hablado. Es
@@ -268,9 +268,9 @@ de usar valores `Option` para contener tipos de números y tipos de strings:
 El tipo de `some_number` es `Option<i32>`. El tipo de `some_string` es
 `Option<String>`, que es un tipo diferente. Rust puede inferir estos tipos
 porque hemos especificado un valor dentro de la variante `Some`. Para
-`absent_number`, Rust nos requiere anotar el tipo general de `Option`: el
-compilador no puede inferir el tipo que la variante `Some` correspondiente
-tendrá al mirar solo un valor `None`. Aquí, le decimos a Rust que queremos
+`absent_number`, Rust requiere que anotemos el tipo general `Option`: el
+compilador no puede inferir el tipo que tendrá la variante `Some` correspondiente
+mirando sólo un valor `None`. Aquí, le decimos a Rust que queremos
 que `absent_number` sea del tipo `Option<i32>`.
 
 Cuando tenemos un valor `Some`, sabemos que un valor está presente y el valor
@@ -297,24 +297,23 @@ Si ejecutamos este código, obtenemos un mensaje de error como este:
 agregar un `i8` y un `Option<i8>`, porque son tipos diferentes. Cuando tenemos
 un valor de un tipo como `i8` en Rust, el compilador se asegurará de que
 siempre tengamos un valor válido. Podemos proceder con confianza sin tener que
-comprobar si es nulo antes de usar ese valor. Solo cuando tenemos un
+comprobar si es null antes de usar ese valor. Solo cuando tenemos un
 `Option<i8>` (o el tipo de valor que estemos trabajando) tenemos que preocuparnos
 por posiblemente no tener un valor, y el compilador se asegurará de que
 manejemos ese caso antes de usar el valor.
 
 En otras palabras, tienes que convertir un `Option<T>` a un `T` antes de que
 puedas realizar operaciones `T` con él. Generalmente, esto ayuda a detectar uno
-de los errores más comunes con null: asumiendo que algo no es nulo cuando
+de los errores más comunes con null: asumiendo que algo no es null cuando
 realmente lo es.
 
-La eliminación del riesgo de asumir incorrectamente un valor no null
+Eliminar el riesgo de asumir incorrectamente un valor no null
 ayuda a tener más confianza en su código. Para tener un valor que
-puede ser null, debe optar explícitamente por hacer que el tipo de ese
-valor sea `Option<T>`. Luego, cuando use ese valor, se le requerirá
-expresar explícitamente el caso cuando el valor sea null. En todas
-las partes en que un valor tiene un tipo que no es un `Option<T>`, *puede*
-asegurarse de que el valor no sea null. Esta fue una decisión
-deliberada del diseño de Rust para limitar la pervasión de nulos y
+posiblemente pueda ser null, debe optar explícitamente por hacer que el tipo de ese
+valor sea `Option<T>`. Entonces, cuando use ese valor, se le requerirá
+expresar explícitamente el caso cuando el valor es null. Siempre que un valor tenga un tipo que no sea `Option<T>`, se *puede*
+asumir con seguridad que el valor no es null. Esta fue una decisión
+deliberada del diseño de Rust para limitar la omnipresencia de nulls y
 aumentar la seguridad del código de Rust.
 
 Entonces ¿cómo obtienes el valor `T` de un `Some` cuando tienes un valor de
@@ -327,9 +326,9 @@ En general, para usar un valor `Option<T>`, querrás tener código que maneje
 cada variante. Quieres tener algún código que se ejecute solo cuando tienes un
 valor `Some(T)`, y este código está permitido de usar el `T` interno. Quieres
 tener algún otro código que se ejecute solo si tienes un valor `None`, y ese
-código no tiene un valor `T` disponible. La expresión `match` es un
-constructo de flujo de control que hace exactamente esto cuando se usa con
-enums: ejecutará diferente código dependiendo de la variante del enum que
+código no tiene un valor `T` disponible. La expresión `match` es una
+construcción de flujo de control que hace exactamente esto cuando se usa con
+enums: ejecutará diferente código dependiendo de la variante del `enum` que
 tenga, y ese código puede usar los datos dentro del valor que coincida.
 
 [IpAddr]: https://doc.rust-lang.org/std/net/enum.IpAddr.html
