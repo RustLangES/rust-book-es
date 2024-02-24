@@ -33,7 +33,7 @@ match x {
 Los patterns en esta expresión `match` son el `None` y el `Some(i)` a la
 izquierda de cada flecha.
 
-Un requisito para las expresiones `match` es que deben ser *exhaustivas* en el
+Un requisito para las expresiones `match` es que deben ser _exhaustivas_ en el
 sentido de que todas las posibilidades para el valor en la expresión `match`
 deben tenerse en cuenta. Una forma de asegurarse de haber cubierto todas las
 posibilidades es tener un patrón de captura para el último brazo: por ejemplo,
@@ -71,7 +71,7 @@ recibir de la entrada del usuario.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-1: Combinando 
+<span class="caption">Listing 18-1: Combinando
 `if let`, `else if`, `else if let`, y `else`</span>
 
 Si el usuario especifica un color favorito, ese color se usa como fondo. Si no
@@ -110,13 +110,13 @@ pusieron.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-2: Utilizando un bucle `while let` para 
+<span class="caption">Listing 18-2: Utilizando un bucle `while let` para
 imprimir valores mientras `stack.pop()` devuelva `Some`</span>
 
 Este ejemplo imprime 3, 2 y luego 1. El método `pop` toma el último elemento
 del vector y devuelve `Some(value)`. Si el vector está vacío, `pop` devuelve
 `None`. El bucle `while` continúa ejecutando el código en su bloque siempre que
-`pop` devuelva `Some`. Cuando `pop` devuelve `None`, el bucle se detiene. 
+`pop` devuelva `Some`. Cuando `pop` devuelve `None`, el bucle se detiene.
 Podemos usar `while let` para sacar todos los elementos de nuestra pila.
 
 ### Bucles `for`
@@ -180,7 +180,7 @@ tupla.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-4: Usando un pattern para desestructurar una 
+<span class="caption">Listing 18-4: Usando un pattern para desestructurar una
 tupla y crear tres variables a la vez</span>
 
 Aquí, emparejamos una tupla con un pattern. Rust compara el valor `(1, 2, 3)`
@@ -197,7 +197,7 @@ tupla con tres elementos en dos variables, lo cual no funcionará.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-5: Al construir incorrectamente un pattern 
+<span class="caption">Listing 18-5: Al construir incorrectamente un pattern
 cuyas variables no coinciden con el número de elementos en la tupla</span>
 
 Intentar compilar este código resulta en este error de tipo:
@@ -206,7 +206,7 @@ Intentar compilar este código resulta en este error de tipo:
 {{#include ../listings/ch18-patterns-and-matching/listing-18-05/output.txt}}
 ```
 
-Para solucionar el error, podríamos ignorar uno o más valores en la tupla 
+Para solucionar el error, podríamos ignorar uno o más valores en la tupla
 utilizando `_` o `..`, como verás en la sección [“Ignorando valores en un
 pattern”][ignoring-values-in-a-pattern]<!-- ignore -->. Si el problema es que
 tenemos demasiadas variables en el pattern, la solución es hacer que los tipos
@@ -223,7 +223,7 @@ de tipo `i32`, debería ser familiar a estas alturas.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-6: La firma de una función que utiliza 
+<span class="caption">Listing 18-6: La firma de una función que utiliza
 patterns en los parámetros</span>
 
 ¡La parte `x` es un pattern! Como hicimos con `let`, podríamos hacer coincidir
@@ -251,5 +251,4 @@ funcionarán de la misma manera en todos los lugares donde podemos usarlos. En
 algunos casos, los patrones deben ser irrefutables; en otras circunstancias,
 pueden ser refutables. Discutiremos estos dos conceptos a continuación.
 
-[ignoring-values-in-a-pattern]:
-ch18-03-pattern-syntax.html#ignoring-values-in-a-pattern
+[ignoring-values-in-a-pattern]: ch18-03-pattern-syntax.html#ignorando-valores-en-un-patr%C3%B3n
