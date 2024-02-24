@@ -251,4 +251,8 @@ funcionarán de la misma manera en todos los lugares donde podemos usarlos. En
 algunos casos, los patrones deben ser irrefutables; en otras circunstancias,
 pueden ser refutables. Discutiremos estos dos conceptos a continuación.
 
+<<<<<<< HEAD
 [ignoring-values-in-a-pattern]: ch18-03-pattern-syntax.html#ignorando-valores-en-un-patrón
+=======
+[ignoring-values-in-a-pattern]: ch18-03-pattern-syntax.html#ignorando-valores-en-un-patr%C3%B3n
+>>>>>>> 40534e47f9fb23e41fca7c7377ea674df5c99cce
