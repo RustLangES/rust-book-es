@@ -458,6 +458,12 @@ concatenacion
 especificamente
 tamano
 hashmap
+Encapsulacion
+implementacion
+metodo
+Metaprogramacion
+metaprogramacion
+encapsulacion
 dinamico
 documentacion
 codigo

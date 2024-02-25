@@ -75,7 +75,7 @@ Aquí, estamos usando la función `to_string` definida en el trait `ToString`,
 que la biblioteca estándar ha implementado para cualquier tipo que implemente
 `Display`.
 
-Recuerda la sección [“Valores de Enum”][enum-values]<!-- ignore --> del
+Recuerda la sección [“Valores de Enum”][valores-enum]<!-- ignore --> del
 Capítulo 6, que el nombre de cada variante de enum que definimos también se
 convierte en una función inicializadora. Podemos usar estas funciones
 inicializadoras como punteros a función que implementan los closure traits,
@@ -131,6 +131,6 @@ tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]
 
 ¡Ahora veamos las macros!
 
-[advanced-traits]: ch19-03-advanced-traits.html#advanced-traits
-[enum-values]: ch06-01-defining-an-enum.html#enum-values
+[advanced-traits]: ch19-03-advanced-traits.html#traits-avanzados
+[valores-enum]: ch06-01-defining-an-enum.html#valores-enum
 [usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos

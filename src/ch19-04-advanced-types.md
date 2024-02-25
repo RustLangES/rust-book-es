@@ -35,7 +35,7 @@ no necesitaría saber que asignamos un ID `i32` a los nombres internamente. El
 newtype pattern es una forma ligera de lograr la encapsulación para ocultar
 los detalles de implementación, que discutimos en la sección [“Encapsulación
 que Oculta los Detalles de
-Implementación”][encapsulation-that-hides-implementation-details]<!-- ignore -->
+Implementación”][encapsulacion-que-oculta-los-detalles-de-implementacion]<!-- ignore -->
 del Capítulo 17.
 
 ### Creando Type Synonyms con Type Aliases
@@ -296,7 +296,7 @@ detrás de algún tipo de puntero. En este caso, hemos elegido una referencia.
 
 ¡A continuación, hablaremos sobre funciones y closures!
 
-[encapsulation-that-hides-implementation-details]: ch17-01-what-is-oo.html#encapsulation-that-hides-implementation-details
+[encapsulacion-que-oculta-los-detalles-de-implementacion]: ch17-01-what-is-oo.html#encapsulacion-que-oculta-los-detalles-de-implementacion
 [string-slices]: ch04-03-slices.html#string-slices
 [the-match-control-flow-operator]: ch06-02-match.html#the-match-control-flow-operator
 [usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
