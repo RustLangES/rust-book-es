@@ -5,7 +5,7 @@ desarrollador de Rust.
 
 ### Estabilidad sin estancamiento
 
-Como lenguaje, Rust se preocupa *mucho* por la estabilidad de tu código.
+Como lenguaje, Rust se preocupa _mucho_ por la estabilidad de tu código.
 Queremos que Rust sea una base sólida sobre la que puedas construir, y si las
 cosas cambian constantemente, eso sería imposible. Al mismo tiempo, si no
 podemos experimentar con nuevas características, es posible que no descubramos
@@ -20,15 +20,15 @@ tiempos de compilación más rápidos.
 
 ### ¡Choo, Choo! Canales de lanzamiento y montando los trenes
 
-El desarrollo de Rust funciona con un *horario de trenes*. Es decir, todo el
+El desarrollo de Rust funciona con un _horario de trenes_. Es decir, todo el
 desarrollo se hace en la rama `master` del repositorio de Rust. Las versiones
 siguen un modelo de tren de lanzamiento de software, que ha sido utilizado por
-Cisco IOS y otros proyectos de software. Hay tres *canales de lanzamiento* para
+Cisco IOS y otros proyectos de software. Hay tres _canales de lanzamiento_ para
 Rust:
 
-* Nightly
-* Beta
-* Stable
+- Nightly
+- Beta
+- Stable
 
 La mayoría de los desarrolladores de Rust utilizan principalmente el canal
 estable, pero aquellos que quieran probar nuevas características experimentales
@@ -93,7 +93,7 @@ stable:                                *
 
 ¡Hurra! ¡Rust 1.5 está listo! Sin embargo, nos hemos olvidado de una cosa:
 porque han pasado las seis semanas, también necesitamos una nueva beta de la
-*siguiente* versión de Rust, 1.6. Así que después de que `stable` se ramifica de
+_siguiente_ versión de Rust, 1.6. Así que después de que `stable` se ramifica de
 `beta`, la siguiente versión de `beta` se ramifica de `nightly` de nuevo:
 
 ```text
@@ -124,13 +124,13 @@ de que ocurra el siguiente lanzamiento estable! La rotura en una versión beta
 es relativamente rara, pero `rustc` sigue siendo un software, y los errores
 existen.
 
-## Características inestables
+## Caracteristicas inestables
 
 Hay alo más con este modelo de lanzamiento: características inestables.
 Rust utiliza una técnica llamada “indicadores de características” para
 determinar qué características están habilitadas en un lanzamiento dado. Si una
 nueva característica está en desarrollo activo, aterriza en `master`, y por lo
-tanto, en nightly, pero detrás de un *indicador de característica*. Si, como
+tanto, en nightly, pero detrás de un _indicador de característica_. Si, como
 usuario, desea probar la característica en progreso, puede hacerlo, pero debe
 estar utilizando una versión nightly de Rust y anotar su código fuente con el
 indicador apropiado para optar por ello.
@@ -158,7 +158,7 @@ instalar nightly, por ejemplo:
 $ rustup toolchain install nightly
 ```
 
-También puede ver todas las *herramientas* (versiones de Rust y componentes
+También puede ver todas las _herramientas_ (versiones de Rust y componentes
 asociados) que tiene instaladas con `rustup`. Aquí hay un ejemplo en uno de los
 autores de Windows:
 
@@ -183,14 +183,14 @@ $ rustup override set nightly
 ```
 
 Ahora, cada vez que llame a `rustc` o `cargo` dentro de
-*~/projects/needs-nightly*, `rustup` se asegurará de que esté utilizando Rust
+_~/projects/needs-nightly_, `rustup` se asegurará de que esté utilizando Rust
 nocturno, en lugar de su estable predeterminado. ¡Esto es útil cuando tienes
 muchos proyectos de Rust!
 
 ## El proceso RFC y los equipos
 
 Entonces, ¿cómo se aprende sobre estas nuevas características? El modelo de
-desarrollo de Rust sigue un proceso de *Solicitud de comentarios (RFC)*. Si
+desarrollo de Rust sigue un proceso de _Solicitud de comentarios (RFC)_. Si
 desea una mejora en Rust, puede escribir una propuesta, llamada RFC.
 
 Cualquiera puede escribir RFC para mejorar Rust, y las propuestas son revisadas
@@ -207,7 +207,7 @@ Rust, y alguien puede implementarla. ¡La persona que lo implementa muy bien no
 tiene por qué ser la persona que propuso la característica en primer lugar!
 Cuando la implementación está lista, aterriza en la rama `master` detrás de una
 puerta de características, como discutimos en la sección [“Características
-inestables”](#características-inestables)<!-- ignore -->.
+inestables”](#caracteristicas-inestables)<!-- ignore -->.
 
 Después de algún tiempo, una vez que los desarrolladores de Rust que utilizan
 las versiones nightly han podido probar la nueva característica, los

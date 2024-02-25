@@ -185,7 +185,7 @@ implementar `Default` para derivar `Default`.
 La función `Default::default` es comúnmente usada en combinación con la
 sintaxis de actualización de struct discutida en la sección [“Creating
 Instances From Other Instances With
-Struct Update Syntax”][creating-instances-from-other-instances-with-struct-update-syntax]<!-- ignore -->
+Struct Update Syntax”][creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update]<!-- ignore -->
 en el Capítulo 5. Puede personalizar algunos campos de un struct y luego
 establecer y usar un valor predeterminado para el resto de los campos usando
 `..Default::default()`.
@@ -195,7 +195,7 @@ El trait `Default` es necesario, por ejemplo, cuando se usa el método
 el método `unwrap_or_default` devolverá el resultado de `Default::default` para
 el tipo `T` almacenado en el `Option<T>`.
 
-[creating-instances-from-other-instances-with-struct-update-syntax]: ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
+[creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update]: ch05-01-defining-structs.html#creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update
 [solo-datos-del-stack-copiar]: ch04-01-what-is-ownership.html#solo-datos-del-stack-copiar
 [ways-variables-and-data-interact-clone]: ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
 [macros]: ch19-06-macros.html#macros
