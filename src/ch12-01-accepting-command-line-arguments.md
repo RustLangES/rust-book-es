@@ -48,7 +48,7 @@ vector.
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 12-1: Recopilando los argumentos de línea de 
+<span class="caption">Listing 12-1: Recopilando los argumentos de línea de
 comandos en un vector e imprimiéndolos</span>
 
 Primero, traemos el módulo `std::env` al alcance con una declaración `use` para
@@ -95,15 +95,15 @@ EL primer valor en el vector es `"target/debug/minigrep"`, que es el nombre de
 nuestro binario. Esto coincide con el comportamiento de la lista de argumentos
 en C, lo que permite que los programas usen el nombre por el que fueron
 invocados en su ejecución. A menudo es conveniente tener acceso al nombre del
-programa en caso de que desees imprimirlo en mensajes o cambiar el 
-comportamiento del programa según el alias de la línea de comandos que se usó 
-para invocar el programa. Pero para los propósitos de este capítulo, lo 
+programa en caso de que desees imprimirlo en mensajes o cambiar el
+comportamiento del programa según el alias de la línea de comandos que se usó
+para invocar el programa. Pero para los propósitos de este capítulo, lo
 ignoraremos y solo guardaremos los dos argumentos que necesitamos.
 
 ### Guardando los valores de los argumentos en variables
 
-El programa actualmente puede acceder a los valores especificados como 
-argumentos de línea de comandos. Ahora necesitamos guardar los valores de los 
+El programa actualmente puede acceder a los valores especificados como
+argumentos de línea de comandos. Ahora necesitamos guardar los valores de los
 dos argumentos en variables para que podamos usar los valores en el resto del
 programa. Hacemos eso en el Listado 12-2.
 
@@ -116,7 +116,7 @@ programa. Hacemos eso en el Listado 12-2.
 <span class="caption">Listing 12-2: Creando variables para contener el argumento
 de consulta y la ruta de archivo</span>
 
-Como vimos cuando imprimimos en el vector, el nombre del programa ocupa el 
+Como vimos cuando imprimimos en el vector, el nombre del programa ocupa el
 primer valor del vector en `args[0]`, por lo que estamos comenzando a leer los
 argumentos en el índice `1`. El primer argumento `minigrep` que toma es la
 cadena que estamos buscando, por lo que ponemos una referencia al primer
@@ -140,4 +140,4 @@ ignoraremos esa situación y trabajaremos en agregar capacidades de lectura de
 archivos en su lugar.
 
 [ch13]: ch13-00-functional-features.html
-[ch7-idiomatic-use]: ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#creating-idiomatic-use-paths
+[ch7-idiomatic-use]: ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#creando-rutas-de-use-idiomaticas

@@ -1,18 +1,18 @@
 ## Definiendo e Instanciando Structs
 
-Los Structs son similares a las tuplas, discutido en la sección 
-[“The Tuple Type”][tuples]<!--ignore --> en ambos casos mantenemos múltiples 
-valores relativos. Como en las tuplas, las partes de un struct pueden ser de 
-diferentes tipos. A diferencia de las tuplas, en un struct tú nombras a cada 
-pieza de datos para que quede claro, que significan estos valores. 
-Agregando estos nombres significa que los structs son más flexibles 
-que las tuplas: no tienes que confiar en el orden de los datos para especificar o 
+Los Structs son similares a las tuplas, discutido en la sección
+[“The Tuple Type”][tuples]<!--ignore --> en ambos casos mantenemos múltiples
+valores relativos. Como en las tuplas, las partes de un struct pueden ser de
+diferentes tipos. A diferencia de las tuplas, en un struct tú nombras a cada
+pieza de datos para que quede claro, que significan estos valores.
+Agregando estos nombres significa que los structs son más flexibles
+que las tuplas: no tienes que confiar en el orden de los datos para especificar o
 acceder a los valores de una instancia.
 
-Para definir un struct, debemos usar la palabra clave `struct` y el nombre del struct completo. 
+Para definir un struct, debemos usar la palabra clave `struct` y el nombre del struct completo.
 El nombre del struct debe describir el significado de los datos que se agrupan.
 Entonces, entre llaves, definimos los nombres y tipos de datos, que llamaremos
-*campos*. Por ejemplo, en el Listing 5-1 mostramos una definición de un struct
+_campos_. Por ejemplo, en el Listing 5-1 mostramos una definición de un struct
 que almacena información sobre una cuenta de usuario.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -23,10 +23,10 @@ que almacena información sobre una cuenta de usuario.
 
 <span class="caption">Listing 5-1: Una definición de struct `User`</span>
 
-Para usar un struct después de haberlo definido, creamos una *instancia* de ese
+Para usar un struct después de haberlo definido, creamos una _instancia_ de ese
 struct especificando valores concretos para cada uno de los campos. Creamos una
 instancia al declarar el nombre del struct y luego agregar llaves que contienen
-*clave: valor* pares, donde las claves son los nombres de los campos y los
+_clave: valor_ pares, donde las claves son los nombres de los campos y los
 valores son los datos que queremos almacenar en esos campos. No tenemos que
 especificar los campos en el mismo orden en el que los declaramos en el struct.
 En otras palabras, la definición del struct es como una plantilla general para
@@ -84,13 +84,14 @@ campos, repetir cada nombre sería aún más molesto. Afortunadamente, hay una
 conveniente forma abreviada.
 
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
 ### Usando la abreviatura Field Init
 
 Debido a que los nombres de los parámetros y los nombres de los campos del
-struct son exactamente los mismos en el Listing 5-4, podemos usar la *abreviatura
-Field Init* para reescribir `build_user` para que se comporte exactamente igual
+struct son exactamente los mismos en el Listing 5-4, podemos usar la _abreviatura
+Field Init_ para reescribir `build_user` para que se comporte exactamente igual
 pero no tenga la repetición de `username` y `email`, como se muestra en el
 Listing 5-5.
 
@@ -114,7 +115,7 @@ valor del parámetro `email` de la función `build_user`. Debido a que el campo
 
 Suele ser útil crear una nueva instancia de un struct que incluya la mayoría de
 los valores de otra instancia, pero cambie algunos. Puede hacer esto usando la
-*sintaxis de struct update*.
+_sintaxis de struct update_.
 
 Primero, en el Listing 5-6 mostramos cómo crear una nueva instancia de `User`
 regularmente, sin la sintaxis de actualización. Establecemos un nuevo valor para
@@ -141,8 +142,8 @@ que los campos en la instancia dada.
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-7: Usando una sintaxis de struct update para 
-introducir un nuevo valor `email` para una instancia `User` pero para usar el 
+<span class="caption">Listing 5-7: Usando una sintaxis de struct update para
+introducir un nuevo valor `email` para una instancia `User` pero para usar el
 resto de los valores de `user1`</span>
 
 El código en el Listing 5-7 también crea una instancia en `user2` que tiene un
@@ -167,8 +168,8 @@ aplicaría.
 
 ### Usando Structs de Tuplas sin Campos Nombrados para Crear Diferentes Tipos
 
-Rust también admite structs que se parecen a tuplas, llamados *structs de
-tuplas*. Los structs de tuplas tienen el significado adicional que proporciona
+Rust también admite structs que se parecen a tuplas, llamados _structs de
+tuplas_. Los structs de tuplas tienen el significado adicional que proporciona
 el nombre del struct, pero no tienen nombres asociados a sus campos; en su
 lugar, solo tienen los tipos de los campos. Los structs de tuplas son útiles
 cuando desea darle un nombre al conjunto completo y hacer que el conjunto sea
@@ -197,7 +198,7 @@ y puede usar un `.` seguido por el índice para acceder a un valor individual.
 ### Structs de Unidad sin Campos
 
 También puede definir structs que no tienen ningún campo. Estos se llaman
-*structs de unidad* porque se comportan de manera similar a `()`, el tipo de
+_structs de unidad_ porque se comportan de manera similar a `()`, el tipo de
 unidad que mencionamos en la sección [“El tipo de tupla”][tuples]<!-- ignore
 -->. Los structs de unidad pueden ser útiles cuando necesita implementar un
 trait en algún tipo, pero no tiene datos que desea almacenar en el tipo
@@ -230,7 +231,7 @@ tipo, incluidos los structs de unidad.
 > struct sea válido.
 >
 > También es posible para los structs almacenar referencias a datos que son
-> propiedad de algo más, pero para hacerlo requiere el uso de *lifetimes*, una
+> propiedad de algo más, pero para hacerlo requiere el uso de _lifetimes_, una
 > característica de Rust que discutiremos en el Capítulo 10. Los lifetimes
 > garantizan que los datos referenciados por un struct sean válidos durante el
 > tiempo que el struct sea válido. Digamos que intentas almacenar una
@@ -306,6 +307,6 @@ pbcopy < listings/ch05-using-structs-to-structure-related-data/no-listing-02-ref
 paste above
 add `> ` before every line -->
 
-[tuples]: ch03-02-data-types.html#the-tuple-type
-[move]: ch04-01-what-is-ownership.html#variables-and-data-interacting-with-move
-[copy]: ch04-01-what-is-ownership.html#stack-only-data-copy
+[tuples]: ch03-02-data-types.html#el-tipo-tupla
+[move]: ch04-01-what-is-ownership.html#variables-y-datos-interactuando-con-move
+[copy]: ch04-01-what-is-ownership.html#solo-datos-del-stack-copiar

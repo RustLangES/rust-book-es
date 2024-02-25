@@ -1,4 +1,4 @@
-## Cómo escribir tests
+## Como escribir tests
 
 Los tests son funciones en Rust que verifican que el código no-test funciona de
 la manera esperada. Los cuerpos de las funciones de test típicamente realizan
@@ -11,7 +11,7 @@ estas tres acciones:
 Veamos las características que Rust provee específicamente para escribir tests
 que incluyen el atributo `test`, algunas macros, y el atributo `should_panic`.
 
-### La anatomía de una función de test
+### La anatomia de una funcion de test
 
 En su forma más simple, un test en Rust es una función que está anotada con el
 atributo `test`. Los atributos son metadatos sobre piezas de código Rust; un
@@ -96,7 +96,7 @@ menos que sean específicamente requeridos”][ignoring]<!-- ignore --> más tar
 en este capítulo. Porque no hemos hecho eso aquí, el resumen muestra `0
 ignored`. También podemos pasar un argumento al comando `cargo test` para
 ejecutar solo tests cuyo nombre coincida con un string; esto se llama
-*filtrado* y lo cubriremos en la sección [“Ejecutando un subconjunto de tests
+_filtrado_ y lo cubriremos en la sección [“Ejecutando un subconjunto de tests
 por nombre”][subset]<!-- ignore -->. Tampoco hemos filtrado los tests que se
 ejecutan, así que el final del resumen muestra `0 filtered out`.
 
@@ -110,7 +110,7 @@ para los resultados de cualquier test de documentación. No tenemos tests de
 documentación aún, pero Rust puede compilar cualquier ejemplo de código que
 aparezca en nuestra documentación de API. ¡Esta característica ayuda a mantener
 tus docs y tu código en sincronía! Discutiremos cómo escribir tests de
-documentación en la sección [“Documentación como tests”][doc-comments]<!-- 
+documentación en la sección [“Documentación como tests”][doc-comments]<!--
 ignore --> del Capítulo 14. Por ahora, ignoraremos el output `Doc-tests`.
 
 Comenzaremos a personalizar el test para nuestras propias necesidades. Primero
@@ -135,7 +135,7 @@ tests fallan cuando algo en la función de test hace panic. Cada test se ejecuta
 en un nuevo thread, y cuando el thread principal ve que un thread de test ha
 muerto, el test se marca como fallido. En el Capítulo 9, hablamos sobre cómo la
 forma más simple de hacer panic es llamar a la macro `panic!`. Ingresa el nuevo
-test como una función llamada `another`, así que tu archivo *src/lib.rs* se ve
+test como una función llamada `another`, así que tu archivo _src/lib.rs_ se ve
 como el Listado 11-3.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -162,12 +162,12 @@ En lugar de `ok`, la línea `test tests::another` muestra `FAILED`. Dos nuevas
 secciones aparecen entre los resultados individuales y el resumen: la primera
 muestra la razón detallada de cada falla de test. En este caso, obtenemos los
 detalles de que `another` falló porque `panicked at 'Make this test fail'` en la
-línea 10 del archivo *src/lib.rs*. La siguiente sección lista solo los nombres
+línea 10 del archivo _src/lib.rs_. La siguiente sección lista solo los nombres
 de todos los tests que fallaron, lo cual es útil cuando hay muchos tests y
 mucho output detallado de tests fallidos. Podemos usar el nombre de un test
 fallido para ejecutar solo ese test y depurarlo más fácilmente; hablaremos más
 sobre formas de ejecutar tests en la sección [“Controlando cómo se ejecutan los
-tests”][controlling-how-tests-are-run]<!-- ignore -->.
+tests”][controlando-como-los-tests-son-ejecutados]<!-- ignore -->.
 
 La línea de resumen se muestra al final: en general, nuestro resultado de test
 es `FAILED`. Tenemos un test que pasó y uno que falló.
@@ -187,7 +187,7 @@ queremos.
 
 En el capítulo 5, en el Listado 5-15, usamos un struct `Rectangle` y un método
 `can_hold`, que se repiten aquí en el Listado 11-5. Pondremos este código en el
-archivo *src/lib.rs*, luego escribiremos algunos tests para él usando la macro
+archivo _src/lib.rs_, luego escribiremos algunos tests para él usando la macro
 `assert!`.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -216,8 +216,8 @@ rectángulo más grande puede contener un rectángulo más pequeño</span>
 
 Observa que hemos agregado una nueva línea dentro del módulo `tests`: `use
 super::*;`. El módulo `tests` es un módulo regular que sigue las reglas de
-visibilidad habituales que cubrimos en el Capítulo 7 en la sección 
-[“Paths para referirse a un item en el árbol de 
+visibilidad habituales que cubrimos en el Capítulo 7 en la sección
+[“Paths para referirse a un item en el árbol de
 módulos”][paths-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->.
 Como el módulo `tests` es un módulo interno, necesitamos traer el código bajo
 test en el módulo externo al alcance del módulo interno. Usamos un asterisco aquí
@@ -227,7 +227,7 @@ este módulo `tests`.
 Hemos llamado a nuestro test `larger_can_hold_smaller`, y hemos creado dos
 instancias de `Rectangle` que necesitamos. Luego llamamos a la macro `assert!`
 y le pasamos el resultado de llamar a `larger.can_hold(&smaller)`. Esta
-expresión debería devolver `true`, por lo que nuestro test debería pasar. 
+expresión debería devolver `true`, por lo que nuestro test debería pasar.
 ¡Veámoslo!
 
 ```console
@@ -279,7 +279,7 @@ el operador `==`. Sin embargo, este es un test tan común que la biblioteca
 estándar provee un par de macros —`assert_eq!` y `assert_ne!`— para realizar
 este test de manera más conveniente. Estas macros comparan dos argumentos por
 igualdad o desigualdad, respectivamente. También imprimirán los dos valores si
-la aserción falla, lo que hace más fácil ver *por qué* falló el test;
+la aserción falla, lo que hace más fácil ver _por qué_ falló el test;
 conversamente, la macro `assert!` solo indica que obtuvo un valor `false` para
 la expresión `==`, sin imprimir los valores que llevaron al valor `false`.
 
@@ -336,7 +336,7 @@ mensaje de error que muestra `` assertion failed: `(left == right)` ``.
 
 La macro `assert_ne!` pasará si los dos valores que le proporcionamos no son
 iguales. Esta macro es más útil en casos en los que no estamos seguros de cuál
-será el valor, pero sabemos que el valor definitivamente *no debería* ser. Por
+será el valor, pero sabemos que el valor definitivamente _no debería_ ser. Por
 ejemplo, si estamos testeando una función que está garantizada de cambiar su
 entrada de alguna manera, pero la forma en que la entrada cambia depende del
 día de la semana en que ejecutamos nuestros tests, lo mejor sería afirmar que
@@ -353,7 +353,7 @@ necesitarás implementar `Debug` para imprimir los valores cuando la aserción
 falla. Debido a que ambos traits son derivables, como se mencionó en el
 Listado 5-12 en el Capítulo 5, esto suele ser tan sencillo como agregar la
 anotación `#[derive(PartialEq, Debug)]` a la definición de tu estructura o
-enumeración. Consulta el Apéndice C, 
+enumeración. Consulta el Apéndice C,
 [“Traits derivables,”][derivable-traits]<!-- ignore -->
 para obtener más detalles sobre estos y otros traits derivables.
 
@@ -364,7 +364,7 @@ fallo como argumentos opcionales a las macros `assert!`, `assert_eq!` y
 `assert_ne!`. Cualquier argumento especificado después de los argumentos
 requeridos se pasa a la macro `format!` (discutida en el Capítulo 8 en la
 sección [“Concatenación con el operador `+` o la macro
-`format!`”][concatenation-with-the--operator-or-the-format-macro]<!-- ignore
+`format!`”][concatenacion-con-el-operador--o-la-macro-format]<!-- ignore
 -->), por lo que puedes pasar una format string que contenga marcadores de
 posición `{}` y valores para ir en esos marcadores de posición. Los mensajes
 personalizados son útiles para documentar lo que significa una aserción; cuando
@@ -400,7 +400,7 @@ Ejecutando este test produce lo siguiente:
 {{#include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/output.txt}}
 ```
 
-El resultado indica simplemente que la aserción falló y en qué línea se 
+El resultado indica simplemente que la aserción falló y en qué línea se
 encuentra. Un mensaje de fallo más útil imprimiría el valor de la función
 `greeting`. Agreguemos un mensaje de fallo personalizado compuesto por un
 format string con un marcador de posición reemplazado por el valor real que
@@ -423,7 +423,7 @@ sucediera.
 
 ### Comprobando panics con `should_panic`
 
-Además de verificar los valores de retorno, es importante verificar que nuestro 
+Además de verificar los valores de retorno, es importante verificar que nuestro
 código maneje las condiciones de error como esperamos. Por ejemplo, considera
 el tipo `Guess` que creamos en el Listado 9-13 del Capítulo 9. Otro código que
 usa `Guess` depende de la garantía de que las instancias de `Guess` contendrán
@@ -541,21 +541,19 @@ escribir tests que fallarán si cualquier operación dentro de ellos devuelve
 una variante `Err`.
 
 No puedes utilizar la anotación `#[should_panic]` en tests que usen `Result<T,
-E>`. Para asegurar que una operación devuelve una variante `Err`, *no* uses el
-operador `?` en el valor `Result<T, E>`. En su lugar, usa 
+E>`. Para asegurar que una operación devuelve una variante `Err`, _no_ uses el
+operador `?` en el valor `Result<T, E>`. En su lugar, usa
 `assert!(value.is_err())`.
 
 Ahora que conoces varias formas de escribir tests, veamos qué sucede cuando
 ejecutamos nuestros tests y exploremos las diferentes opciones que podemos usar
 con `cargo test`.
 
-[concatenation-with-the--operator-or-the-format-macro]:
-ch08-02-strings.html#concatenation-with-the--operator-or-the-format-macro
+[concatenacion-con-el-operador--o-la-macro-format]: ch08-02-strings.html#concatenacion-con-el-operador--o-la-macro-format
 [bench]: https://doc.rust-lang.org/unstable-book/library-features/test.html
-[ignoring]: ch11-02-running-tests.html#ignoring-some-tests-unless-specifically-requested
-[subset]: ch11-02-running-tests.html#running-a-subset-of-tests-by-name
-[controlling-how-tests-are-run]:
-ch11-02-running-tests.html#controlling-how-tests-are-run
+[ignoring]: ch11-02-running-tests.html#ignorando-algunos-tests-a-menos-que-se-soliciten-especificamente
+[subset]: ch11-02-running-tests.html#ejecutando-un-subset-de-tests-por-nombre
+[controlando-como-los-tests-son-ejecutados]: ch11-02-running-tests.html#controlando-como-los-tests-son-ejecutados
 [derivable-traits]: appendix-03-derivable-traits.html
-[doc-comments]: ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests
+[doc-comments]: ch14-02-publishing-to-crates-io.html#comentarios-de-documentacion-como-tests
 [paths-for-referring-to-an-item-in-the-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html

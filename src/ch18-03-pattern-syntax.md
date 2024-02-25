@@ -42,8 +42,8 @@ Vamos a repasar lo que sucede cuando se ejecuta la expresión `match`. El patter
 en la primera opción de `match` no coincide con el valor definido de `x`, por
 lo que el código continúa.
 
-El pattern en la segunda opción de `match` introduce una nueva variable 
-llamada `y` que coincidirá con cualquier valor dentro de un valor `Some`. 
+El pattern en la segunda opción de `match` introduce una nueva variable
+llamada `y` que coincidirá con cualquier valor dentro de un valor `Some`.
 Debido a que estamos en un nuevo scope dentro de la expresión `match`, esta
 es una nueva variable `y`, no la que declaramos al principio con el valor 10.
 Este nuevo enlace `y` coincidirá con cualquier valor dentro de un `Some`, que
@@ -55,7 +55,7 @@ Si `x` hubiera sido un `None` en lugar de `Some(5)`, los patterns en las dos
 primeras opciones no habrían coincidido, por lo que el valor habría coincidido
 con el guion bajo. No introdujimos la variable `x` en el pattern de la opción
 del guion bajo, por lo que el `x` en la expresión sigue siendo el `x` externo
-que no ha sido sombreado. En este caso hipotético, el `match` imprimiría 
+que no ha sido sombreado. En este caso hipotético, el `match` imprimiría
 `Default case, x = None`.
 
 Cuando la expresión `match` termina, su scope termina, y también lo hace el
@@ -65,15 +65,14 @@ scope del `y` interno. El último `println!` produce `at the end: x = Some(5), y
 Para crear una expresión `match` que compare los valores del `x` e `y` externos
 en lugar de introducir una variable sombreada, necesitaríamos usar una
 condición de guardia de `match`. Hablaremos de las guardias de `match` más
-adelante en la sección [“Condicionales extra con guardias de
-`match`”](#extra-conditionals-with-match-guards)<!-- ignore -->
+adelante en la sección [“Condicionales adicionales con `match` guards”](#condicionales-adicionales-con-match-guards)<!-- ignore -->
 
 ### Múltiples Patterns
 
 En las expresiones `match`, puedes coincidir con múltiples patrones usando la
-sintaxis `|`, que es el operador *or* del pattern. Por ejemplo, en el siguiente
+sintaxis `|`, que es el operador _or_ del pattern. Por ejemplo, en el siguiente
 código hacemos coincidir el valor de `x` con las opciones de `match`, el primero
-de los cuales tiene una opción *or*, lo que significa que si el valor de `x`
+de los cuales tiene una opción _or_, lo que significa que si el valor de `x`
 coincide con cualquiera de los valores en esa opción, se ejecutará el código de
 esa opción:
 
@@ -110,7 +109,7 @@ Aquí tienes un ejemplo que utiliza rangos de valores `char`:
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-04-ranges-of-char/src/main.rs:here}}
 ```
 
-Rust puede determinar que `'c'` se encuentra dentro del rango especificado en 
+Rust puede determinar que `'c'` se encuentra dentro del rango especificado en
 el primer pattern y se muestra por pantalla `early ASCII letter`.
 
 ### Desestructurando para separar valores
@@ -151,7 +150,7 @@ el código del Listado 18-12, pero las variables creadas en el pattern `let` son
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-13/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-13: Desestructurando los campos de un struct 
+<span class="caption">Listing 18-13: Desestructurando los campos de un struct
 utilizando la forma abreviada de los campos struct</span>
 
 Este código crea las variables `x` e `y` que coinciden con los campos `x` e `y`
@@ -173,7 +172,7 @@ cual es cierto cuando `y = 0`), en el eje `y` (`x = 0`), o ninguno.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-14: Desestructurar y coincidir valores 
+<span class="caption">Listing 18-14: Desestructurar y coincidir valores
 literales en un solo pattern</span>
 
 El primer bloque coincidirá con cualquier punto que se encuentre en el eje `x`
@@ -189,7 +188,7 @@ lo que coincide con cualquier otro `Point` y crea variables para ambos campos
 En este ejemplo, el valor `p` coincide con el segundo bloque debido a que `x`
 contiene un `0`, por lo que este código imprimirá `On the y axis at 7`.
 
-Recuerda que una expresión `match` detiene la verificación de los bloques una 
+Recuerda que una expresión `match` detiene la verificación de los bloques una
 vez que ha encontrado el primer patrón que coincide, por lo que, aunque `Point
 { x: 0, y: 0 }` está en el eje `x` y en el eje `y`, este código solo imprimirá
 `On the x axis at 0`.
@@ -209,10 +208,10 @@ cada valor interno.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-15/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-15: Desestructurando variantes enum que 
+<span class="caption">Listing 18-15: Desestructurando variantes enum que
 contienen diferentes tipos de valores</span>
 
-Este código imprimirá `Change the color to red 0, green 160, and blue 255`. 
+Este código imprimirá `Change the color to red 0, green 160, and blue 255`.
 Prueba cambiar el valor de `msg` para ver el código de las otras opciones.
 
 Para variantes de enum sin ningún dato, como `Message::Quit`, no podemos
@@ -256,7 +255,7 @@ lugar. Podemos especificar estas condiciones complejas en una expresión
 
 Podemos mezclar, combinar y anidar los patrones de desestructuración de formas
 aún más complejas. El siguiente ejemplo muestra una desestructuración
-complicada donde anidamos structs y tuplas dentro de una tupla y 
+complicada donde anidamos structs y tuplas dentro de una tupla y
 desestructuramos todos los valores primitivos:
 
 ```rust
@@ -269,11 +268,11 @@ para que podamos usar los valores que nos interesan por separado.
 El uso de patrones para desestructurar es una forma conveniente de utilizar
 partes de valores, como el valor de cada campo en un struct, por separado.
 
-### Ignorando Valores en un Pattern
+### Ignorando valores en un patron
 
 Has visto que a veces es útil ignorar valores en un pattern, como en la última
 opción de un `match`, para obtener una opción que no hace nada, pero que abarca
-todos los posibles valores restantes. Hay varias formas de ignorar valores 
+todos los posibles valores restantes. Hay varias formas de ignorar valores
 completos o partes en un pattern: usando el pattern `_` (que has visto), usando
 el pattern `_` dentro de otro pattern, usando un nombre que comienza con un
 guion bajo y usando `..` para ignorar las partes restantes de un valor.
@@ -281,9 +280,9 @@ Exploraremos cómo y por qué usar cada uno de estos patterns.
 
 #### Ignorando un Valor Completo con `_`
 
-Hemos utilizado el guion bajo como un pattern comodín que coincide con 
+Hemos utilizado el guion bajo como un pattern comodín que coincide con
 cualquier valor pero no se enlaza con él. Esto es especialmente útil como la
-última opción en una expresión `match`, pero también podemos usarlo en 
+última opción en una expresión `match`, pero también podemos usarlo en
 cualquier pattern, incluyendo los parámetros de una función, como se muestra en
 el Listado 18-17.
 
@@ -293,14 +292,14 @@ el Listado 18-17.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-17/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-17: Utilizando `_` en la firma de una 
+<span class="caption">Listing 18-17: Utilizando `_` en la firma de una
 función</span>
 
 Este código ignorará completamente el valor `3` pasado como primer argumento,
 e imprimirá `This code only uses the y parameter: 4`.
 
 En la mayoría de los casos, cuando ya no necesitas un parámetro de una función,
-deberías cambiar la firma de la función para que no incluya el parámetro no 
+deberías cambiar la firma de la función para que no incluya el parámetro no
 utilizado. Ignorar un parámetro de una función puede ser especialmente útil en
 casos en los que, por ejemplo, estás implementando un trait cuando necesitas
 una firma de tipo específico, pero el cuerpo de la función en tu implementación
@@ -310,9 +309,9 @@ utilizaras un nombre en su lugar.
 
 #### Ignorando partes de un valor con un `_` anidado
 
-En este caso, el pattern `_` se utiliza dentro de otro pattern para ignorar 
+En este caso, el pattern `_` se utiliza dentro de otro pattern para ignorar
 solo una parte del valor. Esto puede ser útil cuando queremos probar solo una
-parte del valor, pero no tenemos uso para las otras partes en el código 
+parte del valor, pero no tenemos uso para las otras partes en el código
 correspondiente que queremos ejecutar. El Listado 18-18 muestra un código
 encargado de gestionar el valor de una configuración. Los requisitos
 son que el usuario no debe poder sobrescribir una personalización existente de
@@ -324,7 +323,7 @@ actualmente no está establecida.
 ```
 
 <span class="caption">Listing 18-18: Utilizando un guion bajo dentro de patterns
-que coinciden con variantes `Some` cuando no necesitamos usar el valor dentro 
+que coinciden con variantes `Some` cuando no necesitamos usar el valor dentro
 del `Some`</span>
 
 Este código imprimirá `setting is None` y luego `setting is Some(5)`. En la
@@ -385,11 +384,11 @@ error.
 ```
 
 <span class="caption">Listing 18-21: Una variable no utilizada que comienza con
-un guion bajo aún vincula el valor, lo que puede tomar ownership del 
+un guion bajo aún vincula el valor, lo que puede tomar ownership del
 valor</span>
 
 Recibiremos un error porque el valor de `s` se mueve a `_s`, lo que invalida
-usar `s` nuevamente. Sin embargo, usar solo el guion bajo no vincula el valor 
+usar `s` nuevamente. Sin embargo, usar solo el guion bajo no vincula el valor
 en ningún momento. El Listado 18-22 se compilará sin errores porque `s` no se
 mueve a `_`.
 
@@ -397,7 +396,7 @@ mueve a `_`.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-22/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-22: Usar un guion bajo no vincula el 
+<span class="caption">Listing 18-22: Usar un guion bajo no vincula el
 valor</span>
 
 Este código funciona bien porque nunca vinculamos `s` a nada; no se mueve.
@@ -416,7 +415,7 @@ coordenada `x` e ignorar los valores en los campos `y` y `z`.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-23/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-23: Ignorando todos los campos de un `Point` 
+<span class="caption">Listing 18-23: Ignorando todos los campos de un `Point`
 excepto `x` mediante el uso de `..`</span>
 
 Listamos el valor `x` y luego simplemente incluimos el pattern `..`. Esto es
@@ -433,7 +432,7 @@ La sintaxis `..` se expandirá a tantos valores como sea necesario. El Listado
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-24/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-24: Coincidir solo con el primer y último 
+<span class="caption">Listing 18-24: Coincidir solo con el primer y último
 valor en una tupla e ignorar todos los demás valores</span>
 
 En este código, el primer y último valor se coinciden con `first` y `last`. El
@@ -450,7 +449,7 @@ compilará.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-25/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-25: Un intento de usar `..` de manera 
+<span class="caption">Listing 18-25: Un intento de usar `..` de manera
 ambigua</span>
 
 Cuando compilamos este ejemplo, obtenemos este error:
@@ -470,7 +469,7 @@ es ambiguo.
 
 ### Condicionales adicionales con Match Guards
 
-Un *match guard* es una condición adicional `if`, especificada después del 
+Un _match guard_ es una condición adicional `if`, especificada después del
 pattern en una opción `match`, que también debe coincidir para que se elija
 esa opción. Los match guards son útiles para expresar ideas más complejas que
 las que permite un pattern solo.
@@ -484,7 +483,7 @@ par).
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-26/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-26: Agregando un match guard a un 
+<span class="caption">Listing 18-26: Agregando un match guard a un
 pattern</span>
 
 Este ejemplo imprimirá `The number 4 is even`. Cuando `num` se compara con el
@@ -527,15 +526,15 @@ especificar el pattern como `Some(y)`, que habría sombreado la variable externa
 nada porque no hay una variable `n` fuera del `match`.
 
 El match guard `if n == y` no es un pattern y, por lo tanto, no introduce nuevas
-variables. Este `y` *es* el `y` externo en lugar de un nuevo `y` sombreado, y
+variables. Este `y` _es_ el `y` externo en lugar de un nuevo `y` sombreado, y
 podemos buscar un valor que tenga el mismo valor que el `y` externo comparando
 `n` con `y`.
 
-También puedes usar el operador *or* `|` en un match guard para especificar
+También puedes usar el operador _or_ `|` en un match guard para especificar
 múltiples patterns; la condición del match guard se aplicará a todos los
 patterns. El Listado 18-28 muestra la precedencia al combinar un pattern que
 usa `|` con un match guard. La parte importante de este ejemplo es que el
-match guard `if y` se aplica a `4`, `5` y *6*, aunque podría parecer que `if y`
+match guard `if y` se aplica a `4`, `5` y _6_, aunque podría parecer que `if y`
 solo se aplica a `6`.
 
 ```rust
@@ -545,13 +544,13 @@ solo se aplica a `6`.
 <span class="caption">Listing 18-28: Combinando múltiples patterns con un match
 guard</span>
 
-La condición de match establece que la opción solo coincide si el valor de `x` 
-es igual a `4`, `5` o `6` *y* si `y` es `true`. Cuando se ejecuta este código, 
-el pattern de la primera opción coincide porque `x` es `4`, pero el match guard 
+La condición de match establece que la opción solo coincide si el valor de `x`
+es igual a `4`, `5` o `6` _y_ si `y` es `true`. Cuando se ejecuta este código,
+el pattern de la primera opción coincide porque `x` es `4`, pero el match guard
 `if y` es falso, por lo que no se elige la primera opción. El código pasa a la
-segunda opción, que coincide, y este programa imprime `no`. La razón es que la 
+segunda opción, que coincide, y este programa imprime `no`. La razón es que la
 condición `if` se aplica a todo el pattern `4 | 5 | 6`, no solo al último valor
-`6`. En otras palabras, la precedencia de un match guard en relación con un 
+`6`. En otras palabras, la precedencia de un match guard en relación con un
 pattern se comporta así:
 
 ```text
@@ -571,8 +570,8 @@ habría impreso `yes`.
 
 ### `@` Bindings
 
-El operador `@`, conocido como *at*, nos permite crear una variable que almacena
-un valor al mismo tiempo que lo comprobamos para una coincidencia de pattern. 
+El operador `@`, conocido como _at_, nos permite crear una variable que almacena
+un valor al mismo tiempo que lo comprobamos para una coincidencia de pattern.
 En el Listado 18-29, queremos probar que el campo `id` de un `Message::Hello`
 está dentro del rango `3..=7`. También queremos vincular el valor a la variable
 `id_variable` para poder usarlo en el código asociado con la opción. Podríamos
@@ -583,7 +582,7 @@ un nombre diferente.
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-29/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-29: Usando `@` para enlazar un valor en un 
+<span class="caption">Listing 18-29: Usando `@` para enlazar un valor en un
 pattern mientras también lo testeamos</span>
 
 Este ejemplo imprimirá `Found an id in range: 5`. Al especificar `id_variable 
@@ -601,10 +600,10 @@ En la última opción, donde hemos especificado una variable sin un rango, sí
 tenemos el valor disponible para usar en el código de la opción en una variable
 llamada `id`. La razón es que hemos usado la sintaxis de campo de struct
 shorthand. Pero no hemos aplicado ninguna prueba al valor en el campo `id` en
-esta opción, como hicimos con las dos primeras opciones: cualquier valor 
+esta opción, como hicimos con las dos primeras opciones: cualquier valor
 coincidiría con este pattern.
 
-Usar `@` nos permite probar un valor y guardarlo en una variable dentro de un 
+Usar `@` nos permite probar un valor y guardarlo en una variable dentro de un
 mismo pattern.
 
 ## Resumen

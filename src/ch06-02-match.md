@@ -1,5 +1,7 @@
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="the-match-control-flow-operator"></a>
+
 ## El operador de control de flujo `match`
 
 Rust tiene una construcción de flujo de control extremadamente poderosa llamada
@@ -31,12 +33,12 @@ valor en centavos, como se muestra en el Listing 6-3.
 <span class="caption">Listing 6-3: Una expresión `enum` y `match` que tiene
 las variantes del enum como sus patrones</span>
 
-Desglosemos el uso de `match` en la función `value_in_cents`. 
-Primero listamos la palabra clave `match` seguida de una expresión, 
-que en este caso es el valor `coin`. Esto parece muy similar a una expresión 
-condicional utilizada con `if`, pero hay una gran diferencia: con `if`, 
-la condición debe evaluar a un valor Booleano, pero aquí puede ser cualquier 
-tipo. El tipo de `coin` en este ejemplo es el enum `Coin` que definimos en la 
+Desglosemos el uso de `match` en la función `value_in_cents`.
+Primero listamos la palabra clave `match` seguida de una expresión,
+que en este caso es el valor `coin`. Esto parece muy similar a una expresión
+condicional utilizada con `if`, pero hay una gran diferencia: con `if`,
+la condición debe evaluar a un valor Booleano, pero aquí puede ser cualquier
+tipo. El tipo de `coin` en este ejemplo es el enum `Coin` que definimos en la
 primera línea.
 
 A continuación, dentro de las llaves de `match`, hay un número de Opciones.
@@ -48,8 +50,8 @@ separa el patrón y el código a ejecutar. El código en este caso es solo el va
 Cuando la expresión `match` se ejecuta, compara el valor resultante contra el
 patrón de cada Opción, en orden. Si un patrón coincide con el valor, se ejecuta
 el código asociado con ese patrón. Si ese patrón no coincide con el valor,
-la ejecución continúa en la siguiente Opción, como en una máquina de 
-clasificación de monedas. Podemos tener tantas Opciones como necesitemos: 
+la ejecución continúa en la siguiente Opción, como en una máquina de
+clasificación de monedas. Podemos tener tantas Opciones como necesitemos:
 en el Listado 6-3, nuestro `match` tiene cuatro Opciones.
 
 El código asociado con cada Opción es una expresión, y el valor resultante de
@@ -59,9 +61,9 @@ expresión `match` completa.
 Por lo general, no usamos llaves si el código de la Opción de match es
 corto, como lo es en el Listado 6-3, donde cada Opción solo devuelve un valor.
 Si desea ejecutar varias líneas de código en una Opción de match, debe
-usar llaves, y la coma que sigue a la Opción es opcional. Por ejemplo, 
-el siguiente código imprime “¡Moneda de la suerte!” cada vez que el método 
-se llama con un `Coin::Penny`, pero aún devuelve el último valor del bloque, 
+usar llaves, y la coma que sigue a la Opción es opcional. Por ejemplo,
+el siguiente código imprime “¡Moneda de la suerte!” cada vez que el método
+se llama con un `Coin::Penny`, pero aún devuelve el último valor del bloque,
 `1`:
 
 ```rust
@@ -87,7 +89,7 @@ en el Listing 6-4.
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-4: Un enum `Coin` en el cual la variante 
+<span class="caption">Listing 6-4: Un enum `Coin` en el cual la variante
 `Quarter` también contiene un valor `UsState`</span>
 
 Imaginemos que tenemos un amigo que está tratando de coleccionar todas las
@@ -193,7 +195,7 @@ compilar este código, obtendremos este error:
 ```
 
 Rust sabe que no cubrimos todos los casos posibles, e incluso sabe qué
-patrón olvidamos! Los matches en Rust son *exhaustivos*: debemos agotar
+patrón olvidamos! Los matches en Rust son _exhaustivos_: debemos agotar
 todas las posibilidades para que el código sea válido. Especialmente en el
 caso de `Option<T>`, cuando Rust nos impide olvidar manejar el caso `None`,
 nos protege de asumir que tenemos un valor cuando podríamos tener nulo,
@@ -203,14 +205,14 @@ anteriormente.
 ### Patrones de captura y el Placeholder `_`
 
 Usando enums, también podemos tomar acciones especiales para algunos valores
-particulares, pero para todos los demás valores, tomar una acción 
-predeterminada. Imagina que estamos implementando un juego donde, si sacas un 
-3 en un lanzamiento de dados, tu jugador no se mueve, sino que obtiene un nuevo 
-sombrero elegante. Si sacas un 7, tu jugador pierde un sombrero elegante. 
-Para todos los demás valores, tu jugador se mueve esa cantidad de espacios 
-en el tablero de juego. Aquí hay un `match` que implementa esa lógica, con el 
-resultado del lanzamiento de dados codificado en lugar de un valor aleatorio, 
-y toda la lógica representada por funciones sin cuerpos porque implementarlas 
+particulares, pero para todos los demás valores, tomar una acción
+predeterminada. Imagina que estamos implementando un juego donde, si sacas un
+3 en un lanzamiento de dados, tu jugador no se mueve, sino que obtiene un nuevo
+sombrero elegante. Si sacas un 7, tu jugador pierde un sombrero elegante.
+Para todos los demás valores, tu jugador se mueve esa cantidad de espacios
+en el tablero de juego. Aquí hay un `match` que implementa esa lógica, con el
+resultado del lanzamiento de dados codificado en lugar de un valor aleatorio,
+y toda la lógica representada por funciones sin cuerpos porque implementarlas
 realmente está fuera del alcance de este ejemplo:
 
 ```rust
@@ -232,7 +234,7 @@ ponemos la Opción de captura antes, las otras Opciones nunca se ejecutarían, p
 lo que Rust nos advertirá si agregamos Opciones después de un catch-all!
 
 Rust también tiene un patrón que podemos usar cuando queremos un catch-all,
-pero no queremos *usar* el valor en el patrón catch-all: `_` es un patrón
+pero no queremos _usar_ el valor en el patrón catch-all: `_` es un patrón
 especial que coincide con cualquier valor y no se vincula a ese valor. Esto le
 dice a Rust que no vamos a usar el valor, por lo que Rust no nos advertirá
 sobre una variable no utilizada.
@@ -245,7 +247,7 @@ nuestro código para usar `_` en lugar de la variable llamada `other`:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-16-underscore-catchall/src/main.rs:here}}
 ```
 
-Este ejemplo también cumple con el requisito de exhaustividad porque estamos 
+Este ejemplo también cumple con el requisito de exhaustividad porque estamos
 explícitamente ignorando todos los demás valores en la última Opción; no hemos
 olvidado nada.
 
@@ -268,5 +270,5 @@ Hay más sobre patrones y coincidencias que cubriremos en el [Capítulo
 `if let` que puede ser útil en situaciones en las que la expresión `match` es
 un poco larga.
 
-[tuples]: ch03-02-data-types.html#the-tuple-type
+[tuples]: ch03-02-data-types.html#el-tipo-tupla
 [ch18-00-patterns]: ch18-00-patterns.html

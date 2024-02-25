@@ -12,17 +12,17 @@ cuando ocurre un pánico para facilitar el seguimiento de la fuente del panic.
 
 > ### Desenrollar el Stack o Abortar en respuesta a un Panic
 >
-> Por defecto, cuando ocurre un panic, el programa comienza a *desenrollar*,
+> Por defecto, cuando ocurre un panic, el programa comienza a _desenrollar_,
 > lo que significa que Rust retrocede por la pila y limpia los datos de cada
 > función que encuentra. Sin embargo, este retroceso y limpieza es mucho
-> trabajo. Rust, por lo tanto, le permite elegir la alternativa de *abortar*
+> trabajo. Rust, por lo tanto, le permite elegir la alternativa de _abortar_
 > inmediatamente, lo que termina el programa sin limpiar.
 >
 > La memoria que el programa estaba usando deberá ser limpiada
 > por el sistema operativo. Si en su proyecto necesita hacer que el binario
 > resultante sea lo más pequeño posible, puede cambiar de desenrollar a abortar
 > al producir un pánico agregando `panic = 'abort'` a las secciones
-> `[profile]` apropiadas en su archivo *Cargo.toml*. Por ejemplo, si desea
+> `[profile]` apropiadas en su archivo _Cargo.toml_. Por ejemplo, si desea
 > abortar en caso de pánico en el modo de lanzamiento, agregue esto:
 >
 > ```toml
@@ -46,8 +46,8 @@ Cuando ejecutes el programa, verás algo como esto:
 
 La llamada a `panic!` causa el mensaje de error contenido en las dos últimas
 líneas. La primera línea muestra nuestro mensaje de panic y el lugar en
-nuestro código fuente donde ocurrió el panic: *src/main.rs:2:5* indica que es
-la segunda línea, quinto carácter de nuestro archivo *src/main.rs*.
+nuestro código fuente donde ocurrió el panic: _src/main.rs:2:5_ indica que es
+la segunda línea, quinto carácter de nuestro archivo _src/main.rs_.
 
 En este caso, la línea indicada es parte de nuestro código, y si vamos a esa
 línea, vemos la llamada a la macro `panic!`. En otros casos, la llamada a
@@ -56,7 +56,7 @@ archivo y el número de línea informados por el mensaje de error serán el
 código de otra persona donde se llama a la macro `panic!`, no la línea de
 nuestro código que finalmente condujo a la llamada a `panic!`. Podemos usar la
 traza de las funciones de las que provino la llamada a `panic!` para
-determinar la parte de nuestro código que está causando el problema. 
+determinar la parte de nuestro código que está causando el problema.
 Discutiremos las trazas en más detalle a continuación.
 
 ### Usando un Backtrace de `panic!`
@@ -84,7 +84,7 @@ ningún elemento que Rust podría devolver aquí que sea correcto.
 En C, intentar leer más allá del final de una estructura de datos es un
 undefined. Podría obtener lo que está en la ubicación de
 memoria que correspondería a ese elemento en la estructura de datos, aunque
-la memoria no pertenece a esa estructura. Esto se llama *buffer overread* y
+la memoria no pertenece a esa estructura. Esto se llama _buffer overread_ y
 puede provocar vulnerabilidades de seguridad si un atacante puede manipular el
 índice de tal manera que lea datos que no debería estar permitido que se
 almacenen después de la estructura de datos.
@@ -100,7 +100,7 @@ continuar. Intentémoslo y veamos:
 Este error apunta a la línea 4 de nuestro `main.rs` donde intentamos acceder al
 índice 99. La siguiente línea de nota nos dice que podemos establecer la
 variable de entorno `RUST_BACKTRACE` para obtener una traza de exactamente lo
-que sucedió para causar el error. Una *traza* es una lista de todas las
+que sucedió para causar el error. Una _traza_ es una lista de todas las
 funciones que se han llamado para llegar a este punto. Las trazas en Rust
 funcionan como lo hacen en otros lenguajes: la clave para leer la traza es
 comenzar desde la parte superior y leer hasta que vea archivos que escribió.
@@ -143,7 +143,7 @@ note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose bac
 ```
 
 <span class="caption">Listing 9-2: El backtrace generado por una llamada a
-`panic!` se muestra cuando la variable de entorno `RUST_BACKTRACE` está 
+`panic!` se muestra cuando la variable de entorno `RUST_BACKTRACE` está
 configurada</span>
 
 ¡Eso es mucho resultado! La salida exacta que vea puede ser diferente según su
@@ -169,5 +169,4 @@ manejar las condiciones de error en la sección [“To `panic!` or Not to
 capítulo. A continuación, veremos cómo recuperarnos de un error usando
 `Result`.
 
-[to-panic-or-not-to-panic]:
-ch09-03-to-panic-or-not-to-panic.html#to-panic-or-not-to-panic
+[to-panic-or-not-to-panic]: ch09-03-to-panic-or-not-to-panic.html#panic-o-no-panic

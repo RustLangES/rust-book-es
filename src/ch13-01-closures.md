@@ -1,4 +1,5 @@
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
 
 ## Closures: Funciones anónimas que capturan su entorno
@@ -7,10 +8,11 @@ Los closures de Rust son funciones anónimas que puede guardar en una variable o
 pasar como argumentos a otras funciones. Puede crear el closure en un lugar y
 luego llamar al closure en otro lugar para evaluarlo en un contexto diferente.
 A diferencia de las funciones, los closures pueden capturar valores del scope en
-el que se definen. Demostraremos cómo estas características de los closures 
+el que se definen. Demostraremos cómo estas características de los closures
 permiten la reutilización de código y la personalización del comportamiento.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="creating-an-abstraction-of-behavior-with-closures"></a>
 <a id="refactoring-using-functions"></a>
 <a id="refactoring-with-closures-to-store-code"></a>
@@ -56,7 +58,9 @@ aprendido, excepto por el cuerpo del método `giveaway` que usa un closure. En e
 método `giveaway`, obtenemos la preferencia del usuario como un parámetro de
 tipo `Option<ShirtColor>` y llamamos al método `unwrap_or_else` en
 `user_preference`. El método [`unwrap_or_else` en `Option<T>`][unwrap-or-else]
+
 <!-- ignore --> está definido por la biblioteca estándar. Toma un argumento: un
+
 Closure sin ningún argumento que devuelve un valor `T` (el mismo tipo almacenado
 en la variante `Some` de la `Option<T>`, en este caso `ShirtColor`). Si la
 `Option<T>` es la variante `Some`, `unwrap_or_else` devuelve el valor de dentro
@@ -117,7 +121,7 @@ Listado 13-1.
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-2: Agregando anotaciones de tipo opcionales 
+<span class="caption">Listing 13-2: Agregando anotaciones de tipo opcionales
 para los tipos de parámetros y valor de retorno en el closure</span>
 
 Con la anotación de tipo agregada, la sintaxis de los closures se parece más a
@@ -140,10 +144,10 @@ una definición de closure completamente anotada. En la tercera línea, quitamos
 las anotaciones de tipo de la definición de closure. En la cuarta línea,
 quitamos los corchetes, que son opcionales porque el cuerpo del closure tiene
 solo una expresión. Estas son todas definiciones válidas que producirán el mismo
-comportamiento cuando se llamen. Las líneas `add_one_v3` y `add_one_v4` 
-requieren que los closures se evalúen para poder compilar porque los tipos se 
-inferirán a partir de su uso. Esto es similar a `let v = Vec::new();` que 
-necesita anotaciones de tipo o valores de algún tipo para insertar en el `Vec` 
+comportamiento cuando se llamen. Las líneas `add_one_v3` y `add_one_v4`
+requieren que los closures se evalúen para poder compilar porque los tipos se
+inferirán a partir de su uso. Esto es similar a `let v = Vec::new();` que
+necesita anotaciones de tipo o valores de algún tipo para insertar en el `Vec`
 para que Rust pueda inferir el tipo.
 
 Para las definiciones de closure, el compilador infiere un tipo concreto para
@@ -182,7 +186,7 @@ mismo closure.
 Los closures pueden valores desde su entorno de tres maneras, que se mapean
 directamente a las tres formas en que una función puede tomar un parámetro:
 borrowing inmutable, borrowing mutable y tomando ownership. El closure decidirá
-cuál de estos usar en función de lo que haga el cuerpo de la función con los 
+cuál de estos usar en función de lo que haga el cuerpo de la función con los
 valores capturados.
 
 En el Listado 13-4, definimos un closure que captura una referencia inmutable al
@@ -275,6 +279,7 @@ eliminar la palabra clave `move` o usar `list` en el hilo principal después de
 que se defina el closure para ver qué errores del compilador obtiene!
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="storing-closures-using-generic-parameters-and-the-fn-traits"></a>
 <a id="limitations-of-the-cacher-implementation"></a>
 <a id="moving-captured-values-out-of-the-closure-and-the-fn-traits"></a>
@@ -283,9 +288,9 @@ que se defina el closure para ver qué errores del compilador obtiene!
 
 Una vez que un closure ha capturado una referencia o capturado el ownership de
 un valor del entorno donde se define el closure (afectando así lo que, si
-cualquier cosa, se mueve *dentro* del closure), el código en el cuerpo del
+cualquier cosa, se mueve _dentro_ del closure), el código en el cuerpo del
 closure define lo que sucede con las referencias o valores cuando el closure se
-evalúa más tarde (afectando así lo que, si cualquier cosa, se mueve *fuera* del
+evalúa más tarde (afectando así lo que, si cualquier cosa, se mueve _fuera_ del
 closure). El cuerpo de un closure puede hacer cualquiera de las siguientes
 acciones: mover un valor capturado fuera del closure, mutar el valor capturado,
 ni mover ni mutar el valor, o no capturar nada del entorno para comenzar.
@@ -368,7 +373,7 @@ de menor a mayor:
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-7: Usando `sort_by_key` para ordenar 
+<span class="caption">Listing 13-7: Usando `sort_by_key` para ordenar
 rectángulos por ancho</span>
 
 Este código imprime:

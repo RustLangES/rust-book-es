@@ -45,7 +45,7 @@ una nueva asignación.
 
 #### Usando el iterator retornado directamente
 
-Abre tu proyecto I/O en *src/main.rs*, el cual debería verse así:
+Abre tu proyecto I/O en _src/main.rs_, el cual debería verse así:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -63,7 +63,7 @@ compilará hasta que actualicemos `Config::build` también.
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-18: Pasando el valor de retorno de `env::args` 
+<span class="caption">Listing 13-18: Pasando el valor de retorno de `env::args`
 a `Config::build`</span>
 
 ¡La función `env::args` retorna un iterator! En lugar de recolectar los valores
@@ -72,7 +72,7 @@ estamos pasando ownership del iterator retornado por `env::args` directamente a
 `Config::build`.
 
 Luego, necesitamos actualizar la definición de `Config::build`. En el archivo
-*src/lib.rs* de tu proyecto I/O, cambiemos la firma de `Config::build` para que
+_src/lib.rs_ de tu proyecto I/O, cambiemos la firma de `Config::build` para que
 se vea como el Listado 13-19. Esto aún no compilará porque necesitamos
 actualizar el cuerpo de la función.
 
@@ -90,10 +90,12 @@ que el tipo del iterator que retorna es `std::env::Args`, y que ese tipo
 implementa el trait `Iterator` y retorna valores `String`.
 
 Hemos actualizado la firma de la función `Config::build` para que el parámetro
-`args` tenga un tipo genérico con los trait bounds 
-`impl Iterator<Item = String>` en lugar de `&[String]`. Este uso de la sintaxis 
+`args` tenga un tipo genérico con los trait bounds
+`impl Iterator<Item = String>` en lugar de `&[String]`. Este uso de la sintaxis
 `impl Trait` que discutimos en la sección [“Traits como parámetros”][impl-trait]
-<!-- ignore --> del Capítulo 10 significa que `args` puede ser cualquier tipo 
+
+<!-- ignore --> del Capítulo 10 significa que `args` puede ser cualquier tipo
+
 que implemente el trait `Iterator` y retorne items `String`.
 
 Debido a que estamos tomando ownership de `args` y estaremos mutando `args`
@@ -182,4 +184,4 @@ pasar.
 intuitiva podría ser que el loop más bajo nivel será más rápido. Hablemos de
 performance.
 
-[impl-trait]: ch10-02-traits.html#traits-as-parameters
+[impl-trait]: ch10-02-traits.html#traits-como-parametros

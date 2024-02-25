@@ -8,11 +8,11 @@ predeterminada en el tipo que ha anotado con la sintaxis `derive`.
 En este apéndice, proporcionamos una referencia de todos los traits en la
 biblioteca estándar que puede usar con `derive`. Cada sección cubre:
 
-* Qué operadores y métodos que derivan este trait se habilitarán
-* Qué hace la implementación del trait proporcionado por `derive`
-* Qué significa implementar el trait sobre el tipo
-* Las condiciones en las que se le permite o no implementar el trait
-* Ejemplos de operaciones que requieren el trait
+- Qué operadores y métodos que derivan este trait se habilitarán
+- Qué hace la implementación del trait proporcionado por `derive`
+- Qué significa implementar el trait sobre el tipo
+- Las condiciones en las que se le permite o no implementar el trait
+- Ejemplos de operaciones que requieren el trait
 
 Si desea un comportamiento diferente al proporcionado por el atributo `derive`,
 consulte la documentación de la [biblioteca estándar](../std/index.html)<!-- ignore -->
@@ -59,7 +59,7 @@ El trait `PartialEq` te permite comparar instancias de un tipo para verificar
 la igualdad y habilita el uso de los operadores `==` y `!=`.
 
 Derivar `PartialEq` implementa el método `eq`. Cuando se deriva `PartialEq`
-en estructuras, dos instancias son iguales solo si *todos* los campos son
+en estructuras, dos instancias son iguales solo si _todos_ los campos son
 iguales, y las instancias no son iguales si alguno de los campos no es igual.
 Cuando se deriva en enumeraciones, cada variante es igual a sí misma y no
 igual a las otras variantes.
@@ -142,7 +142,7 @@ la rebanada debe implementar `Clone`.
 
 El trait `Copy` te permite duplicar un valor copiando solo los bits almacenados
 en la pila; no es necesario ningún código arbitrario. Consulte la sección
-[“Stack-Only Data: Copy”][stack-only-data-copy]<!-- ignore --> en el Capítulo 4
+[“Stack-Only Data: Copy”][solo-datos-del-stack-copiar]<!-- ignore --> en el Capítulo 4
 para obtener más información sobre `Copy`.
 
 El trait `Copy` no define ningún método para evitar que los programadores
@@ -185,7 +185,7 @@ implementar `Default` para derivar `Default`.
 La función `Default::default` es comúnmente usada en combinación con la
 sintaxis de actualización de struct discutida en la sección [“Creating
 Instances From Other Instances With
-Struct Update Syntax”][creating-instances-from-other-instances-with-struct-update-syntax]<!-- ignore -->
+Struct Update Syntax”][creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update]<!-- ignore -->
 en el Capítulo 5. Puede personalizar algunos campos de un struct y luego
 establecer y usar un valor predeterminado para el resto de los campos usando
 `..Default::default()`.
@@ -195,10 +195,7 @@ El trait `Default` es necesario, por ejemplo, cuando se usa el método
 el método `unwrap_or_default` devolverá el resultado de `Default::default` para
 el tipo `T` almacenado en el `Option<T>`.
 
-[creating-instances-from-other-instances-with-struct-update-syntax]:
-ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
-[stack-only-data-copy]:
-ch04-01-what-is-ownership.html#stack-only-data-copy
-[ways-variables-and-data-interact-clone]:
-ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
+[creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update]: ch05-01-defining-structs.html#creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update
+[solo-datos-del-stack-copiar]: ch04-01-what-is-ownership.html#solo-datos-del-stack-copiar
+[ways-variables-and-data-interact-clone]: ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
 [macros]: ch19-06-macros.html#macros

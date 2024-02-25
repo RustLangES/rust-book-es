@@ -6,8 +6,8 @@ por una razón que puede interpretar y responder fácilmente. Por ejemplo, si
 intenta abrir un archivo y esa operación falla porque el archivo no existe,
 es posible que desee crear el archivo en lugar de terminar el proceso.
 
-Recordemos el capítulo 
-[“Manejo de fallas potenciales con `Result`”][handle_failure]<!--ignore --> 
+Recordemos el capítulo
+[“Manejo de fallas potenciales con `Result`”][handle_failure]<!--ignore -->
 en el Capítulo 2 que el enum `Result` se define como tener dos variantes,
 `Ok` y `Err`, de la siguiente manera:
 
@@ -169,7 +169,7 @@ archivo faltante.
 > ejemplo después de leer el Capítulo 13, y busca el método `unwrap_or_else` en
 > la documentación de la biblioteca estándar. Muchos más de estos métodos pueden
 > limpiar enormes expresiones `match` anidadas cuando se trata de errores.
-> 
+
 ### Atajos para `panic` en caso de error: `unwrap` y `expect`
 
 Usando `match` funciona bastante bien, pero puede ser un poco verboso y no
@@ -187,7 +187,7 @@ auxiliares definidos en él para hacer varias tareas más específicas. El méto
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-04-unwrap/src/main.rs}}
 ```
 
-Si ejecutamos este código sin un archivo *hello.txt*, veremos un mensaje de
+Si ejecutamos este código sin un archivo _hello.txt_, veremos un mensaje de
 error de la llamada `panic!` que el método `unwrap` hace:
 
 <!-- manual-regeneration
@@ -240,7 +240,7 @@ tienes más información para usar en la depuración.
 
 Cuando escribes una función cuyo cuerpo puede generar un error, en lugar de
 manejar el error dentro de la función, puedes devolver el error al código que
-llamó la función. Esto se conoce como *propagación* del error y le da más
+llamó la función. Esto se conoce como _propagación_ del error y le da más
 control al código que llama, donde puede haber más información o lógica que
 dicte cómo se debe manejar el error que la que tienes disponible en el contexto
 de tu código.
@@ -274,9 +274,9 @@ Si esta función tiene éxito sin ningún problema, el código que llama a esta
 función recibirá un valor `Ok` que contiene una `String` - el nombre de usuario
 que esta función leyó del archivo. Si esta función encuentra algún problema, el
 código que llama recibirá un valor `Err` que contiene una instancia de
-`io::Error` que contiene más información sobre cuáles fueron los problemas. 
-Elegimos `io::Error` como el tipo de retorno de esta función porque eso sucede 
-que es el tipo del valor de error devuelto de ambas operaciones que estamos 
+`io::Error` que contiene más información sobre cuáles fueron los problemas.
+Elegimos `io::Error` como el tipo de retorno de esta función porque eso sucede
+que es el tipo del valor de error devuelto de ambas operaciones que estamos
 llamando en el cuerpo de esta función que podrían fallar: la función
 `File::open` y el método `read_to_string`.
 
@@ -284,10 +284,10 @@ El cuerpo de la función comienza llamando a la función `File::open`. Entonces
 manejamos el valor `Result` con una expresión `match` similar a la del Listado
 9-4. Si `File::open` tiene éxito, el archivo manejador en el patrón de variable
 `file` se convierte en el valor en la variable de patrón mutable `username_file`
-y la función continúa. En el caso de `Err`, en lugar de llamar a `panic!`, 
-usamos la palabra clave `return` para devolver temprano la función por 
-completo y pasar el valor de error de `File::open`, ahora en la variable de 
-patrón `e`, de vuelta al código que llama a esta función como el valor de error 
+y la función continúa. En el caso de `Err`, en lugar de llamar a `panic!`,
+usamos la palabra clave `return` para devolver temprano la función por
+completo y pasar el valor de error de `File::open`, ahora en la variable de
+patrón `e`, de vuelta al código que llama a esta función como el valor de error
 de esta función.
 
 Entonces, si tenemos un manejador de archivo en `username_file`, la función
@@ -382,7 +382,7 @@ don't want to include it for rustdoc testing purposes. -->
 {{#include ../listings/ch09-error-handling/listing-09-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-8: Método de encadenamiento 
+<span class="caption">Listing 9-8: Método de encadenamiento
 llamado después del operador `?`</span>
 
 Hemos movido la creación del nuevo `String` en `username` al principio de la
@@ -457,10 +457,10 @@ devuelve `Result` o `Option` o en cualquier otro tipo que implemente
 Para corregir el error, tienes dos opciones. Una opción es cambiar el tipo de
 retorno de tu función para que sea compatible con el valor que estás usando el
 operador `?` mientras no tengas restricciones que lo impidan. La otra técnica
-es usar un `match` o uno de los métodos `Result<T, E>` para manejar el 
+es usar un `match` o uno de los métodos `Result<T, E>` para manejar el
 `Result<T, E>` de la manera que sea apropiada.
 
-El mensaje de error también menciona que el operador `?` también se puede usar 
+El mensaje de error también menciona que el operador `?` también se puede usar
 con valores `Option<T>`. Al igual que con el uso de `?` en `Result`, solo
 puedes usar `?` en `Option` en una función que devuelve `Option`. El
 comportamiento del operador `?` cuando se llama en un `Option<T>` es similar a
@@ -523,7 +523,7 @@ retorno `Ok(())` al final. Este código ahora se compilará:
 <span class="caption">Listing 9-12: Cambiando `main` devuelve `Result<(), E>`
 permitiendo el uso del operador `?` en valores `Result`</span>
 
-El `Box<dyn Error>` tipo es un *trait object*, que hablaremos en la sección
+El `Box<dyn Error>` tipo es un _trait object_, que hablaremos en la sección
 [“Usando Trait Objects que permiten valores de diferentes
 tipos”][trait-objects]<!-- ignore --> en el Capítulo 17. Por ahora, puedes leer
 `Box<dyn Error>` para significar “cualquier tipo de error”. Usar `?` en un
@@ -551,7 +551,7 @@ trait `Termination` para tus propios tipos.
 Ahora que hemos discutido los detalles de llamar a `panic!` o devolver
 `Result`, volvamos al tema de cómo decidir cuál es apropiado usar en qué casos.
 
-[handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-result
+[handle_failure]: ch02-00-guessing-game-tutorial.html#manejando-el-posible-fallo-con-result
 [prelude]: ch02-00-guessing-game-tutorial.html#prelude-meaning
-[trait-objects]: ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+[trait-objects]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
 [termination]: https://doc.rust-lang.org/std/process/trait.Termination.html
