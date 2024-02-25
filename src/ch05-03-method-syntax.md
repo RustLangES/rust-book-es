@@ -91,7 +91,7 @@ permitir acceso de solo lectura a ese campo como parte de la API pública del
 tipo. Hablaremos de qué es público y privado y cómo designar un campo o método
 como público o privado en el [Capítulo 7][public]<!-- ignore -->.
 
-> ### ¿Dónde está el Operador `->`?
+> ### ¿Donde esta el Operador `->`?
 >
 > En C y C++, se usan dos operadores diferentes para llamar a métodos: se usa
 > `.` si se está llamando a un método en el objeto directamente y `->` si se

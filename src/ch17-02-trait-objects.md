@@ -247,7 +247,7 @@ implementar `Draw` en `String` para que `Screen` pueda llamar a `draw` en él.
 ### Los trait objects realizan _dynamic dispatch_
 
 Recuerda que en la sección [“Performance of Code Using
-Generics”][performance-of-code-using-generics]<!-- ignore --> del Capítulo 10
+Generics”][rendimiento-de-codigo-usando-genericos]<!-- ignore --> del Capítulo 10
 hablamos sobre el proceso de monomorfización que realiza el compilador cuando
 usamos _trait bounds_ en los genéricos: el compilador genera implementaciones
 no genéricas de funciones y métodos para cada tipo concreto que usamos en lugar
@@ -269,5 +269,5 @@ su vez evita algunas optimizaciones. Sin embargo, obtuvimos flexibilidad
 adicional en el código que escribimos en el Listado 17-5 y pudimos admitir en
 el Listado 17-9, por lo que es un compromiso a considerar.
 
-[performance-of-code-using-generics]: ch10-01-syntax.html#performance-of-code-using-generics
-[dynamically-sized]: ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait
+[rendimiento-de-codigo-usando-genericos]: ch10-01-syntax.html#rendimiento-de-codigo-usando-genericos
+[dynamically-sized]: ch19-04-advanced-types.html#tipos-de-tamano-dinamico-y-el-trait-sized

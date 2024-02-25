@@ -79,7 +79,7 @@ La mayoría de los comentarios de documentación no necesitan todas estas
 secciones, pero esta es una buena lista de verificación para recordar los
 aspectos del código que los usuarios estarán interesados en saber.
 
-#### Comentarios de documentación como Tests
+#### Comentarios de documentacion como Tests
 
 Agregar bloques de código de ejemplo en tus comentarios de documentación puede
 ayudar a demostrar cómo usar tu biblioteca, y hacerlo tiene una ventaja

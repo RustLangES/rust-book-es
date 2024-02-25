@@ -248,4 +248,4 @@ pueden fallar, por lo que es un momento perfecto para discutir el manejo de
 errores. ¡Haremos eso a continuación!
 
 [validando-referencias-con-lifetimes]: ch10-03-lifetime-syntax.html#validando-referencias-con-lifetimes
-[access]: #accessing-values-in-a-hash-map
+[access]: #accediendo-a-los-valores-en-un-hashmap

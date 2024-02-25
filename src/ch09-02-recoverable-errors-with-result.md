@@ -551,7 +551,7 @@ trait `Termination` para tus propios tipos.
 Ahora que hemos discutido los detalles de llamar a `panic!` o devolver
 `Result`, volvamos al tema de cómo decidir cuál es apropiado usar en qué casos.
 
-[handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-result
+[handle_failure]: ch02-00-guessing-game-tutorial.html#manejando-el-posible-fallo-con-result
 [prelude]: ch02-00-guessing-game-tutorial.html#prelude-meaning
 [trait-objects]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
 [termination]: https://doc.rust-lang.org/std/process/trait.Termination.html

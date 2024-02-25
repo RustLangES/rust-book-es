@@ -167,7 +167,7 @@ de todos los tests que fallaron, lo cual es útil cuando hay muchos tests y
 mucho output detallado de tests fallidos. Podemos usar el nombre de un test
 fallido para ejecutar solo ese test y depurarlo más fácilmente; hablaremos más
 sobre formas de ejecutar tests en la sección [“Controlando cómo se ejecutan los
-tests”][controlling-how-tests-are-run]<!-- ignore -->.
+tests”][controlando-como-los-tests-son-ejecutados]<!-- ignore -->.
 
 La línea de resumen se muestra al final: en general, nuestro resultado de test
 es `FAILED`. Tenemos un test que pasó y uno que falló.
@@ -364,7 +364,7 @@ fallo como argumentos opcionales a las macros `assert!`, `assert_eq!` y
 `assert_ne!`. Cualquier argumento especificado después de los argumentos
 requeridos se pasa a la macro `format!` (discutida en el Capítulo 8 en la
 sección [“Concatenación con el operador `+` o la macro
-`format!`”][concatenation-with-the--operator-or-the-format-macro]<!-- ignore
+`format!`”][concatenacion-con-el-operador--o-la-macro-format]<!-- ignore
 -->), por lo que puedes pasar una format string que contenga marcadores de
 posición `{}` y valores para ir en esos marcadores de posición. Los mensajes
 personalizados son útiles para documentar lo que significa una aserción; cuando
@@ -549,11 +549,11 @@ Ahora que conoces varias formas de escribir tests, veamos qué sucede cuando
 ejecutamos nuestros tests y exploremos las diferentes opciones que podemos usar
 con `cargo test`.
 
-[concatenation-with-the--operator-or-the-format-macro]: ch08-02-strings.html#concatenation-with-the--operator-or-the-format-macro
+[concatenacion-con-el-operador--o-la-macro-format]: ch08-02-strings.html#concatenacion-con-el-operador--o-la-macro-format
 [bench]: https://doc.rust-lang.org/unstable-book/library-features/test.html
-[ignoring]: ch11-02-running-tests.html#ignoring-some-tests-unless-specifically-requested
-[subset]: ch11-02-running-tests.html#running-a-subset-of-tests-by-name
-[controlling-how-tests-are-run]: ch11-02-running-tests.html#controlling-how-tests-are-run
+[ignoring]: ch11-02-running-tests.html#ignorando-algunos-tests-a-menos-que-se-soliciten-especificamente
+[subset]: ch11-02-running-tests.html#ejecutando-un-subset-de-tests-por-nombre
+[controlando-como-los-tests-son-ejecutados]: ch11-02-running-tests.html#controlando-como-los-tests-son-ejecutados
 [derivable-traits]: appendix-03-derivable-traits.html
-[doc-comments]: ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests
+[doc-comments]: ch14-02-publishing-to-crates-io.html#comentarios-de-documentacion-como-tests
 [paths-for-referring-to-an-item-in-the-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html

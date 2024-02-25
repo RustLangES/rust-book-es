@@ -1,9 +1,9 @@
 ## Implementando un patrón de diseño orientado a objetos
 
-El *state pattern* es un patrón de diseño orientado a objetos. La esencia del 
-patrón es que definimos un conjunto de estados que un valor puede tener 
-internamente. Los estados están representados por un conjunto de *state 
-objects*, y el comportamiento del valor cambia según su estado. Vamos a
+El _state pattern_ es un patrón de diseño orientado a objetos. La esencia del
+patrón es que definimos un conjunto de estados que un valor puede tener
+internamente. Los estados están representados por un conjunto de _state
+objects_, y el comportamiento del valor cambia según su estado. Vamos a
 trabajar a través de un ejemplo de un struct de publicación de blog que
 tiene un campo para mantener su estado, que será un state object del conjunto
 "borrador", "revisión" o "publicado".
@@ -98,8 +98,8 @@ privado llamado `state` para mantener el state object. Verás por qué
 {{#rustdoc_include ../listings/ch17-oop/listing-17-12/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-12: Definición de un struct `Post` y una 
-función `new` que crea una nueva instancia de `Post`, un trait `State`, y un 
+<span class="caption">Listing 17-12: Definición de un struct `Post` y una
+función `new` que crea una nueva instancia de `Post`, un trait `State`, y un
 struct `Draft`</span>
 
 El trait `State` define el comportamiento compartido por los diferentes estados
@@ -112,12 +112,12 @@ Cuando creamos un nuevo `Post`, estableceremos su campo `state` como un valor
 `Some` que contiene un `Box` que apunta a una nueva instancia del struct
 `Draft`. Esto asegura que cada vez que creemos una nueva instancia de `Post`,
 comenzará como un borrador. Debido a que el campo `state` de `Post` es privado,
-¡no hay forma de crear un `Post` en ningún otro estado! En la función 
+¡no hay forma de crear un `Post` en ningún otro estado! En la función
 `Post::new`, establecemos el campo `content` en un nuevo `String` vacío.
 
 ### Almacenando el texto del contenido del post
 
-Vimos en el Listado 17-11 que queremos poder llamar a un método llamado 
+Vimos en el Listado 17-11 que queremos poder llamar a un método llamado
 `add_text` y pasarle un `&str` que luego se agregará como el contenido de texto
 de la publicación del blog. Implementaremos esto como un método, en lugar de
 exponer el campo `content` como `pub`, para que más tarde podamos implementar
@@ -196,7 +196,7 @@ que el método solo es válido cuando se llama en un `Box` que contiene el tipo.
 Esta sintaxis toma posesión de `Box<Self>`, invalidando el estado anterior para
 que el valor de estado de `Post` pueda transformarse en un nuevo estado.
 
-Para consumir el antiguo estado, el método `request_review` debe tomar 
+Para consumir el antiguo estado, el método `request_review` debe tomar
 ownership del valor de estado. Aquí es donde entra en juego la `Option` en el
 campo `state` de `Post`: llamamos al método `take` para sacar el valor `Some`
 del campo `state` y dejar un `None` en su lugar, porque Rust no nos permite
@@ -204,21 +204,21 @@ tener campos no poblados en los structs. Esto nos permite mover el valor
 `state` fuera de `Post` en lugar de pedir borrowing. Luego estableceremos el
 valor `state` de la publicación en el resultado de esta operación.
 
-Necesitamos establecer `state` como `None` temporalmente en lugar de 
-establecerlo directamente con código como 
+Necesitamos establecer `state` como `None` temporalmente en lugar de
+establecerlo directamente con código como
 `self.state = self.state.request_review();` para obtener la propiedad del
 valor `state`. Esto asegura que `Post` no pueda usar el valor `state` antiguo
 después de que lo hayamos transformado en un nuevo estado.
 
-El método `request_review` en `Draft` devuelve una nueva instancia de un nuevo 
-struct llamado `PendingReview`, que representa el estado cuando un post está 
+El método `request_review` en `Draft` devuelve una nueva instancia de un nuevo
+struct llamado `PendingReview`, que representa el estado cuando un post está
 esperando una revisión. El struct `PendingReview` también implementa
 el método `request_review`, pero no hace ninguna transformación. En cambio,
 devuelve a sí mismo, porque cuando solicitamos una revisión en una publicación
 que ya está en el estado `PendingReview`, debe permanecer en el estado
 `PendingReview`.
 
-Ahora podemos comenzar a ver las ventajas del state pattern: el método 
+Ahora podemos comenzar a ver las ventajas del state pattern: el método
 `request_review` en `Post` es el mismo sin importar su valor `state`. Cada
 estado es responsable de sus propias reglas.
 
@@ -228,12 +228,13 @@ como en el estado `Draft`, pero queremos el mismo comportamiento en el estado
 `PendingReview`. ¡El Listado 17-11 ahora funciona hasta la línea 10!
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 
 ### Agregando `approve` para cambiar el comportamiento de `content`
 
 El método `approve` será similar al método `request_review`: establecerá el
-valor de `state` al estado que el estado actual indique que debería tener 
+valor de `state` al estado que el estado actual indique que debería tener
 cuando ese estado sea aprobado, como se muestra en el Listado 17-16:
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -242,13 +243,13 @@ cuando ese estado sea aprobado, como se muestra en el Listado 17-16:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-16: Implementando el método `approve` en 
+<span class="caption">Listing 17-16: Implementando el método `approve` en
 `Post` y el trait `State`</span>
 
 Agregamos el método `approve` al trait `State` y agregamos un nuevo struct
 que implementa el trait `State`, el estado `Published`.
 
-De manera similar a cómo funciona `request_review` en `PendingReview`, si 
+De manera similar a cómo funciona `request_review` en `PendingReview`, si
 llamamos al método `approve` en un estado `Draft`, no tendrá efecto porque
 `approve` devolverá `self`. Cuando llamamos a `approve` en `PendingReview`,
 devuelve una nueva instancia de `Published` struct. El struct `Published`
@@ -267,7 +268,7 @@ se muestra en el Listado 17-17:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-17/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-17: Actualizando el método `content` en `Post` 
+<span class="caption">Listing 17-17: Actualizando el método `content` en `Post`
 para delegar en un método `content` en `State`</span>
 
 Debido a que el objetivo es mantener todas estas reglas dentro de los structs
@@ -351,19 +352,19 @@ encuentra en el estado publicado! ¡Esto solo aumentaría cuanto más estados
 agregáramos: cada una de esas expresiones `match` necesitaría otra opción!
 
 Con el State Pattern, los métodos `Post` y los lugares donde usamos `Post` no
-necesitan expresiones `match`, y para agregar un nuevo estado, solo 
-necesitaríamos agregar un nuevo struct e implementar los métodos del trait en 
+necesitan expresiones `match`, y para agregar un nuevo estado, solo
+necesitaríamos agregar un nuevo struct e implementar los métodos del trait en
 ese struct.
 
 La implementación utilizando el State Pattern es fácil de extender para agregar
 más funcionalidad. Para ver la simplicidad de mantener el código que usa el
 State Pattern, prueba algunas de estas sugerencias:
 
-* Agrega un método `reject` que cambia el estado de un post de `PendingReview`
+- Agrega un método `reject` que cambia el estado de un post de `PendingReview`
   a `Draft`.
-* Requiere dos llamadas a `approve` antes de que el estado pueda cambiar a
+- Requiere dos llamadas a `approve` antes de que el estado pueda cambiar a
   `Published`.
-* Permite a los usuarios agregar contenido de texto solo cuando un post está en
+- Permite a los usuarios agregar contenido de texto solo cuando un post está en
   el estado `Draft`. Sugerencia: haz que el objeto de estado sea responsable de
   lo que podría cambiar sobre el contenido, pero no sea responsable de modificar
   el `Post`.
@@ -391,10 +392,10 @@ muchos métodos en `Post` que siguieran este patrón, podríamos considerar
 definir un macro para eliminar la repetición (ver la sección [“Macros”][macros]
 en el Capítulo 19).
 
-Al implementar el State Pattern exactamente como se define en lenguajes 
+Al implementar el State Pattern exactamente como se define en lenguajes
 orientados a objetos, no estamos aprovechando al máximo las fortalezas de Rust.
 Veamos algunos cambios que podemos hacer en el crate `blog` que pueden hacer
-que los estados y transiciones no válidos sean errores de tiempo de 
+que los estados y transiciones no válidos sean errores de tiempo de
 compilación.
 
 #### Codificando estados y comportamiento como tipos
@@ -403,8 +404,8 @@ Vamos a mostrarte cómo replantear el State Pattern para obtener un conjunto
 diferente de compensaciones. En lugar de encapsular los estados y las
 transiciones por completo para que el código externo no tenga conocimiento de
 ellos, codificaremos los estados en diferentes tipos. En consecuencia, el
-sistema de verificación de tipos de Rust evitará los intentos de usar 
-publicaciones borradores donde solo se permiten publicaciones publicadas 
+sistema de verificación de tipos de Rust evitará los intentos de usar
+publicaciones borradores donde solo se permiten publicaciones publicadas
 emitiendo un error del compilador.
 
 Consideremos la primera parte de `main` en el Listado 17-11:
@@ -416,7 +417,7 @@ Consideremos la primera parte de `main` en el Listado 17-11:
 ```
 
 Todavía permitimos la creación de nuevas publicaciones en el estado de borrador
-usando `Post::new` y la capacidad de agregar texto al contenido de la 
+usando `Post::new` y la capacidad de agregar texto al contenido de la
 publicación. Pero en lugar de tener un método `content` en una publicación en
 borrador que devuelva un string vacío, haremos que las publicaciones en
 borrador no tengan el método `content` en absoluto. De esa manera, si
@@ -442,7 +443,7 @@ campo `state` porque estamos moviendo la codificación del estado a los tipos
 de los structs. El struct `Post` representará una publicación publicada, y
 tiene un método `content` que devuelve el `content`.
 
-Todavía tenemos una función `Post::new`, pero en lugar de devolver una 
+Todavía tenemos una función `Post::new`, pero en lugar de devolver una
 instancia de `Post`, devuelve una instancia de `DraftPost`. Debido a que
 `content` es privado y no hay funciones que devuelvan `Post`, no es posible
 crear una instancia de `Post` en este momento.
@@ -472,7 +473,7 @@ el Listado 17-20:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-20/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-20: Un `PendingReviewPost` que se crea 
+<span class="caption">Listing 17-20: Un `PendingReviewPost` que se crea
 llamando a `request_review` en `DraftPost` y un método `approve` que convierte
 un `PendingReviewPost` en un `Post` publicado</span>
 
@@ -518,10 +519,10 @@ publicada, se descubrirán antes de que lleguen a producción.
 
 Prueba las tareas sugeridas al comienzo de esta sección en el crate `blog` tal
 como está después del Listado 17-21 para evaluar el diseño de esta versión del
-código. Ten en cuenta que es posible que algunas de las tareas ya estén 
+código. Ten en cuenta que es posible que algunas de las tareas ya estén
 completadas en este diseño.
 
-Hemos visto que aunque Rust es capaz de implementar patrones de diseño 
+Hemos visto que aunque Rust es capaz de implementar patrones de diseño
 orientados a objetos, también están disponibles en Rust otros patrones, como
 la codificación del estado en el sistema de tipos. Estos patrones tienen
 diferentes compensaciones. Aunque es posible que estés muy familiarizado con
@@ -535,8 +536,8 @@ ownership, que los lenguajes orientados a objetos no tienen.
 
 Sin importar si consideras a Rust como un lenguaje orientado a objetos después
 de leer este capítulo, ahora sabes que puedes usar objetos de tipo trait para
-obtener algunas características orientadas a objetos en Rust. La 
-despatronización dinámica puede brindarle a tu código cierta flexibilidad a 
+obtener algunas características orientadas a objetos en Rust. La
+despatronización dinámica puede brindarle a tu código cierta flexibilidad a
 cambio de un poco de rendimiento en tiempo de ejecución. Puedes usar esta
 flexibilidad para implementar patrones orientados a objetos que pueden ayudar
 a la mantenibilidad de tu código. Rust también tiene otras características,
@@ -544,9 +545,9 @@ como el ownership, que los lenguajes orientados a objetos no tienen. Un patrón
 orientado a objetos no siempre será la mejor manera de aprovechar las
 fortalezas de Rust, pero es una opción disponible.
 
-A continuación, veremos los patterns, que son otra de las características de 
+A continuación, veremos los patterns, que son otra de las características de
 Rust que permiten mucha flexibilidad. Hemos visto brevemente los patterns a lo
-largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá! 
+largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá!
 
-[more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#cases-in-which-you-have-more-information-than-the-compiler
+[more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#casos-en-los-que-tienes-mas-informacion-que-el-compilador
 [macros]: ch19-06-macros.html#macros

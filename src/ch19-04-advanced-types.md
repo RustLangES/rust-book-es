@@ -209,7 +209,7 @@ Aquí, el bucle nunca termina, por lo que `!` es el valor de la expresión. Sin
 embargo, esto no sería cierto si incluyéramos un `break`, porque el bucle
 terminaría cuando llegara al `break`.
 
-### Tipos de tamaño dinámico y el trait `Sized`
+### Tipos de tamano dinamico y el trait `Sized`
 
 Rust necesita conocer ciertos detalles sobre sus tipos, como la cantidad de
 espacio para asignar a un valor de un tipo particular. Esto deja una esquina de

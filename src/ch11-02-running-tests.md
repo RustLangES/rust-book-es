@@ -1,12 +1,12 @@
 ## Controlando como los tests son ejecutados
 
-Al igual que `cargo run` compila tu código y luego ejecuta el binario 
-resultante, `cargo test` compila tu código en modo de test y ejecuta el binario 
+Al igual que `cargo run` compila tu código y luego ejecuta el binario
+resultante, `cargo test` compila tu código en modo de test y ejecuta el binario
 resultante. El comportamiento por defecto del binario producido por `cargo test`
 es ejecutar todos los tests en paralelo y capturar la salida generada durante la
-ejecución de los tests, previniendo que la salida sea mostrada y haciendo más 
+ejecución de los tests, previniendo que la salida sea mostrada y haciendo más
 fácil leer la salida relacionada con los resultados de los tests. Sin embargo,
-puedes especificar opciones de línea de comandos para cambiar este 
+puedes especificar opciones de línea de comandos para cambiar este
 comportamiento por defecto.
 
 Algunas opciones de línea de comandos van a `cargo test`, y otras van al binario
@@ -26,7 +26,7 @@ incluyendo un entorno compartido, como el directorio de trabajo actual o las
 variables de entorno.
 
 Por ejemplo, digamos que cada uno de tus tests ejecuta código que crea un
-archivo en disco llamado *test-output.txt* y escribe algunos datos en ese
+archivo en disco llamado _test-output.txt_ y escribe algunos datos en ese
 archivo. Luego cada test lee los datos en ese archivo y aserta que el archivo
 contiene un valor particular, el cual es diferente en cada test. Debido a que
 los tests se ejecutan al mismo tiempo, un test podría sobreescribir el archivo
@@ -114,7 +114,7 @@ elegiremos cuáles ejecutar.
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-11/src/lib.rs}}
 ```
 
-<span class="caption">Listing 11-11: Tres tests con tres nombres 
+<span class="caption">Listing 11-11: Tres tests con tres nombres
 diferentes</span>
 
 Si ejecutamos los tests sin pasar ningún argumento, como vimos anteriormente,
@@ -126,7 +126,7 @@ todos los tests se ejecutarán en paralelo:
 
 #### Ejecutando un solo test
 
-Podemos pasar el nombre de cualquier función de test a `cargo test` para 
+Podemos pasar el nombre de cualquier función de test a `cargo test` para
 ejecutar solo ese test:
 
 ```console
@@ -157,10 +157,10 @@ con el nombre `one_hundred`. También nota que el módulo en el que aparece un
 test se convierte en parte del nombre del test, por lo que podemos ejecutar
 todos los tests en un módulo filtrando por el nombre del módulo.
 
-### Ignorando algunos tests a menos que se soliciten específicamente
+### Ignorando algunos tests a menos que se soliciten especificamente
 
 A veces, algunos tests específicos pueden ser muy lentos para ejecutarse, por lo
-que puede que quieras excluirlos en la mayoría de las ejecuciones de 
+que puede que quieras excluirlos en la mayoría de las ejecuciones de
 `cargo test`. En lugar de listar como argumentos todos los tests que quieres
 ejecutar, puedes anotar los tests que consumen mucho tiempo usando el atributo
 `ignore` para excluirlos, como se muestra aquí:
@@ -171,7 +171,7 @@ ejecutar, puedes anotar los tests que consumen mucho tiempo usando el atributo
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/src/lib.rs}}
 ```
 
-Después de `#[test]` agregamos la línea `#[ignore]` al test que queremos 
+Después de `#[test]` agregamos la línea `#[ignore]` al test que queremos
 excluir. Ahora cuando ejecutamos nuestros tests, `it_works` se ejecuta, pero
 `expensive_test` no:
 

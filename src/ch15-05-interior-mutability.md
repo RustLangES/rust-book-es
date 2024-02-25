@@ -2,11 +2,11 @@
 
 La mutabilidad interna es un patrón de diseño en Rust que te permite mutar datos
 incluso cuando hay referencias inmutables a esos datos; normalmente, esta acción
-está prohibida por las reglas de borrowing. Para mutar datos, el patrón utiliza 
-código `unsafe` dentro de una estructura de datos para flexibilizar las reglas 
-habituales de Rust que rigen la mutabilidad y el borrowing. El código unsafe 
+está prohibida por las reglas de borrowing. Para mutar datos, el patrón utiliza
+código `unsafe` dentro de una estructura de datos para flexibilizar las reglas
+habituales de Rust que rigen la mutabilidad y el borrowing. El código unsafe
 indica al compilador que estamos verificando las reglas manualmente en lugar de
-confiar en que el compilador las verifique por nosotros; discutiremos el código 
+confiar en que el compilador las verifique por nosotros; discutiremos el código
 unsafe con más detalle en el Capítulo 19.
 
 Podemos utilizar tipos que utilizan el patrón de mutabilidad interna solo cuando
@@ -19,18 +19,18 @@ patrón de mutabilidad interna.
 
 ### Cumpliendo las reglas de borrowing en tiempo de ejecución con `RefCell<T>`
 
-A diferencia de `Rc<T>`, el tipo `RefCell<T>` representa un único ownership 
+A diferencia de `Rc<T>`, el tipo `RefCell<T>` representa un único ownership
 sobre los datos que contiene. Entonces, ¿qué hace que `RefCell<T>` sea diferente
 de un tipo como `Box<T>`? Recuerda las reglas de borrowing que aprendiste en el
 Capítulo 4:
 
-* En cualquier momento dado, puedes tener *o bien* una referencia mutable *o
-  bien* cualquier número de referencias inmutables.
-* Las referencias siempre deben ser válidas.
+- En cualquier momento dado, puedes tener _o bien_ una referencia mutable _o
+  bien_ cualquier número de referencias inmutables.
+- Las referencias siempre deben ser válidas.
 
 Con referencias y `Box<T>`, las invariantes de las reglas de borrowing se hacen
 cumplir en tiempo de compilación. Con `RefCell<T>`, estas invariantes se hacen
-cumplir *en tiempo de ejecución*. Con referencias, si rompes estas reglas,
+cumplir _en tiempo de ejecución_. Con referencias, si rompes estas reglas,
 obtendrás un error de compilación. Con `RefCell<T>`, si rompes estas reglas, tu
 programa entrará en panic y saldrá.
 
@@ -63,27 +63,27 @@ dará un error de tiempo de compilación si intentas usarlo en un contexto
 multihilo. Hablaremos de cómo obtener la funcionalidad de `RefCell<T>` en un
 programa multihilo en el Capítulo 16.
 
-Aquí tienes un resumen de las razones para elegir `Box<T>`, `Rc<T>` o 
+Aquí tienes un resumen de las razones para elegir `Box<T>`, `Rc<T>` o
 `RefCell<T>`:
 
-* `Rc<T>` permite múltiples propietarios de los mismos datos; `Box<T>` y
+- `Rc<T>` permite múltiples propietarios de los mismos datos; `Box<T>` y
   `RefCell<T>` tienen un único propietario.
-* `Box<T>` permite borrowing inmutable o mutable verificado en tiempo de
+- `Box<T>` permite borrowing inmutable o mutable verificado en tiempo de
   compilación; `Rc<T>` permite solo borrowing inmutable verificado en tiempo de
   compilación; `RefCell<T>` permite borrowing inmutable o mutable verificado en
   tiempo de ejecución.
-* Debido a que `RefCell<T>` permite borrowing mutable verificado en tiempo de
+- Debido a que `RefCell<T>` permite borrowing mutable verificado en tiempo de
   ejecución, puedes mutar el valor dentro de la `RefCell<T>` incluso cuando la
   `RefCell<T>` es inmutable.
 
-Mutar el valor dentro de un valor inmutable es el patrón de *mutabilidad
-interior*. Veamos una situación en la que la mutabilidad interior es útil y
+Mutar el valor dentro de un valor inmutable es el patrón de _mutabilidad
+interior_. Veamos una situación en la que la mutabilidad interior es útil y
 examinemos cómo es posible.
 
 ### Mutabilidad Interior: Un Borrow Mutable a un Valor Inmutable
 
 Una consecuencia de las reglas de borrowing es que cuando tienes un valor
-inmutable, no puedes pedir prestado una referencia mutable a través de ese 
+inmutable, no puedes pedir prestado una referencia mutable a través de ese
 valor. Por ejemplo, este código no compilará:
 
 ```rust,ignore,does_not_compile
@@ -96,7 +96,7 @@ Si intentas compilar este código, obtendrás el siguiente error:
 {{#include ../listings/ch15-smart-pointers/no-listing-01-cant-borrow-immutable-as-mutable/output.txt}}
 ```
 
-Sin embargo, hay situaciones en las que sería útil que un valor se mute a sí 
+Sin embargo, hay situaciones en las que sería útil que un valor se mute a sí
 mismo en sus métodos, pero parezca inmutable para otro código. El código fuera
 de los métodos del valor no podría mutar el valor. Usar `RefCell<T>` es una
 forma de obtener la capacidad de tener mutabilidad interior, pero `RefCell<T>`
@@ -112,18 +112,18 @@ para mutar un valor inmutable y ver por qué es útil.
 
 A veces durante el testing, un programador usará un tipo en lugar de otro para
 observar un comportamiento particular y afirmar que se implementa correctamente.
-Este tipo de marcador de posición se llama *test double*. Piensa en ello en el
+Este tipo de marcador de posición se llama _test double_. Piensa en ello en el
 sentido de un "doble de riesgo" en la realización de películas, donde una
 persona entra y sustituye a un actor para hacer una escena particularmente
 difícil. Los test doubles se sustituyen por otros tipos cuando se ejecutan las
-pruebas. Los *objetos simulados* son tipos específicos de test doubles que
+pruebas. Los _objetos simulados_ son tipos específicos de test doubles que
 registran lo que sucede durante una prueba para que puedas afirmar que se
 produjeron las acciones correctas.
 
 Rust no tiene objetos en el mismo sentido que otros lenguajes tienen objetos, y
 Rust no tiene funcionalidad de objetos simulados integrada en la biblioteca
 estándar como lo hacen otros lenguajes. Sin embargo, definitivamente puedes
-crear una struct que sirva para los mismos propósitos que un objeto 
+crear una struct que sirva para los mismos propósitos que un objeto
 simulado.
 
 Aquí está el escenario que vamos a probar: crearemos una biblioteca que realiza
@@ -132,9 +132,9 @@ en función de la proximidad del valor actual al valor máximo. Esta biblioteca
 podría usarse para realizar un seguimiento de la cuota de un usuario para el
 número de llamadas a la API que se le permite realizar, por ejemplo.
 
-El objetivo de nuestra biblioteca es proporcionar la funcionalidad de realizar 
-un seguimiento de qué tan cerca está un valor de su máximo y que mensajes se 
-deben enviar en qué momentos. Se espera que las aplicaciones que utilicen 
+El objetivo de nuestra biblioteca es proporcionar la funcionalidad de realizar
+un seguimiento de qué tan cerca está un valor de su máximo y que mensajes se
+deben enviar en qué momentos. Se espera que las aplicaciones que utilicen
 nuestra biblioteca proporcionen el mecanismo para enviar los mensajes: la
 aplicación podría poner un mensaje en la interfaz de la aplicación, enviar un
 correo electrónico, enviar un mensaje de texto o algo más. La biblioteca no
@@ -153,7 +153,7 @@ de qué tan cerca está un valor a su valor máximo y emitir advertencias
 cuando el valor alcanza ciertos niveles.</span>
 
 Una parte importante de este código es el trait `Messenger`, que tiene un método
-llamado `send` que toma una referencia inmutable a `self` y el texto del 
+llamado `send` que toma una referencia inmutable a `self` y el texto del
 mensaje. Este trait es la interfaz que nuestro objeto simulado necesita
 implementar para que el simulado se pueda usar de la misma manera que un objeto
 real. La otra parte importante es que queremos probar el comportamiento del
@@ -206,10 +206,10 @@ Sin embargo, hay un problema con este test, como se muestra aquí:
 ```
 
 No podemos modificar `sent_messages` para realizar un seguimiento de los
-mensajes, porque el método `send` toma una referencia inmutable a `self`. 
-Tampoco podemos tomar la sugerencia del texto de error para usar `&mut self` 
-en su lugar, porque entonces la firma de `send` no coincidiría con la firma en 
-la definición del trait `Messenger` (siéntase libre de intentarlo y ver qué 
+mensajes, porque el método `send` toma una referencia inmutable a `self`.
+Tampoco podemos tomar la sugerencia del texto de error para usar `&mut self`
+en su lugar, porque entonces la firma de `send` no coincidiría con la firma en
+la definición del trait `Messenger` (siéntase libre de intentarlo y ver qué
 mensaje de error obtiene).
 
 Esta es una situación en la que la mutabilidad interior puede ayudar.
@@ -238,7 +238,7 @@ vector. Luego podemos llamar a `push` en la referencia mutable al vector para
 hacer un seguimiento de los mensajes enviados durante el test.
 
 La última modificación que debemos hacer está en la afirmación: para ver cuántos
-elementos hay en el vector interno, llamamos a `borrow` en el 
+elementos hay en el vector interno, llamamos a `borrow` en el
 `RefCell<Vec<String>>` para obtener una referencia inmutable al vector.
 
 Ahora que has visto cómo usar `RefCell<T>`, ¡profundicemos en cómo funciona!
@@ -248,8 +248,8 @@ Ahora que has visto cómo usar `RefCell<T>`, ¡profundicemos en cómo funciona!
 Cuando creamos referencias inmutables y mutables, usamos la sintaxis `&` y
 `&mut`, respectivamente. Con `RefCell<T>`, usamos los métodos `borrow` y
 `borrow_mut`, que son parte de la API segura que pertenece a `RefCell<T>`. El
-método `borrow` devuelve el tipo de smart pointer `Ref<T>`, y `borrow_mut` 
-devuelve el tipo de smart pointer `RefMut<T>`. Ambos tipos implementan `Deref`, 
+método `borrow` devuelve el tipo de smart pointer `Ref<T>`, y `borrow_mut`
+devuelve el tipo de smart pointer `RefMut<T>`. Ambos tipos implementan `Deref`,
 por lo que podemos tratarlos como referencias regulares.
 
 `RefCell<T>` realiza un seguimiento de cuántos smart pointers `Ref<T>` y
@@ -257,7 +257,7 @@ por lo que podemos tratarlos como referencias regulares.
 `RefCell<T>` aumenta su recuento de cuántos borrowing inmutables están activos.
 Cuando un valor `Ref<T>` sale del scope, el recuento de borrowing inmutables
 disminuye en uno. Al igual que las reglas de borrowing en tiempo de compilación,
-`RefCell<T>` nos permite tener muchos borrowing inmutables o un borrowing 
+`RefCell<T>` nos permite tener muchos borrowing inmutables o un borrowing
 mutable en un momento dado.
 
 Si intentamos romper estas reglas, en lugar de obtener un error del compilador
@@ -273,7 +273,7 @@ para ilustrar que `RefCell<T>` nos impide hacer esto en tiempo de ejecución.
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-23/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 15-23: Creando dos referencias mutables en el 
+<span class="caption">Listing 15-23: Creando dos referencias mutables en el
 mismo scope para ver que `RefCell<T>` lanzará un panic</span>
 
 Creamos una variable `one_borrow` para el smart pointer `RefMut<T>` devuelto
@@ -341,9 +341,9 @@ Envolvemos la lista `a` en un `Rc<T>` para que cuando creemos las listas `b` y
 Después de haber creado las listas en `a`, `b` y `c`, queremos agregar 10 al
 valor en `value`. Hacemos esto llamando a `borrow_mut` en `value`, que usa la
 característica de dereferenciación automática que discutimos en el capítulo 5
-(ver la sección [“¿Dónde está el operador `->`?”][wheres-the---operator]<!-- 
-ignore -->) para desreferenciar el `Rc<T>` al valor interno `RefCell<T>`. 
-El método `borrow_mut` devuelve un smart pointer `RefMut<T>`, y usamos el 
+(ver la sección [“¿Dónde está el operador `->`?”][donde-esta-el-operador--]<!--
+ignore -->) para desreferenciar el `Rc<T>` al valor interno `RefCell<T>`.
+El método `borrow_mut` devuelve un smart pointer `RefMut<T>`, y usamos el
 operador de desreferenciación en él y cambiamos el valor interno.
 
 Cuando imprimimos `a`, `b` y `c`, podemos ver que todos tienen el valor
@@ -357,10 +357,10 @@ modificado de 15 en lugar de 5:
 `List` externamente inmutable. Pero podemos usar los métodos en `RefCell<T>`
 que proporcionan acceso a su mutabilidad interior para que podamos modificar
 nuestros datos cuando sea necesario. Las comprobaciones en tiempo de ejecución
-de las reglas de borrowing nos protegen de las condiciones de carrera en los 
+de las reglas de borrowing nos protegen de las condiciones de carrera en los
 datos y, a veces, vale la pena intercambiar un poco de velocidad por esta
 flexibilidad en nuestras estructuras de datos. ¡Ten en cuenta que `RefCell<T>`
 no funciona para código multihilo! `Mutex<T>` es la versión segura para hilos
 de `RefCell<T>` y discutiremos `Mutex<T>` en el capítulo 16.
 
-[wheres-the---operator]: ch05-03-method-syntax.html#wheres-the---operator
+[donde-esta-el-operador--]: ch05-03-method-syntax.html#donde-esta-el-operador--

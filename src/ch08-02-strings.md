@@ -1,7 +1,7 @@
 ## Almacenando texto codificado en UTF-8 con Strings
 
 Hemos hablado de strings en el Capítulo 4, pero las veremos con más detalle
-Los nuevos Rustaceans suelen quedarse atascados en las cadenas por una 
+Los nuevos Rustaceans suelen quedarse atascados en las cadenas por una
 combinación de tres razones: la propensión de Rust a exponer posibles errores,
 los strings son una estructura de datos más complicada de lo que muchos
 programadores le dan crédito, y UTF-8. Estos factores se combinan de una manera
@@ -18,10 +18,10 @@ y las computadoras interpretan los datos de `String`.
 
 ### ¿Qué es un string?
 
-Bien primero definamos lo que queremos decir con el término *string*. Rust solo
+Bien primero definamos lo que queremos decir con el término _string_. Rust solo
 tiene un tipo de string en el lenguaje principal, que es el string slice `str`
 que generalmente se ve en su forma prestada `&str`. En el Capítulo 4, hablamos
-sobre *string slices*, que son referencias a algunos datos de cadena codificados
+sobre _string slices_, que son referencias a algunos datos de cadena codificados
 en UTF-8 almacenados en otro lugar. Las literales de cadena, por ejemplo, se
 almacenan en el binario del programa y, por lo tanto, son rebanadas de cadena.
 
@@ -51,14 +51,14 @@ que se muestra en el Listing 8-11.
 Esta línea crea un nuevo `String` vacío llamado `s`, que podemos luego cargar
 con datos. A menudo, tendremos algunos datos iniciales que queremos comenzar
 en el string. Para eso, usamos el método `to_string`, que está disponible en
-cualquier tipo que implemente el trait `Display`, como lo hacen los String 
+cualquier tipo que implemente el trait `Display`, como lo hacen los String
 Literals. El Listing 8-12 muestra dos ejemplos.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-12: Usando el método `to_string` para crear un 
+<span class="caption">Listing 8-12: Usando el método `to_string` para crear un
 `String` a partir de un string literal</span>
 
 Este código crea un string que contiene `initial contents`.
@@ -88,7 +88,7 @@ cualquier dato codificado correctamente en ellos, Como se muestra en el Listing
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-14: Almacenamiento de saludos en diferentes 
+<span class="caption">Listing 8-14: Almacenamiento de saludos en diferentes
 idiomas en strings</span>
 
 Todos estos strings son valores válidos de `String`.
@@ -139,7 +139,7 @@ usando `push`</span>
 
 Como resultado, `s` contendrá `lol`.
 
-#### Concatenación con el operador `+` o la Macro `format!`
+#### Concatenacion con el operador `+` o la Macro `format!`
 
 A veces, necesitarás combinar dos strings. Sin embargo, no es tan simple como
 usar el operador `+` con dos referencias a `String`. El código en el Listing
@@ -176,8 +176,8 @@ dos valores `String` juntos. Pero espera, el tipo de `&s2` es `&String`, no
 compila el Listing 8-18?
 
 La razón por la que podemos usar `s2` en la llamada a `add` es que el
-compilador puede *convertir* el argumento `&String` en un `&str`. Cuando   
-llamamos al método `add`, Rust usa una *coerción de dereferencia*, que aquí
+compilador puede _convertir_ el argumento `&String` en un `&str`. Cuando  
+llamamos al método `add`, Rust usa una _coerción de dereferencia_, que aquí
 convierte `&s2` en `&s2[..]`. Discutiremos la coerción de dereferencia con más
 detalle en el Capítulo 15. Debido a que `add` no toma posesión del parámetro
 `s`, `s2` seguirá siendo un `String` válido después de esta operación.
@@ -288,7 +288,7 @@ desarrollo.
 
 Otro punto sobre UTF-8 es que hay tres formas relevantes de ver las cadenas
 desde la perspectiva de Rust: como bytes, valores escalares y grupos de
-grafemas (lo más parecido a lo que llamaríamos *letras*).
+grafemas (lo más parecido a lo que llamaríamos _letras_).
 
 Si observamos la palabra “नमस्ते” en escritura Devanagari, se almacena como un
 vector de valores `u8` que se ve así:
@@ -347,8 +347,8 @@ mencionamos que cada uno de estos caracteres era de 2 bytes, lo que significa
 que `s` será `Зд`.
 
 Si intentáramos hacer un slice con solo una parte de los bytes de un carácter,
-algo como `&hello[0..1]`, Rust entraría en pánico en tiempo de 
-ejecución de la misma manera que si se accediera a un índice no válido 
+algo como `&hello[0..1]`, Rust entraría en pánico en tiempo de
+ejecución de la misma manera que si se accediera a un índice no válido
 en un vector:
 
 ```console
@@ -401,7 +401,7 @@ estar compuestos por más de 1 byte.
 
 Obtener grupos de grafemas de strings como con la escritura Devanagari es
 complejo, por lo que esta funcionalidad no es proporcionada por la biblioteca
-estándar. Los crates están disponibles en 
+estándar. Los crates están disponibles en
 [crates.io](https://crates.io/)<!-- ignore --> si esta es la funcionalidad
 que necesita.
 

@@ -453,6 +453,16 @@ creacion
 validacion
 usando
 idiomaticas
+parametros
+concatenacion
+especificamente
+tamano
+hashmap
+dinamico
+documentacion
+codigo
+genericos
+informacion
 Four
 Gang
 Four

@@ -38,7 +38,7 @@ falle, incluso si ese método no es la funcionalidad en prueba. Debido a que
 `panic!` es la forma en que una prueba se marca como fallida, llamar a
 `unwrap` o `expect` es exactamente lo que debería suceder.
 
-### Casos en los que tienes más información que el compilador
+### Casos en los que tienes mas informacion que el compilador
 
 También sería apropiado llamar a `unwrap` o `expect` cuando tienes alguna otra
 lógica que garantiza que el `Result` tendrá un valor `Ok`, pero la lógica no
