@@ -483,4 +483,4 @@ con el sistema de tipos de Rust.
 [implementando-un-trait-en-un-tipo]: ch10-02-traits.html#implementando-un-trait-en-un-tipo
 [traits-defining-shared-behavior]: ch10-02-traits.html#traits-defining-shared-behavior
 [smart-pointer-deref]: ch15-02-deref.html#treating-smart-pointers-like-regular-references-with-the-deref-trait
-[tuple-structs]: ch05-01-defining-structs.html#usand-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos
+[tuple-structs]: ch05-01-defining-structs.html#usando-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos

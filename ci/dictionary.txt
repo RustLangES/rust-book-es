@@ -443,6 +443,15 @@ Arc
 Professional
 patrón
 patron
+traves
+anatomia
+funcion
+implicitas
+coleccion
+Creacion
+creacion
+validacion
+usando
 Four
 Gang
 Four

@@ -307,4 +307,4 @@ reglas de borrowing no garantizan eso. Por lo tanto, Rust no puede hacer la
 suposición de que convertir una referencia inmutable en una mutable es posible.
 
 [impl-trait]: ch10-02-traits.html#implementando-un-trait-en-un-tipo
-[tuple-structs]: ch05-01-defining-structs.html#usand-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos
+[tuple-structs]: ch05-01-defining-structs.html#usando-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos
