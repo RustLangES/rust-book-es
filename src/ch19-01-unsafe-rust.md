@@ -3,13 +3,13 @@
 Todo el código que hemos discutido hasta ahora ha tenido las garantías de
 seguridad de memoria de Rust aplicadas en tiempo de compilación. Sin embargo,
 Rust tiene un segundo lenguaje oculto dentro de él que no hace cumplir estas
-garantías de seguridad de memoria: se llama *unsafe Rust* y funciona como
+garantías de seguridad de memoria: se llama _unsafe Rust_ y funciona como
 Rust regular, pero nos da superpoderes adicionales.
 
 Unsafe Rust existe porque, por naturaleza, el análisis estático es
 conservador. Cuando el compilador intenta determinar si el código cumple o no
 con las garantías, es mejor que rechace algunos programas válidos que aceptar
-algunos programas no válidos. Aunque el código *podría* estar bien, si el
+algunos programas no válidos. Aunque el código _podría_ estar bien, si el
 compilador de Rust no tiene suficiente información para estar seguro, rechazará
 el código. En estos casos, puede usar código inseguro para decirle al
 compilador: "Confía en mí, sé lo que estoy haciendo". Sin embargo, debes tener
@@ -30,14 +30,14 @@ cómo hacerlo.
 
 Para cambiar a Unsafe Rust, use la palabra clave `unsafe` y luego comience un
 nuevo bloque que contenga el código inseguro. Puede tomar cinco acciones en
-Rust inseguro que no puede en Rust seguro, que llamamos *superpoderes
-Unsafe*. Esos superpoderes incluyen la capacidad de:
+Rust inseguro que no puede en Rust seguro, que llamamos _superpoderes
+Unsafe_. Esos superpoderes incluyen la capacidad de:
 
-* Desreferenciar un puntero crudo
-* Llamar a una función o método inseguro
-* Acceder o modificar una variable estática mutable
-* Implementar un trait inseguro
-* Acceder a los campos de `union`s
+- Desreferenciar un puntero crudo
+- Llamar a una función o método inseguro
+- Acceder o modificar una variable estática mutable
+- Implementar un trait inseguro
+- Acceder a los campos de `union`s
 
 Es importante entender que `unsafe` no desactiva el borrow checker ni 
 deshabilita ninguna otra de las comprobaciones de seguridad de Rust: si usa una
@@ -73,23 +73,25 @@ inseguro.
 
 ### Desreferenciación de un puntero crudo
 
-En el Capítulo 4, en la sección [“Referencias y 
-punteros”][references-and-pointers]<!-- ignore--> mencionamos que el compilador 
-garantiza que las referencias siempre son válidas. Unsafe Rust tiene dos nuevos
-tipos llamados *punteros crudos* que son similares a las referencias. Al igual
-que con las referencias, los punteros crudos pueden ser inmutables o mutables y
+En el Capítulo 4, en la sección [`Referencias y punteros`][referencias-colgantes]
+
+<!-- ignore--> mencionamos que el compilador garantiza que las referencias siempre son válidas.
+
+Unsafe Rust tiene dos nuevos tipos llamados _punteros crudos_ que son similares
+a las referencias. Al igual que con las referencias, los punteros crudos pueden
+ser inmutables o mutables y
 se escriben como `*const T` y `*mut T`, respectivamente. El asterisco no es el
 operador de desreferencia; es parte del nombre del tipo. En el contexto de los
-punteros crudos, *inmutable* significa que el puntero no se puede asignar
+punteros crudos, _inmutable_ significa que el puntero no se puede asignar
 directamente después de ser desreferenciado.
 
 A Diferencia de las referencias y los smart pointers, los punteros crudos:
 
-* Son permitidos ignorar las reglas de borrowing al tener tanto punteros
+- Son permitidos ignorar las reglas de borrowing al tener tanto punteros
   inmutables como mutables o múltiples punteros mutables al mismo lugar
-* No se garantiza que apunten a una memoria válida
-* Se les permite ser nulos
-* No implementan ninguna limpieza automática
+- No se garantiza que apunten a una memoria válida
+- Se les permite ser nulos
+- No implementan ninguna limpieza automática
 
 Al optar por no hacer que Rust haga cumplir estas garantías, puede renunciar a
 la seguridad garantizada a cambio de un mayor rendimiento o la capacidad de
@@ -132,7 +134,7 @@ razón para escribir código como este, pero es posible.
 memoria arbitraria</span>
 
 Recuerda que podemos crear punteros crudos en código seguro, pero no podemos
-*desreferenciar* punteros crudos y leer la memoria a la que apuntan fuera de un
+_desreferenciar_ punteros crudos y leer la memoria a la que apuntan fuera de un
 bloque `unsafe`.
 
 ```rust
@@ -157,12 +159,12 @@ potencialmente creando una carrera de datos. ¡Ten cuidado!
 Con todos estos peligros, ¿por qué usarías punteros crudos? Un caso de uso
 importante es cuando se interactúa con código C, como verás en la siguiente
 sección, [“Llamando a una función o método 
-inseguro”](#calling-an-unsafe-function-or-method).<!-- ignore --> Otro caso es 
-cuando se construyen abstracciones seguras que el borrow checker no entiende. 
+inseguro”](#llamando-a-una-funcion-o-metodo-inseguro).<!-- ignore --> Otro caso 
+es cuando se construyen abstracciones seguras que el borrow checker no entiende. 
 Presentaremos funciones inseguras y luego veremos un ejemplo de una abstracción
 segura que usa código inseguro.
 
-### Llamando a una función o método inseguro
+### Llamando a una funcion o metodo inseguro
 
 El segundo tipo de operación que solo se puede realizar en un bloque unsafe es
 llamar a una función o método inseguro. Podemos crear funciones inseguras y
@@ -262,7 +264,7 @@ y algunas llamadas a funciones inseguras para hacer que la implementación de
 <span class="caption">Listing 19-6: Usando código inseguro en la implementación 
 de la función `split_at_mut`</span>
 
-Recordemos la sección [“The Slice Type”][the-slice-type]<!-- ignore --> del
+Recordemos la sección [“The Slice Type”][el-tipo-slice]<!-- ignore --> del
 Capítulo 4 que los slices son un puntero a algunos datos y la longitud del
 slice. Usamos el método `len` para obtener la longitud del slice y el método
 `as_mut_ptr` para acceder al puntero sin procesar de un slice. En este caso,
@@ -315,7 +317,7 @@ comportamiento indefinido.
 
 A veces, tu código en Rust necesita interactuar con código escrito en otro
 lenguaje. Para esto, Rust tiene la palabra clave `extern` que facilita la
-creación y el uso de una *Foreign Function Interface (FFI)*. Una FFI es una
+creación y el uso de una _Foreign Function Interface (FFI)_. Una FFI es una
 forma para que un lenguaje de programación defina funciones y permita que un
 lenguaje de programación diferente (extranjero) llame a esas funciones.
 
@@ -349,10 +351,10 @@ valor absoluto de su argumento.
 > agregar la palabra clave `extern` y especificar la ABI a usar justo antes de
 > la palabra clave `fn` para la función relevante. También necesitamos agregar
 > una anotación `#[no_mangle]` para decirle al compilador de Rust que no
-> cambie el nombre de esta función. *Mangling* es cuando un compilador cambia
+> cambie el nombre de esta función. _Mangling_ es cuando un compilador cambia
 > el nombre que le hemos dado a una función a un nombre diferente que contiene
 > más información para otras partes del proceso de compilación para consumir,
->, pero es menos legible para los humanos. Cada compilador de lenguaje de
+> , pero es menos legible para los humanos. Cada compilador de lenguaje de
 > programación mangla los nombres de manera ligeramente diferente, por lo que
 > para que una función Rust sea nombrable por otros lenguajes, debemos
 > deshabilitar el mangling del compilador de Rust.
@@ -371,12 +373,12 @@ valor absoluto de su argumento.
 
 ### Acceder o modificar una variable estática mutable
 
-En este libro, aún no hemos hablado de *variables globales*, las cuales Rust
+En este libro, aún no hemos hablado de _variables globales_, las cuales Rust
 admite, pero pueden ser problemáticas con las reglas de ownership de Rust. Si
 dos hilos acceden a la misma variable global mutable, puede causar una 
 condición de carrera.
 
-En Rust, las variables globales son llamadas variables *static*. El Listado
+En Rust, las variables globales son llamadas variables _static_. El Listado
 19-9 muestra un ejemplo de declaración y uso de una variable static con un
 string slice como valor.
 
@@ -403,7 +405,7 @@ valores en una variable static tienen una dirección fija en la memoria. Usar el
 valor siempre accederá a los mismos datos. Las constantes, por otro lado,
 pueden duplicar sus datos cada vez que se usan. Otra diferencia es que las
 variables static pueden ser mutables. Acceder y modificar variables static
-mutables es *inseguro*. El Listado 19-10 muestra cómo declarar, acceder y
+mutables es _inseguro_. El Listado 19-10 muestra cómo declarar, acceder y
 modificar una variable static mutable llamada `COUNTER`.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -448,7 +450,7 @@ que el compilador no puede verificar.
 
 Como ejemplo, recordemos los marcadores de traits `Sync` y `Send` que
 discutimos en la sección ["Concurrencia extensible con los traits `Sync` y
-`Send`"][extensible-concurrency-with-the-sync-and-send-traits] en el Capítulo
+`Send`"][concurrencia-extensible-con-los-traits-sync-y-send] en el Capítulo
 16: el compilador implementa estos traits automáticamente si nuestros tipos se
 componen únicamente de tipos `Send` y `Sync`. Si implementamos un tipo que
 contiene un tipo que no es `Send` o `Sync`, como punteros crudos, y queremos
@@ -460,7 +462,7 @@ debemos hacer esas comprobaciones manualmente e indicarlo con `unsafe`.
 ### Acceder a los campos de una union
 
 La última acción que solo se puede realizar con `unsafe` es acceder a los
-campos de una *union*. Una `union` es similar a una `struct`, pero solo un
+campos de una _union_. Una `union` es similar a una `struct`, pero solo un
 campo declarado se usa en una instancia particular en un momento dado. Las
 unions se usan principalmente para interactuar con unions en código C. Acceder
 a los campos de la union es inseguro porque Rust no puede garantizar el tipo de
@@ -476,11 +478,8 @@ mantener la seguridad de la memoria. Cuando tengas una razón para usar código
 `unsafe`, puedes hacerlo, y tener la anotación `unsafe` explícita hace que sea
 más fácil rastrear la fuente de los problemas cuando ocurren.
 
-[dangling-references]:
-ch04-02-references-and-borrowing.html#dangling-references
-[differences-between-variables-and-constants]:
-ch03-01-variables-and-mutability.html#constants
-[extensible-concurrency-with-the-sync-and-send-traits]:
-ch16-04-extensible-concurrency-sync-and-send.html#extensible-concurrency-with-the-sync-and-send-traits
-[the-slice-type]: ch04-03-slices.html#the-slice-type
+[referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes
+[differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constantes
+[concurrencia-extensible-con-los-traits-sync-y-send]: ch16-04-extensible-concurrency-sync-and-send.html#concurrencia-extensible-con-los-traits-sync-y-send
+[el-tipo-slice]: ch04-03-slices.html#el-tipo-slice
 [reference]: https://doc.rust-lang.org/reference/items/unions.html

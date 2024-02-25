@@ -35,12 +35,12 @@ no necesitaría saber que asignamos un ID `i32` a los nombres internamente. El
 newtype pattern es una forma ligera de lograr la encapsulación para ocultar
 los detalles de implementación, que discutimos en la sección [“Encapsulación
 que Oculta los Detalles de
-Implementación”][encapsulation-that-hides-implementation-details]<!-- ignore -->
+Implementación”][encapsulacion-que-oculta-los-detalles-de-implementacion]<!-- ignore -->
 del Capítulo 17.
 
 ### Creando Type Synonyms con Type Aliases
 
-Rust proporciona la capacidad de declarar un *type alias* para darle a un
+Rust proporciona la capacidad de declarar un _type alias_ para darle a un
 tipo existente otro nombre. Para esto usamos la palabra clave `type`. Por
 ejemplo, podemos crear el alias `Kilometers` a `i32` de la siguiente manera:
 
@@ -48,7 +48,7 @@ ejemplo, podemos crear el alias `Kilometers` a `i32` de la siguiente manera:
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-04-kilometers-alias/src/main.rs:here}}
 ```
 
-Ahora, el alias `Kilometers` es un *sinónimo* para `i32`; a diferencia de los
+Ahora, el alias `Kilometers` es un _sinónimo_ para `i32`; a diferencia de los
 tipos `Millimeters` y `Meters` que creamos en el Listado 19-15, `Kilometers`
 no es un tipo nuevo y separado. Los valores que tienen el tipo `Kilometers`
 se tratarán de la misma manera que los valores del tipo `i32`:
@@ -79,7 +79,7 @@ proyecto lleno de código como el del Listado 19-24.
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-24/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-24: Usando un tipo largo en muchos 
+<span class="caption">Listing 19-24: Usando un tipo largo en muchos
 lugares</span>
 
 Un type alias hace que este código sea más manejable al reducir la repetición.
@@ -94,9 +94,9 @@ extenso y podemos reemplazar todos los usos del tipo con el alias más corto
 <span class="caption">Listing 19-25: Introduciendo un type alias `Thunk` para
 reducir la repetición</span>
 
-¡Este código es mucho más fácil de leer y escribir! Elegir un nombre 
+¡Este código es mucho más fácil de leer y escribir! Elegir un nombre
 significativo para un alias de tipo también puede ayudar a comunicar tu
-intención (*thunk* es una palabra para código que se evaluará en un momento
+intención (_thunk_ es una palabra para código que se evaluará en un momento
 posterior, por lo que es un nombre apropiado para un cierre que se almacena).
 
 Los type alias también se utilizan con frecuencia con el tipo `Result<T, E>`
@@ -128,7 +128,7 @@ con `E` lleno como `std::io::Error`. Las firmas de las funciones del trait
 ```
 
 El type alias ayuda de dos maneras: hace que el código sea más fácil de
-escribir *y* nos da una interfaz consistente en todo `std::io`. Debido a que
+escribir _y_ nos da una interfaz consistente en todo `std::io`. Debido a que
 es un alias, es solo otro `Result<T, E>`, lo que significa que podemos usar
 cualquier método que funcione en `Result<T, E>` con él, así como la sintaxis
 especial como el operador `?`.
@@ -136,8 +136,8 @@ especial como el operador `?`.
 ### El tipo que nunca retorna
 
 Rust tiene un tipo especial llamado `!`, conocido en la jerga de la teoría de
-tipos como *tipo vacío* porque no tiene valores. Preferimos llamarlo *tipo
-never* porque se encuentra en el lugar del tipo de retorno cuando una función
+tipos como _tipo vacío_ porque no tiene valores. Preferimos llamarlo _tipo
+never_ porque se encuentra en el lugar del tipo de retorno cuando una función
 nunca retornará. Aquí hay un ejemplo:
 
 ```rust,noplayground
@@ -145,10 +145,10 @@ nunca retornará. Aquí hay un ejemplo:
 ```
 
 Este código se lee como “la función `bar` devuelve never”. Las funciones que
-devuelven never se llaman *funciones divergentes*. No podemos crear valores
+devuelven never se llaman _funciones divergentes_. No podemos crear valores
 del tipo `!` por lo que `bar` nunca puede devolver.
 
-Pero, ¿qué utilidad tiene un tipo del que nunca se pueden crear valores? 
+Pero, ¿qué utilidad tiene un tipo del que nunca se pueden crear valores?
 Recuerda el código del Juego de Adivinar el Número mostrado en el Listado
 2-5; hemos reproducido parte de él aquí en el Listado 19-26.
 
@@ -160,7 +160,7 @@ Recuerda el código del Juego de Adivinar el Número mostrado en el Listado
 `continue`</span>
 
 En ese momento, omitimos algunos detalles en este código. En el Capítulo 6 en
-la sección [“El operador de control de flujo 
+la sección [“El operador de control de flujo
 `match`”][the-match-control-flow-operator]<!-- ignore -->
 discutimos que las opciones de `match` deben devolver todos el mismo tipo. Por
 lo tanto, por ejemplo, el siguiente código no funciona:
@@ -169,7 +169,7 @@ lo tanto, por ejemplo, el siguiente código no funciona:
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-08-match-arms-different-types/src/main.rs:here}}
 ```
 
-El tipo de `guess` en este código tendría que ser un entero *y* un string, y
+El tipo de `guess` en este código tendría que ser un entero _y_ un string, y
 Rust requiere que `guess` tenga solo un tipo. Entonces, ¿qué devuelve
 `continue`? ¿Cómo se nos permitió devolver un `u32` de una opción y tener otra
 opción que termina con `continue` en el Listado 19-26?
@@ -209,12 +209,12 @@ Aquí, el bucle nunca termina, por lo que `!` es el valor de la expresión. Sin
 embargo, esto no sería cierto si incluyéramos un `break`, porque el bucle
 terminaría cuando llegara al `break`.
 
-### Tipos de tamaño dinámico y el trait `Sized`
+### Tipos de tamano dinamico y el trait `Sized`
 
 Rust necesita conocer ciertos detalles sobre sus tipos, como la cantidad de
 espacio para asignar a un valor de un tipo particular. Esto deja una esquina de
-su sistema de tipos un poco confusa al principio: el concepto de *tipos de
-tamaño dinámico*. A veces se refiere como *DST* o *tipos no dimensionados*,
+su sistema de tipos un poco confusa al principio: el concepto de _tipos de
+tamaño dinámico_. A veces se refiere como _DST_ o _tipos no dimensionados_,
 estos tipos nos permiten escribir código usando valores cuyo tamaño solo
 podemos conocer en tiempo de ejecución.
 
@@ -236,13 +236,13 @@ necesitarían ocupar el mismo espacio. Pero tienen longitudes diferentes: `s1`
 necesita 12 bytes de almacenamiento y `s2` necesita 15. Es por eso que no es
 posible crear una variable que contenga un tipo de tamaño dinámico.
 
-Entonces, ¿qué hacemos en este caso? En este caso, como ya sabes, la solución 
+Entonces, ¿qué hacemos en este caso? En este caso, como ya sabes, la solución
 es hacer que los tipos de `s1` y `s2` sean `&str` en lugar de `str`. Recuerda
 de la sección [“String Slices”][string-slices]<!-- ignore --> del
 Capítulo 4 que la estructura de datos de slice solo almacena la posición de
 inicio y la longitud del slice. Por lo tanto, aunque un `&T` es un solo
 valor que almacena la dirección de memoria de donde se encuentra el `T`, un
-`&str` son *dos* valores: la dirección del `str` y su longitud. Como tal,
+`&str` son _dos_ valores: la dirección del `str` y su longitud. Como tal,
 podemos conocer el tamaño de un valor `&str` en tiempo de compilación: es dos
 veces la longitud de un `usize`. Es decir, siempre conocemos el tamaño de un
 `&str`, sin importar cuán larga sea la cadena a la que se refiere. En general,
@@ -256,7 +256,7 @@ Podemos combinar `str` con todo tipo de punteros: por ejemplo, `Box<str>` o
 dinámico diferente: los traits. Cada trait es un tipo de tamaño dinámico al que
 podemos referirnos usando el nombre del trait. En el Capítulo 17 en la
 sección [“Usando trait objects que permiten valores de diferentes
-tipos”][using-trait-objects-that-allow-for-values-of-different-types]<!--
+tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]<!--
 ignore -->, mencionamos que para usar traits como objetos de trait, debemos
 ponerlos detrás de un puntero, como `&dyn Trait` o `Box<dyn Trait>` (`Rc<dyn
 Trait>` también funcionaría).
@@ -296,11 +296,8 @@ detrás de algún tipo de puntero. En este caso, hemos elegido una referencia.
 
 ¡A continuación, hablaremos sobre funciones y closures!
 
-[encapsulation-that-hides-implementation-details]:
-ch17-01-what-is-oo.html#encapsulation-that-hides-implementation-details
+[encapsulacion-que-oculta-los-detalles-de-implementacion]: ch17-01-what-is-oo.html#encapsulacion-que-oculta-los-detalles-de-implementacion
 [string-slices]: ch04-03-slices.html#string-slices
-[the-match-control-flow-operator]:
-ch06-02-match.html#the-match-control-flow-operator
-[using-trait-objects-that-allow-for-values-of-different-types]:
-ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
-[using-the-newtype-pattern]: ch19-03-advanced-traits.html#using-the-newtype-pattern-to-implement-external-traits-on-external-types
+[the-match-control-flow-operator]: ch06-02-match.html#the-match-control-flow-operator
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[using-the-newtype-pattern]: ch19-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos

@@ -1,7 +1,7 @@
 ## Almacenando listas de valores con vectores
 
 El primer tipo de colección que veremos es `Vec<T>`, también conocido como un
-*vector*. Los vectores te permiten almacenar más de un valor en una sola
+_vector_. Los vectores te permiten almacenar más de un valor en una sola
 estructura de datos que pone todos los valores uno al lado del otro en la
 memoria. Los vectores solo pueden almacenar valores del mismo tipo. Son útiles
 cuando tienes una lista de elementos, como las líneas de texto en un archivo o
@@ -79,7 +79,7 @@ con sintaxis de indexación y el método `get`.
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-4: Usando la sintaxis de indexación o el método 
+<span class="caption">Listing 8-4: Usando la sintaxis de indexación o el método
 `get` accediendo a un objeto en un vector</span>
 
 Ten en cuenta algunos detalles aquí. Usamos el valor de índice `2` para obtener
@@ -127,7 +127,6 @@ Listing 8-6, donde tenemos una referencia inmutable al primer elemento en un
 vector e intentamos agregar un elemento al final. Este programa no funcionará si
 también intentamos referirnos a ese elemento más adelante en la función:
 
-
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
 ```
@@ -136,7 +135,6 @@ también intentamos referirnos a ese elemento más adelante en la función:
 mientras se mantiene una referencia a un elemento</span>
 
 Compiling this code will result in this error:
-
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-06/output.txt}}
@@ -215,7 +213,7 @@ el Listing 8-9.
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-9: Definiendo un `enum` para almacenar valores 
+<span class="caption">Listing 8-9: Definiendo un `enum` para almacenar valores
 de diferentes tipos en un vector</span>
 
 Rust necesita saber qué tipos habrá en el vector en tiempo de compilación para
@@ -247,17 +245,17 @@ se anota en el Listing 8-10.
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-10: Mostrando dónde se colocan el vector y sus 
+<span class="caption">Listing 8-10: Mostrando dónde se colocan el vector y sus
 elementos</span>
 
-Cuando se libera el vector, también se libera todo su contenido, lo que 
+Cuando se libera el vector, también se libera todo su contenido, lo que
 significa que se limpiarán los enteros que contiene. El borrow checker garantiza
 que cualquier referencia al contenido de un vector solo se utilice mientras el
 vector en sí sea válido.
 
 Pasemos al siguiente tipo de colección: ¡`String`!
 
-[data-types]: ch03-02-data-types.html#data-types
+[data-types]: ch03-02-data-types.html#tipos-de-datos
 [nomicon]: https://doc.rust-lang.org/nomicon/vec/vec.html
 [vec-api]: https://doc.rust-lang.org/std/vec/struct.Vec.html
 [deref]: ch15-02-deref.html#following-the-pointer-to-the-value-with-the-dereference-operator

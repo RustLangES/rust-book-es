@@ -15,7 +15,7 @@ Para simular una solicitud lenta, podemos hacer que el servidor duerma durante
 un tiempo antes de responder. Veremos cómo una solicitud de procesamiento
 lento puede afectar a otras solicitudes realizadas a nuestra implementación
 actual del servidor. El listado 20-10 implementa el manejo de una solicitud a
-*/sleep* con una respuesta lenta simulada que hará que el servidor duerma
+_/sleep_ con una respuesta lenta simulada que hará que el servidor duerma
 durante 5 segundos antes de responder.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -33,27 +33,27 @@ coincidir con los valores literales de string; `match` no hace referencia
 automática y desreferenciación como el método de igualdad.
 
 La primera opción es la misma que el bloque `if` del Listado 20-9. La segunda
-opción coincide con una solicitud a */sleep*. Cuando se recibe esa solicitud, el
+opción coincide con una solicitud a _/sleep_. Cuando se recibe esa solicitud, el
 servidor dormirá durante 5 segundos antes de representar la página HTML
 correcta. La tercera opción es la misma que el bloque `else` del Listado 20-9.
 
-Puedes ver cómo nuestro servidor es primitivo: ¡las bibliotecas reales 
+Puedes ver cómo nuestro servidor es primitivo: ¡las bibliotecas reales
 manejarían el reconocimiento de múltiples solicitudes de una manera mucho menos
 verbosa!
 
 Iniciamos el servidor con `cargo run`. Luego abrimos dos ventanas del navegador:
 una para *http://127.0.0.1:7878/* y la otra para *http://127.0.0.1:7878/sleep*.
-Si ingresas la URI */* varias veces, como antes, verás que responde rápidamente.
-Pero si ingresas */sleep* y luego cargas */*, verás que */* espera hasta que
+Si ingresas la URI _/_ varias veces, como antes, verás que responde rápidamente.
+Pero si ingresas _/sleep_ y luego cargas _/_, verás que _/_ espera hasta que
 `sleep` haya dormido durante sus 5 segundos completos antes de cargarse.
 
 Existen varias técnicas que podríamos usar para evitar que las solicitudes se
-acumulen detrás de una solicitud lenta; la que implementaremos es un *pool de
-hilos*.
+acumulen detrás de una solicitud lenta; la que implementaremos es un _pool de
+hilos_.
 
 ### Mejorando el rendimiento con un pool de hilos
 
-Un *pool de hilos* es un grupo de hilos generados que están esperando y listos
+Un _pool de hilos_ es un grupo de hilos generados que están esperando y listos
 para manejar una tarea. Cuando el programa recibe una nueva tarea, asigna uno
 de los hilos del grupo a la tarea, y ese hilo procesará la tarea. Los hilos
 restantes en el grupo están disponibles para manejar cualquier otra tarea que
@@ -80,9 +80,9 @@ en la cola, pero hemos aumentado el número de solicitudes de larga duración qu
 podemos manejar antes de llegar a ese punto.
 
 Esta técnica es solo una de las muchas formas de mejorar el rendimiento de un
-servidor web. Otras opciones que puede explorar son el modelo *fork / join*, 
-el modelo de *I / O asincrónico de un solo hilo* o el *modelo de I / O 
-asincrónico de múltiples hilos*. Si está interesado en este tema, puedes leer
+servidor web. Otras opciones que puede explorar son el modelo _fork / join_,
+el modelo de _I / O asincrónico de un solo hilo_ o el _modelo de I / O
+asincrónico de múltiples hilos_. Si está interesado en este tema, puedes leer
 más sobre otras soluciones e intentar implementarlas; con un lenguaje de bajo
 nivel como Rust, todas estas opciones son posibles.
 
@@ -101,6 +101,7 @@ continuación para que el código funcione. Antes de hacer eso, sin embargo,
 exploraremos la técnica que no vamos a usar como punto de partida.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="code-structure-if-we-could-spawn-a-thread-for-each-request"></a>
 
 #### Creando un hilo para cada solicitud
@@ -124,12 +125,13 @@ bucle `for`.
 
 Como aprendiste en el Capítulo 16, `thread::spawn` creará un nuevo hilo y luego
 ejecutará el código en el cierre en el nuevo hilo. Si ejecutas este código y
-cargas */sleep* en tu navegador, luego */* en otras dos pestañas del navegador,
-verás que las solicitudes a */* no tienen que esperar a que */sleep* termine.
+cargas _/sleep_ en tu navegador, luego _/_ en otras dos pestañas del navegador,
+verás que las solicitudes a _/_ no tienen que esperar a que _/sleep_ termine.
 Sin embargo, como mencionamos, esto eventualmente abrumará el sistema porque
 estarías creando nuevos hilos sin ningún límite.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="creating-a-similar-interface-for-a-finite-number-of-threads"></a>
 
 #### Creando un número finito de hilos
@@ -145,7 +147,7 @@ para un struct `ThreadPool` que queremos usar en lugar de `thread::spawn`.
 {{#rustdoc_include ../listings/ch20-web-server/listing-20-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 20-12: Nuestra interfaz ideal de 
+<span class="caption">Listing 20-12: Nuestra interfaz ideal de
 `ThreadPool`</span>
 
 Utilizamos `ThreadPool::new` para crear un nuevo pool de hilos con un número
@@ -157,11 +159,12 @@ lo ejecute. Este código aún no se compilará, pero lo intentaremos para que el
 compilador pueda guiarnos en cómo solucionarlo.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="building-the-threadpool-struct-using-compiler-driven-development"></a>
 
 #### Construyendo `ThreadPool` usando el desarrollo impulsado por el compilador
 
-Realiza los cambios en el Listado 20-12 a *src/main.rs*, y luego usemos los
+Realiza los cambios en el Listado 20-12 a _src/main.rs_, y luego usemos los
 errores del compilador de `cargo check` para impulsar nuestro desarrollo. Aquí
 está el primer error que obtenemos:
 
@@ -169,16 +172,16 @@ está el primer error que obtenemos:
 {{#include ../listings/ch20-web-server/listing-20-12/output.txt}}
 ```
 
-¡Eso es genial! Este error nos dice que necesitamos un tipo o módulo 
+¡Eso es genial! Este error nos dice que necesitamos un tipo o módulo
 `ThreadPool`, así que lo construiremos ahora. Nuestra implementación de
 `ThreadPool` será independiente del tipo de trabajo que nuestro servidor web
 está haciendo. Entonces, cambiemos el crate de `hello` de un crate binario a un
-crate de biblioteca para contener nuestra implementación de `ThreadPool`. 
-Después de cambiar a un crate de biblioteca, también podríamos usar la 
-biblioteca de pool de hilos separada para cualquier trabajo que queramos hacer 
+crate de biblioteca para contener nuestra implementación de `ThreadPool`.
+Después de cambiar a un crate de biblioteca, también podríamos usar la
+biblioteca de pool de hilos separada para cualquier trabajo que queramos hacer
 usando un pool de hilos y no solo para servir solicitudes web.
 
-Crea un *src/lib.rs* que contenga lo siguiente, que es la definición más simple
+Crea un _src/lib.rs_ que contenga lo siguiente, que es la definición más simple
 de un struct `ThreadPool` que podemos tener por ahora:
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -187,9 +190,9 @@ de un struct `ThreadPool` que podemos tener por ahora:
 {{#rustdoc_include ../listings/ch20-web-server/no-listing-01-define-threadpool-struct/src/lib.rs}}
 ```
 
-Luego edita el archivo *main.rs* para traer `ThreadPool` al scope del crate
+Luego edita el archivo _main.rs_ para traer `ThreadPool` al scope del crate
 desde el crate de la biblioteca agregando el siguiente código en la parte
-superior de *src/main.rs*:
+superior de _src/main.rs_:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -205,7 +208,7 @@ siguiente error que debemos abordar:
 ```
 
 Este error indica que a continuación debemos crear una función asociada
-llamada `new` para `ThreadPool`. También sabemos que `new` debe tener un 
+llamada `new` para `ThreadPool`. También sabemos que `new` debe tener un
 parámetro que pueda aceptar `4` como argumento y debe devolver una instancia de
 `ThreadPool`. Implementemos la función `new` más simple que tendrá esas
 características:
@@ -230,10 +233,10 @@ Let’s check the code again:
 
 Ahora ocurre un error porque no tenemos un método `execute` en `ThreadPool`.
 Recordemos de la sección [“Creando un número finito de
-hilos”](#creating-a-similar-interface-for-a-finite-number-of-threads)<!-- 
-ignore --> que decidimos que nuestro pool de hilos debería tener una interfaz 
-similar a `thread::spawn`. Además, implementaremos la función `execute` para 
-que tome el cierre que se le da y se lo dé a un hilo inactivo en el pool para 
+hilos”](#creating-a-similar-interface-for-a-finite-number-of-threads)<!--
+ignore --> que decidimos que nuestro pool de hilos debería tener una interfaz
+similar a `thread::spawn`. Además, implementaremos la función `execute` para
+que tome el cierre que se le da y se lo dé a un hilo inactivo en el pool para
 que lo ejecute.
 
 Definiremos el método `execute` en `ThreadPool` para tomar un closure como
@@ -291,12 +294,12 @@ en el navegador, verás los errores en el navegador que vimos al comienzo del
 capítulo. ¡Nuestra biblioteca aún no está llamando al closure pasado a
 `execute`!
 
-> Nota: Una frase que podrías escuchar sobre lenguajes con compiladores 
+> Nota: Una frase que podrías escuchar sobre lenguajes con compiladores
 > estrictos, como Haskell y Rust, es “si el código se compila, funciona”. Pero
 > esta frase no es universalmente cierta. Nuestro proyecto se compila, ¡pero no
 > hace absolutamente nada! Si estuviéramos construyendo un proyecto real y
 > completo, este sería un buen momento para comenzar a escribir pruebas
-> unitarias para verificar que el código se compile *y* tenga el comportamiento
+> unitarias para verificar que el código se compile _y_ tenga el comportamiento
 > que queremos.
 
 #### Validando el número de hilos en `new`
@@ -394,21 +397,21 @@ creación de hilos. Aquí, veremos cómo creamos hilos. La biblioteca estándar
 proporciona `thread::spawn` como una forma de crear hilos, y `thread::spawn`
 espera obtener algún código que el hilo debe ejecutar tan pronto como se cree
 el hilo. Sin embargo, en nuestro caso, queremos crear los hilos y hacer que
-*esperen* el código que enviaremos más tarde. La implementación de la biblioteca
+_esperen_ el código que enviaremos más tarde. La implementación de la biblioteca
 estándar de hilos no incluye ninguna forma de hacer eso; tenemos que
 implementarlo manualmente.
 
 Implementaremos este comportamiento introduciendo una nueva estructura de datos
 entre `ThreadPool` y los hilos que administrarán este nuevo comportamiento.
-Llamaremos a esta estructura de datos *"Worker"*, que es un término común en las
+Llamaremos a esta estructura de datos _"Worker"_, que es un término común en las
 implementaciones de pooling. El Worker recoge el código que debe ejecutarse y
 ejecuta el código en el hilo del Worker. Piensa en las personas que trabajan
 en la cocina de un restaurante: los trabajadores esperan hasta que lleguen los
 pedidos de los clientes, y luego son responsables de tomar esos pedidos y
 cumplirlos.
 
-En lugar de almacenar un vector de instancias `JoinHandle<()>` en el pool de 
-hilos, almacenaremos instancias del struct `Worker`. Cada `Worker` contendrá 
+En lugar de almacenar un vector de instancias `JoinHandle<()>` en el pool de
+hilos, almacenaremos instancias del struct `Worker`. Cada `Worker` contendrá
 una instancia `JoinHandle<()>`. Luego, implementaremos un método en `Worker`
 que tomará un closure de código para ejecutar y lo enviará al hilo en ejecución
 para su ejecución. También daremos a cada trabajador un `id` para que podamos
@@ -447,7 +450,7 @@ porque ahora contiene instancias de `Worker` en lugar de instancias de
 `Worker::new`, y almacenamos cada nuevo `Worker` en el vector llamado
 `workers`.
 
-El código externo (como nuestro servidor en *src/main.rs*) no necesita conocer
+El código externo (como nuestro servidor en _src/main.rs_) no necesita conocer
 los detalles de implementación con respecto al uso de un struct `Worker` dentro
 de `ThreadPool`, por lo que hacemos que el struct `Worker` y su función `new`
 sean privadas. La función `Worker::new` utiliza el `id` que le damos y almacena
@@ -522,7 +525,7 @@ el closure. El código en el Listado 20-17 aún no se compilará.
 {{#rustdoc_include ../listings/ch20-web-server/listing-20-17/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-17: Pasando el receptor a los 
+<span class="caption">Listing 20-17: Pasando el receptor a los
 trabajadores</span>
 
 Hemos hecho algunos cambios pequeños y sencillos: pasamos el receptor al
@@ -536,7 +539,7 @@ Cuando intentamos compilar este código, obtenemos este error:
 
 El código está intentando pasar `receiver` a múltiples instancias de `Worker`.
 Esto no funcionará, como recordará del Capítulo 16: la implementación de canal
-que Rust proporciona es de múltiples *productores*, un solo *consumidor*. Esto
+que Rust proporciona es de múltiples _productores_, un solo _consumidor_. Esto
 significa que no podemos simplemente clonar el extremo consumidor del canal
 para solucionar este código. Tampoco queremos enviar un mensaje varias veces a
 múltiples consumidores; queremos una lista de mensajes con múltiples
@@ -588,7 +591,7 @@ para facilitar su uso. Mira el Listado 20-19.
 <span class="caption">Listing 20-19: Creando un alias de tipo `Job` para un
 `Box` que contenga cada closure y luego enviamos el trabajo por el canal</span>
 
-Después de crear una nueva instancia de `Job` usando el closure que obtenemos 
+Después de crear una nueva instancia de `Job` usando el closure que obtenemos
 en `execute`, enviamos ese trabajo por el extremo de envío del canal. Estamos
 llamando a `unwrap` en `send` para el caso de que el envío falle. Esto podría
 suceder si, por ejemplo, detenemos todos nuestros hilos de ejecución, lo que
@@ -599,7 +602,7 @@ continúan ejecutándose mientras exista el pool. La razón por la que usamos
 sabe eso.
 
 ¡Pero aún no hemos terminado! En el trabajador, nuestro cierre que se pasa a
-`thread::spawn` todavía solo *hace referencia* al extremo receptor del canal.
+`thread::spawn` todavía solo _hace referencia_ al extremo receptor del canal.
 En su lugar, necesitamos que el cierre se repita para siempre, preguntando al
 extremo receptor del canal por un trabajo y ejecutando el trabajo cuando lo
 obtiene. Hagamos el cambio que se muestra en el Listado 20-20 a `Worker::new`.
@@ -613,10 +616,10 @@ obtiene. Hagamos el cambio que se muestra en el Listado 20-20 a `Worker::new`.
 <span class="caption">Listing 20-20: Recibiendo y ejecutando los trabajos en el
 hilo del trabajador</span>
 
-Aquí, primero llamamos a `lock` en el `receiver` para adquirir el mutex, y 
+Aquí, primero llamamos a `lock` en el `receiver` para adquirir el mutex, y
 luego llamamos a `unwrap` para que el hilo actual se bloquee en caso de que
 ocurra algún error. Adquirir un bloqueo puede fallar si el mutex está en un
-estado *envenenado*, lo que puede suceder si algún otro hilo se bloqueó mientras
+estado _envenenado_, lo que puede suceder si algún otro hilo se bloqueó mientras
 sostenía el bloqueo en lugar de liberar el bloqueo. En esta situación, llamar a
 `unwrap` para que este hilo se bloquee es la acción correcta a tomar. Siéntase
 libre de cambiar este `unwrap` a un `expect` con un mensaje de error que sea
@@ -683,10 +686,10 @@ Worker 2 got a job; executing.
 ¡Éxito! Ahora tenemos un pool de hilos que ejecuta conexiones de forma
 asincrónica. Nunca hay más de cuatro hilos creados, por lo que nuestro sistema
 no se sobrecargará si el servidor recibe muchas solicitudes. Si hacemos una
-solicitud a */sleep*, el servidor podrá atender otras solicitudes haciendo que
+solicitud a _/sleep_, el servidor podrá atender otras solicitudes haciendo que
 otro hilo las ejecute.
 
-> Nota: si abres */sleep* en múltiples ventanas del navegador simultáneamente,
+> Nota: si abres _/sleep_ en múltiples ventanas del navegador simultáneamente,
 > podrían cargarse una a la vez en intervalos de 5 segundos. Algunos navegadores
 > web ejecutan múltiples instancias de la misma solicitud secuencialmente por
 > razones de almacenamiento en caché. Esta limitación no es causada por nuestro
@@ -725,10 +728,8 @@ final del bloque asociado. En el Listado 20-21, el bloqueo permanece retenido
 durante la duración de la llamada a `job()`, lo que significa que otros
 trabajadores no pueden recibir trabajos.
 
-[creating-type-synonyms-with-type-aliases]:
-ch19-04-advanced-types.html#creating-type-synonyms-with-type-aliases
-[integer-types]: ch03-02-data-types.html#integer-types
-[fn-traits]:
-ch13-01-closures.html#moving-captured-values-out-of-the-closure-and-the-fn-traits
+[creating-type-synonyms-with-type-aliases]: ch19-04-advanced-types.html#creando-type-synonyms-con-type-aliases
+[integer-types]: ch03-02-data-types.html#tipos-de-enteros
+[fn-traits]: ch13-01-closures.html#moving-captured-values-out-of-the-closure-and-the-fn-traits
 [builder]: https://doc.rust-lang.org/std/thread/struct.Builder.html
 [builder-spawn]: https://doc.rust-lang.org/std/thread/struct.Builder.html#method.spawn

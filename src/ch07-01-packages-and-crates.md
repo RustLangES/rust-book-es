@@ -75,4 +75,4 @@ crates binarios colocando archivos en el directorio _src/bin_: cada archivo ser√
 un crate binario separado.
 
 [modules]: ch07-02-defining-modules-to-control-scope-and-privacy.html
-[rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
+[rand]: ch02-00-guessing-game-tutorial.html#generar-un-numero-aleatorio

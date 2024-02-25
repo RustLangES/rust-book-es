@@ -1,10 +1,10 @@
 ## Concurrencia extensible con los traits `Sync` y `Send`
 
-Curiosamente, el lenguaje Rust tiene *muy* pocas características de 
-concurrencia. Casi todas las características de concurrencia de las que hemos 
-hablado hasta ahora en este capítulo han sido parte de la biblioteca estándar, 
-no del lenguaje. Sus opciones para manejar la concurrencia no se limitan al 
-lenguaje o a la biblioteca estándar; puede escribir sus propias características 
+Curiosamente, el lenguaje Rust tiene _muy_ pocas características de
+concurrencia. Casi todas las características de concurrencia de las que hemos
+hablado hasta ahora en este capítulo han sido parte de la biblioteca estándar,
+no del lenguaje. Sus opciones para manejar la concurrencia no se limitan al
+lenguaje o a la biblioteca estándar; puede escribir sus propias características
 de concurrencia o usar las escritas por otros.
 
 Sin embargo, dos conceptos de concurrencia están integrados en el lenguaje: los
@@ -45,8 +45,8 @@ familia de tipos relacionados `Cell<T>` no son `Sync`. La implementación de la
 comprobación de préstamos que hace `RefCell<T>` en tiempo de ejecución no es
 segura para subprocesos. El smart pointer `Mutex<T>` es `Sync` y se puede usar
 para compartir el acceso con múltiples hilos como viste en la sección [“Compartir
-un `Mutex<T>` entre múltiples 
-hilos”][sharing-a-mutext-between-multiple-threads]<!-- ignore -->.
+un `Mutex<T>` entre múltiples
+hilos”][compartir-un-mutext-entre-varios-hilos]<!-- ignore -->.
 
 ### Implementar `Send` y `Sync` manualmente es inseguro
 
@@ -91,6 +91,5 @@ estructurar soluciones a medida que sus programas Rust se vuelven más grandes.
 Además, discutiremos cómo los ideales de Rust se relacionan con los que
 puede estar familiarizado con la programación orientada a objetos.
 
-[sharing-a-mutext-between-multiple-threads]:
-ch16-03-shared-state.html#sharing-a-mutext-between-multiple-threads
+[compartir-un-mutext-entre-varios-hilos]: ch16-03-shared-state.html#compartir-un-mutext-entre-varios-hilos
 [nomicon]: https://doc.rust-lang.org/nomicon/index.html

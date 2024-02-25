@@ -6,7 +6,7 @@ concretos diferentes. Primero veamos cómo definir funciones, structs,
 enums y métodos usando genéricos. Luego discutiremos cómo los genéricos
 afectan el rendimiento del código.
 
-### Definiciones in function 
+### Definiciones in function
 
 Al definir una función que usa genéricos, colocamos los genéricos en la firma de
 la función donde normalmente especificaríamos los tipos de datos de los
@@ -24,7 +24,7 @@ combinaremos estos en una sola función que usa genéricos.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-4: Dos funciones que difieren solo en sus 
+<span class="caption">Listing 10-4: Dos funciones que difieren solo en sus
 nombres y los tipos en sus firmas</span>
 
 La función `largest_i32` es la que extrajimos en el Listado 10-3 que encuentra
@@ -70,7 +70,7 @@ en este capítulo.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-5: La función `largest` está usando parámetros 
+<span class="caption">Listing 10-5: La función `largest` está usando parámetros
 de tipo genérico; esto aún no se compila</span>
 
 Si compilamos este código ahora, obtendremos este error:
@@ -79,7 +79,7 @@ Si compilamos este código ahora, obtendremos este error:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
 ```
 
-El texto de ayuda menciona `std::cmp::PartialOrd`, que es un *trait*, y vamos a
+El texto de ayuda menciona `std::cmp::PartialOrd`, que es un _trait_, y vamos a
 hablar de traits en la siguiente sección. Por ahora, sepa que este error
 indica que el cuerpo de `largest` no funcionará para todos los tipos posibles
 que podría ser `T`. Debido a que queremos comparar valores de tipo `T` en el
@@ -114,7 +114,7 @@ especificaríamos tipos de datos concretos.
 
 Ten en cuenta que porque hemos usado un solo tipo genérico para definir
 `Point<T>`, esta definición dice que el struct `Point<T>` es genérico sobre algún
-tipo `T`, y los campos `x` e `y` son *ambos* ese mismo tipo, sea cual sea ese
+tipo `T`, y los campos `x` e `y` son _ambos_ ese mismo tipo, sea cual sea ese
 tipo. Si creamos una instancia de un `Point<T>` que tenga valores de diferentes
 tipos, como en el Listado 10-7, nuestro código no se compilará.
 
@@ -195,7 +195,7 @@ El enum `Result` es un genérico en dos tipos, `T` y `E`. Tiene dos variantes:
 `Ok`, que contiene un valor de tipo `T`, y `Err`, que contiene un valor de tipo
 `E`. Esta definición es apropiada porque el significado de `Result` es que uno
 de estos dos tipos, `T` o `E`, será el tipo del valor que se devuelve cuando se
-produce un error o cuando se tiene éxito (devolviendo un valor de tipo `T`) o 
+produce un error o cuando se tiene éxito (devolviendo un valor de tipo `T`) o
 falla (devolviendo un valor de tipo `E`). De hecho, esta es la definición que
 usamos para abrir un archivo en el Listado 9-3, donde `T` se llenó con el tipo
 `std::fs::File` cuando el archivo se abrió con éxito y `E` se llenó con el tipo
@@ -251,7 +251,7 @@ concreto `f32`, lo que significa que no declaramos ningún tipo después de
 struct con un tipo concreto particular para el parámetro del tipo genérico
 `T`</span>
 
-Este código significa que el tipo `Point<f32>` tendrá un método 
+Este código significa que el tipo `Point<f32>` tendrá un método
 `distance_from_origin` definido en él, y otros tipos de `Point<T>` que no sean
 de tipo `f32` no tendrán este método definido. El método mide qué tan lejos
 está nuestro punto del punto en las coordenadas (0.0, 0.0) y usa operaciones
@@ -270,7 +270,7 @@ método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-11: Un método que usa diferentes tipos genérico 
+<span class="caption">Listing 10-11: Un método que usa diferentes tipos genérico
 de la definición de su struct</span>
 
 En `main`, hemos definido un `Point` que tiene un `i32` para `x` (con valor `5`)
@@ -288,14 +288,14 @@ del método. Aquí, los parámetros genérico `X1` e `Y1` se declaran después d
 `Y2` se declaran después de `fn mixup`, porque solo son relevantes para el
 método.
 
-### Rendimiento de código usando genéricos
+### Rendimiento de codigo usando genericos
 
 Quizás te estés preguntando si hay un costo de rendimiento al usar parámetros
 de tipo genérico. La buena noticia es que usar tipos genérico no hará que tu
 programa se ejecute más lento de lo que lo haría con tipos concretos.
 
-Rust logra esto realizando *monomorfización* del código usando genéricos en
-tiempo de compilación. *Monomorfización* es el proceso de convertir código
+Rust logra esto realizando _monomorfización_ del código usando genéricos en
+tiempo de compilación. _Monomorfización_ es el proceso de convertir código
 genérico en código específico llenando los tipos concretos que se usan cuando
 se compila. En este proceso, el compilador hace lo contrario de los pasos que
 usamos para crear la función genérica en el Listado 10-5: el compilador mira

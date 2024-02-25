@@ -1,6 +1,6 @@
 ## ¿Qué es el Ownership?
 
-El *ownership* es un conjunto de reglas que definen cómo un programa de Rust
+El _ownership_ es un conjunto de reglas que definen cómo un programa de Rust
 administra la memoria. Todos los programas tienen que administrar la forma en
 que usan la memoria de un computador mientras se ejecutan. Algunos lenguajes
 tienen recolección de basura que busca regularmente la memoria que ya no se
@@ -44,11 +44,11 @@ datos muy común: las cadenas de caracteres.
 > Tanto el stack como el heap son partes de la memoria disponible para su código
 > para usar en tiempo de ejecución, pero están estructurados de formas
 > diferentes. El stack almacena valores en el orden en que los recibe y elimina
-> los valores en el orden opuesto. Esto se conoce como LIFO que es el acrónimo inlés de *Last In, First Out* o en español *El último en entrar, es el primero en salir*. Piense en una pila de platos: cuando agrega más platos, los coloca en
+> los valores en el orden opuesto. Esto se conoce como LIFO que es el acrónimo inglés de _Last In, First Out_ o en español _El último en entrar, es el primero en salir_. Piense en una pila de platos: cuando agrega más platos, los coloca en
 > la parte superior de la pila, y cuando necesita un plato, toma uno de la
 > parte superior. Agregar o eliminar platos del medio o de la parte inferior no
-> funcionaría tan bien! Agregar datos se llama *empujar en el stack*, y
-> eliminar datos se llama *sacar del stack*. Todos los datos almacenados en el
+> funcionaría tan bien! Agregar datos se llama _empujar en el stack_, y
+> eliminar datos se llama _sacar del stack_. Todos los datos almacenados en el
 > stack deben tener un tamaño conocido y fijo. Los datos con un tamaño
 > desconocido en tiempo de compilación o un tamaño que puede cambiar deben
 > almacenarse en el heap en su lugar.
@@ -56,8 +56,8 @@ datos muy común: las cadenas de caracteres.
 > El heap es menos organizado: cuando coloca datos en el heap, solicita una
 > cierta cantidad de espacio. El administrador de memoria encuentra un lugar
 > vacío en el heap que sea lo suficientemente grande, lo marca como en uso y
-> devuelve un *puntero*, que es la dirección de esa ubicación. Este proceso se
-> llama *asignar en el heap* y a veces se abrevia como solo *asignar* (empujar
+> devuelve un _puntero_, que es la dirección de esa ubicación. Este proceso se
+> llama _asignar en el heap_ y a veces se abrevia como solo _asignar_ (empujar
 > valores en el stack no se considera asignar). Debido a que el puntero al heap
 > es un tamaño conocido y fijo, puede almacenar el puntero en el stack, pero
 > cuando desea los datos reales, debe seguir el puntero. Piense en estar sentado
@@ -103,9 +103,9 @@ datos muy común: las cadenas de caracteres.
 Primero, echemos un vistazo a las reglas de ownership. Mantenga estas reglas en
 mente mientras trabajamos a través de los ejemplos que las ilustran:
 
-* Cada valor en Rust tiene un *propietario*.
-* Solo puede haber un propietario a la vez.
-* Cuando el propietario sale del alcance, el valor se descartará.
+- Cada valor en Rust tiene un _propietario_.
+- Solo puede haber un propietario a la vez.
+- Cuando el propietario sale del alcance, el valor se descartará.
 
 ### Ámbito de las Variables
 
@@ -115,7 +115,7 @@ colocar los siguientes ejemplos dentro de una función `main` manualmente. Como
 resultado, nuestros ejemplos serán un poco más concisos, permitiéndonos
 centrarnos en los detalles reales en lugar del código repetitivo.
 
-Como primer ejemplo de ownership, veremos el *contexto de ejecución* de algunas variables.
+Como primer ejemplo de ownership, veremos el _contexto de ejecución_ de algunas variables.
 Un contexto de ejecución es el rango o espacio dentro de un programa para el que un elemento es válido.
 Toma la siguiente variable:
 
@@ -125,7 +125,7 @@ let s = "hola";
 
 La variable `s` se refiere a un literal de cadena, donde el valor de la cadena
 está codificado en el texto de nuestro programa. La variable es válida desde el
-punto en que se declara hasta el final del *contexto de ejecución* actual. El listado 4-1
+punto en que se declara hasta el final del _contexto de ejecución_ actual. El listado 4-1
 muestra un programa con comentarios que anotan dónde sería válida la variable
 `s`.
 
@@ -137,8 +137,8 @@ muestra un programa con comentarios que anotan dónde sería válida la variable
 
 En otras palabras, hay dos puntos importantes en el tiempo aquí:
 
-* Cuando `s` está el *contexto de ejecución*, es válido.
-* Permanece válido hasta que sale de *contexto de ejecución*.
+- Cuando `s` está el _contexto de ejecución_, es válido.
+- Permanece válido hasta que sale de _contexto de ejecución_.
 
 En este punto, la relación entre los contextos de ejecución y cuándo las variables son válidas
 es similar a la de otros lenguajes de programación. Ahora construiremos sobre
@@ -182,7 +182,7 @@ más en la sección [“Sintaxis de Método”][method-syntax]<!-- ignore --> de
 Capítulo 5, y cuando hablamos sobre el uso de namespaces con módulos en
 [“Rutas para Referir a un Elemento en el Árbol de Módulos”][paths-module-tree]<!-- ignore -->
 
-Este tipo de cadena *puede* ser mutable:
+Este tipo de cadena _puede_ ser mutable:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-01-can-mutate-string/src/main.rs:here}}
@@ -206,16 +206,16 @@ Con el tipo `String`, para poder soportar una pieza mutable y extensible de
 texto, necesitamos asignar una cantidad de memoria en el heap, desconocida en
 tiempo de compilación, para contener el contenido. Esto significa:
 
-* La memoria debe solicitarse al administrador de memoria en tiempo de ejecución.
-* Necesitamos una forma de devolver esta memoria al administrador cuando
+- La memoria debe solicitarse al administrador de memoria en tiempo de ejecución.
+- Necesitamos una forma de devolver esta memoria al administrador cuando
   terminemos con nuestro `String`.
 
 Esa primera parte la hacemos nosotros: cuando llamamos a `String::from`, su
 implementación solicita la memoria que necesita. Esto es prácticamente
 universal en los lenguajes de programación.
 
-Sin embargo, la segunda parte es diferente. En los lenguajes con un *recolector
-de basura (Garbage Collector)*, el recolector de basura rastrea y limpia la
+Sin embargo, la segunda parte es diferente. En los lenguajes con un _recolector
+de basura (Garbage Collector)_, el recolector de basura rastrea y limpia la
 memoria que ya no se está usando y no necesitamos pensar en ello. En la mayoría
 de los lenguajes sin un recolector de basura, es nuestra responsabilidad identificar cuándo la
 memoria ya no se está usando y llamar al código para liberarla explícitamente,
@@ -242,8 +242,8 @@ puede poner el código para devolver la memoria. Rust llama a `drop`
 automáticamente en la llave de cierre.
 
 > Nota: En C++, este patrón de desasignación de recursos al final de la vida
-> útil de un elemento a veces se denomina *Resource Acquisition Is
-> Initialization (RAII)*. La función `drop` en Rust será familiar para usted si
+> útil de un elemento a veces se denomina _Resource Acquisition Is
+> Initialization (RAII)_. La función `drop` en Rust será familiar para usted si
 > ha utilizado patrones RAII.
 
 Este patrón tiene un profundo impacto en la forma en que se escribe el código
@@ -253,6 +253,7 @@ usen los datos que hemos asignado en el heap. Exploremos algunas de esas
 situaciones ahora.
 
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="ways-variables-and-data-interact-move"></a>
 
 #### Variables y datos interactuando con Move
@@ -314,7 +315,7 @@ palabras, la representación de datos en memoria se ve como la Figura 4-2.
 <span class="caption">Figura 4-2: Representación en memoria de la variable
 `s2` que tiene una copia del puntero, la longitud y la capacidad de `s1`.</span>
 
-La representación *no* se ve como la Figura 4-3, que es lo que la memoria
+La representación _no_ se ve como la Figura 4-3, que es lo que la memoria
 parecería si Rust copiara además los datos del heap. Si Rust hiciera esto, la
 operación `s2 = s1` podría ser muy costosa en términos de rendimiento de tiempo
 de ejecución si los datos en el heap fueran grandes.
@@ -330,8 +331,8 @@ Anteriormente, dijimos que cuando una variable sale de contexto de ejecución, R
 automáticamente a la función `drop` y limpia la memoria del heap para esa
 variable. Pero la Figura 4-2 muestra que ambos punteros de datos apuntan al
 mismo lugar. Esto es un problema: cuando `s2` y `s1` salen de contexto de ejecución, ambos
-intentarán liberar la misma memoria. Esto se conoce como un error de *doble
-liberación* y es uno de los errores de seguridad de la memoria que mencionamos
+intentarán liberar la misma memoria. Esto se conoce como un error de _doble
+liberación_ y es uno de los errores de seguridad de la memoria que mencionamos
 anteriormente. Liberar la memoria dos veces puede conducir a la corrupción de
 memoria, lo que puede conducir a vulnerabilidades de seguridad.
 
@@ -351,12 +352,12 @@ invalidada:
 {{#include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/output.txt}}
 ```
 
-Si has escuchado los términos *copia superficial* y *copia profunda* mientras
+Si has escuchado los términos _copia superficial_ y _copia profunda_ mientras
 trabajabas con otros lenguajes, el concepto de copiar el puntero, la longitud y
 la capacidad sin copiar los datos probablemente suene a hacer una copia
 superficial. Pero debido a que Rust también invalida la primera variable, en
-vez de llamarse una copia superficial, se conoce como un *movimiento*. En este
-ejemplo, diríamos que `s1` fue *movido* a `s2`. Entonces, lo que realmente
+vez de llamarse una copia superficial, se conoce como un _movimiento_. En este
+ejemplo, diríamos que `s1` fue _movido_ a `s2`. Entonces, lo que realmente
 sucede se muestra en la Figura 4-4.
 
 <div style="width:50%; max-width: 100%;">
@@ -371,15 +372,16 @@ solo él liberará la memoria, y ya está.
 
 Además, hay una elección de diseño que se infiere de esto: Rust nunca
 creará automáticamente "copias profundas" de tus datos. Por lo tanto, cualquier
-copia *automática* se puede asumir que es económica en términos de rendimiento
+copia _automática_ se puede asumir que es económica en términos de rendimiento
 en tiempo de ejecución.
 
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="ways-variables-and-data-interact-clone"></a>
 
 #### Variables y datos interactuando con Clone
 
-Si *queremos* copiar profundamente los datos del heap de la `String`, no solo
+Si _queremos_ copiar profundamente los datos del heap de la `String`, no solo
 los datos de la pila, podemos usar un método común llamado `clone`. Discutiremos
 la sintaxis del método en el Capítulo 5, pero debido a que los métodos son una
 característica común en muchos lenguajes de programación, probablemente los
@@ -392,7 +394,7 @@ Aquí hay un ejemplo del método `clone` en acción:
 ```
 
 Esto funciona bien y produce explícitamente el comportamiento mostrado en la
-Figura 4-3, donde los datos del heap *se copian*.
+Figura 4-3, donde los datos del heap _se copian_.
 
 Cuando veas una llamada a `clone`, sabrás que se está ejecutando algún código
 arbitrario y que ese código puede ser costoso. Es un indicador visual de que
@@ -420,29 +422,29 @@ podemos dejarlo fuera.
 
 Rust tiene una anotación especial llamada `Copy` que podemos colocar en tipos
 que se almacenan en la pila, como los enteros (hablaremos más sobre los
-*traits* en el [Capítulo 10][traits]<!-- ignore -->). Si un tipo implementa el
-`Copy` *trait*, las variables que lo usan no se mueven, sino que se copian
+_traits_ en el [Capítulo 10][traits]<!-- ignore -->). Si un tipo implementa el
+`Copy` _trait_, las variables que lo usan no se mueven, sino que se copian
 trivialmente, haciendo que sigan siendo válidas después de asignarlas a otra
 variable.
 
 Rust no nos permitirá anotar un tipo con `Copy` si el tipo, o cualquiera de sus
-partes, ha implementado el *trait* `Drop`. Si el tipo necesita que algo
+partes, ha implementado el _trait_ `Drop`. Si el tipo necesita que algo
 especial suceda cuando el valor sale del alcance y agregamos la anotación `Copy`
 a ese tipo, obtendremos un error de tiempo de compilación. Para aprender cómo
-agregar la anotación `Copy` a tu tipo para implementar el *trait*, consulta
+agregar la anotación `Copy` a tu tipo para implementar el _trait_, consulta
 [“Traits derivables”][derivable-traits]<!-- ignore --> en el Apéndice C.
 
-Entonces, ¿qué tipos implementan el *trait* `Copy`? Puedes consultar la
+Entonces, ¿qué tipos implementan el _trait_ `Copy`? Puedes consultar la
 documentación del tipo dado para asegurarte, pero como regla general, cualquier
 grupo de valores escalares simples puede implementar `Copy`, y nada que
 requiera asignación o sea alguna forma de recurso puede implementar `Copy`.
 Aquí hay algunos de los tipos que implementan `Copy`:
 
-* Todos los tipos enteros, como `u32`.
-* El tipo booleano, `bool`, con valores `true` y `false`.
-* Todos los tipos de punto flotante, como `f64`.
-* El tipo de carácter, `char`.
-* Tuplas, si solo contienen tipos que también implementan `Copy`. Por ejemplo,
+- Todos los tipos enteros, como `u32`.
+- El tipo booleano, `bool`, con valores `true` y `false`.
+- Todos los tipos de punto flotante, como `f64`.
+- El tipo de carácter, `char`.
+- Tuplas, si solo contienen tipos que también implementan `Copy`. Por ejemplo,
   `(i32, i32)` implementa `Copy`, pero `(i32, String)` no lo hace.
 
 ### Propiedad y funciones
@@ -506,7 +508,7 @@ parámetros</span>
 
 Pero esto es demasiado ceremonioso y mucho trabajo para un concepto que debería
 ser común. Afortunadamente para nosotros, Rust tiene una característica para
-usar un valor sin transferir la propiedad, llamada *referencias*.
+usar un valor sin transferir la propiedad, llamada _referencias_.
 
 [data-types]: ch03-02-data-types.html#tipos-de-datos
 [ch8]: ch08-02-strings.html

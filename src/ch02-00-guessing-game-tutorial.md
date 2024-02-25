@@ -15,7 +15,7 @@ juego imprimirá un mensaje de felicitación y saldrá.
 
 ## Configurando un nuevo proyecto
 
-Para configurar un nuevo proyecto, vaya al directorio *proyectos* que creó en
+Para configurar un nuevo proyecto, vaya al directorio _proyectos_ que creó en
 el Capítulo 1 y cree un nuevo proyecto usando Cargo, así:
 
 ```console
@@ -23,12 +23,11 @@ $ cargo new guessing_game
 $ cd guessing_game
 ```
 
-El primer comando, `cargo new`, toma el nombre del proyecto (`guessing_game`) 
+El primer comando, `cargo new`, toma el nombre del proyecto (`guessing_game`)
 como el primer argumento. El segundo comando cambia al directorio del nuevo
 proyecto.
 
-
-Mira el archivo *Cargo.toml* generado:
+Mira el archivo _Cargo.toml_ generado:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial
@@ -46,7 +45,7 @@ cd ../../..
 ```
 
 Como viste en el Capítulo 1, `cargo new` genera un programa “Hola, mundo!” para
-ti. Mira el archivo *src/main.rs*:
+ti. Mira el archivo _src/main.rs_:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -65,14 +64,14 @@ El comando `run` es útil cuando necesitas iterar rápidamente en un proyecto,
 como haremos en este juego, probando rápidamente cada iteración antes de
 pasar a la siguiente.
 
-Vuelve a abrir el archivo *src/main.rs*. Escribirás todo el código en este
+Vuelve a abrir el archivo _src/main.rs_. Escribirás todo el código en este
 
 ## Procesando una adivinanza
 
 La primera parte del programa del juego de adivinanzas pedirá al usuario que
 ingrese un valor, procesará ese valor y verificará que el valor esté en el
 formato esperado. Para comenzar, permitiremos al jugador ingresar una adivinanza.
-Ingresa el código de la Lista 2-1 en *src/main.rs*.
+Ingresa el código de la Lista 2-1 en _src/main.rs_.
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -83,7 +82,7 @@ Ingresa el código de la Lista 2-1 en *src/main.rs*.
 <span class="caption">Lista 2-1: Código que obtiene una adivinanza del usuario
 y la imprime</span>
 
-Este código contiene mucha información, así que repasémoslo línea por línea. 
+Este código contiene mucha información, así que repasémoslo línea por línea.
 Para obtener la entrada del usuario y luego imprimir el resultado como salida,
 necesitamos traer la biblioteca de entrada/salida `io` al alcance. La biblioteca
 `io` viene de la biblioteca estándar, conocida como `std`:
@@ -93,11 +92,12 @@ necesitamos traer la biblioteca de entrada/salida `io` al alcance. La biblioteca
 ```
 
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="prelude-meaning"></a>
 
 Por defecto, Rust tiene un conjunto de elementos definidos en la biblioteca
 estándar que trae al alcance de cada programa. Este conjunto se llama
-*prelude*, y puedes ver todo lo que contiene [en la documentación de la
+_prelude_, y puedes ver todo lo que contiene [en la documentación de la
 biblioteca estándar][prelude].
 
 Si un tipo que quieres usar no está en el prelude, tienes que traer ese tipo
@@ -127,7 +127,7 @@ solicitando la entrada del usuario.
 
 ### Almacenando valores con variables
 
-A continuación, crearemos una *variable* para almacenar la entrada del usuario,
+A continuación, crearemos una _variable_ para almacenar la entrada del usuario,
 como esto:
 
 ```rust,ignore
@@ -146,7 +146,7 @@ Esta línea crea una nueva variable llamada `apples` y la enlaza con el valor 5.
 En Rust, las variables son inmutables por defecto, lo que significa que una vez
 que le damos a la variable un valor, el valor no cambiará. Vamos a discutir
 este concepto en detalle en la sección [“Variables y Mutabilidad”][variables-y-mutabilidad]<!-- ignore -->
-del Capítulo 3. Para hacer una variable mutable, agregamos `mut` antes del 
+del Capítulo 3. Para hacer una variable mutable, agregamos `mut` antes del
 nombre de la variable:
 
 ```rust,ignore
@@ -168,8 +168,8 @@ biblioteca estándar que es una parte de texto codificada en UTF-8 que puede
 crecer.
 
 La sintaxis `::` en la línea `::new` indica que `new` es una función asociada
-del tipo `String`. Una *función asociada* es una función que está implementada
-en un tipo, en este caso `String`. Esta función `new` crea una nueva cadena 
+del tipo `String`. Una _función asociada_ es una función que está implementada
+en un tipo, en este caso `String`. Esta función `new` crea una nueva cadena
 vacía. Encontrarás una función `new` en muchos tipos porque es un nombre
 común para una función que crea un nuevo valor de algún tipo.
 
@@ -204,7 +204,7 @@ contenido), por lo que, por lo tanto, pasamos esa cadena como argumento. La
 cadena de argumentos debe ser mutable para que el método pueda cambiar el
 contenido de la cadena.
 
-El `&` indica que este argumento es una *referencia*, que te da una forma de
+El `&` indica que este argumento es una _referencia_, que te da una forma de
 permitir que varias partes de tu código accedan a una pieza de datos sin
 necesidad de copiar esos datos en la memoria varias veces. Las referencias son
 una característica compleja, y una de las principales ventajas de Rust es lo
@@ -215,6 +215,7 @@ tanto, necesitas escribir `&mut guess` en lugar de `&guess` para hacerlo
 mutable. (El capítulo 4 explicará las referencias con más detalle.)
 
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="handling-potential-failure-with-the-result-type"></a>
 
 ### Manejando el posible fallo con `Result`
@@ -240,14 +241,13 @@ ayudar a dividir líneas largas cuando llamas a un método con la sintaxis
 
 Como se mencionó anteriormente, `read_line` coloca lo que el usuario ingresa en
 la cadena que le pasamos, pero también devuelve un valor `Result`. [`Result`][
-result]<!-- ignore --> es una [*enumeración*][enums]<!-- ignore -->, a menudo
-llamada *enum*, que es un tipo que puede estar en uno de varios estados
-posibles. Llamamos a cada estado posible a una *variante*.
+result]<!-- ignore --> es una [_enumeración_][enums]<!-- ignore -->, a menudo
+llamada _enum_, que es un tipo que puede estar en uno de varios estados
+posibles. Llamamos a cada estado posible a una _variante_.
 
 El [Capítulo 6][enums]<!-- ignore --> cubrirá las enumeraciones con más
 detalles. El propósito de estos tipos `Result` es codificar información de
 manejo de errores.
-
 
 Las variantes de `Result` son `Ok` y `Err`. La variante `Ok` indica que la
 operación fue exitosa, y dentro de `Ok` está el valor generado con éxito. La
@@ -344,13 +344,13 @@ funcionalidad.
 ### Usando un Crate para obtener más funcionalidad
 
 Recuerda que un crate es una colección de archivos de código fuente de Rust. El
-proyecto que hemos estado construyendo es un *binary crate*, que es un
-ejecutable. El crate `rand` es un *library crate*, que contiene código que se
+proyecto que hemos estado construyendo es un _binary crate_, que es un
+ejecutable. El crate `rand` es un _library crate_, que contiene código que se
 pretende usar en otros programas y no se puede ejecutar por sí solo.
 
 La coordinación de los crates externos de Cargo es donde realmente brilla
 Cargo. Antes de poder escribir código que use `rand`, necesitamos modificar el
-archivo *Cargo.toml* para incluir el crate `rand` como una dependencia. Abre ese
+archivo _Cargo.toml_ para incluir el crate `rand` como una dependencia. Abre ese
 archivo ahora y agrega la siguiente línea al final, debajo del encabezado de la
 sección `[dependencies]` que Cargo creó para ti. Asegúrate de especificar `rand`
 exactamente como lo tenemos aquí, con este número de versión, o los ejemplos de
@@ -368,12 +368,12 @@ código en este tutorial pueden no funcionar:
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:8:}}
 ```
 
-En el archivo *Cargo.toml*, todo lo que sigue a un encabezado es parte de esa
+En el archivo _Cargo.toml_, todo lo que sigue a un encabezado es parte de esa
 sección que continúa hasta que comienza otra sección. En `[dependencies]` le
 dices a Cargo qué crates externos depende tu proyecto y qué versiones de esos
 crates requieres. En este caso, especificamos el crate `rand` con el
 especificador de versión semántica `0.8.5`. Cargo entiende [Semantic
-Versioning][semver]<!-- ignore --> (a veces llamado *SemVer*), que es un
+Versioning][semver]<!-- ignore --> (a veces llamado _SemVer_), que es un
 estándar para escribir números de versión. El especificador `0.8.5` es
 realmente un atajo para `^0.8.5`, lo que significa cualquier versión que sea
 al menos 0.8.5 pero inferior a 0.9.0.
@@ -422,7 +422,7 @@ compatibles con el código, gracias a SemVer!) y líneas diferentes (dependiendo
 del sistema operativo), y las líneas pueden estar en un orden diferente.
 
 Cuando incluimos una dependencia externa, Cargo obtiene las últimas versiones de
-todo lo que la dependencia necesita del *registro*, que es una copia de datos
+todo lo que la dependencia necesita del _registro_, que es una copia de datos
 de [Crates.io][cratesio]. Crates.io es donde las personas en el ecosistema de
 Rust publican sus proyectos de Rust de código abierto para que otros los
 utilicen.
@@ -437,10 +437,10 @@ dependencias disponibles.
 Si ejecuta `cargo build` nuevamente sin hacer ningún cambio, no obtendrá
 ninguna salida aparte de la línea `Finished`. Cargo sabe que ya ha descargado y
 compilado las dependencias, y no ha cambiado nada sobre ellas en su archivo
-*Cargo.toml*. Cargo también sabe que no ha cambiado nada sobre su código, por
+_Cargo.toml_. Cargo también sabe que no ha cambiado nada sobre su código, por
 lo que tampoco lo vuelve a compilar. Sin nada que hacer, simplemente sale.
 
-Si abre el archivo *src/main.rs*, realiza un cambio trivial y luego lo guarda y
+Si abre el archivo _src/main.rs_, realiza un cambio trivial y luego lo guarda y
 vuelve a construir, solo verá dos líneas de salida:
 
 <!-- manual-regeneration
@@ -455,11 +455,11 @@ $ cargo build
 ```
 
 Estas líneas muestran que Cargo solo actualiza la compilación con su pequeño
-cambio en el archivo *src/main.rs*. Sus dependencias no han cambiado, por lo
+cambio en el archivo _src/main.rs_. Sus dependencias no han cambiado, por lo
 que Cargo sabe que puede reutilizar lo que ya ha descargado y compilado para
 esas.
 
-#### Garantizar compilaciones reproducibles con el archivo *Cargo.lock*
+#### Garantizar compilaciones reproducibles con el archivo _Cargo.lock_
 
 Cargo tiene un mecanismo que le garantiza que puede reconstruir el mismo
 artefacto cada vez que usted o cualquier otra persona construye su código:
@@ -467,26 +467,26 @@ Cargo solo usará las versiones de las dependencias que haya especificado hasta
 que indique lo contrario. Por ejemplo, digamos que la semana que viene sale la
 versión 0.8.6 del crate `rand`, y que esa versión contiene una corrección de
 error importante, pero también contiene una regresión que romperá su código.
-Para manejar esto, Rust crea el archivo *Cargo.lock* la primera vez que ejecuta
-`cargo build`, por lo que ahora tenemos esto en el directorio *guessing_game*
+Para manejar esto, Rust crea el archivo _Cargo.lock_ la primera vez que ejecuta
+`cargo build`, por lo que ahora tenemos esto en el directorio _guessing_game_
 
 Cuando construye un proyecto por primera vez, Cargo determina todas las
 versiones de las dependencias que cumplen con los criterios y luego las escribe
-en el archivo *Cargo.lock*. Cuando construye su proyecto en el futuro, Cargo
-verá que el archivo *Cargo.lock* existe y usará las versiones especificadas
+en el archivo _Cargo.lock_. Cuando construye su proyecto en el futuro, Cargo
+verá que el archivo _Cargo.lock_ existe y usará las versiones especificadas
 allí en lugar de hacer todo el trabajo de averiguar las versiones nuevamente.
 Esto le permite tener una compilación reproducible de forma automática. En
 otras palabras, su proyecto permanecerá en 0.8.5 hasta que actualice
-explícitamente, gracias al archivo *Cargo.lock*. Debido a que el archivo
-*Cargo.lock* es importante para las compilaciones reproducibles, a menudo se
+explícitamente, gracias al archivo _Cargo.lock_. Debido a que el archivo
+_Cargo.lock_ es importante para las compilaciones reproducibles, a menudo se
 verifica en el control de versiones con el resto del código en su proyecto.
 
 #### Actualizar un crate para obtener una nueva versión
 
-Cuando *quiera* actualizar un crate, Cargo proporciona el comando `update`,
-que ignorará el archivo *Cargo.lock* y determinará todas las últimas versiones
-que cumplan con sus especificaciones en *Cargo.toml*. Cargo luego escribirá
-esas versiones en el archivo *Cargo.lock*. De lo contrario, de forma 
+Cuando _quiera_ actualizar un crate, Cargo proporciona el comando `update`,
+que ignorará el archivo _Cargo.lock_ y determinará todas las últimas versiones
+que cumplan con sus especificaciones en _Cargo.toml_. Cargo luego escribirá
+esas versiones en el archivo _Cargo.lock_. De lo contrario, de forma
 predeterminada, Cargo solo buscará versiones mayores que 0.8.5 y menores que
 0.9.0. Si el crate `rand` ha lanzado las dos nuevas versiones 0.8.6 y 0.9.0,
 vería lo siguiente si ejecutara `cargo update`:
@@ -504,9 +504,9 @@ $ cargo update
 ```
 
 Cargo ignora el lanzamiento 0.9.0. En este punto, también notaría un cambio en
-su archivo *Cargo.lock* que indica que la versión del crate `rand` que ahora
+su archivo _Cargo.lock_ que indica que la versión del crate `rand` que ahora
 está usando es 0.8.6. Para usar la versión 0.9.0 o cualquier versión en la
-serie 0.9.*x*, tendría que actualizar el archivo *Cargo.toml* para que se
+serie 0.9._x_, tendría que actualizar el archivo _Cargo.toml_ para que se
 vea así:
 
 ```toml
@@ -524,10 +524,10 @@ por ahora, eso es todo lo que necesita saber. Cargo hace muy fácil reutilizar
 bibliotecas, por lo que los Rustaceans pueden escribir proyectos más pequeños
 que se ensamblan a partir de un número de paquetes.
 
-### Generar un número aleatorio
+### Generar un numero aleatorio
 
 Comencemos a usar `rand` para generar un número para adivinar. El siguiente
-paso es actualizar *src/main.rs*, como se muestra en el Listado 2-3.
+paso es actualizar _src/main.rs_, como se muestra en el Listado 2-3.
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -561,7 +561,7 @@ un número entre 1 y 100.
 > `cargo doc --open` construirá la documentación proporcionada por todas sus
 > dependencias localmente y la abrirá en su navegador. Si está interesado en
 > otra funcionalidad en el crate `rand`, por ejemplo, ejecute `cargo doc
-> --open` y haga clic en `rand` en la barra lateral a la izquierda.
+--open` y haga clic en `rand` en la barra lateral a la izquierda.
 
 La segunda línea nueva imprime el número secreto. Esto es útil mientras
 desarrollamos el programa para poder probarlo, pero lo eliminaremos de la
@@ -633,8 +633,8 @@ expresión [`match`][match]<!-- ignore --> para decidir qué hacer a continuaci�
 basándonos en qué variante de `Ordering` se devolvió de la llamada a `cmp` con
 los valores en `guess` y `secret_number`.
 
-Una expresión `match` está compuesta por *brazos*. Un brazo consta de un
-*patrón* para coincidir y el código que se debe ejecutar si el valor dado a
+Una expresión `match` está compuesta por _brazos_. Un brazo consta de un
+_patrón_ para coincidir y el código que se debe ejecutar si el valor dado a
 `match` se ajusta al patrón del brazo. Rust toma el valor dado a `match` y
 busca cada patrón de brazo en orden. Los patrones y la construcción `match` son
 potentes características de Rust: le permiten expresar una variedad de
@@ -652,7 +652,7 @@ valor `Ordering::Greater` y comienza a verificar el patrón de cada brazo. Mira
 el patrón del primer brazo, `Ordering::Less`, y ve que el valor
 `Ordering::Greater` no coincide con `Ordering::Less`, ¡así que ignora el código
 en ese brazo y se mueve al siguiente brazo! El patrón del siguiente brazo es
-`Ordering::Greater`, ¡que *sí* coincide con `Ordering::Greater`! El código
+`Ordering::Greater`, ¡que _sí_ coincide con `Ordering::Greater`! El código
 asociado en ese brazo se ejecutará y mostrará `Too big!` en la pantalla. La
 expresión `match` termina después de la primera coincidencia exitosa, ¡así que
 no mirará el último brazo en este escenario.
@@ -668,7 +668,7 @@ anchor or snip comments
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-04/output.txt}}
 ```
 
-El núcleo del error indica que hay *tipos no coincidentes*. Rust tiene un
+El núcleo del error indica que hay _tipos no coincidentes_. Rust tiene un
 sistema de tipos fuerte y estático. Sin embargo, también tiene inferencia de
 tipo. Cuando escribimos `let mut guess = String::new()`, Rust pudo inferir que
 `guess` debería ser un `String` y no nos obligó a escribir el tipo. El
@@ -698,10 +698,10 @@ let guess: u32 = guess.trim().parse().expect("Please type a number!");
 
 Creamos una variable llamada `guess`. Pero espera, ¿no tiene el programa ya una
 variable llamada `guess`? Lo hace, pero Rust nos permite redefinir el valor
-anterior de `guess` con uno nuevo. Este concepto en Rust se le conoce como 
-*Shadowing*, nos permite volver a usar el nombre de la variable `guess` 
-en lugar de obligarnos a crear dos variables únicas, como `guess_str` 
-y `guess`, por ejemplo. Lo cubriremos con más detalle en el 
+anterior de `guess` con uno nuevo. Este concepto en Rust se le conoce como
+_Shadowing_, nos permite volver a usar el nombre de la variable `guess`
+en lugar de obligarnos a crear dos variables únicas, como `guess_str`
+y `guess`, por ejemplo. Lo cubriremos con más detalle en el
 [Capítulo 3][shadowing]<!-- ignore -->, pero por ahora, sé que esta
 característica se usa a menudo cuando desea convertir un valor de un tipo a
 otro tipo.
@@ -749,7 +749,6 @@ exitosamente la cadena en un número, devolverá la variante `Ok` del tipo
 
 ¡Corramos el programa ahora!
 
-
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/no-listing-03-convert-string-to-number/
 cargo run
@@ -779,7 +778,6 @@ Tenemos la mayoría del juego funcionando ahora, pero el usuario solo puede
 adivinar una vez. ¡Cambiamos eso agregando un bucle!
 
 ## Permitir múltiples adivinanzas con bucles
-
 
 La palabra clave `loop` crea un bucle infinito. Agregaremos un bucle para darle
 a los usuarios más oportunidades para adivinar el número:
@@ -892,7 +890,7 @@ el patrón de la primera rama y la expresión `match` devolverá el valor `num`
 que `parse` produjo y puso dentro del valor `Ok`. Ese número terminará en el
 lugar correcto en la nueva variable `guess` que estamos creando.
 
-Si `parse` *no* es capaz de convertir la cadena en un número, devolverá un
+Si `parse` _no_ es capaz de convertir la cadena en un número, devolverá un
 valor `Err` que contiene más información sobre el error. El valor `Err` no
 coincide con el patrón `Ok(num)` en la primera rama de `match`, pero sí
 coincide con el patrón `Err(_)` en la segunda rama. El guión bajo, `_`, es un

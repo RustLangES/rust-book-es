@@ -1,6 +1,6 @@
 ## Flujo de Control
 
-La capacidad de ejecutar algún código dependiendo de si una condición es `true` 
+La capacidad de ejecutar algún código dependiendo de si una condición es `true`
 y ejecutar algún código repetidamente mientras una condición es `true` son
 elementos básicos en la mayoría de los lenguajes de programación.
 Las construcciones más comunes que le permiten controlar el flujo de ejecución
@@ -13,8 +13,8 @@ Proporciona una condición y luego dice: “Si se cumple esta condición, ejecut
 este bloque de código. Si la condición no se cumple, no ejecute este bloque de
 código.”
 
-Cree un nuevo proyecto llamado *branches* en su directorio *projects* para
-explorar la expresión `if`. En el archivo *src/main.rs*, ingrese lo siguiente:
+Cree un nuevo proyecto llamado _branches_ en su directorio _projects_ para
+explorar la expresión `if`. En el archivo _src/main.rs_, ingrese lo siguiente:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -27,10 +27,10 @@ condición. En este caso, la condición comprueba si la variable `number` tiene 
 valor menor que 5. Colocamos el bloque de código para ejecutar si la condición
 es `true` inmediatamente después de la condición dentro de llaves. Los bloques
 de código asociados con las condiciones en las expresiones `if` a veces se
-llaman *brazos*, al igual que los brazos en las expresiones `match` que
+llaman _brazos_, al igual que los brazos en las expresiones `match` que
 discutimos en la sección
-[“Comparando la Adivinanza 
-con el Número Secreto”][comparing-the-guess-to-the-secret-number]<!--ignore --> 
+[“Comparando la Adivinanza
+con el Número Secreto”][comparing-the-guess-to-the-secret-number]<!--ignore -->
 del Capítulo 2.
 
 Opcionalmente, también podemos incluir una expresión `else`, que elegimos
@@ -58,7 +58,7 @@ Ejecute el programa nuevamente y observe la salida:
 {{#include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/output.txt}}
 ```
 
-También vale la pena señalar que la condición en este código *debe* ser un
+También vale la pena señalar que la condición en este código _debe_ ser un
 `bool`. Si la condición no es un `bool`, obtendremos un error. Por ejemplo,
 intente ejecutar el siguiente código:
 
@@ -177,9 +177,9 @@ diversos tipos hipotéticos para cualquier variable.
 ### Repetición con bucles
 
 A menudo es útil ejecutar un bloque de código más de una vez. Para esta tarea,
-Rust proporciona varios *bucles*, que ejecutarán el código dentro del cuerpo del
+Rust proporciona varios _bucles_, que ejecutarán el código dentro del cuerpo del
 bucle hasta el final y luego comenzarán de inmediato desde el principio. Para
-experimentar con los bucles, hagamos un nuevo proyecto llamado *loops*.
+experimentar con los bucles, hagamos un nuevo proyecto llamado _loops_.
 
 Rust tiene tres tipos de bucles: `loop`, `while` y `for`. Vamos a probar cada
 uno.
@@ -189,7 +189,7 @@ uno.
 La palabra clave `loop` le dice a Rust que ejecute un bloque de código una y
 otra vez para siempre o hasta que le indique explícitamente que se detenga.
 
-Como ejemplo, cambie el archivo *src/main.rs* en su directorio *loops* para
+Como ejemplo, cambie el archivo _src/main.rs_ en su directorio _loops_ para
 que se vea así:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
@@ -264,7 +264,7 @@ usamos un punto y coma para terminar la instrucción que asigna el valor a
 #### Etiquetas de bucle para distinguir entre varios bucles
 
 Si tiene bucles dentro de bucles, `break` y `continue` se aplican al bucle más
-interior en ese punto. Opcionalmente, puede especificar una *etiqueta de bucle*
+interior en ese punto. Opcionalmente, puede especificar una _etiqueta de bucle_
 en un bucle que luego puede usar con `break` o `continue` para especificar que
 esas palabras clave se aplican al bucle etiquetado en lugar del bucle más
 interior. Las etiquetas de bucle deben comenzar con una comilla simple. Aquí
@@ -308,7 +308,7 @@ Esta expresion elimina mucho anidamiento que sería necesario si usara `loop`,
 `if`, `else` y `break`, y es más claro. Mientras una condición se evalúa como
 `true`, el código se ejecuta; de lo contrario, sale del bucle.
 
-#### Bucle a través de una colección con `for`
+#### Bucle a traves de una coleccion con `for`
 
 Puede elegir usar la construcción `while` para iterar sobre los elementos de una
 colección, como una matriz. Por ejemplo, el bucle en el Listado 3-4 imprime
@@ -392,15 +392,13 @@ tipos de datos escalares y compuestos, funciones, comentarios, expresiones `if`
 y bucles. Para practicar con los conceptos discutidos en este capítulo, intente
 construir programas para hacer lo siguiente:
 
-* Convertir temperaturas entre Fahrenheit y Celsius.
-* Generar el número de Fibonacci *n*.
-* Imprimir las letras de la canción navideña "Los doce días de Navidad",
+- Convertir temperaturas entre Fahrenheit y Celsius.
+- Generar el número de Fibonacci _n_.
+- Imprimir las letras de la canción navideña "Los doce días de Navidad",
   aprovechando la repetición en la canción.
 
 Cuando esté listo para continuar, hablaremos sobre un concepto en Rust que
-*no* existe comúnmente en otros lenguajes de programación: la propiedad.
+_no_ existe comúnmente en otros lenguajes de programación: la propiedad.
 
-[comparing-the-guess-to-the-secret-number]:
-ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-numero-secreto
-[quitting-after-a-correct-guess]:
-ch02-00-guessing-game-tutorial.html#salir-despues-de-una-adivinanza-correcta
+[comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-numero-secreto
+[quitting-after-a-correct-guess]: ch02-00-guessing-game-tutorial.html#salir-despues-de-una-adivinanza-correcta

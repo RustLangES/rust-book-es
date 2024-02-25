@@ -10,24 +10,24 @@ significa cada una de esas características y si Rust la admite.
 
 ### Los objetos contienen datos y comportamiento
 
-El libro *Design Patterns: Elements of Reusable Object-Oriented Software* de
+El libro _Design Patterns: Elements of Reusable Object-Oriented Software_ de
 Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides (Addison-Wesley
-Professional, 1994), coloquialmente conocido como el libro *Gang of Four*, es un
+Professional, 1994), coloquialmente conocido como el libro _Gang of Four_, es un
 catálogo de patrones de diseño orientados a objetos. Define OOP de esta manera:
 
-> Los programas orientados a objetos están compuestos por objetos. Un *objeto*
+> Los programas orientados a objetos están compuestos por objetos. Un _objeto_
 > empaqueta tanto datos como los procedimientos que operan en esos datos. Los
-> procedimientos se denominan típicamente *métodos* u *operaciones*.
+> procedimientos se denominan típicamente _métodos_ u _operaciones_.
 
 Usando esta definición, Rust es orientado a objetos: los structs y los
-enums tienen datos, y los bloques `impl` proporcionan métodos en structs y 
-enums. Aunque los structs y los enums con métodos no se llaman objetos, 
-proporcionan la misma funcionalidad, según la definición de objetos del 
+enums tienen datos, y los bloques `impl` proporcionan métodos en structs y
+enums. Aunque los structs y los enums con métodos no se llaman objetos,
+proporcionan la misma funcionalidad, según la definición de objetos del
 Gang of Four’s.
 
-### Encapsulación que oculta los detalles de implementación
+### Encapsulacion que oculta los detalles de implementacion
 
-Otro aspecto comúnmente asociado con OOP es la idea de *encapsulación*, que
+Otro aspecto comúnmente asociado con OOP es la idea de _encapsulación_, que
 significa que los detalles de implementación de un objeto no son accesibles al
 código que usa ese objeto. Por lo tanto, la única forma de interactuar con un
 objeto es a través de su API pública; el código que usa el objeto no debería
@@ -44,7 +44,7 @@ contiene un vector de valores `i32`. El struct también puede tener un campo que
 contiene el promedio de los valores en el vector, lo que significa que el
 promedio no tiene que calcularse a pedido cada vez que alguien lo necesite. En
 otras palabras, `AveragedCollection` almacenará en caché el promedio calculado
-para nosotros. El Listado 17-1 tiene la definición del struct 
+para nosotros. El Listado 17-1 tiene la definición del struct
 `AveragedCollection`:
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -102,7 +102,7 @@ detalles de implementación.
 
 ### Herencia como un sistema de tipos y como Code Sharing
 
-*Herencia* es un mecanismo mediante el cual un objeto puede heredar elementos de
+_Herencia_ es un mecanismo mediante el cual un objeto puede heredar elementos de
 la definición de otro objeto, obteniendo así los datos y el comportamiento del
 objeto padre sin tener que definirlos nuevamente.
 
@@ -120,10 +120,10 @@ puedes implementar un comportamiento particular para un tipo, y la herencia te
 permite reutilizar esa implementación para un tipo diferente. Puedes hacer esto
 de una manera limitada en el código Rust usando implementaciones de métodos
 predeterminados de un trait, que viste en el Listado 10-14 cuando agregamos una
-implementación predeterminada del método `summarize` en el trait `Summary`. 
-Cualquier tipo que implemente el trait `Summary` tendría el método `summarize` 
-disponible sin ningún código adicional. Esto es similar a una clase padre que 
-tiene una implementación de un método y una clase hija heredada que también 
+implementación predeterminada del método `summarize` en el trait `Summary`.
+Cualquier tipo que implemente el trait `Summary` tendría el método `summarize`
+disponible sin ningún código adicional. Esto es similar a una clase padre que
+tiene una implementación de un método y una clase hija heredada que también
 tiene la implementación del método. También podemos anular la implementación
 predeterminada del método `summarize` cuando implementamos el trait `Summary`,
 lo que es similar a una clase hija anulando la implementación de un método
@@ -131,7 +131,7 @@ heredado de una clase padre.
 
 La otra razón para usar la herencia está relacionada con el sistema de tipos:
 permitir que un tipo hijo se use en los mismos lugares que el tipo padre. Esto
-es también llamado *polimorfismo*, lo que significa que puedes sustituir
+es también llamado _polimorfismo_, lo que significa que puedes sustituir
 múltiples objetos entre sí en tiempo de ejecución si comparten ciertas
 características.
 
@@ -144,8 +144,8 @@ características.
 >
 > En cambio, Rust utiliza generics para abstraerse sobre diferentes tipos
 > posibles y los trait bounds para imponer restricciones sobre lo que
-> esos tipos deben proporcionar. Esto se llama a veces *polimorfismo paramétrico
-> acotado*.
+> esos tipos deben proporcionar. Esto se llama a veces _polimorfismo paramétrico
+> acotado_.
 
 En los últimos tiempos, la herencia ha perdido popularidad como solución de
 diseño de programas en muchos lenguajes de programación porque a menudo está en

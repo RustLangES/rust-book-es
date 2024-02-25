@@ -306,6 +306,6 @@ nuestra última característica del sistema de módulos: la palabra clave `use`.
 Cubriremos `use` por sí solo primero, y luego mostraremos cómo combinar `pub` y
 `use`.
 
-[pub]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#exposing-paths-with-the-pub-keyword
+[pub]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#exponiendo-rutas-con-la-palabra-clave-pub
 [api-guidelines]: https://rust-lang.github.io/api-guidelines/
 [ch12]: ch12-00-an-io-project.html

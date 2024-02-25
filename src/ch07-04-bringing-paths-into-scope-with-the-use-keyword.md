@@ -54,7 +54,7 @@ Observe que también hay una advertencia de que él `use` ya no se utiliza en su
 `customer`, o haga referencia al acceso directo en el módulo padre con
 `super::hosting` dentro del módulo hijo `customer`.
 
-### Creando rutas de `use` idiomáticas
+### Creando rutas de `use` idiomaticas
 
 En el Listado 7-11, podrías haberte preguntado por qué especificamos
 `use crate::front_of_house::hosting` y luego llamamos a `hosting::add_to_waitlist`
@@ -298,6 +298,6 @@ Esta sentencia `use` trae todos los elementos públicos definidos en `std::colle
 
 El operador glob se utiliza a menudo cuando se realizan pruebas para llevar todo lo que se está probando al módulo de `pruebas`; hablaremos de ello en la sección ["Cómo escribir pruebas"][writing-tests]<!-- ignore --> del capítulo 11. El operador glob también se utiliza a veces como parte del patrón prelude: consulte [la documentación de la biblioteca estándar](../std/prelude/index.html#other-preludes)<!-- ignore --> para obtener más información sobre ese patrón.
 
-[ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api-with-pub-use
-[rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
-[writing-tests]: ch11-01-writing-tests.html#how-to-write-tests
+[ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exportando-una-api-publica-conveniente-con-pub-use
+[rand]: ch02-00-guessing-game-tutorial.html#generar-un-numero-aleatorio
+[writing-tests]: ch11-01-writing-tests.html#como-escribir-tests
