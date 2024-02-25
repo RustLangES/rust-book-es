@@ -9,7 +9,7 @@ Hemos hablado de cómo pasar closures a funciones; ¡también puedes pasar
 funciones regulares a funciones! Esta técnica es útil cuando quieres pasar una
 función que ya has definido en lugar de definir un nuevo closure. Las funciones
 se coercen al tipo `fn` (con una f minúscula), no confundir con el trait de
-cierre `Fn`. El tipo `fn` se llama *puntero a función*. Pasar funciones con
+cierre `Fn`. El tipo `fn` se llama _puntero a función_. Pasar funciones con
 punteros a función te permitirá usar funciones como argumentos para otras
 funciones.
 
@@ -28,7 +28,7 @@ suma los dos resultados de la llamada a la función. La función `main` llama a
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-27/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-27: Usando el tipo `fn` para aceptar un 
+<span class="caption">Listing 19-27: Usando el tipo `fn` para aceptar un
 puntero a function como un argumento</span>
 
 Este código imprime `The answer is: 12`. Especificamos que el parámetro `f` en
@@ -68,7 +68,9 @@ closure, como este:
 
 Ten en cuenta que debemos utilizar la sintaxis completamente calificada que
 mencionamos anteriormente en la sección [“Traits avanzados”][advanced-traits]
+
 <!-- ignore --> porque hay múltiples funciones disponibles llamadas `to_string`.
+
 Aquí, estamos usando la función `to_string` definida en el trait `ToString`,
 que la biblioteca estándar ha implementado para cualquier tipo que implemente
 `Display`.
@@ -122,14 +124,13 @@ problema anteriormente. Podemos usar un trait object:
 
 Este código se compilará correctamente. Para obtener más información sobre los
 trait objects, consulta la sección [“Usando trait objects que permiten valores
-de diferentes 
-tipos”][using-trait-objects-that-allow-for-values-of-different-types]
+de diferentes
+tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]
+
 <!-- ignore --> en el Capítulo 17.
 
 ¡Ahora veamos las macros!
 
-[advanced-traits]:
-ch19-03-advanced-traits.html#advanced-traits
+[advanced-traits]: ch19-03-advanced-traits.html#advanced-traits
 [enum-values]: ch06-01-defining-an-enum.html#enum-values
-[using-trait-objects-that-allow-for-values-of-different-types]:
-ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos

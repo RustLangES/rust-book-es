@@ -14,7 +14,7 @@ ampliar el conjunto de tipos que pueden almacenar en una estructura de datos.
 Para mostrar cómo podríamos lograr esto, crearemos una herramienta de
 interfaz gráfica de usuario (GUI) de ejemplo que itera a través de una lista
 de elementos, llamando a un método `draw` en cada uno para dibujarlo en la
-pantalla, una técnica común para las herramientas de GUI. Crearemos una 
+pantalla, una técnica común para las herramientas de GUI. Crearemos una
 caja de biblioteca llamada `gui` que contiene la estructura de una biblioteca
 GUI. Esta caja podría incluir algunos tipos para que las personas los usen,
 como `Button` o `TextField`. Además, los usuarios de `gui` querrán crear sus
@@ -44,19 +44,19 @@ nuevos tipos.
 
 Para implementar el comportamiento que queremos que tenga `gui`, definiremos
 un trait llamado `Draw` que tendrá un método llamado `draw`. Luego podemos
-definir un vector que tome un *objeto de trait*. Un objeto de trait apunta
+definir un vector que tome un _objeto de trait_. Un objeto de trait apunta
 tanto a una instancia de un tipo que implementa nuestro trait especificado
 como a una tabla utilizada para buscar métodos de trait en ese tipo en tiempo
 de ejecución. Creamos un objeto de trait especificando algún tipo de puntero,
 como una referencia `&` o un puntero inteligente `Box<T>`, luego la palabra
 clave `dyn` y luego especificando el trait relevante. (Hablaremos sobre la
 razón por la que los objetos de trait deben usar un puntero en el Capítulo 19
-en la sección [“Tipos de tamaño dinámico y el 
-trait `Sized`.”][dynamically-sized]<!-- ignore -->) Podemos usar objetos de 
-trait en lugar de un tipo genérico o concreto. Donde sea que usemos un objeto 
+en la sección [“Tipos de tamaño dinámico y el
+trait `Sized`.”][dynamically-sized]<!-- ignore -->) Podemos usar objetos de
+trait en lugar de un tipo genérico o concreto. Donde sea que usemos un objeto
 de trait, el sistema de tipos de Rust se asegurará en tiempo de compilación que
-cualquier valor utilizado en ese contexto implemente el trait del objeto de 
-trait. En consecuencia, no necesitamos conocer todos los tipos posibles en 
+cualquier valor utilizado en ese contexto implemente el trait del objeto de
+trait. En consecuencia, no necesitamos conocer todos los tipos posibles en
 tiempo de compilación.
 
 Hemos mencionado que, en Rust, nos abstenemos de llamar a los structs y enums
@@ -142,7 +142,7 @@ implicaciones de rendimiento en tiempo de ejecución.
 
 ### Implementando el trait
 
-Ahora agregaremos algunos tipos que implementen el trait `Draw`. 
+Ahora agregaremos algunos tipos que implementen el trait `Draw`.
 Proporcionaremos el tipo `Button`. Nuevamente, implementar una biblioteca GUI
 está más allá del alcance de este libro, por lo que el método `draw` no tendrá
 ninguna implementación útil en su cuerpo. Para imaginar cómo podría ser la
@@ -196,7 +196,7 @@ El Listado 17-9 muestra esta implementación:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 17-9: Usando trait objects para almacenar valores 
+<span class="caption">Listing 17-9: Usando trait objects para almacenar valores
 de diferentes tipos que implementan el mismo trait</span>
 
 Cuando escribimos la biblioteca, no sabíamos que alguien podría agregar el tipo
@@ -205,7 +205,7 @@ tipo y dibujarlo porque `SelectBox` implementa el trait `Draw`, lo que significa
 que implementa el método `draw`.
 
 Este concepto, de preocuparnos solo por los mensajes a los que responde un valor
-en lugar del tipo concreto del valor, es similar al concepto de *duck typing* en
+en lugar del tipo concreto del valor, es similar al concepto de _duck typing_ en
 lenguajes de tipado dinámico: si camina como un pato y grazna como un pato,
 ¡entonces debe ser un pato! En la implementación de `run` en `Screen` en el
 Listado 17-5, `run` no necesita saber cuál es el tipo concreto de cada
@@ -244,16 +244,16 @@ Este error nos indica que o bien estamos pasando algo a `Screen` que no
 queríamos pasar y, por lo tanto, deberíamos pasar un tipo diferente o deberíamos
 implementar `Draw` en `String` para que `Screen` pueda llamar a `draw` en él.
 
-### Los trait objects realizan *dynamic dispatch*
+### Los trait objects realizan _dynamic dispatch_
 
 Recuerda que en la sección [“Performance of Code Using
 Generics”][performance-of-code-using-generics]<!-- ignore --> del Capítulo 10
 hablamos sobre el proceso de monomorfización que realiza el compilador cuando
-usamos *trait bounds* en los genéricos: el compilador genera implementaciones
+usamos _trait bounds_ en los genéricos: el compilador genera implementaciones
 no genéricas de funciones y métodos para cada tipo concreto que usamos en lugar
 de un parámetro de tipo genérico. El código que resulta de la monomorfización
-está realizando *static dispatch*, que es cuando el compilador sabe qué método
-estás llamando en tiempo de compilación. Esto se opone al *dynamic dispatch*,
+está realizando _static dispatch_, que es cuando el compilador sabe qué método
+estás llamando en tiempo de compilación. Esto se opone al _dynamic dispatch_,
 que es cuando el compilador no puede decir en tiempo de compilación qué método
 estás llamando. En los casos de dynamic dispatch, el compilador emite código que
 en tiempo de ejecución determinará qué método llamar.
@@ -264,11 +264,10 @@ trait objects, por lo que no sabe qué método implementado en qué tipo llamar.
 cambio, en tiempo de ejecución, Rust usa los punteros dentro del trait object
 para saber qué método llamar. Esta búsqueda incurre en un costo de tiempo de
 ejecución que no ocurre con el static dispatch. Dynamic dispatch también evita
-que el compilador elija la opción de *inline* del código de un método, lo que a
+que el compilador elija la opción de _inline_ del código de un método, lo que a
 su vez evita algunas optimizaciones. Sin embargo, obtuvimos flexibilidad
 adicional en el código que escribimos en el Listado 17-5 y pudimos admitir en
 el Listado 17-9, por lo que es un compromiso a considerar.
 
-[performance-of-code-using-generics]:
-ch10-01-syntax.html#performance-of-code-using-generics
+[performance-of-code-using-generics]: ch10-01-syntax.html#performance-of-code-using-generics
 [dynamically-sized]: ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait

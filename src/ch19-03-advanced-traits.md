@@ -1,7 +1,7 @@
 ## Traits Avanzados
 
 Primero cubrimos los traits en la sección ["Traits: Defining Shared
-Behavior"][traits-defining-shared-behavior]<!-- ignore --> del Capítulo 10, pero
+Behavior"][traits-definiendo-comportamiento-compartido]<!-- ignore --> del Capítulo 10, pero
 no discutimos los detalles más avanzados. Ahora que conoces más Rust, podemos
 entrar en los detalles más minuciosos.
 
@@ -479,8 +479,8 @@ El pattern newtype también es útil incluso cuando no se involucran traits.
 Ahora cambiemos de enfoque y exploremos algunas formas avanzadas de interactuar
 con el sistema de tipos de Rust.
 
-[newtype]: ch19-03-advanced-traits.html#using-the-newtype-pattern-to-implement-external-traits-on-external-types
+[newtype]: ch19-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos
 [implementando-un-trait-en-un-tipo]: ch10-02-traits.html#implementando-un-trait-en-un-tipo
-[traits-defining-shared-behavior]: ch10-02-traits.html#traits-defining-shared-behavior
-[smart-pointer-deref]: ch15-02-deref.html#treating-smart-pointers-like-regular-references-with-the-deref-trait
+[traits-definiendo-comportamiento-compartido]: ch10-02-traits.html#traits-definiendo-comportamiento-compartido
+[smart-pointer-deref]: ch15-02-deref.html#tratando-los-smart-pointers-como-referencias-regulares-con-el-trait-deref
 [tuple-structs]: ch05-01-defining-structs.html#usando-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos

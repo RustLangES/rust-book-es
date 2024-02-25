@@ -345,7 +345,7 @@ Volviendo un `NewsArticle` o un `Tweet` no está permitido debido a las
 restricciones en torno a cómo se implementa la sintaxis `impl Trait` en el
 compilador. Cubriremos cómo escribir una función con este comportamiento en la
 sección [“Usando objetos trait que permiten valores de diferentes
-tipos”][using-trait-objects-that-allow-for-values-of-different-types]<!--
+tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]<!--
 ignore --> del Capítulo 17.
 
 ### Usando trait bounds para implementar métodos condicionalmente
@@ -410,5 +410,5 @@ código que verifique el comportamiento en tiempo de ejecución porque ya hemos
 verificado en tiempo de compilación. Hacerlo mejora el rendimiento sin tener que
 renunciar a la flexibilidad de los generics.
 
-[using-trait-objects-that-allow-for-values-of-different-types]: ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
-[methods]: ch05-03-method-syntax.html#defining-methods
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[methods]: ch05-03-method-syntax.html#definiendo-metodos

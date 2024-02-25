@@ -644,6 +644,6 @@ la [Referencia de Rust][reference]. Pero a continuación, aprenderás cómo
 escribir pruebas en Rust para que puedas asegurarte de que tu código funcione
 como debería.
 
-[references-and-borrowing]: ch04-02-references-and-borrowing.html#references-and-borrowing
+[references-and-borrowing]: ch04-02-references-and-borrowing.html#referencias-y-prestamos
 [string-slices-as-parameters]: ch04-03-slices.html#string-slices-as-parameters
 [reference]: https://doc.rust-lang.org/reference/index.html

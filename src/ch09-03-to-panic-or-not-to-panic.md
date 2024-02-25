@@ -238,4 +238,4 @@ Ahora que has visto formas útiles en que la biblioteca estándar usa generics
 con los enums `Option` y `Result`, hablaremos sobre cómo funcionan los
 generics y cómo puedes usarlos en tu código.
 
-[encoding]: ch17-03-oo-design-patterns.html#encoding-states-and-behavior-as-types
+[encoding]: ch17-03-oo-design-patterns.html#codificando-estados-y-comportamiento-como-tipos

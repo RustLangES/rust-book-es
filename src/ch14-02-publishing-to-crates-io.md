@@ -17,11 +17,11 @@ Documentar adecuadamente tus paquetes ayudará a otros usuarios a saber cómo y
 cuándo usarlos, por lo que vale la pena invertir el tiempo para escribir
 documentación. En el Capítulo 3, discutimos cómo comentar el código Rust usando
 dos barras diagonales, `//`. Rust también tiene un tipo particular de comentario
-para la documentación, conocido convenientemente como un *comentario de
-documentación*, que generará documentación HTML. El HTML muestra el contenido
+para la documentación, conocido convenientemente como un _comentario de
+documentación_, que generará documentación HTML. El HTML muestra el contenido
 de los comentarios de documentación para los elementos de API públicos
-destinados a programadores interesados en saber cómo *usar* tu paquete en
-oposición a cómo se *implementa* tu paquete.
+destinados a programadores interesados en saber cómo _usar_ tu paquete en
+oposición a cómo se _implementa_ tu paquete.
 
 Los comentarios de documentación usan tres barras diagonales, `///`, en lugar
 de dos y admiten la notación Markdown para formatear el texto. Coloca los
@@ -43,7 +43,7 @@ sección con el encabezado `Examples` y luego proporcionamos código que
 demuestra cómo usar la función `add_one`. Podemos generar la documentación HTML
 de este comentario de documentación ejecutando `cargo doc`. Este comando ejecuta
 la herramienta `rustdoc` distribuida con Rust y coloca la documentación HTML
-generada en el directorio *target/doc*.
+generada en el directorio _target/doc_.
 
 Por conveniencia, ejecutar `cargo doc --open` generará el HTML para la
 documentación de tu crate actual (así como la documentación para todas las
@@ -53,7 +53,7 @@ de documentación, como se muestra en la Figura 14-1:
 
 <img alt="Documentación HTML renderizada para la función `add_one` de `my_crate`" src="img/trpl14-01.png" class="center" />
 
-<span class="caption">Figura 14-1: documentación en HTML para la función 
+<span class="caption">Figura 14-1: documentación en HTML para la función
 `add_one`</span>
 
 #### Secciones comúnmente usadas
@@ -62,15 +62,15 @@ Hemos usado el encabezado de Markdown `# Examples` en el Listado 14-1 para crear
 una sección en el HTML con el título "Examples". Aquí hay algunas otras
 secciones que los autores de crates comúnmente usan en su documentación:
 
-* **Panics**: Los escenarios en los que la función documentada podría
+- **Panics**: Los escenarios en los que la función documentada podría
   entrar en panic. Los llamadores de la función que no quieren que sus
   programas entren en panic deben asegurarse de no llamar a la función en
   estas situaciones.
-* **Errores**: Si la función devuelve un `Result`, describir los tipos de
+- **Errores**: Si la función devuelve un `Result`, describir los tipos de
   errores que podrían ocurrir y qué condiciones podrían hacer que esos errores
   se devuelvan puede ser útil para los llamadores para que puedan escribir
   código para manejar los diferentes tipos de errores de diferentes maneras.
-* **Seguridad**: Si la función es `unsafe` de llamar (discutimos unsafe en
+- **Seguridad**: Si la función es `unsafe` de llamar (discutimos unsafe en
   el Capítulo 19), debería haber una sección que explique por qué la función es
   insegura y cubra las invariantes que la función espera que los llamadores
   mantengan.
@@ -78,7 +78,6 @@ secciones que los autores de crates comúnmente usan en su documentación:
 La mayoría de los comentarios de documentación no necesitan todas estas
 secciones, pero esta es una buena lista de verificación para recordar los
 aspectos del código que los usuarios estarán interesados en saber.
-
 
 #### Comentarios de documentación como Tests
 
@@ -114,14 +113,14 @@ entre sí!
 #### Comentando items contenidos
 
 El estilo de comentario de doc `//!` agrega documentación al item que contiene
-los comentarios en lugar de a los items que siguen a los comentarios. 
-Normalmente, usamos estos comentarios de documentación dentro del archivo raíz 
-del crate (*src/lib.rs* por convención) o dentro de un módulo para documentar el
+los comentarios en lugar de a los items que siguen a los comentarios.
+Normalmente, usamos estos comentarios de documentación dentro del archivo raíz
+del crate (_src/lib.rs_ por convención) o dentro de un módulo para documentar el
 crate o el módulo en su conjunto.
 
 Por ejemplo, para agregar documentación que describe el propósito del crate
 `my_crate` que contiene la función `add_one`, agregamos comentarios de
-documentación que comienzan con `//!` al principio del archivo *src/lib.rs*,
+documentación que comienzan con `//!` al principio del archivo _src/lib.rs_,
 como se muestra en el Listado 14-2:
 
 <span class="filename">Nombre de archivo: src/lib.rs</span>
@@ -136,7 +135,7 @@ un todo</span>
 Observa que no hay ningún código después de la última línea que comienza con
 `//!`. Debido a que comenzamos los comentarios con `//!` en lugar de `///`,
 estamos documentando el item que contiene este comentario en lugar de un item
-que sigue a este comentario. En este caso, ese item es el archivo *src/lib.rs*,
+que sigue a este comentario. En este caso, ese item es el archivo _src/lib.rs_,
 que es el crate root. Estos comentarios describen todo el crate.
 
 Cuando ejecutamos `cargo doc --open` ahora, veremos la documentación para el
@@ -152,7 +151,7 @@ Los comentarios de documentación dentro de los items son útiles para describir
 crates y módulos en particular. Úsalos para explicar el propósito general del
 contenedor para ayudar a tus usuarios a comprender la organización del crate.
 
-### Exportando una API pública conveniente con `pub use`
+### Exportando una API publica conveniente con `pub use`
 
 La estructura de tu API pública es una consideración importante al publicar un
 crate. Las personas que usan tu crate están menos familiarizadas con la
@@ -170,7 +169,7 @@ podrían estar molestos por tener que ingresar `use`
 `my_crate::some_module::another_module::UsefulType;` en lugar de `use`
 `my_crate::UsefulType;`.
 
-Las buenas noticias son que si la estructura *no* es conveniente para que otros
+Las buenas noticias son que si la estructura _no_ es conveniente para que otros
 la usen desde otra biblioteca, no tienes que reorganizar tu organización
 interna: en su lugar, puedes reexportar items para hacer una estructura pública
 que sea diferente de tu estructura privada usando `pub use`. Reexportar toma un
@@ -189,7 +188,7 @@ Listado 14-3:
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-03/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 14-3: Una biblioteca llamada `art` con items 
+<span class="caption">Listado 14-3: Una biblioteca llamada `art` con items
 organizados en los módulos `kinds` y `utils`</span>
 
 La Figura 14-3 muestra cómo se vería la página frontal de la documentación para
@@ -204,7 +203,7 @@ Nota que los tipos `PrimaryColor` y `SecondaryColor` no están listados en la
 página principal. Tampoco lo está la función `mix`. Para verlos, tendríamos que
 hacer clic en `kinds` y `utils`.
 
-Otro crate que depende de esta biblioteca necesitaría declarar un `use` que 
+Otro crate que depende de esta biblioteca necesitaría declarar un `use` que
 traigan los items de `art` al scope, especificando la estructura de módulos
 actualmente definida. El Listado 14-4 muestra un ejemplo de un crate que usa
 los items `PrimaryColor` y `mix` del crate `art`:
@@ -215,7 +214,7 @@ los items `PrimaryColor` y `mix` del crate `art`:
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-04/src/main.rs}}
 ```
 
-<span class="caption">Listado 14-4: Un crate que utiliza los items del crate 
+<span class="caption">Listado 14-4: Un crate que utiliza los items del crate
 `art` con su estructura interna exportada</span>
 
 El autor del código en el Listado 14-4, que usa el crate `art`, tuvo que
@@ -238,7 +237,7 @@ para reexportar los items en el nivel superior, como se muestra en el Listado
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-05/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 14-5: Agregando declaraciones `pub use` para 
+<span class="caption">Listado 14-5: Agregando declaraciones `pub use` para
 re-exportar items</span>
 
 La documentación de la API que `cargo doc` genera para este crate ahora
@@ -261,7 +260,7 @@ más conveniente del Listado 14-5, como se muestra en el Listado 14-6:
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 14-6: Un programa que utiliza los items 
+<span class="caption">Listado 14-6: Un programa que utiliza los items
 reexportados del crate `art`</span>
 
 En casos donde hay muchos módulos anidados, reexportar los tipos en el nivel
@@ -295,7 +294,7 @@ $ cargo login abcdefghijklmnopqrstuvwxyz012345
 ```
 
 Este comando informará a Cargo de tu token de API y lo almacenará localmente en
-*~/.cargo/credentials*. Ten en cuenta que este token es un *secreto*: no lo
+_~/.cargo/credentials_. Ten en cuenta que este token es un _secreto_: no lo
 compartas con nadie. Si lo compartes con alguien por cualquier motivo, debes
 revocarlo y generar un nuevo token en
 [crates.io](https://crates.io/)<!-- ignore -->.
@@ -304,7 +303,7 @@ revocarlo y generar un nuevo token en
 
 Supongamos que tienes un crate que deseas publicar. Antes de publicarlo,
 necesitarás agregar algunos metadatos en la sección `[package]` del archivo
-*Cargo.toml* del crate.
+_Cargo.toml_ del crate.
 
 Tu crate necesitará un nombre único. Mientras trabajas en un crate localmente,
 puedes nombrar un crate como quieras. Sin embargo, los nombres de los crates en
@@ -312,7 +311,7 @@ puedes nombrar un crate como quieras. Sin embargo, los nombres de los crates en
 Una vez que se toma un nombre de crate, nadie más puede publicar un crate con
 ese nombre. Antes de intentar publicar un crate, busca el nombre que deseas
 usar. Si el nombre ha sido usado, deberás encontrar otro nombre y editar el
-campo `name` en el archivo *Cargo.toml* bajo la sección `[package]` para usar
+campo `name` en el archivo _Cargo.toml_ bajo la sección `[package]` para usar
 el nuevo nombre para publicar, como se muestra a continuación:
 
 <span class="filename">Nombre de archivo: Cargo.toml</span>
@@ -345,10 +344,10 @@ Caused by:
 
 Estos errores se deben a que te faltan algunos datos cruciales: se requiere una
 descripción y una licencia para que las personas sepan qué hace tu crate y
-bajo qué términos pueden usarlo. En *Cargo.toml*, agrega una descripción que
+bajo qué términos pueden usarlo. En _Cargo.toml_, agrega una descripción que
 sea solo una o dos oraciones, porque aparecerá con tu crate en los resultados
-de búsqueda. Para el campo `license`, debes dar un *valor de identificador de
-licencia*. La [Linux Foundation’s Software Package Data Exchange (SPDX)][spdx]
+de búsqueda. Para el campo `license`, debes dar un _valor de identificador de
+licencia_. La [Linux Foundation’s Software Package Data Exchange (SPDX)][spdx]
 enumera los identificadores que puedes usar para este valor. Por ejemplo, para
 especificar que has licenciado tu crate usando la Licencia MIT, agrega el
 identificador `MIT`:
@@ -374,7 +373,7 @@ identificadores de licencia separados por `OR` para tener múltiples licencias
 para tu proyecto.
 
 Con un nombre único, la versión, una descripción y una licencia agregados, el
-archivo *Cargo.toml* para un proyecto que está listo para publicar podría
+archivo _Cargo.toml_ para un proyecto que está listo para publicar podría
 verse así:
 
 <span class="filename">Nombre de archivo: Cargo.toml</span>
@@ -401,7 +400,7 @@ para tu crate y especificado los metadatos requeridos, ¡estás listo para
 publicar! Publicar un crate carga una versión específica en
 [crates.io](https://crates.io/)<!-- ignore --> para que otros la usen.
 
-Ten cuidado, porque una publicación es *permanente*. La versión nunca se puede
+Ten cuidado, porque una publicación es _permanente_. La versión nunca se puede
 sobrescribir y el código no se puede eliminar. Uno de los principales objetivos
 de [crates.io](https://crates.io/)<!-- ignore --> es actuar como un archivo
 permanente de código para que las compilaciones de todos los proyectos que
@@ -428,6 +427,7 @@ $ cargo publish
     Finished dev [unoptimized + debuginfo] target(s) in 0.19s
    Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 ```
+
 ¡Felicidades! Ahora has compartido tu código con la comunidad de Rust y
 cualquiera puede agregar tu crate como una dependencia de su proyecto.
 
@@ -435,12 +435,13 @@ cualquiera puede agregar tu crate como una dependencia de su proyecto.
 
 Cuando hayas realizado cambios en tu crate y estés listo para publicar una
 nueva versión, cambia el valor `version` especificado en tu archivo
-*Cargo.toml* y vuelve a publicar. Usa las 
-[reglas de versionado semántico][semver] para decidir cuál es el siguiente 
-número de versión apropiado en función de los tipos de cambios que hayas 
+_Cargo.toml_ y vuelve a publicar. Usa las
+[reglas de versionado semántico][semver] para decidir cuál es el siguiente
+número de versión apropiado en función de los tipos de cambios que hayas
 realizado. Luego, ejecuta `cargo publish` para cargar la nueva versión.
 
 <!-- Old link, do not remove -->
+
 <a id="removing-versions-from-cratesio-with-cargo-yank"></a>
 
 ### Deprecando Versiones de Crates.io con `cargo yank`
@@ -448,18 +449,18 @@ realizado. Luego, ejecuta `cargo publish` para cargar la nueva versión.
 Aunque no puedes eliminar versiones anteriores de un crate, puedes evitar que
 cualquier proyecto futuro las agregue como una nueva dependencia. Esto es útil
 cuando una versión de crate está rota por una razón u otra. En tales
-situaciones, Cargo admite *yanking* una versión de crate.
+situaciones, Cargo admite _yanking_ una versión de crate.
 
-Hacer un *yank* a una versión impide que nuevos proyectos dependan de esa
+Hacer un _yank_ a una versión impide que nuevos proyectos dependan de esa
 versión, pero permite que todos los proyectos existentes que dependen de ella
-continúen. Esencialmente, un *yank* significa que todos los proyectos con un
-*Cargo.lock* no se romperán y que cualquier *Cargo.lock* futuro generado no
-usará la versión *yanked*.
+continúen. Esencialmente, un _yank_ significa que todos los proyectos con un
+_Cargo.lock_ no se romperán y que cualquier _Cargo.lock_ futuro generado no
+usará la versión _yanked_.
 
-Para hacer un *yank* de una versión de un crate, en el directorio del crate que
+Para hacer un _yank_ de una versión de un crate, en el directorio del crate que
 has publicado previamente, ejecuta `cargo yank` y especifica qué versión
-deseas *yank*. Por ejemplo, si hemos publicado un crate llamado
-`guessing_game` versión 1.0.1 y queremos *yank* la versión, en el directorio
+deseas _yank_. Por ejemplo, si hemos publicado un crate llamado
+`guessing_game` versión 1.0.1 y queremos _yank_ la versión, en el directorio
 del proyecto para `guessing_game` ejecutaríamos:
 
 <!-- manual-regeneration:
@@ -473,7 +474,7 @@ $ cargo yank --vers 1.0.1
         Yank guessing_game@1.0.1
 ```
 
-Al agregar `--undo` al comando, también puedes deshacer un *yank* y permitir
+Al agregar `--undo` al comando, también puedes deshacer un _yank_ y permitir
 que los proyectos vuelvan a depender de una versión:
 
 ```console
@@ -482,7 +483,7 @@ $ cargo yank --vers 1.0.1 --undo
       Unyank guessing_game@1.0.1
 ```
 
-Un *yank* no borra ningún código. No puede, por ejemplo, eliminar secretos
+Un _yank_ no borra ningún código. No puede, por ejemplo, eliminar secretos
 cargados accidentalmente. Si eso sucede, debes restablecer esos secretos
 inmediatamente.
 

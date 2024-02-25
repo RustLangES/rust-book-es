@@ -1,4 +1,4 @@
-## Cómo escribir tests
+## Como escribir tests
 
 Los tests son funciones en Rust que verifican que el código no-test funciona de
 la manera esperada. Los cuerpos de las funciones de test típicamente realizan
