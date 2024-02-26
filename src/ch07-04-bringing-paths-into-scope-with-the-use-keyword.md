@@ -50,7 +50,7 @@ El error del compilador muestra que el acceso directo ya no se aplica dentro del
 ```
 
 Observe que también hay una advertencia de que él `use` ya no se utiliza en su
-ámbito. Para solucionar este problema, mueva tambien él `use` dentro del módulo
+ámbito. Para solucionar este problema, mueva también él `use` dentro del módulo
 `customer`, o haga referencia al acceso directo en el módulo padre con
 `super::hosting` dentro del módulo hijo `customer`.
 

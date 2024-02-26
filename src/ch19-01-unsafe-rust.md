@@ -13,7 +13,7 @@ algunos programas no válidos. Aunque el código _podría_ estar bien, si el
 compilador de Rust no tiene suficiente información para estar seguro, rechazará
 el código. En estos casos, puede usar código inseguro para decirle al
 compilador: "Confía en mí, sé lo que estoy haciendo". Sin embargo, debes tener
-cuidado, ya que el uso de Unsafe Rust conlleva riesgos: si usas código inseguro 
+cuidado, ya que el uso de Unsafe Rust conlleva riesgos: si usas código inseguro
 de manera incorrecta, pueden ocurrir problemas debido a la inseguridad de la
 memoria, como la desreferenciación de puntero nulo.
 
@@ -39,7 +39,7 @@ Unsafe_. Esos superpoderes incluyen la capacidad de:
 - Implementar un trait inseguro
 - Acceder a los campos de `union`s
 
-Es importante entender que `unsafe` no desactiva el borrow checker ni 
+Es importante entender que `unsafe` no desactiva el borrow checker ni
 deshabilita ninguna otra de las comprobaciones de seguridad de Rust: si usa una
 referencia en código inseguro, aún se verificará. La palabra clave `unsafe`
 solo le da acceso a estas cinco funciones que luego no son verificadas por el
@@ -98,14 +98,14 @@ la seguridad garantizada a cambio de un mayor rendimiento o la capacidad de
 interactuar con otro lenguaje o hardware donde las garantías de Rust no se
 aplican.
 
-El Listing 19-1 muestra cómo crear un puntero crudo inmutable y mutable a 
+El Listing 19-1 muestra cómo crear un puntero crudo inmutable y mutable a
 partir de referencias.
 
 ```rust
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-1: Creando punteros crudos a partir de 
+<span class="caption">Listing 19-1: Creando punteros crudos a partir de
 referencias</span>
 
 Observa que no incluimos la palabra clave `unsafe` en este código. Podemos
@@ -158,9 +158,9 @@ potencialmente creando una carrera de datos. ¡Ten cuidado!
 
 Con todos estos peligros, ¿por qué usarías punteros crudos? Un caso de uso
 importante es cuando se interactúa con código C, como verás en la siguiente
-sección, [“Llamando a una función o método 
-inseguro”](#llamando-a-una-funcion-o-metodo-inseguro).<!-- ignore --> Otro caso 
-es cuando se construyen abstracciones seguras que el borrow checker no entiende. 
+sección, [“Llamando a una función o método
+inseguro”](#llamando-a-una-funcion-o-metodo-inseguro).<!-- ignore --> Otro caso es
+cuando se construyen abstracciones seguras que el borrow checker no entiende.
 Presentaremos funciones inseguras y luego veremos un ejemplo de una abstracción
 segura que usa código inseguro.
 
@@ -215,7 +215,7 @@ el slice en el índice dado como argumento. El Listado 19-4 muestra cómo usar
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-4: Usando la función segura 
+<span class="caption">Listing 19-4: Usando la función segura
 `split_at_mut`</span>
 
 No podemos implementar esta función utilizando solo Rust seguro. Un intento
@@ -261,7 +261,7 @@ y algunas llamadas a funciones inseguras para hacer que la implementación de
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-6: Usando código inseguro en la implementación 
+<span class="caption">Listing 19-6: Usando código inseguro en la implementación
 de la función `split_at_mut`</span>
 
 Recordemos la sección [“The Slice Type”][el-tipo-slice]<!-- ignore --> del
@@ -305,7 +305,7 @@ ubicación de memoria arbitraria y crea un slice de 10,000 elementos.
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-7: Creando un slice a partir de una ubicación 
+<span class="caption">Listing 19-7: Creando un slice a partir de una ubicación
 de memory arbitraria</span>
 
 No somos propietarios de la memoria en esta ubicación arbitraria, y no hay
@@ -358,7 +358,7 @@ valor absoluto de su argumento.
 > programación mangla los nombres de manera ligeramente diferente, por lo que
 > para que una función Rust sea nombrable por otros lenguajes, debemos
 > deshabilitar el mangling del compilador de Rust.
-> 
+>
 > En el siguiente ejemplo, hacemos que la función `call_from_c` sea accesible
 > desde el código C, después de que se compile a una biblioteca compartida y
 > se vincule desde C:
@@ -369,13 +369,14 @@ valor absoluto de su argumento.
 >     println!("Just called a Rust function from C!");
 > }
 > ```
+>
 > Este uso de `extern` no requiere `unsafe`.
 
 ### Acceder o modificar una variable estática mutable
 
 En este libro, aún no hemos hablado de _variables globales_, las cuales Rust
 admite, pero pueden ser problemáticas con las reglas de ownership de Rust. Si
-dos hilos acceden a la misma variable global mutable, puede causar una 
+dos hilos acceden a la misma variable global mutable, puede causar una
 condición de carrera.
 
 En Rust, las variables globales son llamadas variables _static_. El Listado
@@ -392,12 +393,12 @@ string slice como valor.
 inmutable</span>
 
 Las static variables son similares a las constantes, que discutimos en la
-sección ["Diferencias entre variables y 
+sección ["Diferencias entre variables y
 constantes"][differences-between-variables-and-constants] en el Capítulo 3. Los
 nombres de las variables static están en `SCREAMING_SNAKE_CASE` por convención.
 Las variables static solo pueden almacenar referencias con el lifetime
-`'static`, lo que significa que el compilador de Rust puede calcular el 
-lifetime y no estamos obligados a anotarlo explícitamente. Acceder a una 
+`'static`, lo que significa que el compilador de Rust puede calcular el
+lifetime y no estamos obligados a anotarlo explícitamente. Acceder a una
 variable static inmutable es seguro.
 
 Una diferencia sutil entre constantes y variables static inmutables es que los
@@ -442,7 +443,7 @@ como `unsafe` también, como se muestra en el Listado 19-11.
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-11: Definiendo e implementando un trait 
+<span class="caption">Listing 19-11: Definiendo e implementando un trait
 inseguro</span>
 
 Al utilizar `unsafe impl`, estamos prometiendo que mantendremos las invariantes
