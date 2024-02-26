@@ -23,11 +23,11 @@ tiene un tipo de string en el lenguaje principal, que es el string slice `str`
 que generalmente se ve en su forma prestada `&str`. En el Capítulo 4, hablamos
 sobre _string slices_, que son referencias a algunos datos de cadena codificados
 en UTF-8 almacenados en otro lugar. Las literales de cadena, por ejemplo, se
-almacenan en el binario del programa y, por lo tanto, son rebanadas de cadena.
+almacenan en el binario del programa y, por lo tanto, son trozos de cadena.
 
 El tipo `String`, que es proporcionado por la biblioteca estándar en lugar de
-codificado en el lenguaje principal, es una cadena de bytes mutable, propiedad
-y codificada en UTF-8. Cuando los Rustaceans se refieren a "strings" en Rust,
+codificado en el lenguaje principal, es un tipo de cadena que puede crecer, mutable,
+de propiedad, codificado en UTF-8. Cuando los Rustaceans se refieren a "strings" en Rust,
 pueden estar refiriéndose a cualquiera de los tipos `String` o `str`, no solo
 a uno de esos tipos. Aunque esta sección trata principalmente de `String`, ambos
 tipos se usan mucho en la biblioteca estándar de Rust, y tanto `String` como
@@ -40,38 +40,38 @@ disponibles con `String`, ya que `String` se implementa en realidad como un
 envoltorio alrededor de un vector de bytes con algunas garantías, restricciones
 y capacidades adicionales. Un ejemplo de una función que funciona de la misma
 manera con `Vec<T>` y `String` es la función `new` para crear una instancia,
-que se muestra en el Listing 8-11.
+que se muestra en el listado 8-11.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-11: Creando un nuevo y vacío `String`</span>
+<span class="caption">Listado 8-11: Creando un nuevo y vacío `String`</span>
 
 Esta línea crea un nuevo `String` vacío llamado `s`, que podemos luego cargar
 con datos. A menudo, tendremos algunos datos iniciales que queremos comenzar
 en el string. Para eso, usamos el método `to_string`, que está disponible en
 cualquier tipo que implemente el trait `Display`, como lo hacen los String
-Literals. El Listing 8-12 muestra dos ejemplos.
+Literals. El listado 8-12 muestra dos ejemplos.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-12: Usando el método `to_string` para crear un
+<span class="caption">Listado 8-12: Usando el método `to_string` para crear un
 `String` a partir de un string literal</span>
 
 Este código crea un string que contiene `initial contents`.
 
 Podemos también usar la función `String::from` para crear un `String` a partir
-de un string literal. El código en el Listing 8-13 es equivalente al código del
-Listing 8-12 que usa `to_string`.
+de un string literal. El código en el listado 8-13 es equivalente al código del
+listado 8-12 que usa `to_string`.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-13/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-13: Usando la función `String::from` para crear
+<span class="caption">Listado 8-13: Usando la función `String::from` para crear
 un `String` a partir de un string literal</span>
 
 Debido a que los strings se usan para muchas cosas, podemos usar muchas APIs
@@ -81,14 +81,14 @@ este caso, `String::from` y `to_string` hacen lo mismo, por lo que elegir
 depende del estilo y la legibilidad.
 
 Recuerda que los strings son UTF-8 codificados, por lo que podemos incluir
-cualquier dato codificado correctamente en ellos, Como se muestra en el Listing
+cualquier dato codificado correctamente en ellos, Como se muestra en el listado
 8-14.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-14: Almacenamiento de saludos en diferentes
+<span class="caption">Listado 8-14: Almacenamiento de saludos en diferentes
 idiomas en strings</span>
 
 Todos estos strings son valores válidos de `String`.
@@ -96,45 +96,45 @@ Todos estos strings son valores válidos de `String`.
 ### Actualizando un String
 
 Un `String` puede crecer en tamaño y su contenido puede cambiar, al igual que
-el contenido de un `Vec<T>`, si empujas más datos en él. Además, puedes usar
-conveniente el operador `+` o el macro `format!` para concatenar valores de
+el contenido de un `Vec<T>`, si se introducen más datos en el. Además, puedes usar
+convenientemente el operador `+` o el macro `format!` para concatenar valores de
 `String`.
 
 #### Agregando a un String con `push_str` y `push`
 
 Podemos hacer crecer un `String` usando el método `push_str` para agregar un
-string slice, como se muestra en el Listing 8-15.
+string slice, como se muestra en el listado 8-15.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-15/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-15: Agregando un string slice a un `String`
+<span class="caption">Listado 8-15: Agregando un string slice a un `String`
 usando el método `push_str`</span>
 
 Después de estas dos líneas, `s` contendrá `foobar`. El método `push_str` toma
 un string slice porque no necesariamente queremos tomar posesión del parámetro.
-Por ejemplo, en el código del Listing 8-16, queremos poder usar `s2` después de
+Por ejemplo, en el código del listado 8-16, queremos poder usar `s2` después de
 agregar su contenido a `s1`.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-16: Uso de un string slice después de agregar
+<span class="caption">Listado 8-16: Uso de un string slice después de agregar
 su contenido a un `String`</span>
 
 Si el método `push_str` tomara posesión de `s2`, no podríamos imprimir su valor
 en la última línea. ¡Sin embargo, este código funciona como esperamos!
 
 El método `push` toma un solo carácter como parámetro y lo agrega al `String`.
-El Listing 8-17 agrega la letra `l` a un `String` usando el método `push`.
+El listado 8-17 agrega la letra `l` a un `String` usando el método `push`.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-17/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-17: Agregando un carácter a un valor `String`
+<span class="caption">Listado 8-17: Agregando un carácter a un valor `String`
 usando `push`</span>
 
 Como resultado, `s` contendrá `lol`.
@@ -142,14 +142,14 @@ Como resultado, `s` contendrá `lol`.
 #### Concatenacion con el operador `+` o la Macro `format!`
 
 A veces, necesitarás combinar dos strings. Sin embargo, no es tan simple como
-usar el operador `+` con dos referencias a `String`. El código en el Listing
+usar el operador `+` con dos referencias a `String`. El código en el listado
 8-18 no compilará:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-18: Usando el operador `+` para combinar dos
+<span class="caption">Listado 8-18: Usando el operador `+` para combinar dos
 valores `String` en un nuevo valor `String`</span>
 
 El string `s3` contendrá `Hello, world!`. La razón por la que `s1` ya no es
@@ -168,12 +168,12 @@ llamamos a este método con valores `String`. Discutiremos los genéricos en el
 Capítulo 10. Esta firma nos da las pistas que necesitamos para entender las
 partes complicadas del operador `+`.
 
-Primero, `2` tiene un &, lo que significa que estamos agregando una referencia
+Primero, `s2` tiene un `&`, lo que significa que estamos agregando una referencia
 del segundo string al primer string. Esto se debe al parámetro `s` en la
 función `add`: solo podemos agregar un `&str` a un `String`; no podemos agregar
 dos valores `String` juntos. Pero espera, el tipo de `&s2` es `&String`, no
 `&str`, como se especifica en el segundo parámetro de `add`. ¿Entonces por qué
-compila el Listing 8-18?
+compila el listado 8-18?
 
 La razón por la que podemos usar `s2` en la llamada a `add` es que el
 compilador puede _convertir_ el argumento `&String` en un `&str`. Cuando  
@@ -183,7 +183,7 @@ detalle en el Capítulo 15. Debido a que `add` no toma posesión del parámetro
 `s`, `s2` seguirá siendo un `String` válido después de esta operación.
 
 En segundo lugar, podemos ver en la firma que `add` toma el ownership de `self`,
-porque `self` no tiene un `&`. Esto significa que `s1` en el Listing 8-18 se
+porque `self` no tiene un `&`. Esto significa que `s1` en el listado 8-18 se
 moverá a la llamada de `add` y ya no será válido después de eso. Entonces,
 aunque `let s3 = s1 + &s2;` parece que copiará ambos strings y creará uno
 nuevo, esta declaración realmente toma posesión de `s1`, agrega una copia del
@@ -218,13 +218,13 @@ En muchos otros lenguajes de programación, acceder a caracteres individuales en
 un string referenciándolos por índice es una operación válida y común. Sin
 embargo, si intentas acceder a partes de un `String` usando la sintaxis de
 indexación en Rust, obtendrás un error. Considera el código inválido en el
-Listing 8-19.
+listado 8-19.
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-19/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 8-19: Intentando usar la sintaxis de indexación con
+<span class="caption">Listado 8-19: Intentando usar la sintaxis de indexación con
 un String</span>
 
 Este código dará como resultado el siguiente error:
@@ -240,7 +240,7 @@ discutir cómo Rust almacena los strings en la memoria.
 #### Representación Interna
 
 Un `String` es un wrapper sobre un `Vec<u8>`. Veamos algunos de nuestros
-strings de ejemplo UTF-8 correctamente codificados del Listing 8-14. Primero,
+strings de ejemplo UTF-8 correctamente codificados del listado 8-14. Primero,
 este:
 
 ```rust
@@ -284,7 +284,7 @@ causar errores que podrían no descubrirse de inmediato, Rust no compila este
 código en absoluto y evita malentendidos al comienzo del proceso de
 desarrollo.
 
-#### Bytes and Scalar Values and Grapheme Clusters! Oh My!
+#### Bytes, valores escalares y grupos de grafemas
 
 Otro punto sobre UTF-8 es que hay tres formas relevantes de ver las cadenas
 desde la perspectiva de Rust: como bytes, valores escalares y grupos de
