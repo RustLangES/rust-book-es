@@ -1,7 +1,7 @@
 ## Definiendo un Enum
 
-Los structs te permiten agrupar campos relacionados y datos, como un `Rectángulo`
-con su `ancho` y `largo`. Por otro lado, las enumeraciones te permiten decir que
+Los `struct` te permiten agrupar campos relacionados y datos, como un `Rectángulo`
+con su `ancho` y `largo`. Por otro lado, los enums te permiten decir que
 un valor es uno de un conjunto de posibles valores. Por ejemplo, podríamos querer
 decir que `Rectángulo` es uno de un conjunto de posibles formas que también
 incluye `Circulo` y `Triangulo`. Para hacer esto, Rust nos permite codificar estas
@@ -9,10 +9,10 @@ posibilidades como un `enum`.
 
 Vamos a ver una situación que podemos expresar en código y veremos por qué
 los enums son útiles y más apropiados que los structs en este caso. Digamos
-que tenemos que trabajar con direcciones IP. Actualmente, existen dos estándares 
+que tenemos que trabajar con direcciones IP. Actualmente, existen dos estándares
 que se usan para direcciones IP: la versión cuatro y la versión seis.
 Como estos son los únicos posibles tipos de direcciones IP que nuestro
-programa encontrará, podemos *enumerar* todas las variantes posibles, de
+programa encontrará, podemos _enumerar_ todas las variantes posibles, de
 donde viene el nombre de `enum`.
 
 Cualquier dirección IP puede ser una dirección de la versión cuatro o la versión
@@ -69,7 +69,7 @@ structs como se muestra en el Listing 6-1.
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-1: Almacenando los datos y la variante 
+<span class="caption">Listing 6-1: Almacenando los datos y la variante
 `IpAddrKind` de una dirección IP usando un `struct`</span>
 
 Aquí, hemos definido un struct `IpAddr` que tiene dos campos: un campo `kind`
@@ -152,15 +152,15 @@ variedad de tipos incrustados en sus variantes.
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-2: Un enum `Message` cuyas variantes almacenan 
+<span class="caption">Listing 6-2: Un enum `Message` cuyas variantes almacenan
 diferentes cantidades y tipos de valores</span>
 
 Este `enum` tiene cuatro variantes con diferentes tipos:
 
-* `Quit` no tiene ningún dato asociado.
-* `Move` tiene campos nombrados, como lo haría un struct.
-* `Write` incluye un solo `String`.
-* `ChangeColor` incluye tres valores `i32`.
+- `Quit` no tiene ningún dato asociado.
+- `Move` tiene campos nombrados, como lo haría un struct.
+- `Write` incluye un solo `String`.
+- `ChangeColor` incluye tres valores `i32`.
 
 Definiendo un `enum` con variantes como las del Listing 6-2 es similar a
 definir diferentes tipos de definiciones de struct, excepto que el `enum` no
@@ -209,7 +209,7 @@ comunes en otros lenguajes de programación.
 El diseño del lenguaje de programación a menudo se piensa en términos de qué
 características se incluyen, pero las características que se excluyen son
 importantes también. Rust no tiene la característica de null que muchos otros
-lenguajes tienen. *Null* es un valor que significa que no hay ningún valor
+lenguajes tienen. _Null_ es un valor que significa que no hay ningún valor
 allí. En los lenguajes con null, las variables siempre pueden estar en uno de
 dos estados: null o no null.
 
@@ -311,7 +311,7 @@ Eliminar el riesgo de asumir incorrectamente un valor no null
 ayuda a tener más confianza en su código. Para tener un valor que
 posiblemente pueda ser null, debe optar explícitamente por hacer que el tipo de ese
 valor sea `Option<T>`. Entonces, cuando use ese valor, se le requerirá
-expresar explícitamente el caso cuando el valor es null. Siempre que un valor tenga un tipo que no sea `Option<T>`, se *puede*
+expresar explícitamente el caso cuando el valor es null. Siempre que un valor tenga un tipo que no sea `Option<T>`, se _puede_
 asumir con seguridad que el valor no es null. Esta fue una decisión
 deliberada del diseño de Rust para limitar la omnipresencia de nulls y
 aumentar la seguridad del código de Rust.

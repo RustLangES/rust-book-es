@@ -240,8 +240,7 @@ ayudar a dividir líneas largas cuando llamas a un método con la sintaxis
 `.method_name()`. Ahora discutamos lo que hace esta línea.
 
 Como se mencionó anteriormente, `read_line` coloca lo que el usuario ingresa en
-la cadena que le pasamos, pero también devuelve un valor `Result`. [`Result`][result]<!-- ignore -->
-es una [_enumeración_][enums]<!-- ignore -->, a menudo
+la cadena que le pasamos, pero también devuelve un valor `Result`. [`Result`][result]<!-- ignore --> es una [_enumeración_][enums]<!-- ignore -->, a menudo
 llamada _enum_, que es un tipo que puede estar en uno de varios estados
 posibles. Llamamos a cada estado posible a una _variante_.
 

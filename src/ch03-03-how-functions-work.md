@@ -5,7 +5,7 @@ funciones más importantes del lenguaje: la función `main`, que es el punto de
 entrada de muchos programas. También has visto la palabra clave `fn`, que te
 permite declarar nuevas funciones.
 
-El código en Rust usa *snake case* como estilo convencional para los nombres
+El código en Rust usa _snake case_ como estilo convencional para los nombres
 de funciones y variables, en el que todas las letras son minúsculas y los
 guiones bajos separan las palabras. Aquí hay un programa que contiene un
 ejemplo de definición de una función:
@@ -23,14 +23,14 @@ termina el cuerpo de la función.
 Podemos llamar a cualquier función que hayamos definido escribiendo su nombre
 seguido de un conjunto de paréntesis. Como `another_function` está definida en
 el programa, se puede llamar desde dentro de la función `main`. Ten en cuenta
-que definimos `another_function` *después* de la función `main` en el código
+que definimos `another_function` _después_ de la función `main` en el código
 fuente; también podríamos haberla definido antes. A Rust no le importa dónde
 definas tus funciones, sólo que estén definidas en algún lugar en un ámbito que
 pueda ser visto por el invocador.
 
-Empecemos un nuevo proyecto binario llamado *functions* para explorar las
+Empecemos un nuevo proyecto binario llamado _functions_ para explorar las
 funciones más a fondo. Coloca el ejemplo de `another_function` en
-*src/main.rs* y ejecútalo. Deberías ver la siguiente salida:
+_src/main.rs_ y ejecútalo. Deberías ver la siguiente salida:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-16-functions/output.txt}}
@@ -42,12 +42,12 @@ se imprime su mensaje.
 
 ### Parámetros
 
-Podemos definir funciones para que tengan *parámetros*, que son variables
+Podemos definir funciones para que tengan _parámetros_, que son variables
 especiales que forman parte de la firma de una función. Cuando una función
 tiene parámetros, puedes proporcionarle valores concretos para esos
-parámetros. Técnicamente, los valores concretos se llaman *argumentos*, pero coloquialmente,
-la gente tiende a usar las palabras *parámetro* y
-*argumento* indistintamente para las variables en la definición de una función
+parámetros. Técnicamente, los valores concretos se llaman _argumentos_, pero coloquialmente,
+la gente tiende a usar las palabras _parámetro_ y
+_argumento_ indistintamente para las variables en la definición de una función
 o los valores concretos que se pasan cuando llamas a una función.
 
 En esta versión de `another_function` agregamos un parámetro:
@@ -69,7 +69,7 @@ La declaración de `another_function` tiene un parámetro llamado `x`. El tipo d
 macro `println!` pone `5` donde estaba el par de llaves que contenía `x` en la
 cadena de formato.
 
-En las firmas de las funciones, *debes* declarar el tipo de cada parámetro. Esta
+En las firmas de las funciones, _debes_ declarar el tipo de cada parámetro. Esta
 es una decisión deliberada en el diseño de Rust: requerir anotaciones de tipo en
 las definiciones de las funciones significa que el compilador casi nunca necesita
 que las uses en otro lugar del código para averiguar a qué tipo te refieres. El
@@ -90,7 +90,7 @@ llama `unit_label` y es de tipo `char`. Luego, la función imprime texto que
 contiene tanto el `value` como el `unit_label`.
 
 Intentemos ejecutar este código. Reemplaza el programa actual en tu
-proyecto *functions* en el archivo *src/main.rs* con el ejemplo anterior y
+proyecto _functions_ en el archivo _src/main.rs_ con el ejemplo anterior y
 ejecútalo usando `cargo run`:
 
 ```console
@@ -110,9 +110,9 @@ es una distinción importante de entender. Otros lenguajes no tienen las mismas
 distinciones, así que veamos qué son las sentencias y las expresiones y cómo
 sus diferencias afectan a los cuerpos de las funciones.
 
-* **Sentencias** son instrucciones que realizan alguna acción y no devuelven un
+- **Sentencias** son instrucciones que realizan alguna acción y no devuelven un
   valor.
-* **Expresiones** evalúan a un valor resultante. Veamos algunos ejemplos.
+- **Expresiones** evalúan a un valor resultante. Veamos algunos ejemplos.
 
 Hemos usado realmente sentencias y expresiones. Crear una variable y asignarle
 un valor con la palabra clave `let` es una sentencia. En el Listado 3-1,
@@ -130,7 +130,7 @@ Las definiciones de las funciones también son sentencias; todo el ejemplo
 anterior es una sentencia en sí misma.
 
 Las sentencias no devuelven valores. Por lo tanto, no puedes asignar una
-sentencia `let` a otra variable, como intenta hacer el siguiente código; 
+sentencia `let` a otra variable, como intenta hacer el siguiente código;
 obtendrás un error:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
@@ -187,8 +187,7 @@ exploras los valores de retorno de las funciones y las expresiones a continuaci�
 Las funciones pueden devolver valores al código que las llama. No nombramos los
 valores de retorno, pero debemos declarar su tipo después de una flecha (`->`).
 En Rust, el valor de retorno de la función es sinónimo del valor de la última
-expresión en el bloque del cuerpo de una función. Puedes devolver un valor antes de que la función
-finalice utilizando la palabra clave`return` y especificando un valor, pero la
+expresión en el bloque del cuerpo de una función. Puedes devolver un valor antes de que la función finalice utilizando la palabra clave`return` y especificando un valor, pero la
 mayoría de las funciones devuelven la última expresión implícitamente. Aquí
 hay un ejemplo de una función que devuelve un valor:
 
