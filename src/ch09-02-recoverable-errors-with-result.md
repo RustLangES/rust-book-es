@@ -18,17 +18,17 @@ enum Result<T, E> {
 }
 ```
 
-`T` y `E` son parámetros de tipo generic: discutiremos los generics con más
+`T` y `E` son parámetros de tipo genérico: hablaremos de los genéricos con más
 detalle en el Capítulo 10. Lo que necesita saber ahora es que `T` representa el
-tipo del valor que se devolverá en un caso de éxito dentro de la variante `Ok`,
-y `E` representa el tipo del error que se devolverá en un caso de falla dentro
+tipo del valor que será devuelto en un caso de éxito dentro de la variante `Ok`,
+y `E` representa el tipo del error que será devuelto en un caso de fallo dentro
 de la variante `Err`. Debido a que `Result` tiene estos parámetros de tipo
-generic, podemos usar el tipo `Result` y las funciones definidas en él en
-muchas situaciones diferentes donde el valor exitoso y el valor de error que
+genérico, podemos usar el tipo `Result` y las funciones definidas en él en
+muchas situaciones diferentes donde el valor de éxito y el valor de error que
 queremos devolver pueden diferir.
 
 Llamemos a una función que devuelve un valor `Result` porque la función podría
-fallar. En el Listado 9-3 intentamos abrir un archivo.
+fallar. En el listado 9-3 intentamos abrir un archivo.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -36,7 +36,7 @@ fallar. En el Listado 9-3 intentamos abrir un archivo.
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-03/src/main.rs}}
 ```
 
-<span class="caption">Listing 9-3: Abriendo un archivo</span>
+<span class="caption">Listado 9-3: Abriendo un archivo</span>
 
 El tipo de retorno de `File::open` es un `Result<T, E>`. El parámetro genérico
 `T` ha sido llenado por la implementación de `File::open` con el tipo del valor
@@ -56,8 +56,8 @@ archivo. En el caso en que falla, el valor en `greeting_file_result` será una
 instancia de `Err` que contiene más información sobre el tipo de error que
 ocurrió.
 
-Necesitamos agregar al código en el Listado 9-3 para tomar diferentes acciones
-dependiendo del valor que `File::open` devuelve. El Listado 9-4 muestra una
+Necesitamos agregar al código en el listado 9-3 para tomar diferentes acciones
+dependiendo del valor que `File::open` devuelve. El listado 9-4 muestra una
 forma de manejar él `Result` usando una herramienta básica, la expresión
 `match` que discutimos en el Capítulo 6.
 
@@ -67,11 +67,11 @@ forma de manejar él `Result` usando una herramienta básica, la expresión
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 9-4: Usando una expresión `match` para manejar las
+<span class="caption">Listado 9-4: Usando una expresión `match` para manejar las
 variantes `Result` que podrían devolverse</span>
 
 Ten en cuenta que, al igual que el enum `Option`, el enum `Result` y sus
-variantes se han traído al scope por el [prelude][prelude], por lo que no necesitamos
+variantes se han traído al ámbito por el [prelude][prelude], por lo que no necesitamos
 especificar `Result::` antes de las variantes `Ok` y `Err` en las opciones de
 `match`.
 
@@ -95,14 +95,14 @@ Como de costumbre, esta salida nos dice exactamente qué ha salido mal.
 
 ### Haciendo coincidir diferentes errores
 
-El código en el Listado 9-4 será `panic!` no importa por qué `File::open` falló.
+El código en el listado 9-4 será `panic!` no importa por qué `File::open` falló.
 Sin embargo, queremos tomar diferentes acciones para diferentes razones de
 falla: si `File::open` falló porque el archivo no existe, queremos crear el
 archivo y devolver el manejador del nuevo archivo. Si `File::open` falló por
 cualquier otra razón, por ejemplo, porque no teníamos permiso para abrir el
-archivo, todavía queremos que el código `panic!` de la misma manera que lo hizo
-en el Listado 9-4. Para esto agregamos una expresión `match` interna, que se
-muestra en el Listado 9-5.
+archivo, todavía queremos que el código dispare el `panic!` de la misma manera que lo hizo
+en el listado 9-4. Para esto agregamos una expresión `match` interna, que se
+muestra en el listado 9-5.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -113,7 +113,7 @@ tests to fail lol -->
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 9-5: Manejando diferentes tipos de errores de
+<span class="caption">Listado 9-5: Manejando diferentes tipos de errores de
 diferentes formas</span>
 
 El tipo de valor que `File::open` devuelve dentro de la variante `Err` es
@@ -143,7 +143,7 @@ archivo faltante.
 > más concisos que usar `match` al manejar valores `Result<T, E>` en tu código.
 >
 > Por ejemplo, aquí hay otra forma de escribir la misma lógica que se muestra en
-> el Listado 9-5, esta vez usando closures y el método `unwrap_or_else`:
+> el listado 9-5, esta vez usando closures y el método `unwrap_or_else`:
 >
 > <!-- CAN'T EXTRACT SEE https://github.com/rust-lang/mdBook/issues/1127 -->
 >
@@ -164,7 +164,7 @@ archivo faltante.
 > }
 > ```
 >
-> Aunque este código tiene el mismo comportamiento que el Listado 9-5, no
+> Aunque este código tiene el mismo comportamiento que el listado 9-5, no
 > contiene ninguna expresión `match` y es más fácil de leer. Vuelve a este
 > ejemplo después de leer el Capítulo 13, y busca el método `unwrap_or_else` en
 > la documentación de la biblioteca estándar. Muchos más de estos métodos pueden
@@ -176,7 +176,7 @@ Usando `match` funciona bastante bien, pero puede ser un poco verboso y no
 siempre comunica bien la intención. El tipo `Result<T, E>` tiene muchos métodos
 auxiliares definidos en él para hacer varias tareas más específicas. El método
 `unwrap` es un método de atajo implementado exactamente como la expresión
-`match` que escribimos en el Listado 9-4. Si el valor `Result` es la variante
+`match` que escribimos en el listado 9-4. Si el valor `Result` es la variante
 `Ok`, `unwrap` devolverá el valor dentro de `Ok`. Si el `Result` es la variante
 `Err`, `unwrap` llamará a la macro `panic!` por nosotros. Aquí hay un ejemplo de
 `unwrap` en acción:
@@ -245,7 +245,7 @@ control al código que llama, donde puede haber más información o lógica que
 dicte cómo se debe manejar el error que la que tienes disponible en el contexto
 de tu código.
 
-Por ejemplo, El Listado 9-6 muestra una función que lee un nombre de usuario de
+Por ejemplo, El listado 9-6 muestra una función que lee un nombre de usuario de
 un archivo. Si el archivo no existe o no se puede leer, esta función devolverá
 esos errores al código que llamó a la función.
 
@@ -259,7 +259,7 @@ don't want to include it for rustdoc testing purposes. -->
 {{#include ../listings/ch09-error-handling/listing-09-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-6: Una función que devuelve errores al código
+<span class="caption">Listado 9-6: Una función que devuelve errores al código
 llamado usando `match`</span>
 
 Esta función se puede escribir de una manera mucho más corta, pero vamos a
@@ -318,7 +318,7 @@ el operador de interrogación `?` para hacer esto más fácil.
 
 #### Un atajo para propagar errores: el operador `?`
 
-El Listado 9-7 muestra una implementación de `read_username_from_file` que tiene
+El listado 9-7 muestra una implementación de `read_username_from_file` que tiene
 la misma funcionalidad que en el Listado 9-6, pero esta implementación utiliza
 el operador `?`.
 
@@ -332,18 +332,18 @@ don't want to include it for rustdoc testing purposes. -->
 {{#include ../listings/ch09-error-handling/listing-09-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-7: Una función que devuelve errores al código
+<span class="caption">Listado 9-7: Una función que devuelve errores al código
 llamado usando el operador `?`</span>
 
 El `?` colocado después de un valor `Result` se define para funcionar de casi
 la misma manera que las expresiones `match` que definimos para manejar los
-valores `Result` en el Listado 9-6. Si el valor de `Result` es un `Ok`, el
+valores `Result` en el listado 9-6. Si el valor de `Result` es un `Ok`, el
 valor dentro del `Ok` se devolverá de esta expresión, y el programa continuará.
 Si el valor es un `Err`, él `Err` se devolverá de toda la función como si
 hubiéramos usado la palabra clave `return` para que el valor de error se
 propague al código que llama.
 
-Hay una diferencia entre lo que hace la expresión `match` del Listado 9-6 y lo
+Hay una diferencia entre lo que hace la expresión `match` del listado 9-6 y lo
 que hace el operador `?`: los valores de error que tienen el operador `?`
 llamado en ellos pasan a través de la función `from`, definida en el trait
 `From` en la biblioteca estándar, que se usa para convertir valores de un tipo
@@ -354,14 +354,14 @@ representar todas las formas en que una función podría fallar, incluso si las
 partes podrían fallar por muchas razones diferentes.
 
 Por ejemplo, podríamos cambiar la función `read_username_from_file` en el
-Listado 9-7 para devolver un tipo de error personalizado llamado `OurError` que
+listado 9-7 para devolver un tipo de error personalizado llamado `OurError` que
 definimos. Si también definimos `impl From<io::Error> for OurError` para
 construir una instancia de `OurError` a partir de un `io::Error`, entonces el
 operador `?` llama en el cuerpo de `read_username_from_file` llamará a `from`
 y convertirá los tipos de error sin necesidad de agregar más código a la
 función.
 
-En el contexto del Listado 9-7, el `?` al final de la llamada a `File::open`
+En el contexto del listado 9-7, el `?` al final de la llamada a `File::open`
 devolverá el valor dentro de un `Ok` a la variable `username_file`. Si ocurre
 un error, el `?` operador devolverá temprano toda la función y dará cualquier
 valor `Err` al código que llama. Lo mismo se aplica al `?` al final de la
@@ -382,7 +382,7 @@ don't want to include it for rustdoc testing purposes. -->
 {{#include ../listings/ch09-error-handling/listing-09-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-8: Método de encadenamiento
+<span class="caption">Listado 9-8: Método de encadenamiento
 llamado después del operador `?`</span>
 
 Hemos movido la creación del nuevo `String` en `username` al principio de la
@@ -392,10 +392,10 @@ sobre el resultado de `File::open("hello.txt")?`. Todavía tenemos un `?` al
 final de la llamada a `read_to_string`, y todavía devolvemos un valor `Ok`
 que contiene `username` cuando tanto `File::open` como `read_to_string`
 tienen éxito en lugar de devolver errores. La funcionalidad es nuevamente la
-misma que en el Listado 9-6 y el Listado 9-7; esta es solo una forma diferente
+misma que en el listado 9-6 y el listado 9-7; esta es solo una forma diferente
 y más ergonómica de escribirla.
 
-El Listado 9-9 muestra una forma de hacer esto aún más conciso usando
+El listado 9-9 muestra una forma de hacer esto aún más conciso usando
 `fs::read_to_string`.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -408,7 +408,7 @@ don't want to include it for rustdoc testing purposes. -->
 {{#include ../listings/ch09-error-handling/listing-09-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-9: Usando `fs::read_to_string` en lugar de
+<span class="caption">Listado 9-9: Usando `fs::read_to_string` en lugar de
 abrir y luego leer el archivo</span>
 
 Leer un archivo en un `String` es una operación bastante común, por lo que la
@@ -423,12 +423,12 @@ errores, por lo que lo hicimos de la manera más larga primero.
 El operador `?` solo puede usarse en funciones cuyo tipo de retorno sea
 compatible con el valor que se usa con el operador `?`. Porque el operador `?`
 está definido para realizar una devolución temprana de un valor de la función,
-de la misma manera que la expresión `match` que definimos en el Listado 9-6.
-En el Listado 9-6, el `match` estaba usando un valor `Result`, y el brazo de
+de la misma manera que la expresión `match` que definimos en el listado 9-6.
+En el listado 9-6, el `match` estaba usando un valor `Result`, y el brazo de
 devolución temprana devolvió un valor `Err(e)`. El tipo de retorno de la
 función debe ser un `Result` para que sea compatible con este `return`.
 
-En el Listado 9-10, veamos el error que obtendremos si usamos el operador `?`
+En el listado 9-10, veamos el error que obtendremos si usamos el operador `?`
 en una función `main` con un tipo de retorno incompatible con el tipo de valor
 que usamos `?`:
 
@@ -438,7 +438,7 @@ que usamos `?`:
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-10/src/main.rs}}
 ```
 
-<span class="caption">Listing 9-10: Intentando usar el `?` en la función `main`
+<span class="caption">Listado 9-10: Intentando usar el `?` en la función `main`
 que devuelve `()` no se compilará</span>
 
 Este código abre un archivo, que puede fallar. El operador `?` sigue el valor
@@ -467,14 +467,14 @@ comportamiento del operador `?` cuando se llama en un `Option<T>` es similar a
 su comportamiento cuando se llama en un `Result<T, E>`: si el valor es `None`,
 el `None` se devolverá temprano desde la función en ese punto. Si el valor es
 `Some`, el valor dentro de `Some` es el valor resultante de la expresión y la
-función continúa. El Listado 9-11 tiene un ejemplo de una función que encuentra
+función continúa. El listado 9-11 tiene un ejemplo de una función que encuentra
 el último carácter de la primera línea en el texto dado:
 
 ```rust
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-11: Using the `?` operator on an `Option<T>`
+<span class="caption">Listado 9-11: Using the `?` operator on an `Option<T>`
 value</span>
 
 Esta función devuelve `Option<char>` porque es posible que haya un carácter
@@ -512,7 +512,7 @@ programas ejecutables, y hay restricciones sobre cuál puede ser su tipo de
 retorno para que los programas se comporten como se espera.
 
 Por suerte, `main` también puede devolver un `Result<(), E>`. El Listado 9-12
-tiene el código del Listado 9-10, pero hemos cambiado el tipo de retorno de
+tiene el código del listado 9-10, pero hemos cambiado el tipo de retorno de
 `main` para que sea `Result<(), Box<dyn Error>>` y hemos agregado un valor de
 retorno `Ok(())` al final. Este código ahora se compilará:
 
@@ -520,7 +520,7 @@ retorno `Ok(())` al final. Este código ahora se compilará:
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-12/src/main.rs}}
 ```
 
-<span class="caption">Listing 9-12: Cambiando `main` devuelve `Result<(), E>`
+<span class="caption">Listado∂ 9-12: Cambiando `main` devuelve `Result<(), E>`
 permitiendo el uso del operador `?` en valores `Result`</span>
 
 El `Box<dyn Error>` tipo es un _trait object_, que hablaremos en la sección
