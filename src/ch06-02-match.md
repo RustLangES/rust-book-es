@@ -239,7 +239,7 @@ especial que coincide con cualquier valor y no se vincula a ese valor. Esto le
 dice a Rust que no vamos a usar el valor, por lo que Rust no nos advertirá
 sobre una variable no utilizada.
 
-Vamos a cambiar las reglas del juego. Ahora, si sacas un 3 o un 7, debes tirar
+Vamos a cambiar las reglas del juego. Ahora, si sacas un número diferente de un 3 o un 7 debes tirar
 de nuevo. Ya no necesitamos usar el valor general, por lo que puede cambiar
 nuestro código para usar `_` en lugar de la variable llamada `other`:
 
