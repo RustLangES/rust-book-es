@@ -99,12 +99,6 @@ del struct. Cuando se deriva en enums, las variantes del enum declaradas
 anteriormente en la definición de la enumeración se consideran menores
 que las variantes enumeradas más tarde.
 
-Cuando se deriva en structs, `PartialOrd` compara dos instancias comparando el
-valor en cada campo en el orden en que aparecen los campos en la definición
-del struct. Cuando se deriva en enums, las variantes del enum declaradas
-anteriormente en la definición de la enumeración se consideran menores
-que las variantes enumeradas más tarde.
-
 El trait `PartialOrd` es necesario, por ejemplo, para el método `gen_range`
 del crate `rand` que genera un valor aleatorio en el rango especificado por
 una expresión de rango.
