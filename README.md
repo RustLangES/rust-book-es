@@ -5,16 +5,19 @@
 [![Telegram Group
 ](https://img.shields.io/badge/Telegram-Group-blue.svg?logo=telegram)](
 https://t.me/rust_book_spanish_translation)
+[![Discord](https://img.shields.io/discord/778674594856960012?color=blue&label=discord&logo=discord)](https://discord.gg/4ng5HgmaMg)
+
 
 This repository contains the source of "The Rust Programming Language" book.
 
-This is unofficial Spanish translation of the book. The original book is
+This is an unofficial Spanish translation of the book. The original book is
 available in [rust-lang/book].
 
 We do a best effort approach to keep this translation up to date with the
 original book, but we can't guarantee that it is 100% accurate. If you find
 any errors, please open an issue or a pull request or write us in the
-[Telegram Group](https://t.me/rust_book_spanish_translation).
+[Telegram Group](https://t.me/rust_book_spanish_translation) or our
+[Discord Server](https://discord.gg/4ng5HgmaMg)
 
 [rust-lang/book]: https://doc.rust-lang.org/stable/book/
 
@@ -37,14 +40,12 @@ See the [releases] to download just the code of all the code listings that appea
 
 ## Requirements
 
-Building the book requires [mdBook], ideally the same version that
-rust-lang/rust uses in [this file][rust-mdbook]. To get it:
+Building the book requires a custom fork of [mdBook]:
 
-[mdBook]: https://github.com/rust-lang-nursery/mdBook
-[rust-mdbook]: https://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml
+[mdBook]: https://github.com/RustLangES/mdBook/
 
 ```bash
-$ cargo install mdbook --version <version_num>
+$ cargo install mdbook --git https://github.com/RustLangES/mdBook.git
 ```
 
 ## Building
