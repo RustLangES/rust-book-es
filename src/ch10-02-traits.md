@@ -91,7 +91,7 @@ Ahora que la biblioteca ha implementado el trait `Summary` en `NewsArticle` y
 `Tweet`, los usuarios de la biblioteca pueden llamar a los métodos de trait
 en las instancias de `NewsArticle` y `Tweet` en la misma forma en que llamamos
 a los métodos regulares. La única diferencia es que el usuario debe traer el
-trait al ámbito, así como los tipos. Aquí hay un ejemplo de cómo un crate
+trait al scope, así como los tipos. Aquí hay un ejemplo de cómo un crate
 binario podría usar nuestra biblioteca de `aggregator`:
 
 ```rust,ignore

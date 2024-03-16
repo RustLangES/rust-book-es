@@ -7,7 +7,7 @@ necesitemos.
 
 Un detalle que no discutimos en la sección [“Referencias y
 Borrowing"][references-and-borrowing]<!-- ignore --> en el Capítulo 4 es que
-cada referencia en Rust tiene un _lifetime_, que es el alcance para el que esa
+cada referencia en Rust tiene un _lifetime_, que es el scope para el que esa
 referencia es válida. La mayoría de las veces, los lifetimes son implícitos e
 inferidos, al igual que la mayoría de las veces, los tipos se infieren.
 Solo debemos anotar los tipos cuando son posibles varios tipos. De manera
@@ -28,38 +28,38 @@ lifetimes para que pueda familiarizarse con el concepto.
 El objetivo principal de los lifetimes es prevenir _referencias colgantes_,
 que hacen que un programa haga referencia a datos que no son los que se
 pretende referenciar. Considere el programa en el listado 10-16, que tiene un
-ámbito externo y un ámbito interno.
+scope externo y un scope interno.
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/src/main.rs}}
 ```
 
 <span class="caption">Listado 10-16: Un intento de usar una referencia cuyo
-valor ha quedado fuera del ámbito</span>
+valor ha quedado fuera del scope</span>
 
 > Nota: Los ejemplos en los Listados 10-16, 10-17 y 10-23 declaran variables
 > sin darles un valor inicial, por lo que el nombre de la variable existe en el
-> ámbito externo. A primera vista, esto podría parecer estar en conflicto con el
+> scope externo. A primera vista, esto podría parecer estar en conflicto con el
 > hecho de que Rust no tiene valores nulos. Sin embargo, si intentamos usar una
 > variable antes de darle un valor, obtendremos un error en tiempo de
 > compilación, lo que muestra que Rust de hecho no permite valores nulos.
 
-El ámbito externo declara una variable llamada `r` sin valor inicial, y el ámbito
+El scope externo declara una variable llamada `r` sin valor inicial, y el scope
 interno declara una variable llamada `x` con el valor inicial de 5. Dentro del
-ámbito interno, intentamos establecer el valor de `r` como una referencia a `x`.
-Luego, el ámbito interno termina, e intentamos imprimir el valor en `r`. Este
+scope interno, intentamos establecer el valor de `r` como una referencia a `x`.
+Luego, el scope interno termina, e intentamos imprimir el valor en `r`. Este
 código no se compilará porque el valor al que se refiere `r` ha quedado fuera
-del ámbito antes de que intentemos usarlo. Aquí está el mensaje de error:
+del scope antes de que intentemos usarlo. Aquí está el mensaje de error:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/output.txt}}
 ```
 
 La variable `x` no “vive lo suficiente”. La razón es que `x` estará fuera del
-ámbito cuando el ámbito interno termine en la línea 7. Pero `r` todavía es
-válido para el ámbito externo; porque su ámbito es más grande, decimos que
+scope cuando el scope interno termine en la línea 7. Pero `r` todavía es
+válido para el scope externo; porque su scope es más grande, decimos que
 “vive más tiempo”. Si Rust permitiera que este código funcionara, `r` estaría
-referenciando memoria que se desasignó cuando `x` quedó fuera del ámbito, y
+referenciando memoria que se desasignó cuando `x` quedó fuera del scope, y
 cualquier cosa que intentemos hacer con `r` no funcionaría correctamente. ¿Cómo
 determina Rust que este código es inválido? Utiliza el _borrow checker_.
 
@@ -234,7 +234,7 @@ esta función, no estamos cambiando los lifetimes de ninguna de las referencias
 que se pasan en o se devuelven. En cambio, estamos especificando que el
 _borrow checker_ debería rechazar cualquier valor que no cumpla con estas
 restricciones. Ten en cuenta que la función `longest` no necesita saber
-exactamente cuánto tiempo vivirán `x` e `y`, solo que algún ámbito puede
+exactamente cuánto tiempo vivirán `x` e `y`, solo que algún scope puede
 sustituirse por `'a` que satisfará esta firma.
 
 Cuando anotamos lifetimes en funciones, las anotaciones van en la firma de la
@@ -250,8 +250,8 @@ fueran las relaciones de los lifetimes, el compilador solo podría señalar el
 uso de nuestro código muchas etapas después de la causa del problema.
 
 Cuando pasamos referencias concretas a `longest`, se sustituye un lifetime
-concreto por `'a`. Este lifetime concreto corresponde a la parte del ámbito de `x`
-que se superpone con el ámbito de y. En otras palabras, el lifetime
+concreto por `'a`. Este lifetime concreto corresponde a la parte del scope de `x`
+que se superpone con el scope de y. En otras palabras, el lifetime
 genérico `'a` adquirirá el lifetime concreto que sea menor entre los lifetimes de
 `x` e `y`. Debido a que hemos anotado la referencia devuelta con el mismo parámetro
 de lifetime `'a`, la referencia devuelta también será válida por la duración del
@@ -270,18 +270,18 @@ pasando referencias que tienen diferentes lifetimes concretos. El listado
 <span class="caption">Listado 10-22: Usando la función `longest` con referencias
 a valores `String` que tienen diferentes lifetimes concretos</span>
 
-En este ejemplo, `string1` es válida hasta el final del ámbito externo, `string2`
-es válida hasta el final del ámbito interno, y `result` referencia algo que es
-válido hasta el final del ámbito interno. Ejecuta este código, y verás que el
+En este ejemplo, `string1` es válida hasta el final del scope externo, `string2`
+es válida hasta el final del scope interno, y `result` referencia algo que es
+válido hasta el final del scope interno. Ejecuta este código, y verás que el
 _borrow checker_ lo aprueba; se compilará e imprimirá `The longest string is
 long string is long`.
 
 A continuación, intentemos un ejemplo que muestre que el lifetime de la
 referencia en `result` debe ser el más pequeño de los dos argumentos.
-Moveremos la declaración de la variable `result` fuera del ámbito interno, pero
-dejaremos la asignación del valor a `result` dentro del ámbito interno. Luego
-moveremos la llamada a `println!` que usa `result` fuera del ámbito interno,
-después de que el ámbito interno haya terminado. El código del listado 10-23 no
+Moveremos la declaración de la variable `result` fuera del scope interno, pero
+dejaremos la asignación del valor a `result` dentro del scope interno. Luego
+moveremos la llamada a `println!` que usa `result` fuera del scope interno,
+después de que el scope interno haya terminado. El código del listado 10-23 no
 compilará.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -291,7 +291,7 @@ compilará.
 ```
 
 <span class="caption">Listado 10-23: Intentando utilizar `result` después de que
-`string2` haya quedado fuera del ámbito</span>
+`string2` haya quedado fuera del scope</span>
 
 Cuando intentamos compilar este código, obtenemos este error:
 
@@ -300,13 +300,13 @@ Cuando intentamos compilar este código, obtenemos este error:
 ```
 
 El error muestra que para que `result` sea válido para la instrucción
-`println!`, `string2` tendría que ser válido hasta el final del ámbito externo.
+`println!`, `string2` tendría que ser válido hasta el final del scope externo.
 Rust sabe esto porque anotamos los lifetimes de los parámetros de la función y
 los valores de retorno usando el mismo parámetro de lifetime `'a`.
 
 Como humanos, podemos mirar este código y ver que `string1` es más larga que
 `string2` y por lo tanto `result` contendrá una referencia a `string1`. Debido a
-que `string1` aún no ha quedado fuera del ámbito, una referencia a `string1`
+que `string1` aún no ha quedado fuera del scope, una referencia a `string1`
 todavía será válida para la instrucción `println!`. Sin embargo, el compilador
 no puede ver que la referencia sea válida en este caso. Le hemos dicho a Rust
 que el lifetime de la referencia devuelta por la función `longest` es el mismo
@@ -341,7 +341,7 @@ Cuando se devuelve una referencia desde una función, el parámetro del lifetime
 para el tipo de retorno debe coincidir con el parámetro del lifetime de uno de
 los parámetros. Si la referencia devuelta no se refiere a uno de los parámetros,
 debe referirse a un valor creado dentro de esa función. Sin embargo, esto sería
-una referencia colgante porque el valor quedará fuera del ámbito al final de la
+una referencia colgante porque el valor quedará fuera del scope al final de la
 función. Considera esta implementación intentada de la función `longest` que no
 se compilará:
 
@@ -360,7 +360,7 @@ Este es el mensaje de error que obtenemos:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
 ```
 
-El problema es que `result` sale del ámbito y se limpia al final de la función
+El problema es que `result` sale del scope y se limpia al final de la función
 `longest`. También estamos tratando de devolver una referencia a `result` desde
 la función. No hay forma de especificar parámetros de lifetime que cambien la
 referencia colgante, y Rust no nos permitirá crear una referencia colgante. En
@@ -402,8 +402,8 @@ en su campo `part`.
 La función `main` aquí crea una instancia del struct `ImportantExcerpt` que
 contiene una referencia a la primera oración de la variable `novel`. La data en
 `novel` existe antes de que se cree la instancia de `ImportantExcerpt`. Además,
-`novel` no sale del ámbito hasta después de que la instancia de `ImportantExcerpt`
-sale del ámbito, por lo que la referencia en la instancia de `ImportantExcerpt`
+`novel` no sale del scope hasta después de que la instancia de `ImportantExcerpt`
+sale del scope, por lo que la referencia en la instancia de `ImportantExcerpt`
 es válida.
 
 ### Omisión de lifetime
