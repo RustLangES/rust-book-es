@@ -14,8 +14,8 @@ parámetros y el valor de retorno. Hacerlo hace que nuestro código sea más
 flexible y brinda más funcionalidad a los llamadores de nuestra función al
 tiempo que evita la duplicación de código.
 
-Continuando con nuestra función `largest`, el Listado 10-4 muestra dos
-funciones que encuentran el valor más grande en una rebanada. Luego
+Continuando con nuestra función `largest`, el listado 10-4 muestra dos
+funciones que encuentran el valor más grande en un slice. Luego
 combinaremos estos en una sola función que usa genéricos.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -24,10 +24,10 @@ combinaremos estos en una sola función que usa genéricos.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-4: Dos funciones que difieren solo en sus
+<span class="caption">Listado 10-4: Dos funciones que difieren solo en sus
 nombres y los tipos en sus firmas</span>
 
-La función `largest_i32` es la que extrajimos en el Listado 10-3 que encuentra
+La función `largest_i32` es la que extrajimos en el listado 10-3 que encuentra
 el `i32` más grande en un slice. La función `largest_char` encuentra el
 `char` más grande en un slice. Los cuerpos de las funciones tienen el mismo
 código, así que eliminemos la duplicación introduciendo un parámetro de tipo
@@ -58,7 +58,7 @@ Leemos esta definición como: la función `largest` es genérico sobre algún ti
 de tipo `T`. La función `largest` devolverá una referencia a un valor del mismo
 tipo `T`.
 
-El Listado 10-5 muestra la definición de la función `largest` combinada usando
+El listado 10-5 muestra la definición de la función `largest` combinada usando
 el tipo de datos genérico en su firma. La lista también muestra cómo podemos
 llamar a la función con un slice de valores `i32` o valores `char`. Tenga en
 cuenta que este código aún no se compilará, pero lo arreglaremos más adelante
@@ -94,7 +94,7 @@ implementa `PartialOrd` tanto en `i32` como en `char`.
 ### Definiciones In Struct
 
 También podemos definir structs para usar tipos genéricos en uno o más campos
-usando la sintaxis `<>`. El Listado 10-6 define un struct `Point<T>` para
+usando la sintaxis `<>`. El listado 10-6 define un struct `Point<T>` para
 contener valores `x` e `y` de cualquier tipo `T`.
 
 <span class="filename">Filename: src/main.rs</span>
@@ -116,7 +116,7 @@ Ten en cuenta que porque hemos usado un solo tipo genérico para definir
 `Point<T>`, esta definición dice que el struct `Point<T>` es genérico sobre algún
 tipo `T`, y los campos `x` e `y` son _ambos_ ese mismo tipo, sea cual sea ese
 tipo. Si creamos una instancia de un `Point<T>` que tenga valores de diferentes
-tipos, como en el Listado 10-7, nuestro código no se compilará.
+tipos, como en el listado 10-7, nuestro código no se compilará.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -139,7 +139,7 @@ este:
 
 Para definir un struct `Point` donde `x` e `y` son ambos genéricos pero podrían
 tener diferentes tipos, podemos usar múltiples parámetros de tipo genérico. Por
-ejemplo, en el Listado 10-8, cambiamos la definición de `Point` para que sea
+ejemplo, en el listado 10-8, cambiamos la definición de `Point` para que sea
 generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
 `U`.
 
@@ -149,11 +149,8 @@ generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-08/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-8: A `Point<T, U>` genérico over two types so
-that `x` and `y` can be values of different types</span>
-
-<span class="caption">Listing 10-8: un genérico `Point<T, U>` sobre dos tipos
-que `x` e `y` pueden ser valores de diferentes tipos</span>
+<span class="caption">Listado 10-8: Un `Point<T, U>` genérico sobre dos tipos
+para que `x` e `y` puedan ser valores de tipos diferentes</span>
 
 ¡Ahora todas las instancias de `Point` que se muestran se permiten! Puede usar
 tantos parámetros de tipo genérico en una definición como desee, pero usar más
@@ -197,7 +194,7 @@ El enum `Result` es un genérico en dos tipos, `T` y `E`. Tiene dos variantes:
 de estos dos tipos, `T` o `E`, será el tipo del valor que se devuelve cuando se
 produce un error o cuando se tiene éxito (devolviendo un valor de tipo `T`) o
 falla (devolviendo un valor de tipo `E`). De hecho, esta es la definición que
-usamos para abrir un archivo en el Listado 9-3, donde `T` se llenó con el tipo
+usamos para abrir un archivo en el listado 9-3, donde `T` se llenó con el tipo
 `std::fs::File` cuando el archivo se abrió con éxito y `E` se llenó con el tipo
 `std::io::Error` cuando hubo problemas para abrir el archivo.
 
@@ -208,8 +205,8 @@ evitar la duplicación usando tipos genérico en su lugar.
 ### Definiciones In Method
 
 Podemos implementar métodos en structs y enums y usar tipos genérico en sus
-definiciones también. El Listado 10-9 muestra el struct `Point<T>` que
-definimos en el Listado 10-6 con un método llamado `x` implementado en él.
+definiciones también. El listado 10-9 muestra el struct `Point<T>` que
+definimos en el listado 10-6 con un método llamado `x` implementado en él.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -217,7 +214,7 @@ definimos en el Listado 10-6 con un método llamado `x` implementado en él.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-09/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-9: Implementando un método llamado `x` en el
+<span class="caption">Listado 10-9: Implementando un método llamado `x` en el
 struct `Point<T>` que devolverá una referencia al campo `x` de tipo `T`</span>
 
 Aquí, hemos definido un método llamado `x` en `Point<T>` que devuelve una
@@ -237,7 +234,7 @@ sustituyendo al tipo genérico.
 También podemos especificar restricciones en los tipos genérico al definir
 métodos en el tipo. Por ejemplo, podríamos implementar métodos solo en
 instancias de `Point<T>` con un tipo `f32` concreto en lugar de en instancias
-de `Point<T>` con cualquier tipo genérico. En el Listado 10-10 usamos el tipo
+de `Point<T>` con cualquier tipo genérico. En el listado 10-10 usamos el tipo
 concreto `f32`, lo que significa que no declaramos ningún tipo después de
 `impl`.
 
@@ -247,7 +244,7 @@ concreto `f32`, lo que significa que no declaramos ningún tipo después de
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-10: Un bloque `impl` que solo aplica a un
+<span class="caption">Listado 10-10: Un bloque `impl` que solo aplica a un
 struct con un tipo concreto particular para el parámetro del tipo genérico
 `T`</span>
 
@@ -259,7 +256,7 @@ matemáticas que solo están disponibles para tipos de punto flotante.
 
 Los parámetros de tipo genérico en una definición de struct no siempre son los
 mismos que los que usas en las firmas de métodos de ese mismo struct. El
-Listado 10-11 usa los tipos genérico `X1` e `Y1` para el struct `Point` y `X2`
+listado 10-11 usa los tipos genérico `X1` e `Y1` para el struct `Point` y `X2`
 `Y2` para la firma del método `mixup` para hacer el ejemplo más claro. El
 método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 (de tipo `X1`) y el valor `y` del `Point` pasado (de tipo `Y2`).
@@ -270,7 +267,7 @@ método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-11: Un método que usa diferentes tipos genérico
+<span class="caption">Listado 10-11: Un método que usa diferentes tipos genérico
 de la definición de su struct</span>
 
 En `main`, hemos definido un `Point` que tiene un `i32` para `x` (con valor `5`)
@@ -298,7 +295,7 @@ Rust logra esto realizando _monomorfización_ del código usando genéricos en
 tiempo de compilación. _Monomorfización_ es el proceso de convertir código
 genérico en código específico llenando los tipos concretos que se usan cuando
 se compila. En este proceso, el compilador hace lo contrario de los pasos que
-usamos para crear la función genérica en el Listado 10-5: el compilador mira
+usamos para crear la función genérica en el listado 10-5: el compilador mira
 todos los lugares donde se llama el código genérico y genera código para los
 tipos concretos con los que se llama el código genérico.
 
@@ -310,7 +307,7 @@ let integer = Some(5);
 let float = Some(5.0);
 ```
 
-Cuando Rust compilas este código, realiza monomorfización. Durante ese
+Cuando Rust compila este código, realiza monomorfización. Durante ese
 proceso, el compilador lee los valores que se han usado en las instancias de
 `Option<T>` e identifica dos tipos de `Option<T>`: uno es `i32` y el otro es
 `f64`. Como tal, expande la definición genérica de `Option<T>` en dos
