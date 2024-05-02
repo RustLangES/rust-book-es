@@ -213,7 +213,7 @@ en su parámetro `item`, que es de algún tipo que implementa el trait `Summary`
 Para hacer esto, usamos la sintaxis `impl Trait`, como esto:
 
 ```rust,ignore
-
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-04-traits-as-parameters/src/lib.rs:here}}
 ```
 
 En lugar de un tipo concreto para el parámetro `item`, especificamos el
