@@ -11,7 +11,7 @@ puntero, una referencia garantiza que apunte a un valor válido de un tipo
 particular para la vida de esa referencia.
 
 Aquí está cómo definirías y usarías una función `calcular_longitud` que tiene
-una referencia a un objeto como parámetro en lugar de tomar la propiedad del
+una referencia a un objeto como parámetro en lugar de tomar la propiedad del valor.
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -49,7 +49,7 @@ La sintaxis `&s1` nos permite crear una referencia que *se refiere* al valor de
 descartará cuando la referencia deje de usarse.
 
 Del mismo modo, la firma de la función usa `&` para indicar que el tipo del
-parámetro `s` es una referencia. Vamos a agregar algunas anotaciones
+parámetro `s` es una referencia. Vamos a agregar algunas anotaciones:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}
