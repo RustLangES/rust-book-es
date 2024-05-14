@@ -30,7 +30,7 @@ Queremos hacer una biblioteca de agregación de medios llamada `aggregator` que
 puede mostrar resúmenes de datos que podrían estar almacenados en una
 instancia de `NewsArticle` o `Tweet`. Para hacer esto, necesitamos un resumen
 de cada tipo, y solicitaremos ese resumen llamando un método `summarize` en
-una instancia. El Listado 10-12 muestra la definición de un trait `Summary`
+una instancia. El listado 10-12 muestra la definición de un trait `Summary`
 público que expresa este comportamiento.
 
 <span class="filename">Filename: src/lib.rs</span>
@@ -39,7 +39,7 @@ público que expresa este comportamiento.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-12/src/lib.rs}}
 ```
 
-<span class="caption">Listing 10-12: Un trait `Summary` que consiste en el
+<span class="caption">Listado 10-12: Un trait `Summary` que consiste en el
 comportamiento proporcionado por un método `summarize`</span>
 
 Aquí, declaramos un trait usando la palabra clave `trait` y luego el nombre
@@ -62,7 +62,7 @@ se enumeran una por línea y cada línea termina en un punto y coma.
 ### Implementando un Trait en un Tipo
 
 Ahora que hemos definido el trait `Summary`, podemos implementarlo en los
-tipos en nuestro agregador de medios. El Listado 10-13 muestra una
+tipos en nuestro agregador de medios. El listado 10-13 muestra una
 implementación del trait `Summary` en el struct `NewsArticle` que usa el
 encabezado, el autor y la ubicación para crear el valor de retorno de
 `summarize`. Para el struct `Tweet`, definimos `summarize` como el nombre de
@@ -75,7 +75,7 @@ tweet ya está limitado a 280 caracteres.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 10-13: Implementación del trait `Summary` en los
+<span class="caption">Listado 10-13: Implementación del trait `Summary` en los
 tipos `NewsArticle` y `Tweet`</span>
 
 Implementar un trait en un tipo es similar a implementar métodos regulares.
@@ -102,7 +102,7 @@ Este código imprime `New article available! horse_ebooks: of course, as you
 probably already know, people`.
 
 Otros crates que dependen de nuestro crate `aggregator` pueden usar el trait
-`Summary` en el scope para implementar `Summary` en sus propios tipos. Una
+`Summary` en el ámbito para implementar `Summary` en sus propios tipos. Una
 restricción a tener en cuenta es que podemos implementar un trait en un tipo
 solo si al menos uno de los trait o el tipo es local a nuestro crate. Por
 ejemplo, podemos implementar traits de la biblioteca estándar como `Display`
@@ -132,9 +132,9 @@ métodos en cada tipo. Luego, a medida que implementamos el trait en un tipo
 particular, podemos mantener o anular el comportamiento predeterminado para
 cada método.
 
-En el Listado 10-14, especificamos un string predeterminado para el método
+En el listado 10-14, especificamos un string predeterminado para el método
 `summarize` del trait `Summary` en lugar de solo definir la firma del método,
-como hicimos en el Listado 10-12.
+como hicimos en el listado 10-12.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -142,7 +142,7 @@ como hicimos en el Listado 10-12.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-14/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 10-14: Definición de un trait `Summary` con un
+<span class="caption">Listado 10-14: Definición de un trait `Summary` con un
 valor predeterminado implementado del método `summarize`</span>
 
 Para usar una implementación predeterminada para resumir instancias de
@@ -162,7 +162,7 @@ como esto:
 Este código imprime `New article available! (Read more...)`.
 
 Crear una implementación predeterminada no requiere que cambiemos nada sobre
-la implementación de `Summary` en `Tweet` en el Listado 10-13. La razón es que
+la implementación de `Summary` en `Tweet` en el listado 10-13. La razón es que
 la sintaxis para anular una implementación predeterminada es la misma que la
 sintaxis para implementar un método de trait que no tiene una implementación
 predeterminada.
@@ -208,7 +208,7 @@ una implementación primordial de ese mismo método.
 Ahora que sabes cómo definir y implementar traits, podemos explorar cómo usar
 traits para definir funciones que aceptan muchos tipos diferentes. Usaremos el
 trait `Summary` que implementamos en los tipos `NewsArticle` y `Tweet` en el
-Listado 10-13 para definir una función `notify` que llama al método `summarize`
+listado 10-13 para definir una función `notify` que llama al método `summarize`
 en su parámetro `item`, que es de algún tipo que implementa el trait `Summary`.
 Para hacer esto, usamos la sintaxis `impl Trait`, como esto:
 
@@ -352,7 +352,7 @@ ignore --> del Capítulo 17.
 
 Al usar un trait bound con un bloque `impl` que usa parámetros de tipo generic,
 podemos implementar métodos condicionalmente para tipos que implementan los
-traits especificados. Por ejemplo, el tipo `Pair<T>` en el Listado 10-15 siempre
+traits especificados. Por ejemplo, el tipo `Pair<T>` en el listado 10-15 siempre
 implementa la función `new` para devolver una nueva instancia de `Pair<T>`
 (recuerda de la sección [“Definiendo métodos”][methods]<!-- ignore --> del
 Capítulo 5 que `Self` es un alias de tipo para el tipo del bloque `impl`, que en
@@ -367,7 +367,7 @@ impresión.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-15/src/lib.rs}}
 ```
 
-<span class="caption">Listing 10-15: Implementación condicional de métodos en un
+<span class="caption">Listado 10-15: Implementación condicional de métodos en un
 tipo generic dependiendo de los trait bounds</span>
 
 También podemos implementar condicionalmente un trait para cualquier tipo que
