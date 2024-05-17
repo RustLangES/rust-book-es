@@ -1,0 +1,127 @@
+#################### 🚧 WARNING: READ THIS BEFORE USING THIS FILE 🚧 ####################
+#
+#
+#
+# IF YOU DON'T KNOW WHAT YOU'RE DOING, YOU CAN EASILY LEAK SECRETS BY USING A
+# `pull_request_target` WORKFLOW INSTEAD OF `pull_request`! SERIOUSLY, DO NOT
+# BLINDLY COPY AND PASTE THIS FILE WITHOUT UNDERSTANDING THE FULL IMPLICATIONS
+# OF WHAT YOU'RE DOING! WE HAVE TESTED THIS FOR OUR OWN USE CASES, WHICH ARE
+# NOT NECESSARILY THE SAME AS YOURS! WHILE WE AREN'T EXPOSING ANY OF OUR SECRETS,
+# ONE COULD EASILY DO SO BY MODIFYING OR ADDING A STEP TO THIS WORKFLOW!
+#
+#
+#
+#################### 🚧 WARNING: READ THIS BEFORE USING THIS FILE 🚧 ####################
+
+name: Docs - Preview Deployment
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - closed
+
+# cancel in-progress runs on new commits to same PR (github.event.number)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    if: ${{ github.event.action != 'closed' }}
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
+    runs-on: ubuntu-latest
+    name: Deploy Preview to Cloudflare Pages
+    env:
+      BRANCH_NAME: preview-${{ github.head_ref }}
+      ACTION_RUN: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Declare some variables
+        shell: bash
+        run: |
+          echo "SHA_SHORT=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
+      - name: Create comment
+        id: comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body: |
+            ## ⚡ Cloudflare Pages Deployment
+            | Name | Status | Preview |
+            | :--- | :----- | :------ |
+            | ${{env.BRANCH_NAME}}     |  🔨 Building ([Logs](${env.ACTION_RUN}))  | waiting... |
+
+      # Build Rust Page
+      - name: Install mdbook
+        run: |
+          mkdir bin
+          curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.6/mdbook-v0.4.36-localization-v0.6-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
+          curl -sSL https://github.com/catppuccin/mdBook/releases/download/v0.1.1/mdbook-catppuccin-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
+          echo "$(pwd)/bin" >> ${GITHUB_PATH}
+      - name: Build with mdBook
+        run: mdbook build
+
+      # Deploy
+      - name: Deploy
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./book --project-name=rust-book --branch="${ env.BRANCH_NAME }"
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            ## ⚡ Cloudflare Pages Deployment
+            | Name | Status | Preview |
+            | :--- | :----- | :------ |
+            | ${{env.BRANCH_NAME}} | ✅ Ready ([Logs](${env.ACTION_RUN}))  | [${{env.SHA_SHORT}}](${{ steps.deploy.outputs.deployment-url }}) |
+
+  # remove-preview:
+  #   if: ${{ github.event.action == "closed" }}
+  #   permissions:
+  #     contents: read
+  #     pull-requests: write
+  #     deployments: write
+  #   runs-on: ubuntu-latest
+  #   name: Remove Preview of Cloudflare Pages
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: "recursive"
+  #         ref: ${{ github.event.pull_request.head.ref }}
+  #         repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+  #     - name: Deploy
+  #       id: deploy
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #         command: pages --project-name=homepage --branch="${ env.BRANCH_NAME }"
+
+  #     - name: Create comment
+  #       uses: peter-evans/create-or-update-comment@v4
+  #       with:
+  #         issue-number: ${{ github.event.pull_request.number }}
+  #         comment-author: 'github-actions[bot]'
+  #         body: |
+  #           ## ⚡ Removing Cloudflare Pages Preview
+  #           | Name | Status |
+  #           | :--- | :----- |
+  #           | ${{env.BRANCH_NAME}} | ✅ Removed |
