@@ -18,7 +18,6 @@ on:
   pull_request_target:
     types:
       - opened
-      - edited
       - closed
 
 # cancel in-progress runs on new commits to same PR (github.event.number)
@@ -90,7 +89,7 @@ jobs:
             ## ⚡ Cloudflare Pages Deployment
             | Name | Status | Preview |
             | :--- | :----- | :------ |
-            | ${{env.BRANCH_NAME}} | ✅ Ready ([Logs](${env.ACTION_RUN}))  | [${{env.SHA_SHORT}}](${{ steps.deploy.outputs.deployment-url }}) |
+            | ${{env.BRANCH_NAME}} | ✅ Ready ([Logs](${{env.ACTION_RUN}}))  | [${{env.SHA_SHORT}}](${{ steps.deploy.outputs.deployment-url }}) |
 
   # remove-preview:
   #   if: ${{ github.event.action == "closed" }}
