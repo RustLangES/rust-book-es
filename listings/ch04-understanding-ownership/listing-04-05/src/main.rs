@@ -3,7 +3,7 @@ fn main() {
 
     let (s2, len) = calcular_longitud(s1);
 
-    println!("La longitud de '{}' es {}.", s2, len);
+    println!("La longitud de '{s2}' es {len}.");
 }
 
 fn calcular_longitud(s: String) -> (String, usize) {

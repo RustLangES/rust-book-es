@@ -53,7 +53,7 @@ Por ejemplo, usa *hola_mundo.rs* en lugar de *holamundo.rs*.
 Ahora abre el archivo *main.rs* que acabas de crear y escribe el código en el
 Listado 1-1.
 
-<span class="filename">Nombre de archivo: main.rs</span>
+<Listing number="1-1" file-name="main.rs" caption="Un programa que imprime `¡Hola, mundo!`">
 
 ```rust
 fn main() {
@@ -61,7 +61,7 @@ fn main() {
 }
 ```
 
-<span class="caption">Listado 1-1: Un programa que imprime `¡Hola, mundo!`</span>
+</Listing>
 
 Guarda el archivo y vuelve a la ventana de la terminal en el directorio
 *~/proyectos/hola_mundo*. En Linux o macOS, escribe los siguientes comandos para
@@ -205,4 +205,4 @@ compartir tu código. A continuación, te presentaremos la herramienta
 Cargo, que te ayudará a escribir programas de Rust reales.
 
 [troubleshooting]: ch01-01-installation.html#solucion-de-problemas
-[devtools]: appendix-04-useful-development-tools.md
+[devtools]: appendix-04-useful-development-tools.html

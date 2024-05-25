@@ -14,7 +14,7 @@ el trait `Deref` hace posible que los smart pointers trabajen de manera similar
 a las referencias. Luego veremos la característica de _deref coercion_ de Rust
 y cómo nos permite trabajar con referencias o smart pointers.
 
-> Nota: hay una gran diferencia entre el tipo `MyBox<T>` que estamos a punto de
+> Nota: Hay una gran diferencia entre el tipo `MyBox<T>` que estamos a punto de
 > construir y el tipo `Box<T>` real: nuestra versión no almacenará sus datos en
 > el heap. Nos estamos enfocando en este ejemplo en `Deref`, por lo que dónde
 > se almacenan los datos es menos importante que el comportamiento similar al

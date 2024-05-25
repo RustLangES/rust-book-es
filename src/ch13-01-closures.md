@@ -347,8 +347,8 @@ tipo `T`. Usar `FnOnce` en el trait bound expresa la restricción de que
 `unwrap_or_else` solo va a llamar a `f` como máximo una vez. En el cuerpo de
 `unwrap_or_else`, podemos ver que si el `Option` es `Some`, `f` no se llamará.
 Si el `Option` es `None`, `f` se llamará una vez. Debido a que todos los
-closures implementan `FnOnce`, `unwrap_or_else` acepta la mayor cantidad
-diferente de tipos de closures y es tan flexible como puede ser.
+closures implementan `FnOnce`, `unwrap_or_else` acepta todos esos tipos de 
+closures y es tan flexible como puede ser.
 
 > Nota: Las funciones también pueden implementar los tres traits `Fn`, `FnMut`
 > y `FnOnce`. Si lo que queremos hacer no requiere capturar un valor del
@@ -401,7 +401,8 @@ compilador no nos permitirá usar este closure con `sort_by_key`:
 `sort_by_key`</span>
 
 Esto es un ejemplo artificial y complicado (que no funciona) para tratar de
-contar la cantidad de veces que se llama a `sort_by_key` al ordenar `list`.
+contar la cantidad de veces que se llama a `sort_by_key` llama a la closure al 
+ordenar `list`.
 Este código intenta hacer este conteo empujando `value`—un `String` del
 entorno del closure—en el vector `sort_operations`. El closure captura `value`
 y luego mueve `value` fuera del closure transfiriendo la propiedad de `value`
@@ -419,13 +420,13 @@ el closure debe implementar `FnMut`:
 El error señala la línea en el cuerpo del closure que mueve `value` fuera del
 entorno. Para solucionar esto, debemos cambiar el cuerpo del closure para que
 no mueva valores fuera del entorno. Para contar la cantidad de veces que se
-llama a `sort_by_key`, mantener un contador en el entorno e incrementar su
+llama a la closure, mantener un contador en el entorno e incrementar su
 valor en el cuerpo del closure es una forma más directa de calcular eso. El
 closure en el Listado 13-9 funciona con `sort_by_key` porque solo está
 capturando una referencia mutable al contador `num_sort_operations` y, por lo
 tanto, puede ser llamado más de una vez:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-09/src/main.rs}}

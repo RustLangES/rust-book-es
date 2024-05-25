@@ -144,7 +144,7 @@ Si seguimos leyendo los errores, encontraremos esta nota útil:
 ```
 
 Intentemos eso. La llamada a la macro `println!` ahora se verá así:
-`println!("rect1 es {:?}", rect1);`. Poner el especificador `:?` dentro de
+`println!("rect1 es {rect1:?}");`. Poner el especificador `:?` dentro de
 los corchetes curvos le dice a `println!` que queremos usar un formato de
 salida llamado `Debug`. El rasgo `Debug` nos permite imprimir nuestra estructura
 de una manera que sea útil para los desarrolladores para que podamos ver su

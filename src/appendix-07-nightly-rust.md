@@ -124,6 +124,12 @@ de que ocurra el siguiente lanzamiento estable! La rotura en una versión beta
 es relativamente rara, pero `rustc` sigue siendo un software, y los errores
 existen.
 
+### Maintenance time
+
+The Rust project supports the most recent stable version. When a new stable
+version is released, the old version reaches its end of life (EOL). This means
+each version is supported for six weeks.
+
 ## Caracteristicas inestables
 
 Hay alo más con este modelo de lanzamiento: características inestables.

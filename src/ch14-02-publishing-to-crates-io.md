@@ -286,11 +286,12 @@ cuenta de GitHub. (La cuenta de GitHub es actualmente un requisito, pero el
 sitio podría admitir otras formas de crear una cuenta en el futuro). Una vez
 que hayas iniciado sesión, visita la configuración de tu cuenta en
 [https://crates.io/me/](https://crates.io/me/)<!-- ignore --> y recupera tu
-clave de API. Luego ejecuta el comando `cargo login` con tu clave de API, como
-se muestra a continuación:
+clave de API. Luego ejecuta el comando `cargo login` y pega tu clave de la API, 
+cuando se solicitad, como se muestra a continuación:
 
 ```console
-$ cargo login abcdefghijklmnopqrstuvwxyz012345
+$ cargo login
+abcdefghijklmnopqrstuvwxyz012345
 ```
 
 Este comando informará a Cargo de tu token de API y lo almacenará localmente en

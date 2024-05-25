@@ -31,7 +31,7 @@ otra ruta.
 Ten en cuenta que `use` solo crea el atajo para el ámbito particular en el que
 ocurre él `use`. El Listado 7-12 mueve la función `eat_at_restaurant` a un
 nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente al de la sentencia `use`,
-por lo que el cuerpo de la función no compilará:
+por lo que el cuerpo de la función no compilará.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -58,7 +58,7 @@ Observe que también hay una advertencia de que él `use` ya no se utiliza en su
 
 En el Listado 7-11, podrías haberte preguntado por qué especificamos
 `use crate::front_of_house::hosting` y luego llamamos a `hosting::add_to_waitlist`
-en `eat_at_restaurant` en lugar de especificar toda la ruta
+en `eat_at_restaurant`, en lugar de especificar toda la ruta
 hasta la función `add_to_waitlist` para lograr el mismo resultado, como en el
 Listado 7-13.
 
@@ -101,7 +101,7 @@ manera.
 La excepción a este idioma es si estamos trayendo dos elementos con el mismo nombre
 al ámbito con declaraciones `use`, porque Rust no lo permite. El Listado
 7-15 muestra cómo traer dos tipos `Result` al ámbito que tienen el mismo nombre
-pero módulos padres diferentes y cómo referirse a ellos.
+pero módulos padres diferentes, y cómo referirse a ellos.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -114,7 +114,7 @@ en el mismo ámbito requiere el uso de sus módulos principales.</span>
 
 Como puedes ver, usar los módulos padres distingue los dos tipos `Result`. Sí,
 en cambio, especificamos `use std::fmt::Result` y `use std::io::Result`,
-tendríamos dos tipos `Result` en el mismo ámbito y Rust no sabría a cuál nos
+tendríamos dos tipos `Result` en el mismo ámbito, y Rust no sabría a cuál nos
 referimos cuando usamos `Result`.
 
 ### Proporcionando nuevos nombres con el Keyword `as`
@@ -145,8 +145,8 @@ Cuando traemos un nombre al ámbito con la keyword `use`, el nombre está
 disponible en ese ámbito de forma privada. Si queremos que el nombre esté
 disponible para que el código que llama a nuestro código lo use, podemos
 combinar `pub` y `use`. Esta técnica se llama _re-exporting_ porque estamos
-trayendo un elemento al ámbito, pero también haciendo que ese elemento esté disponible
-para que otros lo traigan a su ámbito.
+trayendo un elemento al ámbito, pero también haciendo que ese elemento esté 
+disponible para que otros lo traigan a su ámbito.
 
 El listado 7-17 muestra el código del listado 7-11 con `use` en el módulo
 `front_of_house` cambiado a `pub use`.
@@ -162,9 +162,11 @@ lo use cualquier código desde un nuevo ámbito con `pub use`</span>
 
 Antes de este cambio, el código externo tendría que llamar a la función
 `add_to_waitlist` usando la ruta
-`restaurant::front_of_house::hosting::add_to_waitlist()`. Ahora que este
-`pub use` ha reexportado el módulo `hosting` desde el módulo raíz, el código
-externo puede usar la ruta `restaurant::hosting::add_to_waitlist()` en su lugar.
+`restaurant::front_of_house::hosting::add_to_waitlist()`, el cual también 
+debería tener requerido el modulo `front_of_house` para ser marcado como `pub`. 
+Ahora que este `pub use` ha reexportado el módulo `hosting` desde el módulo raíz,
+el código externo puede usar la ruta `restaurant::hosting::add_to_waitlist()` en
+su lugar.
 
 Re-exportar es útil cuando la estructura interna de tu código es diferente de
 cómo los programadores que llaman a tu código pensarían sobre el dominio. Por

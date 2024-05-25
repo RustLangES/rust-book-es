@@ -16,7 +16,7 @@ en los programas Rust:
   otro.
 - Un _string_ es una colección de caracteres. Hemos mencionado el tipo `String`
   anteriormente, pero en este capítulo hablaremos de él en profundidad.
-- Un _hash map_ le permite asociar un valor con una clave particular. Es una
+- Un _hash map_ le permite asociar un valor con una clave especifica. Es una
   implementación particular de la estructura de datos más general llamada _map_.
 
 Para aprender sobre los otros tipos de colecciones proporcionados por la

@@ -64,8 +64,8 @@ Listado 18-8.
 <span class="caption">Listing 18-9: Usando `if let` y un bloque con patterns 
 refutables en lugar de `let`</span>
 
-¡Le hemos dado una solución al código! Este código es perfectamente válido,
-aunque significa que no podemos usar un pattern irrefutable sin recibir un
+¡Le hemos dado una solución al código! Este código es perfectamente válido ahora.
+Sin embargo, significa que no podemos usar un pattern irrefutable sin recibir un
 error. Si le damos a `if let` un pattern que siempre coincidirá, como `x`, como
 se muestra en el Listado 18-10, el compilador dará una advertencia.
 

@@ -155,10 +155,10 @@ archivo faltante.
 >     let greeting_file = File::open("hello.txt").unwrap_or_else(|error| {
 >         if error.kind() == ErrorKind::NotFound {
 >             File::create("hello.txt").unwrap_or_else(|error| {
->                 panic!("Problem creating the file: {:?}", error);
+>                 panic!("Problem creating the file: {error:?}");
 >             })
 >         } else {
->             panic!("Problem opening the file: {:?}", error);
+>             panic!("Problem opening the file: {error:?}");
 >         }
 >     });
 > }
@@ -197,9 +197,8 @@ copy and paste relevant text
 -->
 
 ```text
-thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Os {
-code: 2, kind: NotFound, message: "No such file or directory" }',
-src/main.rs:4:49
+thread 'main' panicked at src/main.rs:4:49:
+called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
 
 Del mismo modo, el método `expect` nos permite elegir el mensaje de error de
@@ -226,9 +225,8 @@ copy and paste relevant text
 -->
 
 ```text
-thread 'main' panicked at 'hello.txt should be included in this project: Os {
-code: 2, kind: NotFound, message: "No such file or directory" }',
-src/main.rs:5:10
+thread 'main' panicked at src/main.rs:5:10:
+hello.txt should be included in this project: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
 
 En producción, la mayoría de los Rustaceans eligen `expect` en lugar de

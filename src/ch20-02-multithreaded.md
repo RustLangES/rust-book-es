@@ -689,7 +689,7 @@ no se sobrecargará si el servidor recibe muchas solicitudes. Si hacemos una
 solicitud a _/sleep_, el servidor podrá atender otras solicitudes haciendo que
 otro hilo las ejecute.
 
-> Nota: si abres _/sleep_ en múltiples ventanas del navegador simultáneamente,
+> Nota: Si abres _/sleep_ en múltiples ventanas del navegador simultáneamente,
 > podrían cargarse una a la vez en intervalos de 5 segundos. Algunos navegadores
 > web ejecutan múltiples instancias de la misma solicitud secuencialmente por
 > razones de almacenamiento en caché. Esta limitación no es causada por nuestro

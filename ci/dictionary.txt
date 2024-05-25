@@ -1281,6 +1281,7 @@ backtrace
 backtraces
 BACKTRACE
 Backtraces
+beefeb
 benchmarking
 bioinformatics
 bitand
@@ -1987,6 +1988,7 @@ Submodules
 submodule
 suboptimal
 subpath
+subslices
 substring
 subteams
 subtree

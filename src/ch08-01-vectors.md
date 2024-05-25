@@ -125,7 +125,7 @@ permanezcan válidas. Recuerda la regla que establece que no puedes tener
 referencias mutables e inmutables en el mismo ámbito. Esa regla se aplica en el
 listado 8-6, donde tenemos una referencia inmutable al primer elemento en un
 vector e intentamos agregar un elemento al final. Este programa no funcionará si
-también intentamos referirnos a ese elemento más adelante en la función:
+también intentamos referirnos a ese elemento más adelante en la función.
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}

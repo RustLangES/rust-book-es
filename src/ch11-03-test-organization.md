@@ -71,7 +71,7 @@ Nota que la función `internal_adder` no está marcada como `pub`. Los tests son
 solo código Rust, y el módulo `tests` es solo otro módulo. Como discutimos en
 la sección [“Paths for Referring to an Item in the Module Tree”][paths]<!--
 ignore -->, items en módulos hijos pueden usar los items en sus ancestros. En
-este test, traemos todos los items del padre del módulo `test` al alcance con
+este test, traemos todos los items del padre del módulo `tests` al alcance con
 `use super::*`, y entonces el test puede llamar a `internal_adder`. Si no
 piensas que las funciones privadas deberían ser testeables, no hay nada en Rust
 que te obligue a hacerlo.
@@ -124,8 +124,8 @@ crate `adder`</span>
 
 Cada archivo en el directorio _tests_ es un crate separado, así que necesitamos
 importar nuestra biblioteca en el scope de cada crate de test. Por esa razón,
-agregamos `use adder` al inicio del código, lo cual no necesitamos en los tests
-unitarios.
+agregamos `use adder::add_two` al inicio del código, lo cual no necesitamos en 
+los tests unitarios.
 
 No es necesario anotar ningún código en _tests/integration_test.rs_ con
 `#[cfg(test)]`. Cargo trata al directorio `tests` de manera especial y compila

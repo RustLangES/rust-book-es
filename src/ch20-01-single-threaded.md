@@ -466,9 +466,9 @@ y usa las variables `status_line` y `filename`. Esto hace que sea más fácil
 ver la diferencia entre los dos casos, y significa que solo tenemos un lugar
 para actualizar el código si queremos cambiar la forma en que funciona la
 lectura de archivos y la escritura de respuestas. El comportamiento del código
-en el Listado 20-9 será el mismo que el del Listado 20-8.
+en el Listado 20-9 será el mismo que el del Listado 20-7.
 
-¡Increible! Ahora tenemos un servidor web simple en aproximadamente 40 líneas
+¡Increíble! Ahora tenemos un servidor web simple en aproximadamente 40 líneas
 de código Rust que responde a una solicitud con una página de contenido y
 responde a todas las demás solicitudes con una respuesta 404.
 

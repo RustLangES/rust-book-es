@@ -1,7 +1,7 @@
 ## El Tipo Slice
 
 Los _Slices_ te permiten referenciar a una secuencia contigua de elementos
-en una colección en lugar de la colección completa. Un slice es una especie de
+en una [colección](ch08-00-common-collections.md) en lugar de la colección completa. Un slice es una especie de
 referencia, por lo que no tiene ownership.
 
 Aquí hay un pequeño problema de programación: escribe una función que tome un

@@ -24,7 +24,7 @@ una nueva traducción.
 - [Esperanto](https://github.com/psychoslave/Rust-libro)
 - [Griego](https://github.com/TChatzigiannakis/rust-book-greek)
 - [Sueco](https://github.com/sebras/book)
-- [Persa](https://github.com/pomokhtari/rust-book-fa)
+- [Persa](https://github.com/RustFarsi/book)
 - [Alemán](https://github.com/rust-lang-de/rustbook-de)
 - [Hindú](https://github.com/venkatarun95/rust-book-hindi)
 - [Tailandés](https://github.com/rust-lang-th/book-th)

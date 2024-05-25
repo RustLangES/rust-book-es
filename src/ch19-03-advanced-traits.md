@@ -460,7 +460,7 @@ crate. Podemos hacer un struct llamado `Wrapper` que contenga una instancia de
 
 La implementación de `Display` usa `self.0` para acceder al `Vec<T>` interno,
 porque `Wrapper` es un struct de tupla y `Vec<T>` es el item en el índice 0 de
-la tupla. Luego podemos usar la funcionalidad del tipo `Display` en `Wrapper`.
+la tupla. Luego podemos usar la funcionalidad del trait `Display` en `Wrapper`.
 
 La desventaja de usar esta técnica es que `Wrapper` es un nuevo tipo, por lo
 que no tiene los métodos del valor que contiene. Tendríamos que implementar

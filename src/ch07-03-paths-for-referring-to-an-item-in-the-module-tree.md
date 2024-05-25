@@ -21,7 +21,7 @@ root. Este es el mismo que preguntar: ¿cuál es la ruta de la función
 módulos y funciones removidas.
 
 Mostraremos dos formas de llamar a la función `add_to_waitlist` desde una nueva
-función `eat_at_restaurant` definida en el crate de la raíz. Estas rutas son
+función, `eat_at_restaurant`, definida en el crate de la raíz. Estas rutas son
 correctas, pero hay otro problema que impide que este ejemplo compile tal cual.
 Explicaremos por qué en un momento.
 
@@ -70,8 +70,8 @@ Nuestra preferencia en general es especificar rutas absolutas porque es más
 probable que queramos mover definiciones de código y llamadas de items
 independientemente.
 
-¡Intentemos compilar el listado 7-3 y averigüemos por qué aún no compila! El
-error que obtenemos se muestra en el listado 7-4.
+¡Intentemos compilar el listado 7-3 y averigüemos por qué aún no compila! Los
+errores que obtenemos se muestran en el listado 7-4.
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-03/output.txt}}
@@ -119,8 +119,8 @@ módulo `hosting` con la palabra clave `pub`, como se muestra en el listado 7-5.
 <span class="caption">Listado 7-5: Declarando el módulo `hosting` como `pub`
 para usarlo desde `eat_at_restaurant`</span>
 
-Desafortunadamente, el código en el listado 7-5 aún resulta en un error, como se
-muestra en el listado 7-6.
+Desafortunadamente, el código en el listado 7-5 aún resulta en errores de 
+compilador, como se muestra en el listado 7-6.
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-05/output.txt}}
@@ -157,7 +157,7 @@ y `fn add_to_waitlist` nos permite llamar a la función desde
 `eat_at_restaurant`</span>
 
 ¡Ahora el código compilará! Para ver por qué agregar la palabra clave `pub` nos
-permite usar estas rutas en `add_to_waitlist` con respecto a las reglas de
+permite usar estas rutas en `eat_at_restaurant` con respecto a las reglas de
 privacidad, veamos las rutas absolutas y relativas.
 
 En la ruta absoluta, comenzamos con `crate`, la raíz del árbol de módulos de nuestro crate.
@@ -193,8 +193,8 @@ Guidelines][api-guidelines].
 > predeterminada. Típicamente, los paquetes con este patrón de contener tanto
 > una biblioteca como un binario tendrán solo el código suficiente en el binario
 > para iniciar un ejecutable que llame al código con la biblioteca. Esto permite
-> que otros proyectos se beneficien de la mayor funcionalidad que proporciona el
-> paquete, porque el código de la biblioteca se puede compartir.
+> que otros proyectos se beneficien de que la mayor funcionalidad que 
+> proporciona el paquete, porque el código de la biblioteca se puede compartir.
 >
 > El árbol de módulos debería ser definido en _src/lib.rs_. Luego, cualquier
 > item público puede ser usado en el binario comenzando las rutas con el nombre
@@ -221,7 +221,7 @@ Considere el código en el listado 7-8 que modela la situación en la que un che
 arregla un pedido incorrecto y lo trae personalmente al cliente. La función
 `fix_incorrect_order` definida en el módulo `back_of_house` llama a la función
 `deliver_order` definida en el módulo padre especificando la ruta a
-`deliver_order` comenzando con `super`:
+`deliver_order`, comenzando con `super`.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -267,7 +267,7 @@ algunos campos privados</span>
 Debido a que el campo `toast` es público, podemos cambiar el valor de `toast`
 en una instancia de `Breakfast` en la función `eat_at_restaurant` en el listado
 7-10. Ten en cuenta que no podemos usar el campo `seasonal_fruit` en
-`eat_at_restaurant` porque `seasonal_fruit` es privado. ¡Intenta descomentar la
+`eat_at_restaurant`, porque `seasonal_fruit` es privado. ¡Intenta descomentar la
 línea que modifica el valor del campo `seasonal_fruit` para ver qué error
 obtiene!
 

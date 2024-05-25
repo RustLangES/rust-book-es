@@ -485,10 +485,10 @@ verifica en el control de versiones con el resto del código en su proyecto.
 Cuando _quiera_ actualizar un crate, Cargo proporciona el comando `update`,
 que ignorará el archivo _Cargo.lock_ y determinará todas las últimas versiones
 que cumplan con sus especificaciones en _Cargo.toml_. Cargo luego escribirá
-esas versiones en el archivo _Cargo.lock_. De lo contrario, de forma
-predeterminada, Cargo solo buscará versiones mayores que 0.8.5 y menores que
-0.9.0. Si el crate `rand` ha lanzado las dos nuevas versiones 0.8.6 y 0.9.0,
-vería lo siguiente si ejecutara `cargo update`:
+esas versiones en el archivo _Cargo.lock_. En este caso, Cargo solo buscará 
+versiones mayores que 0.8.5 y menores que 0.9.0. Si el crate `rand` ha lanzado 
+las dos nuevas versiones 0.8.6 y 0.9.0, vería lo siguiente si ejecutara 
+`cargo update`:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/listing-02-02/
@@ -974,8 +974,8 @@ sintaxis de los métodos, y el capítulo 6 explica cómo funcionan los enums.
 [randcrate]: https://crates.io/crates/rand
 [semver]: http://semver.org
 [cratesio]: https://crates.io/
-[doccargo]: http://doc.crates.io
-[doccratesio]: http://doc.crates.io/crates-io.html
+[doccargo]: https://doc.rust-lang.org/cargo/
+[doccratesio]: https://doc.rust-lang.org/cargo/reference/publishing.html
 [match]: ch06-02-match.html
 [shadowing]: ch03-01-variables-and-mutability.html#shadowing
 [parse]: https://doc.rust-lang.org/std/primitive.str.html#method.parse

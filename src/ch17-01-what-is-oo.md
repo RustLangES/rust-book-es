@@ -90,10 +90,10 @@ cambiar fácilmente los aspectos, como la estructura de datos, en el futuro. Por
 ejemplo, podríamos usar un `HashSet<i32>` en lugar de un `Vec<i32>` para el
 campo `list`. Mientras las firmas de los métodos públicos `add`, `remove`, y
 `average` permanezcan iguales, el código que usa `AveragedCollection` no
-necesitaría cambiar. Si hicimos `list` pública en su lugar, esto no sería
-necesariamente cierto: `HashSet<i32>` y `Vec<i32>` tienen diferentes métodos
-para agregar y eliminar elementos, por lo que el código externo probablemente
-tendría que cambiar si estuviera modificando `list` directamente.
+necesitaría cambiar para compilar. Si hicimos `list` pública en su lugar, esto 
+no sería necesariamente cierto: `HashSet<i32>` y `Vec<i32>` tienen diferentes 
+métodos para agregar y eliminar elementos, por lo que el código externo 
+probablemente tendría que cambiar si estuviera modificando `list` directamente.
 
 Si la encapsulación es un aspecto requerido para que un lenguaje se considere
 orientado a objetos, entonces Rust cumple con ese requisito. La opción de usar

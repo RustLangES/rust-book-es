@@ -37,7 +37,7 @@ Unsafe_. Esos superpoderes incluyen la capacidad de:
 - Llamar a una función o método inseguro
 - Acceder o modificar una variable estática mutable
 - Implementar un trait inseguro
-- Acceder a los campos de `union`s
+- Acceder a los campos de un `union`
 
 Es importante entender que `unsafe` no desactiva el borrow checker ni
 deshabilita ninguna otra de las comprobaciones de seguridad de Rust: si usa una

@@ -293,7 +293,7 @@ tipo, incluidos los structs de unidad.
 >   |
 >
 > For more information about this error, try `rustc --explain E0106`.
-> error: could not compile `structs` due to 2 previous errors
+> error: could not compile `structs` (bin "structs") due to 2 previous errors
 > ```
 >
 > En el Capítulo 10, discutiremos como solucionar estos errores para que puedas

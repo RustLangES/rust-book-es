@@ -15,10 +15,10 @@ fn main() {
   // Nada especial ocurre.
 
 fn tomar_ownership(un_string: String) { // un_string aparece en el ámbito
-    println!("{}", un_string);
+    println!("{un_string}");
 } // Aquí termina el ámbito, un_string es destruido con drop. 
   // La memoria es liberada.
 
 fn hacer_una_copia(un_entero: i32) { // un_entero aparece en el ámbito
-    println!("{}", un_entero);
+    println!("{un_entero}");
 } // Aquí termina el ámbito, un_entero es destruido. Nada especial ocurre.

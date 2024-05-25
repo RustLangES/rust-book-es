@@ -1,8 +1,7 @@
-extern crate regex;
-
-use regex::{Captures, Regex};
 use std::io;
 use std::io::Read;
+
+use regex::{Captures, Regex};
 
 fn main() {
     write_md(remove_markup(read_md()));
@@ -12,12 +11,12 @@ fn read_md() -> String {
     let mut buffer = String::new();
     match io::stdin().read_to_string(&mut buffer) {
         Ok(_) => buffer,
-        Err(error) => panic!("{}", error),
+        Err(error) => panic!("{error}"),
     }
 }
 
 fn write_md(output: String) {
-    print!("{}", output);
+    print!("{output}");
 }
 
 fn remove_markup(input: String) -> String {

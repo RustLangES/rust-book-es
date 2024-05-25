@@ -40,6 +40,7 @@ el que el crate binario depende. Otros proyectos pueden depender del crate de
 biblioteca Cargo para usar la misma lógica que la herramienta de línea de
 comandos Cargo usa.
 
+Un paquete puede venir en dos formas: un paquete binario o un paquete libreria.
 Un paquete puede contener tantos crates binarios como desees, pero como máximo
 solo un crate de biblioteca. Un paquete debe contener al menos un crate, ya sea
 un crate de biblioteca o un crate binario.
@@ -57,15 +58,16 @@ $ ls my-project/src
 main.rs
 ```
 
-Después de ejecutar `cargo new`, usamos `ls` para ver lo que crea Cargo. En el
-directorio del proyecto, hay un archivo _Cargo.toml_, que nos da un paquete.
-También hay un directorio _src_ que contiene _main.rs_. Abre _Cargo.toml_ en tu
-editor de texto, y observa que no hay mención de _src/main.rs_. Cargo sigue una
-convención de que _src/main.rs_ es la raíz del crate de un crate binario con el
-mismo nombre que el paquete. Del mismo modo, Cargo sabe que si el directorio del
-paquete contiene _src/lib.rs_, el paquete contiene un crate de biblioteca con el
-mismo nombre que el paquete, y _src/lib.rs_ es su raíz del crate. Cargo pasa los
-archivos raíz del crate a `rustc` para compilar la biblioteca o el binario.
+Después de ejecutar `cargo new my-project`, usamos `ls` para ver lo que crea 
+Cargo. En el directorio del proyecto, hay un archivo _Cargo.toml_, que nos da un
+paquete. También hay un directorio _src_ que contiene _main.rs_. Abre 
+_Cargo.toml_ en tu editor de texto, y observa que no hay mención de 
+_src/main.rs_. Cargo sigue una convención de que _src/main.rs_ es la raíz del 
+crate de un crate binario con el mismo nombre que el paquete. Del mismo modo, 
+Cargo sabe que si el directorio del paquete contiene _src/lib.rs_, el paquete 
+contiene un crate de biblioteca con el mismo nombre que el paquete, y 
+_src/lib.rs_ es su raíz del crate. Cargo pasa los archivos raíz del crate a 
+`rustc` para compilar la biblioteca o el binario.
 
 Aquí, tenemos un paquete que solo contiene _src/main.rs_, lo que significa que
 solo contiene un crate binario llamado `my-project`. Si un paquete contiene

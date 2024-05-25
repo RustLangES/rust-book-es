@@ -12,7 +12,8 @@ reglas en detalle.
 
 ### Hoja de referencia de módulos
 
-Aquí te proporcionamos una referencia rápida sobre cómo funcionan los módulos,
+Antes nosotros debemos obtener los detalles de los módulos y las rutas, aquí te 
+proporcionamos una referencia rápida sobre cómo funcionan los módulos,
 las rutas, la palabra clave `use` y la palabra clave `pub` en el compilador, y
 cómo la mayoría de los desarrolladores organizan su código. Vamos a ir
 tratando ejemplos de cada una de estas reglas a lo largo de este capítulo, pero
@@ -43,7 +44,7 @@ garden`
   siempre y cuando las reglas de privacidad lo permitan, usando la ruta al
   código. Por ejemplo, un tipo `Asparagus` en el módulo de vegetales del garden
   se encontraría en `crate::garden::vegetables::Asparagus`.
-- **Privado vs público**: El código dentro de un módulo es privado por defecto
+- **Privado vs. público**: El código dentro de un módulo es privado por defecto
   desde los módulos padres. Para hacer un módulo público, decláralo con `pub
 mod` en vez de `mod`. Para hacer públicos los elementos dentro de un módulo
   público, usa `pub` antes de sus declaraciones.
@@ -54,7 +55,7 @@ mod` en vez de `mod`. Para hacer públicos los elementos dentro de un módulo
   entonces solo necesitarás escribir `Asparagus` para hacer uso de ese tipo en
   el alcance.
 
-Aquí crearemos un crate binario llamado `backyard` que ilustra estas reglas. El
+Aquí, crearemos un crate binario llamado `backyard` que ilustra estas reglas. El
 directorio del crate, también llamado `backyard`, contiene estos archivos y
 directorios:
 
@@ -119,11 +120,11 @@ cocina, los lavaplatos limpian, y los gerentes hacen el trabajo administrativo.
 
 Para estructurar nuestro crate de esta manera, podemos organizar sus funciones
 dentro de módulos anidados. Crea una nueva librería llamada `restaurant`
-ejecutando `cargo new restaurant --lib`; luego ingresa el código en la
-Lista 7-1 para definir algunos módulos y firmas de funciones. Aquí está la
+ejecutando `cargo new restaurant --lib`. Luego ingresa el código en el 
+Listado 7-1 para definir algunos módulos y firmas de funciones. Aquí está la
 sección _front of house_:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nombre de archivo: src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-01/src/lib.rs}}
@@ -168,9 +169,9 @@ crate
 <span class="caption">Listado 7-2: El árbol de módulos para el código del
 listado 7-1</span>
 
-Este árbol muestra como algunos de los módulos se anidan dentro de otros; por
-ejemplo, `hosting` se anida dentro de `front_of_house`. El árbol también muestra
-que algunos módulos son _hermanos_ entre sí, lo que significa que están
+Este árbol muestra como algunos de los módulos se anidan dentro de otros módulos; 
+por ejemplo, `hosting` se anida dentro de `front_of_house`. El árbol también 
+muestra que algunos módulos son _hermanos_ entre sí, lo que significa que están
 definidos en el mismo módulo; `hosting` y `serving` son hermanos definidos
 dentro de `front_of_house`. Si el módulo A está contenido dentro del módulo B,
 decimos que el módulo A es el _hijo_ del módulo B y que el módulo B es el

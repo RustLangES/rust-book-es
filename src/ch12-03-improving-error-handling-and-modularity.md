@@ -26,7 +26,7 @@ podríamos no tener permiso para abrirlo. En este momento, independientemente
 de la situación, imprimiríamos el mismo mensaje de error para todo, ¡lo que no
 le daría al usuario ninguna información!
 
-Cuarto, usamos `expect` repetidamente para manejar diferentes errores, y si el
+Cuarto, usamos `expect` repetidamente para manejar un error, y si el
 usuario ejecuta nuestro programa sin especificar suficientes argumentos,
 obtendrán un error de `índice fuera de límites` de Rust que no explica
 claramente el problema. Sería mejor si todo el código de manejo de errores

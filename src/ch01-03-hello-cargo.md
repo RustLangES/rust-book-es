@@ -62,7 +62,7 @@ de un repositorio Git existente; puedes anular este comportamiento usando
 Abre *Cargo.toml* en tu editor de texto de elección. Debería verse similar al
 código del Listado 1-2.
 
-<span class="filename">Nombre de archivo: Cargo.toml</span>
+<Listing number="1-2" file-name="Cargo.toml" caption="Contenido de *Cargo.toml* generado por `cargo new`">
 
 ```toml
 [package]
@@ -75,8 +75,7 @@ edition = "2021"
 [dependencies]
 ```
 
-<span class="caption">Listado 1-2: Contenido de *Cargo.toml* generado por `cargo
-new`</span>
+</Listing>
 
 Este archivo está en el formato [*TOML*][toml]<!-- ignore --> (*Tom’s Obvious,
 Minimal Language*), que es el formato de configuración de Cargo.

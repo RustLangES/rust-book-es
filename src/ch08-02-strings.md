@@ -48,7 +48,7 @@ que se muestra en el listado 8-11.
 
 <span class="caption">Listado 8-11: Creando un nuevo y vacío `String`</span>
 
-Esta línea crea un nuevo `String` vacío llamado `s`, que podemos luego cargar
+Esta línea crea un nuevo `String` vacío llamado `s`, el cual podemos luego cargar
 con datos. A menudo, tendremos algunos datos iniciales que queremos comenzar
 en el string. Para eso, usamos el método `to_string`, que está disponible en
 cualquier tipo que implemente el trait `Display`, como lo hacen los String
@@ -247,17 +247,17 @@ este:
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:spanish}}
 ```
 
-En este caso, `len` será 4, lo que significa que el vector que almacena el
-string “Hola” tiene 4 bytes de largo. Cada una de estas letras toma 1 byte
+En este caso, `len` será `4`, lo que significa que el vector que almacena el
+string `“Hola”` tiene 4 bytes de largo. Cada una de estas letras toma un byte
 cuando se codifica en UTF-8. La siguiente línea, sin embargo, puede
-sorprenderte. (Nota que este string comienza con la letra cirílica Ze mayúscula,
+sorprenderte. (Nota que este string comienza con la letra cirílica *Ze* mayúscula,
 no con el número árabe 3.)
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:russian}}
 ```
 
-Cuando te preguntes que tan largo es el string, podrías decir 12. De hecho, la
+Si tu te preguntas que tan largo es el string, podrías decir 12. De hecho, la
 respuesta de Rust es 24: ese es el número de bytes que se necesitan para
 codificar “Здравствуйте” en UTF-8, porque cada valor escalar Unicode en ese
 string toma 2 bytes de almacenamiento. Por lo tanto, un índice en los bytes del
@@ -342,8 +342,8 @@ let hello = "Здравствуйте";
 let s = &hello[0..4];
 ```
 
-Aquí, `s` será un `&str` que contiene los primeros 4 bytes del string. Antes,
-mencionamos que cada uno de estos caracteres era de 2 bytes, lo que significa
+Aquí, `s` será un `&str` que contiene los primeros cuatro bytes del string. Antes,
+mencionamos que cada uno de estos caracteres era de dos bytes, lo que significa
 que `s` será `Зд`.
 
 Si intentáramos hacer un slice con solo una parte de los bytes de un carácter,
@@ -355,8 +355,8 @@ en un vector:
 {{#include ../listings/ch08-common-collections/output-only-01-not-char-boundary/output.txt}}
 ```
 
-Debemos usar rangos para crear string slices con precaución, porque hacerlo
-puede bloquear su programa.
+Debemos tener cuidado cuando creamos string slices, porque hacerlo puede 
+bloquear su programa.
 
 ### Métodos para iterar sobre Strings
 
@@ -396,14 +396,13 @@ Este código imprimirá los cuatro bytes que componen el string:
 180
 ```
 
-Pero asegúrese de recordar que los valores escalares válidos Unicode pueden
-estar compuestos por más de 1 byte.
+But be sure to remember that valid Unicode scalar values may be made up of more
+than un byte.
 
-Obtener grupos de grafemas de strings como con la escritura Devanagari es
-complejo, por lo que esta funcionalidad no es proporcionada por la biblioteca
-estándar. Los crates están disponibles en
-[crates.io](https://crates.io/)<!-- ignore --> si esta es la funcionalidad
-que necesita.
+Getting grapheme clusters from strings, as with the Devanagari script, is
+complex, so this functionality is not provided by the standard library. Crates
+are available on [crates.io](https://crates.io/)<!-- ignore --> if this is the
+functionality you need.
 
 ### Los Strings no son tan simples
 

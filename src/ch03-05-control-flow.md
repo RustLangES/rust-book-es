@@ -261,6 +261,9 @@ usamos un punto y coma para terminar la instrucción que asigna el valor a
 `result`. Finalmente, imprimimos el valor en `result`, que en este caso es
 `20`.
 
+Tu puedes también usar `return` dentro de un loop. Mientras `break` solo existe
+para el loop actual, `return` siempre existe para la función actual.
+
 #### Etiquetas de bucle para distinguir entre varios bucles
 
 Si tiene bucles dentro de bucles, `break` y `continue` se aplican al bucle más
@@ -308,11 +311,11 @@ Esta expresion elimina mucho anidamiento que sería necesario si usara `loop`,
 `if`, `else` y `break`, y es más claro. Mientras una condición se evalúa como
 `true`, el código se ejecuta; de lo contrario, sale del bucle.
 
-#### Bucle a traves de una coleccion con `for`
+#### Bucle a traves de una colección con `for`
 
-Puede elegir usar la construcción `while` para iterar sobre los elementos de una
-colección, como una matriz. Por ejemplo, el bucle en el Listado 3-4 imprime
-cada elemento en la matriz `a`.
+Tu puedes también puedes usar el `while` para recorrer los elementos de una 
+colección, justo como un arreglo. Por ejemplo, el bucle en el Listado 3-4
+muestra cada elemento en el arreglo `a`.
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 

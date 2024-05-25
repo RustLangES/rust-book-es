@@ -102,15 +102,15 @@ del módulo de la jerarquía para un elemento.
 
 | Símbolos | Explicación |
 |--------|-------------|
-| `ident::ident` | Ruta de espacio de trabajo |
-| `:path` | Ruta relativa a la raíz del espacio de trabajo (es decir, una ruta absoluta explícita) |
-| `self::path` | Ruta relativa al módulo actual (es decir, una ruta relativa explícita).
-| `super::path` | Ruta relativa al padre del módulo actual |
-| `type::ident`, `<type as trait>::ident` | Constantes asociadas, funciones y tipos |
-| `<type>::...` | Elemento asociado para un tipo que no se puede nombrar directamente (por ejemplo, `<&T>::...`, `<[T]>::...`, etc.) |
-| `trait::method(...)` | Desambiguación de una llamada de método nombrando la interfaz que lo define |
-| `type::method(...)` | Desambiguación de una llamada de método nombrando el tipo para el que está definido |
-| `<type as trait>::method(...)` | Desambiguación de una llamada de método nombrando la interfaz y el tipo |
+| `ident::ident` | Namespace path |
+| `::path` | Path relative to the crate root (i.e., an explicitly absolute path) |
+| `self::path` | Path relative to the current module (i.e., an explicitly relative path) |
+| `super::path` | Path relative to the parent of the current module |
+| `type::ident`, `<type as trait>::ident` | Associated constants, functions, and types |
+| `<type>::...` | Associated item for a type that cannot be directly named (e.g., `<&T>::...`, `<[T]>::...`, etc.) |
+| `trait::method(...)` | Disambiguating a method call by naming the trait that defines it |
+| `type::method(...)` | Disambiguating a method call by naming the type for which it’s defined |
+| `<type as trait>::method(...)` | Disambiguating a method call by naming the trait and type |
 
 Tabla B-4 muestra los símbolos que aparecen en el contexto de usar parámetros de
 tipo genérico.

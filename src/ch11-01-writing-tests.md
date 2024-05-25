@@ -63,7 +63,8 @@ cd ../../..
 <span class="caption">Listing 11-1: El módulo test y la función generada
 automáticamente por `cargo new`</span>
 
-Por ahora, ignoremos las dos primeras líneas y nos enfoquemos en la función.
+Por ahora, ignoremos las dos primeras líneas y nos enfoquemos solamente en la 
+función `it_works()`.
 Nota la anotación `#[test]`: este atributo indica que esta es una función de
 test, así que el test runner sabe que tratar esta función como un test. También
 podríamos tener funciones no-test en el módulo `tests` para ayudar a configurar
@@ -320,7 +321,7 @@ Ejecutemos los tests nuevamente:
 ```
 
 ¡Nuestro test atrapó el bug! El test `it_adds_two` falló, y el mensaje nos dice
-que la aserción que falló fue `` assertion failed: `(left == right)` `` y
+que la aserción que falló fue `` assertion `left == right` failed`` y
 cuáles son los valores de `left` y `right`. Este mensaje nos ayuda a comenzar a
 debuggear: el argumento `left` fue `4` pero el argumento `right`, donde
 llamamos a `add_two(2)`, fue `5`. Puedes imaginar que esto sería especialmente
@@ -514,8 +515,8 @@ Esta vez, cuando ejecutemos el test `should_panic`, fallará:
 ```
 
 El mensaje de error indica que el test falló con un error como esperábamos, pero
-el mensaje de panic no incluyó el substring esperado `'Guess value must be less
-than or equal to 100'`. El mensaje de panic que obtuvimos en este caso fue
+el mensaje de panic no incluyó el string esperado `less than or equal
+to 100`. El mensaje de panic que obtuvimos en este caso fue
 `Guess value must be greater than or equal to 1, got 200.`. ¡Ahora podemos
 empezar a descubrir dónde está nuestro bug!
 

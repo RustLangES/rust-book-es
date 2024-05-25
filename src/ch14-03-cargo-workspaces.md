@@ -273,10 +273,11 @@ error[E0432]: unresolved import `rand`
 Para solucionar esto, edita el archivo *Cargo.toml* del paquete `adder` e
 indica que `rand` es una dependencia para él también. Construir el paquete
 `adder` agregará `rand` a la lista de dependencias para `adder` en
-*Cargo.lock*, pero no se descargarán copias adicionales de `rand`. Cargo se ha
-asegurado de que cada *crate* en cada paquete en el *workspace* que usa el
-paquete `rand` estará usando la misma versión, ahorrándonos espacio y
-asegurando que los *crate* en el *workspace* serán compatibles entre sí.
+*Cargo.lock*, pero no se descargarán copias adicionales de `rand`. Cargo se 
+asegurara de que cada *crate* en cada paquete en el *workspace* que usa el
+paquete `rand` estará usando la misma versión siempre y cuando se especifiquen 
+como versiones compatibles de `rand`, ahorrándonos espacio y asegurando que los 
+*crate* en el *workspace* serán compatibles entre sí.
 
 #### Agregando un Test a un Workspace
 

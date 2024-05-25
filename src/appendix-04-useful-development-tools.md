@@ -96,7 +96,7 @@ fn main() {
 La variable del bucle `for` ahora se llama `_i`, y la advertencia ya no aparece.
 
 También puede usar `cargo fix` para transformar su código entre diferentes
-ediciones de Rust. Las ediciones se tratan en el Apéndice E.
+ediciones de Rust. Las ediciones se tratan en el [Apéndice E][editions].
 
 ### Más lints con Clippy
 
@@ -181,3 +181,4 @@ de lenguaje en su IDE en particular. Su IDE ganará habilidades como
 autocompletado, salto a la definición y errores en línea. 
 
 [rust-analyzer]: https://rust-analyzer.github.io
+[editions]: appendix-05-editions.md
