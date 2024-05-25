@@ -396,13 +396,13 @@ Este código imprimirá los cuatro bytes que componen el string:
 180
 ```
 
-But be sure to remember that valid Unicode scalar values may be made up of more
-than un byte.
+Pero asegúrate de recordar que los valores escalares de Unicode válidos pueden 
+estar compuestos por más de un byte.
 
-Getting grapheme clusters from strings, as with the Devanagari script, is
-complex, so this functionality is not provided by the standard library. Crates
-are available on [crates.io](https://crates.io/)<!-- ignore --> if this is the
-functionality you need.
+Obtener grupos de grafemas a partir de cadenas, como en el caso del alfabeto 
+Devanagari, es complejo, por lo que esta funcionalidad no está proporcionada por
+la biblioteca estándar. Hay paquetes disponibles en 
+[crates.io](https://crates.io/)<!-- ignore --> si necesitas esta funcionalidad.
 
 ### Los Strings no son tan simples
 

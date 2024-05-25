@@ -124,13 +124,13 @@ de que ocurra el siguiente lanzamiento estable! La rotura en una versión beta
 es relativamente rara, pero `rustc` sigue siendo un software, y los errores
 existen.
 
-### Maintenance time
+### Tiempo de Mantenimiento
 
-The Rust project supports the most recent stable version. When a new stable
-version is released, the old version reaches its end of life (EOL). This means
-each version is supported for six weeks.
+El proyecto Rust admite la versión estable más reciente. Cuando una nueva 
+versión estable es lanzada, la versión anterior llega al final de su vida útil 
+(EOL). Esto significa que cada versión tiene soporte durante seis semanas.
 
-## Caracteristicas inestables
+## Características inestables
 
 Hay alo más con este modelo de lanzamiento: características inestables.
 Rust utiliza una técnica llamada “indicadores de características” para
@@ -212,7 +212,7 @@ Si la característica es aceptada, se abre un problema en el repositorio de
 Rust, y alguien puede implementarla. ¡La persona que lo implementa muy bien no
 tiene por qué ser la persona que propuso la característica en primer lugar!
 Cuando la implementación está lista, aterriza en la rama `master` detrás de una
-puerta de características, como discutimos en la sección [“Características
+puerta de características, como discutimos en la sección [“Característicascaracterísticas-inestables
 inestables”](#caracteristicas-inestables)<!-- ignore -->.
 
 Después de algún tiempo, una vez que los desarrolladores de Rust que utilizan

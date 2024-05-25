@@ -18,6 +18,17 @@ execute
 never
 union
 unions
+linker
+Devanagari
+prerequisites
+libreria
+relative
+explicitly
+absolute
+current
+explicitly
+naming
+defined
 superpoderes
 dangling
 constants
