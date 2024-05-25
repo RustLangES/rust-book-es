@@ -14,8 +14,6 @@ static HELLO_WORLD: &str = "Hello, world!";
 ---
 
 You can find the latest version about constants
-[here](ch03-01-variables-and-mutability.html#constants),
+[here](ch03-01-variables-and-mutability.html#constantes),
 and about statics
 [here](ch19-01-unsafe-rust.html#accessing-or-modifying-a-mutable-static-variable).
-
-

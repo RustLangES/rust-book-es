@@ -1,26 +1,26 @@
-# The Rust Programming Language
+# El Lenguaje de Programación Rust
 
-*by Steve Klabnik and Carol Nichols, with contributions from the Rust Community*
+*por Steve Klabnik y Carol Nichols, con contribuciones de la Comunidad Rust*
 
-This version of the text assumes you’re using Rust 1.78.0 (released 2024-05-02)
-or later. See the [“Installation” section of Chapter 1][install]<!-- ignore -->
-to install or update Rust.
+Esta versión del texto asume que estás usando Rust 1.78.0 (lanzado 2024-05-02)
+o posterior. Vea la [sección “Instalación” del Capítulo 1][install]<!-- ignore -->
+para instalar o actualizar Rust.
 
-The HTML format is available online at
+El formato HTML está disponible en línea en
 [https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/)
-and offline with installations of Rust made with `rustup`; run `rustup doc
---book` to open.
+y offline con instalaciones de Rust realizadas con `rustup`; ejecute `rustup doc
+--book` para abrir.
 
-Several community [translations] are also available.
+También están disponibles varias [traducciones] de la comunidad.
 
-This text is available in [paperback and ebook format from No Starch
+Este texto está disponible en [formato de libro impreso y ebook de No Starch
 Press][nsprust].
 
 [install]: ch01-01-installation.html
 [editions]: appendix-05-editions.html
 [nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
-[translations]: appendix-06-translation.html
+[traducciones]: appendix-06-translation.html
 
-> **🚨 Want a more interactive learning experience? Try out a different version
-> of the Rust Book, featuring: quizzes, highlighting, visualizations, and
-> more**: <https://rust-book.cs.brown.edu>
+> **🚨 ¿Quieres una experiencia de aprendizaje más interactiva? Prueba una
+> versión diferente del Libro de Rust, con: cuestionarios, resaltado,
+> visualizaciones y más**: <https://rust-book.cs.brown.edu> (en inglés)

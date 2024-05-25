@@ -1,13 +1,15 @@
-# Object-Oriented Programming Features of Rust
+# Rust como un Lenguaje de Programación Orientado a Objetos
 
-Object-oriented programming (OOP) is a way of modeling programs. Objects as a
-programmatic concept were introduced in the programming language Simula in the
-1960s. Those objects influenced Alan Kay’s programming architecture in which
-objects pass messages to each other. To describe this architecture, he coined
-the term *object-oriented programming* in 1967. Many competing definitions
-describe what OOP is, and by some of these definitions Rust is object-oriented,
-but by others it is not. In this chapter, we’ll explore certain characteristics
-that are commonly considered object-oriented and how those characteristics
-translate to idiomatic Rust. We’ll then show you how to implement an
-object-oriented design pattern in Rust and discuss the trade-offs of doing so
-versus implementing a solution using some of Rust’s strengths instead.
+La programación orientada a objetos (POO) es una forma de modelar programas. Los
+objetos como concepto programático fueron introducidos en el lenguaje de
+programación Simula en la década de 1960. Esos objetos influyeron en la
+arquitectura de programación de Alan Kay en la que los objetos se envían
+mensajes entre sí. Para describir esta arquitectura, acuñó el término
+*programación orientada a objetos* en 1967. Muchas definiciones en competencia
+describen lo que es POO, y por algunas de estas definiciones Rust es
+orientado a objetos, pero por otras no lo es. En este capítulo, exploraremos
+ciertas características que comúnmente se consideran orientadas a objetos y cómo
+esas características se traducen a Rust idiomático. Luego le mostraremos cómo
+implementar un patrón de diseño orientado a objetos en Rust y discutiremos los
+compromisos de hacerlo en lugar de implementar una solución utilizando algunas
+de las fortalezas de Rust.

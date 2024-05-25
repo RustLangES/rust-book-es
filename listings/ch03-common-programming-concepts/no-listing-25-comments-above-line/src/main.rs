@@ -1,4 +1,4 @@
 fn main() {
-    // I’m feeling lucky today
-    let lucky_number = 7;
+    // Me siento afortunado hoy
+    let numero_de_la_suerte = 7;
 }

@@ -2,16 +2,29 @@
 # in `nostarch/book.toml`!
 
 [book]
-title = "The Rust Programming Language"
+title = "El Lenguaje de Programación Rust"
 authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Community"]
+description = "El libro oficial para aprender el lenguaje de programación Rust, con tutoriales y guías."
+src = "src"
+multilingual = false
+language = "es"
 
 [output.html]
-additional-css = ["ferris.css", "theme/2018-edition.css", "theme/semantic-notes.css", "theme/listing.css"]
+additional-css = ["ferris.css", "theme/2018-edition.css", "./theme/catppuccin.css", "./theme/catppuccin-highlight.css", "theme/semantic-notes.css", "theme/listing.css", "theme/semantic-notes.css", "theme/listing.css"]
 additional-js = ["ferris.js"]
-git-repository-url = "https://github.com/rust-lang/book"
+git-repository-url = "https://github.com/RustLangES/rust-book-es"
+
+[preprocessor]
+
+[preprocessor.catppuccin]
+assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
 
 # Do not sync this preprocessor; it is for the HTML renderer only.
 [preprocessor.trpl-note]
 
 [preprocessor.trpl-listing]
 output-mode = "default"
+
+# Original book - Last commit:
+# d9e9af10d92e32ea02c19cb3cf607aec05aca65b
+# https://github.com/rust-lang/book/compare/d9e9af1..bebcf52

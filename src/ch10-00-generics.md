@@ -1,46 +1,50 @@
-# Generic Types, Traits, and Lifetimes
+# Tipos Genéricos, Traits y Lifetimes
 
-Every programming language has tools for effectively handling the duplication
-of concepts. In Rust, one such tool is *generics*: abstract stand-ins for
-concrete types or other properties. We can express the behavior of generics or
-how they relate to other generics without knowing what will be in their place
-when compiling and running the code.
+Cada lenguaje de programación tiene herramientas para manejar eficazmente la
+duplicación de conceptos. En Rust, una de esas herramientas son los _genéricos_:
+sustitutos abstractos de tipos concretos u otras propiedades. Podemos expresar
+el comportamiento de los genéricos o cómo se relacionan con otros genéricos sin
+saber qué estará en su lugar cuando se compile y ejecute el código.
 
-Functions can take parameters of some generic type, instead of a concrete type
-like `i32` or `String`, in the same way a function takes parameters with
-unknown values to run the same code on multiple concrete values. In fact, we’ve
-already used generics in Chapter 6 with `Option<T>`, Chapter 8 with `Vec<T>`
-and `HashMap<K, V>`, and Chapter 9 with `Result<T, E>`. In this chapter, you’ll
-explore how to define your own types, functions, and methods with generics!
+Las funciones pueden tomar parámetros de algún tipo genérico, en lugar de un
+tipo concreto como `i32` o `String`, de la misma manera que una función toma
+parámetros con valores desconocidos para ejecutar el mismo código en múltiples
+valores concretos. De hecho, ya hemos usado genéricos en el Capítulo 6 con
+`Option<T>`, Capítulo 8 con `Vec<T>` y `HashMap<K, V>`, y Capítulo 9 con
+`Result<T, E>`. ¡En este capítulo, explorará cómo definir sus propios tipos,
+funciones y métodos con genéricos!
 
-First, we’ll review how to extract a function to reduce code duplication. We’ll
-then use the same technique to make a generic function from two functions that
-differ only in the types of their parameters. We’ll also explain how to use
-generic types in struct and enum definitions.
+Primero, revisaremos cómo extraer una función para reducir la duplicación de
+código. Luego usaremos la misma técnica para hacer una función genérico a
+partir de dos funciones que difieren solo en los tipos de sus parámetros.
+También explicaremos cómo usar tipos genéricos en definiciones de structs y
+enums.
 
-Then you’ll learn how to use *traits* to define behavior in a generic way. You
-can combine traits with generic types to constrain a generic type to accept
-only those types that have a particular behavior, as opposed to just any type.
+Entonces aprenderás cómo usar _traits_ para definir el comportamiento de una
+manera genérica. Puedes combinar traits con tipos genéricos para restringir un
+tipo genérico para que acepte solo aquellos tipos que tienen un comportamiento
+particular, en lugar de cualquier tipo.
 
-Finally, we’ll discuss *lifetimes*: a variety of generics that give the
-compiler information about how references relate to each other. Lifetimes allow
-us to give the compiler enough information about borrowed values so that it can
-ensure references will be valid in more situations than it could without our
-help.
+Finalmente, discutiremos _lifetimes_: una variedad de genéricos que le dan al
+compilador información sobre cómo se relacionan las referencias entre sí.
+Lifetimes nos permiten darle al compilador suficiente información sobre los
+valores prestados para que pueda garantizar que las referencias serán válidas
+en más situaciones de las que podría sin nuestra ayuda.
 
-## Removing Duplication by Extracting a Function
+## Eliminando la duplicación extrayendo una función
 
-Generics allow us to replace specific types with a placeholder that represents
-multiple types to remove code duplication. Before diving into generics syntax,
-then, let’s first look at how to remove duplication in a way that doesn’t
-involve generic types by extracting a function that replaces specific values
-with a placeholder that represents multiple values. Then we’ll apply the same
-technique to extract a generic function! By looking at how to recognize
-duplicated code you can extract into a function, you’ll start to recognize
-duplicated code that can use generics.
+Los genéricos nos permiten reemplazar tipos específicos con un marcador de
+posición que representa múltiples tipos para eliminar la duplicación de código.
+Antes de sumergirnos en la sintaxis de los genéricos, veamos primero cómo
+eliminar la duplicación de código de una manera que no involucre tipos
+genéricos extrayendo una función que reemplace valores específicos con un
+marcador de posición que represente múltiples valores. ¡Luego aplicaremos la
+misma técnica para extraer una función genérica! Al observar cómo reconocer el
+código duplicado que puede usar en una función, comenzará a reconocer el
+código duplicado que puede usar en los genéricos.
 
-We begin with the short program in Listing 10-1 that finds the largest number
-in a list.
+Comenzamos con un corto programa en el listado 10-1 que encuentra el número
+más grande en una lista.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -48,21 +52,23 @@ in a list.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-1: Finding the largest number in a list of
-numbers</span>
+<span class="caption">Listado 10-1: Encontrando el mayor número en una lista de
+números</span>
 
-We store a list of integers in the variable `number_list` and place a reference
-to the first number in the list in a variable named `largest`. We then iterate
-through all the numbers in the list, and if the current number is greater than
-the number stored in `largest`, replace the reference in that variable.
-However, if the current number is less than or equal to the largest number seen
-so far, the variable doesn’t change, and the code moves on to the next number
-in the list. After considering all the numbers in the list, `largest` should
-refer to the largest number, which in this case is 100.
+Almacenamos una lista de enteros en la variable `number_list` y colocamos una
+referencia al primer número de la lista en una variable llamada `largest`.
+Luego iteramos a través de todos los números de la lista, y si el número
+actual es mayor que el número almacenado en `largest`, reemplazamos la
+referencia en esa variable. Sin embargo, si el número actual es menor o igual
+al número más grande visto hasta ahora, la variable no cambia, y el código
+pasa al siguiente número de la lista. Después de considerar todos los números
+de la lista, `largest` debería hacer referencia al número más grande, que en
+este caso es 100.
 
-We've now been tasked with finding the largest number in two different lists of
-numbers. To do so, we can choose to duplicate the code in Listing 10-1 and use
-the same logic at two different places in the program, as shown in Listing 10-2.
+Ahora se nos ha encargado encontrar el número más grande en dos listas de
+números. Para hacerlo, podemos duplicar el código en el listado 10-1 y usar la
+misma lógica en dos lugares diferentes en el programa, como se muestra en el
+listado 10-2.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -70,22 +76,22 @@ the same logic at two different places in the program, as shown in Listing 10-2.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-2: Code to find the largest number in *two*
-lists of numbers</span>
+<span class="caption">Listado 10-2: Código para encontrar el mayor número en
+_dos_ listas de números</span>
 
-Although this code works, duplicating code is tedious and error prone. We also
-have to remember to update the code in multiple places when we want to change
-it.
+Aunque este código funciona, duplicar el código es tedioso y propenso a errores.
+También tenemos que recordar actualizar el código en varios lugares cuando
+queremos cambiarlo.
 
-To eliminate this duplication, we’ll create an abstraction by defining a
-function that operates on any list of integers passed in a parameter. This
-solution makes our code clearer and lets us express the concept of finding the
-largest number in a list abstractly.
+Para eliminar esta duplicación, crearemos una abstracción definiendo una
+función que opera en cualquier lista de enteros que se pase en un parámetro.
+Esta solución hace que nuestro código sea más claro y nos permite expresar el
+concepto de encontrar el número más grande en una lista de forma abstracta.
 
-In Listing 10-3, we extract the code that finds the largest number into a
-function named `largest`. Then we call the function to find the largest number
-in the two lists from Listing 10-2. We could also use the function on any other
-list of `i32` values we might have in the future.
+En el listado 10-3, extraemos el código que encuentra el mayor número en una
+función llamada `largest`. Luego llamamos a la función para encontrar el mayor
+número en las dos listas del listado 10-2. También podríamos usar la función
+en cualquier otra lista de valores `i32` que podríamos tener en el futuro.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -93,26 +99,29 @@ list of `i32` values we might have in the future.
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 10-3: Abstracted code to find the largest number
-in two lists</span>
+<span class="caption">Listado 10-3: Código abstracto para encontrar el número
+mayor en dos listas</span>
 
-The `largest` function has a parameter called `list`, which represents any
-concrete slice of `i32` values we might pass into the function. As a result,
-when we call the function, the code runs on the specific values that we pass
-in.
+La función `largest` tiene un parámetro llamado `list`, que representa cualquier
+slice de valores `ì32` que podríamos pasar a la función. Como resultado, cuando
+llamamos a la función, el código se ejecuta en los valores específicos que
+pasamos.
 
-In summary, here are the steps we took to change the code from Listing 10-2 to
-Listing 10-3:
+En resumen, estos son los pasos que tomamos para cambiar el código del listado
+10-2 al listado 10-3:
 
-1. Identify duplicate code.
-2. Extract the duplicate code into the body of the function and specify the
-   inputs and return values of that code in the function signature.
-3. Update the two instances of duplicated code to call the function instead.
+1. Identificar código duplicado.
+2. Extraer el código duplicado en el cuerpo de la función y especificar las
+   entradas y salidas de ese código en la firma de la función.
+3. Actualizar las dos instancias de código duplicado para llamar a la función
+   en su lugar.
 
-Next, we’ll use these same steps with generics to reduce code duplication. In
-the same way that the function body can operate on an abstract `list` instead
-of specific values, generics allow code to operate on abstract types.
+A continuación, usaremos estos mismos pasos con los genéricos para reducir la
+duplicación de código. De la misma manera que el cuerpo de la función puede
+operar en una `list` abstracta en lugar de valores específicos, los genéricos
+permiten que el código opere en tipos abstractos.
 
-For example, say we had two functions: one that finds the largest item in a
-slice of `i32` values and one that finds the largest item in a slice of `char`
-values. How would we eliminate that duplication? Let’s find out!
+Por ejemplo, digamos que teníamos dos funciones: una que encuentra el mayor
+elemento en un slices de valores `i32` y otra que encuentra el mayor elemento
+en un slice de valores `char`. ¿Cómo eliminaríamos esa duplicación?
+¡Averigüémoslo!

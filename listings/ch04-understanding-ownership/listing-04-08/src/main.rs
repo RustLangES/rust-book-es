@@ -14,11 +14,11 @@ fn first_word(s: &String) -> usize {
 fn main() {
     let mut s = String::from("hello world");
 
-    let word = first_word(&s); // word will get the value 5
+    let word = first_word(&s); // word obtendrá el valor 5
 
-    s.clear(); // this empties the String, making it equal to ""
+    s.clear(); // esto "vacía" el String, dejando s igual a ""
 
-    // word still has the value 5 here, but there's no more string that
-    // we could meaningfully use the value 5 with. word is now totally invalid!
+    // word aún tiene el valor 5 aquí, pero ya no hay un string para que
+    // usar el valor 5 tenga sentido, ¡word es totalmente invalida!
 }
 // ANCHOR_END: here

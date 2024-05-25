@@ -1,166 +1,180 @@
-## To `panic!` or Not to `panic!`
+## `panic!` o no `panic!`
 
-So how do you decide when you should call `panic!` and when you should return
-`Result`? When code panics, there’s no way to recover. You could call `panic!`
-for any error situation, whether there’s a possible way to recover or not, but
-then you’re making the decision that a situation is unrecoverable on behalf of
-the calling code. When you choose to return a `Result` value, you give the
-calling code options. The calling code could choose to attempt to recover in a
-way that’s appropriate for its situation, or it could decide that an `Err`
-value in this case is unrecoverable, so it can call `panic!` and turn your
-recoverable error into an unrecoverable one. Therefore, returning `Result` is a
-good default choice when you’re defining a function that might fail.
+Entonces, ¿cómo decides cuándo debes llamar a `panic!` y cuándo debes devolver
+`Result`? Cuando el código entra en panic, no hay forma de recuperarse. Podrías
+llamar a `panic!` para cualquier situación de error, ya sea que haya una forma
+posible de recuperarse o no, pero entonces estás tomando la decisión de que una
+situación es irreparable en nombre del código que llama. Cuando eliges devolver
+un valor `Result`, le das al código que llama opciones. El código que llama
+podría elegir intentar recuperarse de una manera que sea apropiada para su
+situación, o podría decidir que un valor `Err` en este caso es irreparable, por
+lo que puede llamar a `panic!` y convertir su error recuperable en uno
+irreparable. Por lo tanto, devolver `Result` es una buena opción predeterminada
+cuando estás definiendo una función que podría fallar.
 
-In situations such as examples, prototype code, and tests, it’s more
-appropriate to write code that panics instead of returning a `Result`. Let’s
-explore why, then discuss situations in which the compiler can’t tell that
-failure is impossible, but you as a human can. The chapter will conclude with
-some general guidelines on how to decide whether to panic in library code.
+En situaciones como ejemplos, código de prototipo y pruebas, es más apropiado
+escribir código que entre en panic en lugar de devolver un `Result`. Veamos
+por qué, luego discutiremos situaciones en las que el compilador no puede
+darse cuenta de que la falla es imposible, pero tú como humano puedes. El
+capítulo concluirá con algunas pautas generales sobre cómo decidir si entrar en
+panic en el código de la biblioteca.
 
-### Examples, Prototype Code, and Tests
+### Ejemplos, código de prototipo y test
 
-When you’re writing an example to illustrate some concept, also including robust
-error-handling code can make the example less clear. In
-examples, it’s understood that a call to a method like `unwrap` that could
-panic is meant as a placeholder for the way you’d want your application to
-handle errors, which can differ based on what the rest of your code is doing.
+Cuando estás escribiendo un ejemplo para ilustrar algún concepto, también
+incluir código de manejo de errores robusto puede hacer que el ejemplo sea
+menos claro. En los ejemplos, se entiende que una llamada a un método como
+`unwrap` que podría entrar en panic se entiende como un marcador de posición
+para la forma en que desea que su aplicación maneje los errores, que puede
+diferir según lo que el resto de su código está haciendo.
 
-Similarly, the `unwrap` and `expect` methods are very handy when prototyping,
-before you’re ready to decide how to handle errors. They leave clear markers in
-your code for when you’re ready to make your program more robust.
+De manera similar, los métodos `unwrap` y `expect` son muy útiles cuando se
+prototipa, antes de que estés listo para decidir cómo manejar los errores.
+Dejan marcadores claros en tu código para cuando estés listo para hacer que tu
+programa sea más robusto.
 
-If a method call fails in a test, you’d want the whole test to fail, even if
-that method isn’t the functionality under test. Because `panic!` is how a test
-is marked as a failure, calling `unwrap` or `expect` is exactly what should
-happen.
+Si una llamada a un método falla en una prueba, querrás que toda la prueba
+falle, incluso si ese método no es la funcionalidad en prueba. Debido a que
+`panic!` es la forma en que una prueba se marca como fallida, llamar a
+`unwrap` o `expect` es exactamente lo que debería suceder.
 
-### Cases in Which You Have More Information Than the Compiler
+### Casos en los que tienes mas informacion que el compilador
 
-It would also be appropriate to call `unwrap` or `expect` when you have some
-other logic that ensures the `Result` will have an `Ok` value, but the logic
-isn’t something the compiler understands. You’ll still have a `Result` value
-that you need to handle: whatever operation you’re calling still has the
-possibility of failing in general, even though it’s logically impossible in
-your particular situation. If you can ensure by manually inspecting the code
-that you’ll never have an `Err` variant, it’s perfectly acceptable to call
-`unwrap`, and even better to document the reason you think you’ll never have an
-`Err` variant in the `expect` text. Here’s an example:
+También sería apropiado llamar a `unwrap` o `expect` cuando tienes alguna otra
+lógica que garantiza que el `Result` tendrá un valor `Ok`, pero la lógica no
+es algo que el compilador entiende. Aún tendrás un valor `Result` que debes
+manejar: la operación que estás llamando aún tiene la posibilidad de fallar en
+general, incluso si es lógicamente imposible en tu situación particular. Si
+puedes asegurar inspeccionando manualmente el código que nunca tendrás una
+variante `Err`, es perfectamente aceptable llamar a `unwrap`, e incluso mejor
+documentar la razón por la que crees que nunca tendrás una variante `Err` en el
+texto de `expect`. Aquí hay un ejemplo:
 
 ```rust
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-08-unwrap-that-cant-fail/src/main.rs:here}}
 ```
 
-We’re creating an `IpAddr` instance by parsing a hardcoded string. We can see
-that `127.0.0.1` is a valid IP address, so it’s acceptable to use `expect`
-here. However, having a hardcoded, valid string doesn’t change the return type
-of the `parse` method: we still get a `Result` value, and the compiler will
-still make us handle the `Result` as if the `Err` variant is a possibility
-because the compiler isn’t smart enough to see that this string is always a
-valid IP address. If the IP address string came from a user rather than being
-hardcoded into the program and therefore *did* have a possibility of failure,
-we’d definitely want to handle the `Result` in a more robust way instead.
-Mentioning the assumption that this IP address is hardcoded will prompt us to
-change `expect` to better error handling code if in the future, we need to get
-the IP address from some other source instead.
+Aquí estamos creando una instancia `IpAddr` analizando una cadena codificada.
+Podemos ver que `127.0.0.1` es una dirección IP válida, por lo que es aceptable
+usar `expect` aquí. Sin embargo, tener una cadena válida codificada no cambia
+el tipo de retorno del método `parse`: aún obtenemos un valor `Result`, y el
+compilador aún nos hará manejar el `Result` como si la variante `Err` fuera una
+posibilidad porque el compilador no es lo suficientemente inteligente como
+para ver que esta cadena es siempre una dirección IP válida. Si la cadena de
+dirección IP proviniera de un usuario en lugar de estar codificada en el
+programa y, por lo tanto, _tuviera_ una posibilidad de falla, definitivamente
+querríamos manejar el `Result` de una manera más robusta en su lugar. Mencionar
+la suposición de que esta dirección IP está codificada nos indicará que
+cambiemos `expect` a un mejor código de manejo de errores si en el futuro
+necesitamos obtener la dirección IP de otra fuente.
 
-### Guidelines for Error Handling
+### Pautas para el manejo de errores
 
-It’s advisable to have your code panic when it’s possible that your code
-could end up in a bad state. In this context, a *bad state* is when some
-assumption, guarantee, contract, or invariant has been broken, such as when
-invalid values, contradictory values, or missing values are passed to your
-code—plus one or more of the following:
+Es aconsejable que tu código entre en panic cuando sea posible que tu código
+termine en un estado incorrecto. En este contexto, un _estado incorrecto_ es
+cuando se ha roto alguna suposición, garantía, contrato o invariante, como
+cuando se pasan valores no válidos, valores contradictorios o valores
+faltantes a tu código, más uno o más de los siguientes:
 
-* The bad state is something that is unexpected, as opposed to something that
-  will likely happen occasionally, like a user entering data in the wrong
-  format.
-* Your code after this point needs to rely on not being in this bad state,
-  rather than checking for the problem at every step.
-* There’s not a good way to encode this information in the types you use. We’ll
-  work through an example of what we mean in the [“Encoding States and Behavior
-  as Types”][encoding]<!-- ignore --> section of Chapter 17.
+- El mal estado es algo inesperado, a diferencia de algo que probablemente
+  suceda ocasionalmente, como un usuario que ingresa datos en el formato
+  incorrecto.
+- Tu código después de este punto debe confiar en no estar en este mal estado,
+  en lugar de verificar el problema en cada paso.
+- No hay una buena manera de codificar esta información en los tipos que
+  usas. Trabajaremos a través de un ejemplo de lo que queremos decir en la
+  sección [“Codificación de estados y comportamientos como tipos”][encoding]
+  <!-- ignore --> del Capítulo 17.
 
-If someone calls your code and passes in values that don’t make sense, it’s
-best to return an error if you can so the user of the library can decide what
-they want to do in that case. However, in cases where continuing could be
-insecure or harmful, the best choice might be to call `panic!` and alert the
-person using your library to the bug in their code so they can fix it during
-development. Similarly, `panic!` is often appropriate if you’re calling
-external code that is out of your control and it returns an invalid state that
-you have no way of fixing.
+Si alguien llama a tu código y pasa valores que no tienen sentido, es mejor
+devolver un error si puedes para que el usuario de la biblioteca pueda decidir
+qué hacer en ese caso. Sin embargo, en los casos en que continuar podría ser
+inseguro o dañino, la mejor opción podría ser llamar a `panic!` y alertar a la
+persona que usa tu biblioteca sobre el error en su código para que puedan
+solucionarlo durante el desarrollo. De manera similar, `panic!` a menudo es
+apropiado si estás llamando a un código externo que está fuera de tu control y
+devuelve un estado no válido que no tienes forma de solucionar.
 
-However, when failure is expected, it’s more appropriate to return a `Result`
-than to make a `panic!` call. Examples include a parser being given malformed
-data or an HTTP request returning a status that indicates you have hit a rate
-limit. In these cases, returning a `Result` indicates that failure is an
-expected possibility that the calling code must decide how to handle.
+Sin embargo, cuando se espera que falle, es más apropiado devolver un `Result`
+que hacer una llamada a `panic!`. Los ejemplos incluyen un analizador que
+recibe datos con formato incorrecto o una solicitud HTTP que devuelve un estado
+que indica que has alcanzado un límite de velocidad. En estos casos, devolver
+un `Result` indica que el fallo es una posibilidad esperada que el código
+llamado decidida cómo manejarlo.
 
-When your code performs an operation that could put a user at risk if it’s
-called using invalid values, your code should verify the values are valid first
-and panic if the values aren’t valid. This is mostly for safety reasons:
-attempting to operate on invalid data can expose your code to vulnerabilities.
-This is the main reason the standard library will call `panic!` if you attempt
-an out-of-bounds memory access: trying to access memory that doesn’t belong to
-the current data structure is a common security problem. Functions often have
-*contracts*: their behavior is only guaranteed if the inputs meet particular
-requirements. Panicking when the contract is violated makes sense because a
-contract violation always indicates a caller-side bug and it’s not a kind of
-error you want the calling code to have to explicitly handle. In fact, there’s
-no reasonable way for calling code to recover; the calling *programmers* need
-to fix the code. Contracts for a function, especially when a violation will
-cause a panic, should be explained in the API documentation for the function.
+Cuando tu código realiza una operación que podría poner a un usuario en riesgo
+si se llama con valores no válidos, tu código debe verificar primero que los
+valores sean válidos y entrar en panic si los valores no son válidos. Esto es
+principalmente por razones de seguridad: intentar operar con datos no válidos
+puede exponer tu código a vulnerabilidades. Esta es la razón principal por la
+que la biblioteca estándar llamará a `panic!` si intentas un acceso a memoria
+fuera de los límites: intentar acceder a la memoria que no pertenece a la
+estructura de datos actual es un problema de seguridad común. Las funciones
+suelen tener _contratos_: su comportamiento solo está garantizado si las
+entradas cumplen con requisitos particulares. Entrar en panic cuando se viola
+el contrato tiene sentido porque una violación del contrato siempre indica un
+error del lado del llamador y no es un tipo de error que deseas que el código
+llamado tenga que manejar explícitamente. De hecho, no hay una manera
+razonable para que el código de llamada se recupere; los programadores que
+llaman deben corregir el código. Los contratos para una función, especialmente
+cuando una violación causará un panic, deben explicarse en la documentación
+de la API de la función.
 
-However, having lots of error checks in all of your functions would be verbose
-and annoying. Fortunately, you can use Rust’s type system (and thus the type
-checking done by the compiler) to do many of the checks for you. If your
-function has a particular type as a parameter, you can proceed with your code’s
-logic knowing that the compiler has already ensured you have a valid value. For
-example, if you have a type rather than an `Option`, your program expects to
-have *something* rather than *nothing*. Your code then doesn’t have to handle
-two cases for the `Some` and `None` variants: it will only have one case for
-definitely having a value. Code trying to pass nothing to your function won’t
-even compile, so your function doesn’t have to check for that case at runtime.
-Another example is using an unsigned integer type such as `u32`, which ensures
-the parameter is never negative.
+Sin embargo, tener muchas comprobaciones de errores en todas tus funciones
+sería verboso y molesto. Afortunadamente, puedes usar el sistema de tipos de
+Rust (y, por lo tanto, la comprobación de tipos realizada por el compilador)
+para hacer muchas de las comprobaciones por ti. Si tu función tiene un tipo
+particular como parámetro, puedes proceder con la lógica de tu código sabiendo
+que el compilador ya se ha asegurado de que tengas un valor válido. Por
+ejemplo, si tienes un tipo en lugar de un `Option`, tu programa espera tener
+_algo_ en lugar de _nada_. Tu código entonces no tiene que manejar dos casos
+para las variantes `Some` y `None`: solo tendrá un caso para tener
+definitivamente un valor. El código que intenta pasar nada a tu función ni
+siquiera se compilará, por lo que tu función no tiene que verificar ese caso
+en tiempo de ejecución. Otro ejemplo es usar un tipo de entero sin signo como
+`u32`, que garantiza que el parámetro nunca sea negativo.
 
-### Creating Custom Types for Validation
+### Creacion de tipos personalizados para validacion
 
-Let’s take the idea of using Rust’s type system to ensure we have a valid value
-one step further and look at creating a custom type for validation. Recall the
-guessing game in Chapter 2 in which our code asked the user to guess a number
-between 1 and 100. We never validated that the user’s guess was between those
-numbers before checking it against our secret number; we only validated that
-the guess was positive. In this case, the consequences were not very dire: our
-output of “Too high” or “Too low” would still be correct. But it would be a
-useful enhancement to guide the user toward valid guesses and have different
-behavior when a user guesses a number that’s out of range versus when a user
-types, for example, letters instead.
+Tomemos la idea de usar el sistema de tipos de Rust para garantizar que
+tengamos un valor válido un paso más allá y veamos cómo crear un tipo
+personalizado para validación. Recuerda el juego de adivinanzas en el Capítulo
+2 en el que nuestro código le pidió al usuario que adivinara un número entre 1
+y 100. Nunca validamos que la suposición del usuario estuviera entre esos
+números antes de verificarla con nuestro número secreto; solo validamos que la
+suposición fuera positiva. En este caso, las consecuencias no fueron muy
+graves: nuestra salida de “Demasiado alto” o “Demasiado bajo” seguiría siendo
+correcta. Pero sería una mejora útil guiar al usuario hacia suposiciones
+válidas y tener un comportamiento diferente cuando un usuario adivina un
+número que está fuera del rango en comparación con cuando un usuario escribe,
+por ejemplo, letras en su lugar.
 
-One way to do this would be to parse the guess as an `i32` instead of only a
-`u32` to allow potentially negative numbers, and then add a check for the
-number being in range, like so:
+Una forma de hacer esto sería analizar la suposición como un `i32` en lugar de
+solo un `u32` para permitir números potencialmente negativos, y luego agregar
+una verificación de que el número esté en el rango, de esta manera:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-09-guess-out-of-range/src/main.rs:here}}
 ```
 
-The `if` expression checks whether our value is out of range, tells the user
-about the problem, and calls `continue` to start the next iteration of the loop
-and ask for another guess. After the `if` expression, we can proceed with the
-comparisons between `guess` and the secret number knowing that `guess` is
-between 1 and 100.
+La expresión `if` verifica si nuestro valor está fuera del rango, le dice al
+usuario sobre el problema y llama a `continue` para iniciar la siguiente
+iteración del ciclo y pedir otra suposición. Después de la expresión `if`,
+podemos continuar con las comparaciones entre `guess` y el número secreto
+sabiendo que `guess` está entre 1 y 100.
 
-However, this is not an ideal solution: if it was absolutely critical that the
-program only operated on values between 1 and 100, and it had many functions
-with this requirement, having a check like this in every function would be
-tedious (and might impact performance).
+Sin embargo, esta no es una solución ideal: si fuera absolutamente crítico que
+el programa solo operara en valores entre 1 y 100, y tuviera muchas funciones
+con este requisito, tener una verificación como esa en cada función sería
+tedioso (y podría afectar el rendimiento).
 
-Instead, we can make a new type and put the validations in a function to create
-an instance of the type rather than repeating the validations everywhere. That
-way, it’s safe for functions to use the new type in their signatures and
-confidently use the values they receive. Listing 9-13 shows one way to define a
-`Guess` type that will only create an instance of `Guess` if the `new` function
-receives a value between 1 and 100.
+En su lugar, podemos crear un nuevo tipo y poner las verificaciones en una
+función para crear una instancia del tipo en lugar de repetir las
+verificaciones en cada función. De esa manera, es seguro que las funciones
+utilicen el nuevo tipo en sus firmas y utilicen los valores que reciben con
+confianza. El Listado 9-13 muestra una forma de definir un tipo `Guess` que
+solo creará una instancia de `Guess` si la función `new` recibe un valor entre
+1 y 100.
 
 <!-- Deliberately not using rustdoc_include here; the `main` function in the
 file requires the `rand` crate. We do want to include it for reader
@@ -171,53 +185,57 @@ purposes. -->
 {{#include ../listings/ch09-error-handling/listing-09-13/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 9-13: A `Guess` type that will only continue with
-values between 1 and 100</span>
+<span class="caption">Listing 9-13: Un tipo `Guess` que solo continuará con
+valores entre 1 y 100</span>
 
-First, we define a struct named `Guess` that has a field named `value` that
-holds an `i32`. This is where the number will be stored.
+Primero, definimos un struct llamado `Guess` que tiene un campo llamado `value`
+que contiene un `i32`. Aquí es donde se almacenará el número.
 
-Then we implement an associated function named `new` on `Guess` that creates
-instances of `Guess` values. The `new` function is defined to have one
-parameter named `value` of type `i32` and to return a `Guess`. The code in the
-body of the `new` function tests `value` to make sure it’s between 1 and 100.
-If `value` doesn’t pass this test, we make a `panic!` call, which will alert
-the programmer who is writing the calling code that they have a bug they need
-to fix, because creating a `Guess` with a `value` outside this range would
-violate the contract that `Guess::new` is relying on. The conditions in which
-`Guess::new` might panic should be discussed in its public-facing API
-documentation; we’ll cover documentation conventions indicating the possibility
-of a `panic!` in the API documentation that you create in Chapter 14. If
-`value` does pass the test, we create a new `Guess` with its `value` field set
-to the `value` parameter and return the `Guess`.
+Luego implementamos una función asociada llamada `new` en `Guess` que crea
+instancias de valores `Guess`. La función `new` está definida para tener un
+parámetro llamado `value` de tipo `i32` y para devolver un `Guess`. El código
+en el cuerpo de la función `new` prueba `value` para asegurarse de que esté
+entre 1 y 100. Si `value` no pasa esta prueba, hacemos una llamada `panic!`,
+que alertará al programador que está escribiendo el código de llamada que
+tiene un error que debe corregir, porque crear un `Guess` con un `value` fuera
+de este rango violaría el contrato en el que `Guess::new` se basa. Las
+condiciones en las que `Guess::new` podría entrar en pánico deben discutirse
+en la documentación de la API de cara al público; cubriremos las convenciones
+de documentación que indican la posibilidad de un `panic!` en la documentación
+de la API que creas en el Capítulo 14. Si `value` pasa la prueba, creamos un
+nuevo `Guess` con su campo `value` establecido en el `value` y devolvemos el
+`Guess`.
 
-Next, we implement a method named `value` that borrows `self`, doesn’t have any
-other parameters, and returns an `i32`. This kind of method is sometimes called
-a *getter*, because its purpose is to get some data from its fields and return
-it. This public method is necessary because the `value` field of the `Guess`
-struct is private. It’s important that the `value` field be private so code
-using the `Guess` struct is not allowed to set `value` directly: code outside
-the module *must* use the `Guess::new` function to create an instance of
-`Guess`, thereby ensuring there’s no way for a `Guess` to have a `value` that
-hasn’t been checked by the conditions in the `Guess::new` function.
+A continuación, implementamos un método llamado `value` que toma prestado
+`self`, no tiene otros parámetros y devuelve un `i32`. Este tipo de método se
+llama a veces _getter_, porque su propósito es obtener algunos datos de sus
+campos y devolverlos. Este método público es necesario porque el campo `value`
+del struct `Guess` es privado. Es importante que el campo `value` sea privado
+para que el código que usa el struct `Guess` no pueda establecer `value`
+directamente: el código fuera del módulo _debe_ usar la función `Guess::new`
+para crear una instancia de `Guess`, lo que garantiza que no hay forma de que
+un `Guess` tenga un `value` que no haya sido verificado por las condiciones en
+la función `Guess::new`.
 
-A function that has a parameter or returns only numbers between 1 and 100 could
-then declare in its signature that it takes or returns a `Guess` rather than an
-`i32` and wouldn’t need to do any additional checks in its body.
+Una función que tiene un parámetro o devuelve solo números entre 1 y 100 podría
+entonces declarar en su firma que toma o devuelve un `Guess` en lugar de un
+`i32` y no necesitaría hacer ninguna verificación adicional en su cuerpo.
 
-## Summary
+## Resumen
 
-Rust’s error handling features are designed to help you write more robust code.
-The `panic!` macro signals that your program is in a state it can’t handle and
-lets you tell the process to stop instead of trying to proceed with invalid or
-incorrect values. The `Result` enum uses Rust’s type system to indicate that
-operations might fail in a way that your code could recover from. You can use
-`Result` to tell code that calls your code that it needs to handle potential
-success or failure as well. Using `panic!` and `Result` in the appropriate
-situations will make your code more reliable in the face of inevitable problems.
+Las características de manejo de errores de Rust están diseñadas para ayudarte
+a escribir un código más robusto. La macro `panic!` indica que tu programa
+está en un estado que no puede manejar y te permite indicarle al proceso que
+se detenga en lugar de intentar continuar con valores no válidos o incorrectos.
+El enum `Result` usa el sistema de tipos de Rust para indicar que las
+operaciones pueden fallar de una manera que tu código podría recuperar. Puedes
+usar `Result` para decirle al código que llama a tu código que necesita manejar
+el éxito o el error de manera potencial. Usar `panic!` y `Result` en las
+situaciones apropiadas hará que tu código sea más confiable ante los problemas
+inevitables.
 
-Now that you’ve seen useful ways that the standard library uses generics with
-the `Option` and `Result` enums, we’ll talk about how generics work and how you
-can use them in your code.
+Ahora que has visto formas útiles en que la biblioteca estándar usa generics
+con los enums `Option` y `Result`, hablaremos sobre cómo funcionan los
+generics y cómo puedes usarlos en tu código.
 
-[encoding]: ch17-03-oo-design-patterns.html#encoding-states-and-behavior-as-types
+[encoding]: ch17-03-oo-design-patterns.html#codificando-estados-y-comportamiento-como-tipos

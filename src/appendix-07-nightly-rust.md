@@ -1,50 +1,55 @@
-## Appendix G - How Rust is Made and “Nightly Rust”
+## Apéndice G - Cómo se hace Rust y “Rust Nightly”
 
-This appendix is about how Rust is made and how that affects you as a Rust
-developer.
+Este apéndice trata sobre cómo se hace Rust y cómo eso te afecta como
+desarrollador de Rust.
 
-### Stability Without Stagnation
+### Estabilidad sin estancamiento
 
-As a language, Rust cares a *lot* about the stability of your code. We want
-Rust to be a rock-solid foundation you can build on, and if things were
-constantly changing, that would be impossible. At the same time, if we can’t
-experiment with new features, we may not find out important flaws until after
-their release, when we can no longer change things.
+Como lenguaje, Rust se preocupa _mucho_ por la estabilidad de tu código.
+Queremos que Rust sea una base sólida sobre la que puedas construir, y si las
+cosas cambian constantemente, eso sería imposible. Al mismo tiempo, si no
+podemos experimentar con nuevas características, es posible que no descubramos
+fallos importantes hasta después de su lanzamiento, cuando ya no podamos
+cambiar las cosas.
 
-Our solution to this problem is what we call “stability without stagnation”,
-and our guiding principle is this: you should never have to fear upgrading to a
-new version of stable Rust. Each upgrade should be painless, but should also
-bring you new features, fewer bugs, and faster compile times.
+Nuestra solución a este problema es lo que llamamos “estabilidad sin
+estancamiento”, y nuestro principio rector es el siguiente: nunca debes temer
+actualizar a una nueva versión de Rust estable. Cada actualización debe ser
+indolora, pero también debe traerte nuevas características, menos errores y
+tiempos de compilación más rápidos.
 
-### Choo, Choo! Release Channels and Riding the Trains
+### ¡Choo, Choo! Canales de lanzamiento y montando los trenes
 
-Rust development operates on a *train schedule*. That is, all development is
-done on the `master` branch of the Rust repository. Releases follow a software
-release train model, which has been used by Cisco IOS and other software
-projects. There are three *release channels* for Rust:
+El desarrollo de Rust funciona con un _horario de trenes_. Es decir, todo el
+desarrollo se hace en la rama `master` del repositorio de Rust. Las versiones
+siguen un modelo de tren de lanzamiento de software, que ha sido utilizado por
+Cisco IOS y otros proyectos de software. Hay tres _canales de lanzamiento_ para
+Rust:
 
-* Nightly
-* Beta
-* Stable
+- Nightly
+- Beta
+- Stable
 
-Most Rust developers primarily use the stable channel, but those who want to
-try out experimental new features may use nightly or beta.
+La mayoría de los desarrolladores de Rust utilizan principalmente el canal
+estable, pero aquellos que quieran probar nuevas características experimentales
+pueden utilizar nightly o beta.
 
-Here’s an example of how the development and release process works: let’s
-assume that the Rust team is working on the release of Rust 1.5. That release
-happened in December of 2015, but it will provide us with realistic version
-numbers. A new feature is added to Rust: a new commit lands on the `master`
-branch. Each night, a new nightly version of Rust is produced. Every day is a
-release day, and these releases are created by our release infrastructure
-automatically. So as time passes, our releases look like this, once a night:
+Aquí hay un ejemplo de cómo funciona el proceso de desarrollo y lanzamiento:
+supongamos que el equipo de Rust está trabajando en el lanzamiento de Rust 1.5.
+Ese lanzamiento ocurrió en diciembre de 2015, pero nos proporcionará números de
+versión realistas. Se añade una nueva característica a Rust: un nuevo commit
+aterriza en la rama `master`. Cada noche, se produce una nueva versión nightly
+de Rust. Cada día es un día de lanzamiento, y estos lanzamientos son creados
+por nuestra infraestructura de lanzamiento automáticamente. Así que a medida
+que pasa el tiempo, nuestros lanzamientos se ven así, una vez por noche:
 
 ```text
 nightly: * - - * - - *
 ```
 
-Every six weeks, it’s time to prepare a new release! The `beta` branch of the
-Rust repository branches off from the `master` branch used by nightly. Now,
-there are two releases:
+Cada seis semanas, es hora de preparar un nuevo lanzamiento! La rama `beta` del
+repositorio de Rust se ramifica de la rama `master` utilizada por nightly.
+Ahora, hay dos lanzamientos:
 
 ```text
 nightly: * - - * - - *
@@ -52,9 +57,10 @@ nightly: * - - * - - *
 beta:                *
 ```
 
-Most Rust users do not use beta releases actively, but test against beta in
-their CI system to help Rust discover possible regressions. In the meantime,
-there’s still a nightly release every night:
+La mayoría de los usuarios de Rust no utilizan las versiones beta activamente,
+pero prueban contra beta en su sistema CI para ayudar a Rust a descubrir
+posibles regresiones. Mientras tanto, hay un lanzamiento nightly cada
+noche:
 
 ```text
 nightly: * - - * - - * - - * - - *
@@ -62,10 +68,11 @@ nightly: * - - * - - * - - * - - *
 beta:                *
 ```
 
-Let’s say a regression is found. Good thing we had some time to test the beta
-release before the regression snuck into a stable release! The fix is applied
-to `master`, so that nightly is fixed, and then the fix is backported to the
-`beta` branch, and a new release of beta is produced:
+Digamos que se encuentra una regresión. ¡Qué bueno que tuvimos algo de tiempo
+para probar la versión beta antes de que la regresión se colara en una versión
+estable! La solución se aplica a `master`, de modo que nightly se arregla, y
+luego la solución se vuelve a aplicar a la rama `beta`, y se produce una nueva
+versión de beta:
 
 ```text
 nightly: * - - * - - * - - * - - * - - *
@@ -73,8 +80,8 @@ nightly: * - - * - - * - - * - - * - - *
 beta:                * - - - - - - - - *
 ```
 
-Six weeks after the first beta was created, it’s time for a stable release! The
-`stable` branch is produced from the `beta` branch:
+Seis semanas después de que se creó la primera beta, ¡es hora de un lanzamiento
+estable! La rama `stable` se produce a partir de la rama `beta`:
 
 ```text
 nightly: * - - * - - * - - * - - * - - * - * - *
@@ -84,10 +91,10 @@ beta:                * - - - - - - - - *
 stable:                                *
 ```
 
-Hooray! Rust 1.5 is done! However, we’ve forgotten one thing: because the six
-weeks have gone by, we also need a new beta of the *next* version of Rust, 1.6.
-So after `stable` branches off of `beta`, the next version of `beta` branches
-off of `nightly` again:
+¡Hurra! ¡Rust 1.5 está listo! Sin embargo, nos hemos olvidado de una cosa:
+porque han pasado las seis semanas, también necesitamos una nueva beta de la
+_siguiente_ versión de Rust, 1.6. Así que después de que `stable` se ramifica de
+`beta`, la siguiente versión de `beta` se ramifica de `nightly` de nuevo:
 
 ```text
 nightly: * - - * - - * - - * - - * - - * - * - *
@@ -97,63 +104,71 @@ beta:                * - - - - - - - - *       *
 stable:                                *
 ```
 
-This is called the “train model” because every six weeks, a release “leaves the
-station”, but still has to take a journey through the beta channel before it
-arrives as a stable release.
+Esto se llama el “modelo de tren” porque cada seis semanas, un lanzamiento
+“sale de la estación”, pero aún tiene que hacer un viaje a través del canal
+beta antes de llegar como un lanzamiento estable.
 
-Rust releases every six weeks, like clockwork. If you know the date of one Rust
-release, you can know the date of the next one: it’s six weeks later. A nice
-aspect of having releases scheduled every six weeks is that the next train is
-coming soon. If a feature happens to miss a particular release, there’s no need
-to worry: another one is happening in a short time! This helps reduce pressure
-to sneak possibly unpolished features in close to the release deadline.
+Rust se lanza cada seis semanas, como un reloj. Si conoces la fecha de un
+lanzamiento de Rust, puedes conocer la fecha del siguiente: es seis semanas
+después. Un aspecto agradable de tener lanzamientos programados cada seis
+semanas es que el próximo tren está llegando pronto. Si una característica
+llega a perder un lanzamiento en particular, no hay necesidad de preocuparse:
+¡otro está sucediendo en un corto tiempo! Esto ayuda a reducir la presión para
+colar posiblemente características poco pulidas cerca de la fecha límite de
+lanzamiento.
 
-Thanks to this process, you can always check out the next build of Rust and
-verify for yourself that it’s easy to upgrade to: if a beta release doesn’t
-work as expected, you can report it to the team and get it fixed before the
-next stable release happens! Breakage in a beta release is relatively rare, but
-`rustc` is still a piece of software, and bugs do exist.
+Gracias a este proceso, siempre puedes comprobar la siguiente compilación de
+Rust y verificar por ti mismo que es fácil de actualizar: si una versión beta
+no funciona como se esperaba, puedes informarlo al equipo y solucionarlo antes
+de que ocurra el siguiente lanzamiento estable! La rotura en una versión beta
+es relativamente rara, pero `rustc` sigue siendo un software, y los errores
+existen.
 
-### Maintenance time
+### Tiempo de Mantenimiento
 
-The Rust project supports the most recent stable version. When a new stable
-version is released, the old version reaches its end of life (EOL). This means
-each version is supported for six weeks.
+El proyecto Rust admite la versión estable más reciente. Cuando una nueva 
+versión estable es lanzada, la versión anterior llega al final de su vida útil 
+(EOL). Esto significa que cada versión tiene soporte durante seis semanas.
 
-### Unstable Features
+<a id="caracteristicas-inestables"></a>
 
-There’s one more catch with this release model: unstable features. Rust uses a
-technique called “feature flags” to determine what features are enabled in a
-given release. If a new feature is under active development, it lands on
-`master`, and therefore, in nightly, but behind a *feature flag*. If you, as a
-user, wish to try out the work-in-progress feature, you can, but you must be
-using a nightly release of Rust and annotate your source code with the
-appropriate flag to opt in.
+## Características inestables
 
-If you’re using a beta or stable release of Rust, you can’t use any feature
-flags. This is the key that allows us to get practical use with new features
-before we declare them stable forever. Those who wish to opt into the bleeding
-edge can do so, and those who want a rock-solid experience can stick with
-stable and know that their code won’t break. Stability without stagnation.
+Hay alo más con este modelo de lanzamiento: características inestables.
+Rust utiliza una técnica llamada “indicadores de características” para
+determinar qué características están habilitadas en un lanzamiento dado. Si una
+nueva característica está en desarrollo activo, aterriza en `master`, y por lo
+tanto, en nightly, pero detrás de un _indicador de característica_. Si, como
+usuario, desea probar la característica en progreso, puede hacerlo, pero debe
+estar utilizando una versión nightly de Rust y anotar su código fuente con el
+indicador apropiado para optar por ello.
 
-This book only contains information about stable features, as in-progress
-features are still changing, and surely they’ll be different between when this
-book was written and when they get enabled in stable builds. You can find
-documentation for nightly-only features online.
+Si está utilizando una versión beta o estable de Rust, no puede utilizar
+indicadores de características. Esta es la clave que nos permite obtener un uso
+práctico con nuevas características antes de declararlas estables para siempre.
+Aquellos que deseen optar por el borde sangrante pueden hacerlo, y aquellos que
+deseen una experiencia sólida pueden quedarse con estable y saber que su código
+no se romperá. Estabilidad sin estancamiento.
 
-### Rustup and the Role of Rust Nightly
+Este libro sólo contiene información sobre características estables, ya que las
+características en progreso aún están cambiando, y seguramente serán diferentes
+entre cuando se escribió este libro y cuando se habiliten en compilaciones
+estables. Puede encontrar documentación para características sólo nocturnas en
+línea.
 
-Rustup makes it easy to change between different release channels of Rust, on a
-global or per-project basis. By default, you’ll have stable Rust installed. To
-install nightly, for example:
+## Rustup y el papel de Rust Nightly
+
+Rustup facilita el cambio entre diferentes canales de lanzamiento de Rust, a
+nivel global o por proyecto. Por defecto, tendrá instalado Rust estable. Para
+instalar nightly, por ejemplo:
 
 ```console
 $ rustup toolchain install nightly
 ```
 
-You can see all of the *toolchains* (releases of Rust and associated
-components) you have installed with `rustup` as well. Here’s an example on one
-of your authors’ Windows computer:
+También puede ver todas las _herramientas_ (versiones de Rust y componentes
+asociados) que tiene instaladas con `rustup`. Aquí hay un ejemplo en uno de los
+autores de Windows:
 
 ```powershell
 > rustup toolchain list
@@ -162,46 +177,50 @@ beta-x86_64-pc-windows-msvc
 nightly-x86_64-pc-windows-msvc
 ```
 
-As you can see, the stable toolchain is the default. Most Rust users use stable
-most of the time. You might want to use stable most of the time, but use
-nightly on a specific project, because you care about a cutting-edge feature.
-To do so, you can use `rustup override` in that project’s directory to set the
-nightly toolchain as the one `rustup` should use when you’re in that directory:
+Como puede ver, la herramienta estable es la predeterminada. La mayoría de los
+usuarios de Rust utilizan estable la mayor parte del tiempo. Es posible que
+desee utilizar estable la mayor parte del tiempo, pero utilizar nightly en un
+proyecto específico, porque le importa una característica de vanguardia. Para
+hacerlo, puede utilizar `rustup override` en el directorio del proyecto para
+establecer la herramienta nightly como la que `rustup` debe utilizar cuando
+esté en ese directorio:
 
 ```console
 $ cd ~/projects/needs-nightly
 $ rustup override set nightly
 ```
 
-Now, every time you call `rustc` or `cargo` inside of
-*~/projects/needs-nightly*, `rustup` will make sure that you are using nightly
-Rust, rather than your default of stable Rust. This comes in handy when you
-have a lot of Rust projects!
+Ahora, cada vez que llame a `rustc` o `cargo` dentro de
+_~/projects/needs-nightly_, `rustup` se asegurará de que esté utilizando Rust
+nocturno, en lugar de su estable predeterminado. ¡Esto es útil cuando tienes
+muchos proyectos de Rust!
 
-### The RFC Process and Teams
+## El proceso RFC y los equipos
 
-So how do you learn about these new features? Rust’s development model follows
-a *Request For Comments (RFC) process*. If you’d like an improvement in Rust,
-you can write up a proposal, called an RFC.
+Entonces, ¿cómo se aprende sobre estas nuevas características? El modelo de
+desarrollo de Rust sigue un proceso de _Solicitud de comentarios (RFC)_. Si
+desea una mejora en Rust, puede escribir una propuesta, llamada RFC.
 
-Anyone can write RFCs to improve Rust, and the proposals are reviewed and
-discussed by the Rust team, which is comprised of many topic subteams. There’s
-a full list of the teams [on Rust’s
-website](https://www.rust-lang.org/governance), which includes teams for
-each area of the project: language design, compiler implementation,
-infrastructure, documentation, and more. The appropriate team reads the
-proposal and the comments, writes some comments of their own, and eventually,
-there’s consensus to accept or reject the feature.
+Cualquiera puede escribir RFC para mejorar Rust, y las propuestas son revisadas
+y discutidas por el equipo de Rust, que está compuesto por muchos subequipos de
+temas. Hay una lista completa de los equipos [en el sitio web de
+Rust](https://www.rust-lang.org/governance), que incluye equipos para cada área
+del proyecto: diseño de lenguaje, implementación de compilador, infraestructura,
+documentación y más. El equipo apropiado lee la propuesta y los comentarios,
+escribe algunos comentarios propios y, finalmente, hay consenso para aceptar o
+rechazar la característica.
 
-If the feature is accepted, an issue is opened on the Rust repository, and
-someone can implement it. The person who implements it very well may not be the
-person who proposed the feature in the first place! When the implementation is
-ready, it lands on the `master` branch behind a feature gate, as we discussed
-in the [“Unstable Features”](#unstable-features)<!-- ignore --> section.
+Si la característica es aceptada, se abre un problema en el repositorio de
+Rust, y alguien puede implementarla. ¡La persona que lo implementa muy bien no
+tiene por qué ser la persona que propuso la característica en primer lugar!
+Cuando la implementación está lista, aterriza en la rama `master` detrás de una
+puerta de características, como discutimos en la sección [“Características
+inestables”](#caracteristicas-inestables)<!-- ignore -->.
 
-After some time, once Rust developers who use nightly releases have been able
-to try out the new feature, team members will discuss the feature, how it’s
-worked out on nightly, and decide if it should make it into stable Rust or not.
-If the decision is to move forward, the feature gate is removed, and the
-feature is now considered stable! It rides the trains into a new stable release
-of Rust.
+Después de algún tiempo, una vez que los desarrolladores de Rust que utilizan
+las versiones nightly han podido probar la nueva característica, los
+miembros del equipo discutirán la característica, cómo ha funcionado en
+nightly, y decidirán si debe o no hacerlo en Rust estable. Si la decisión es
+seguir adelante, la puerta de la característica se elimina, ¡y la característica
+ahora se considera estable! Monta los trenes en una nueva versión estable de
+Rust.

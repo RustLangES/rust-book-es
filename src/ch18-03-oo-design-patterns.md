@@ -1,44 +1,49 @@
-## Implementing an Object-Oriented Design Pattern
+## Implementando un patrón de diseño orientado a objetos
 
-The *state pattern* is an object-oriented design pattern. The crux of the
-pattern is that we define a set of states a value can have internally. The
-states are represented by a set of *state objects*, and the value’s behavior
-changes based on its state. We’re going to work through an example of a blog
-post struct that has a field to hold its state, which will be a state object
-from the set "draft", "review", or "published".
+El _state pattern_ es un patrón de diseño orientado a objetos. La esencia del
+patrón es que definimos un conjunto de estados que un valor puede tener
+internamente. Los estados están representados por un conjunto de _state
+objects_, y el comportamiento del valor cambia según su estado. Vamos a
+trabajar a través de un ejemplo de un struct de publicación de blog que
+tiene un campo para mantener su estado, que será un state object del conjunto
+"borrador", "revisión" o "publicado".
 
-The state objects share functionality: in Rust, of course, we use structs and
-traits rather than objects and inheritance. Each state object is responsible
-for its own behavior and for governing when it should change into another
-state. The value that holds a state object knows nothing about the different
-behavior of the states or when to transition between states.
+Los state objects comparten funcionalidad: en Rust, por supuesto, usamos
+structs y traits en lugar de objetos y herencia. Cada state object es
+responsable de su propio comportamiento y de gobernar cuándo debe cambiar a
+otro estado. El valor que contiene un state object no sabe nada sobre el
+comportamiento diferente de los estados o cuándo hacer la transición entre
+estados.
 
-The advantage of using the state pattern is that, when the business
-requirements of the program change, we won’t need to change the code of the
-value holding the state or the code that uses the value. We’ll only need to
-update the code inside one of the state objects to change its rules or perhaps
-add more state objects.
+La ventaja de usar el state pattern es que, cuando los requisitos comerciales
+del programa cambian, no necesitaremos cambiar el código del valor que
+contiene el estado o el código que usa el valor. Solo necesitaremos actualizar
+el código dentro de uno de los state objects para cambiar sus reglas o quizás
+agregar más state objects.
 
-First, we’re going to implement the state pattern in a more traditional
-object-oriented way, then we’ll use an approach that’s a bit more natural in
-Rust. Let’s dig in to incrementally implementing a blog post workflow using the
-state pattern.
+Primero, vamos a implementar el state pattern de una manera más tradicional
+orientada a objetos, luego usaremos un enfoque que es un poco más natural en
+Rust. Vamos a profundizar en la implementación incremental de un flujo de
+trabajo de publicación de blog usando el state pattern.
 
-The final functionality will look like this:
+La funcionalidad final se verá así:
 
-1. A blog post starts as an empty draft.
-2. When the draft is done, a review of the post is requested.
-3. When the post is approved, it gets published.
-4. Only published blog posts return content to print, so unapproved posts can’t
-   accidentally be published.
+1. Un post de blog que comienza como un borrador vacío.
+2. Cuando se completa el borrador, se solicita una revisión de la publicación.
+3. Cuando se aprueba la publicación, se publica.
+4. Solo las publicaciones de blog publicadas devuelven contenido para imprimir,
+   por lo que las publicaciones no aprobadas no pueden publicarse
+   accidentalmente.
 
-Any other changes attempted on a post should have no effect. For example, if we
-try to approve a draft blog post before we’ve requested a review, the post
-should remain an unpublished draft.
+Cualquier otro cambio que se intente realizar en una publicación no debería
+tener ningún efecto. Por ejemplo, si intentamos aprobar un borrador de blog
+antes de haber solicitado una revisión, la publicación debería seguir siendo
+un borrador no publicado.
 
-Listing 17-11 shows this workflow in code form: this is an example usage of the
-API we’ll implement in a library crate named `blog`. This won’t compile yet
-because we haven’t implemented the `blog` crate.
+El Listado 17-11 muestra este flujo de trabajo en forma de código: este es un
+ejemplo de uso de la API que implementaremos en una crate de biblioteca
+llamada `blog`. Esto aún no se compilará porque no hemos implementado el crate
+de biblioteca `blog`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -46,43 +51,46 @@ because we haven’t implemented the `blog` crate.
 {{#rustdoc_include ../listings/ch17-oop/listing-17-11/src/main.rs:all}}
 ```
 
-<span class="caption">Listing 17-11: Code that demonstrates the desired
-behavior we want our `blog` crate to have</span>
+<span class="caption">Listing 17-11: Código que demuestra el comportamiento
+deseado que queremos que tenga nuestro crate `blog`</span>
 
-We want to allow the user to create a new draft blog post with `Post::new`. We
-want to allow text to be added to the blog post. If we try to get the post’s
-content immediately, before approval, we shouldn’t get any text because the
-post is still a draft. We’ve added `assert_eq!` in the code for demonstration
-purposes. An excellent unit test for this would be to assert that a draft blog
-post returns an empty string from the `content` method, but we’re not going to
-write tests for this example.
+Queremos permitir que el usuario cree una nueva publicación de blog en borrador
+con `Post::new`. Queremos permitir que se agregue texto a la publicación del
+blog. Si intentamos obtener el contenido de la publicación inmediatamente,
+antes de la aprobación, no deberíamos obtener ningún texto porque la publicación
+sigue siendo un borrador. Hemos agregado `assert_eq!` en el código con fines de
+demostración. Una excelente prueba unitaria para esto sería afirmar que una
+publicación de blog en borrador devuelve un string vacío del método `content`,
+pero no vamos a escribir pruebas para este ejemplo.
 
-Next, we want to enable a request for a review of the post, and we want
-`content` to return an empty string while waiting for the review. When the post
-receives approval, it should get published, meaning the text of the post will
-be returned when `content` is called.
+A continuación, queremos permitir una solicitud de revisión de la publicación
+y queremos que `content` devuelva un string vacío mientras espera la revisión.
+Cuando la publicación reciba la aprobación, debería publicarse, lo que significa
+que el texto de la publicación se devolverá cuando se llame a `content`.
 
-Notice that the only type we’re interacting with from the crate is the `Post`
-type. This type will use the state pattern and will hold a value that will be
-one of three state objects representing the various states a post can be
-in—draft, waiting for review, or published. Changing from one state to another
-will be managed internally within the `Post` type. The states change in
-response to the methods called by our library’s users on the `Post` instance,
-but they don’t have to manage the state changes directly. Also, users can’t
-make a mistake with the states, like publishing a post before it’s reviewed.
+Observa que el único tipo con el que estamos interactuando desde el crate es
+el tipo `Post`. Este tipo utilizará el state pattern y contendrá un valor que
+será uno de los tres state objects que representan los diversos estados
+en los que puede estar una publicación: borrador, esperando revisión o
+publicado. El cambio de un estado a otro se administrará internamente dentro
+del tipo `Post`. Los estados cambian en respuesta a los métodos llamados por
+los usuarios de nuestra biblioteca en la instancia `Post`, pero no tienen que
+administrar los cambios de estado directamente. Además, los usuarios no pueden
+cometer un error con los estados, como publicar una publicación antes de que
+se revise.
 
-### Defining `Post` and Creating a New Instance in the Draft State
+### Definiendo `Post` y creando una nueva instancia en el estado de borrador
 
-Let’s get started on the implementation of the library! We know we need a
-public `Post` struct that holds some content, so we’ll start with the
-definition of the struct and an associated public `new` function to create an
-instance of `Post`, as shown in Listing 17-12. We’ll also make a private
-`State` trait that will define the behavior that all state objects for a `Post`
-must have.
+¡Comencemos con la implementación de la biblioteca! Sabemos que necesitamos
+un struct `Post` público que contenga algún contenido, por lo que comenzaremos
+con la definición del struct y una función pública `new` asociada para crear
+una instancia de `Post`, como se muestra en el Listado 17-12. También haremos
+un trait privado `State` que definirá el comportamiento que todos los objetos
+de estado para un `Post` deben tener.
 
-Then `Post` will hold a trait object of `Box<dyn State>` inside an `Option<T>`
-in a private field named `state` to hold the state object. You’ll see why the
-`Option<T>` is necessary in a bit.
+Luego, `Post` contendrá un trait object de `Box<dyn State>` dentro de un campo
+privado llamado `state` para mantener el state object. Verás por qué
+`Option<T>` es necesario en un momento.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -90,32 +98,32 @@ in a private field named `state` to hold the state object. You’ll see why the
 {{#rustdoc_include ../listings/ch17-oop/listing-17-12/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-12: Definition of a `Post` struct and a `new`
-function that creates a new `Post` instance, a `State` trait, and a `Draft`
-struct</span>
+<span class="caption">Listing 17-12: Definición de un struct `Post` y una
+función `new` que crea una nueva instancia de `Post`, un trait `State`, y un
+struct `Draft`</span>
 
-The `State` trait defines the behavior shared by different post states. The
-state objects are `Draft`, `PendingReview`, and `Published`, and they will all
-implement the `State` trait. For now, the trait doesn’t have any methods, and
-we’ll start by defining just the `Draft` state because that is the state we
-want a post to start in.
+El trait `State` define el comportamiento compartido por los diferentes estados
+de una publicación. Los state objects son `Draft`, `PendingReview` y
+`Published`, y todos implementarán el trait `State`. Por ahora, el trait no
+tiene ningún método, y comenzaremos definiendo solo el estado `Draft` porque
+ese es el estado en el que queremos que comience una publicación.
 
-When we create a new `Post`, we set its `state` field to a `Some` value that
-holds a `Box`. This `Box` points to a new instance of the `Draft` struct.
-This ensures whenever we create a new instance of `Post`, it will start out as
-a draft. Because the `state` field of `Post` is private, there is no way to
-create a `Post` in any other state! In the `Post::new` function, we set the
-`content` field to a new, empty `String`.
+Cuando creamos un nuevo `Post`, estableceremos su campo `state` como un valor
+`Some` que contiene un `Box` que apunta a una nueva instancia del struct
+`Draft`. Esto asegura que cada vez que creemos una nueva instancia de `Post`,
+comenzará como un borrador. Debido a que el campo `state` de `Post` es privado,
+¡no hay forma de crear un `Post` en ningún otro estado! En la función
+`Post::new`, establecemos el campo `content` en un nuevo `String` vacío.
 
-### Storing the Text of the Post Content
+### Almacenando el texto del contenido del post
 
-We saw in Listing 17-11 that we want to be able to call a method named
-`add_text` and pass it a `&str` that is then added as the text content of the
-blog post. We implement this as a method, rather than exposing the `content`
-field as `pub`, so that later we can implement a method that will control how
-the `content` field’s data is read. The `add_text` method is pretty
-straightforward, so let’s add the implementation in Listing 17-13 to the `impl
-Post` block:
+Vimos en el Listado 17-11 que queremos poder llamar a un método llamado
+`add_text` y pasarle un `&str` que luego se agregará como el contenido de texto
+de la publicación del blog. Implementaremos esto como un método, en lugar de
+exponer el campo `content` como `pub`, para que más tarde podamos implementar
+un método que controlará cómo se lee el campo `content`. El método `add_text`
+es bastante sencillo, así que agreguemos la implementación en el Listado 17-13
+al bloque `impl Post`:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -123,27 +131,29 @@ Post` block:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-13: Implementing the `add_text` method to add
-text to a post’s `content`</span>
+<span class="caption">Listing 17-13: Implementando el método `add_text` para
+agregar texto al campo `content` de una publicación</span>
 
-The `add_text` method takes a mutable reference to `self`, because we’re
-changing the `Post` instance that we’re calling `add_text` on. We then call
-`push_str` on the `String` in `content` and pass the `text` argument to add to
-the saved `content`. This behavior doesn’t depend on the state the post is in,
-so it’s not part of the state pattern. The `add_text` method doesn’t interact
-with the `state` field at all, but it is part of the behavior we want to
-support.
+El método `add_text` toma una referencia mutable a `self` porque estamos
+cambiando la instancia de `Post` en la que estamos llamando `add_text`. Luego
+llamamos a `push_str` en el `String` en `content` y pasamos el argumento `text`
+para agregar al `content` guardado. Este comportamiento no depende del estado
+en el que se encuentre la publicación, por lo que no es parte del state pattern.
+El método `add_text` no interactúa con el campo `state` en absoluto, pero es
+parte del comportamiento que queremos admitir.
 
-### Ensuring the Content of a Draft Post Is Empty
+### Asegurando que el contenido de un post en borrador esté vacío
 
-Even after we’ve called `add_text` and added some content to our post, we still
-want the `content` method to return an empty string slice because the post is
-still in the draft state, as shown on line 7 of Listing 17-11. For now, let’s
-implement the `content` method with the simplest thing that will fulfill this
-requirement: always returning an empty string slice. We’ll change this later
-once we implement the ability to change a post’s state so it can be published.
-So far, posts can only be in the draft state, so the post content should always
-be empty. Listing 17-14 shows this placeholder implementation:
+Incluso después de que hayamos llamado `add_text` y agregado algún contenido a
+nuestra publicación, todavía queremos que el método `content` devuelva un slice
+de string vacío porque la publicación todavía está en el estado de borrador,
+como se muestra en la línea 7 del Listado 17-11. Por ahora, implementemos el
+método `content` con lo más simple que cumplirá con este requisito: siempre
+devolver un string slice vacío. Lo cambiaremos más tarde una vez que
+implementemos la capacidad de cambiar el estado de una publicación para que
+pueda publicarse. Hasta ahora, las publicaciones solo pueden estar en el estado
+de borrador, por lo que el contenido de la publicación siempre debe estar
+vacío. El Listado 17-14 muestra esta implementación de marcador de posición:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -151,16 +161,18 @@ be empty. Listing 17-14 shows this placeholder implementation:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-14/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-14: Adding a placeholder implementation for
-the `content` method on `Post` that always returns an empty string slice</span>
+<span class="caption">Listing 17-14: Agregando una implementación provisional
+para el método `content` en `Post` que siempre devuelve un string slice vacío
+</span>
 
-With this added `content` method, everything in Listing 17-11 up to line 7
-works as intended.
+Con este método `content` añadido, todo en el Listado 17-11 hasta la línea 7
+funciona como se pretendía.
 
-### Requesting a Review of the Post Changes Its State
+### Solicitar una revisión de los cambios de publicación de su estado
 
-Next, we need to add functionality to request a review of a post, which should
-change its state from `Draft` to `PendingReview`. Listing 17-15 shows this code:
+A continuación, necesitamos agregar funcionalidad para solicitar una revisión
+de una publicación, lo que debería cambiar su estado de `Draft` a
+`PendingReview`. El Listado 17-15 muestra este código:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -168,59 +180,62 @@ change its state from `Draft` to `PendingReview`. Listing 17-15 shows this code:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-15/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-15: Implementing `request_review` methods on
-`Post` and the `State` trait</span>
+<span class="caption">Listing 17-15: Implementando los métodos `request_review`
+en `Post` y el trait `State`</span>
 
-We give `Post` a public method named `request_review` that will take a mutable
-reference to `self`. Then we call an internal `request_review` method on the
-current state of `Post`, and this second `request_review` method consumes the
-current state and returns a new state.
+Agregamos un método público llamado `request_review` a `Post` que toma una
+referencia mutable a `self`. Luego llamamos a un método interno `request_review`
+en el estado actual de `Post`, y este segundo método `request_review` consume
+el estado actual y devuelve un nuevo estado.
 
-We add the `request_review` method to the `State` trait; all types that
-implement the trait will now need to implement the `request_review` method.
-Note that rather than having `self`, `&self`, or `&mut self` as the first
-parameter of the method, we have `self: Box<Self>`. This syntax means the
-method is only valid when called on a `Box` holding the type. This syntax takes
-ownership of `Box<Self>`, invalidating the old state so the state value of the
-`Post` can transform into a new state.
+Agregamos el método `request_review` al trait `State`; todos los tipos que
+implementan el trait ahora deberán implementar el método `request_review`.
+Tenga en cuenta que en lugar de tener `self`, `&self` o `&mut self` como el
+primer parámetro del método, tenemos `self: Box<Self>`. Esta sintaxis significa
+que el método solo es válido cuando se llama en un `Box` que contiene el tipo.
+Esta sintaxis toma posesión de `Box<Self>`, invalidando el estado anterior para
+que el valor de estado de `Post` pueda transformarse en un nuevo estado.
 
-To consume the old state, the `request_review` method needs to take ownership
-of the state value. This is where the `Option` in the `state` field of `Post`
-comes in: we call the `take` method to take the `Some` value out of the `state`
-field and leave a `None` in its place, because Rust doesn’t let us have
-unpopulated fields in structs. This lets us move the `state` value out of
-`Post` rather than borrowing it. Then we’ll set the post’s `state` value to the
-result of this operation.
+Para consumir el antiguo estado, el método `request_review` debe tomar
+ownership del valor de estado. Aquí es donde entra en juego la `Option` en el
+campo `state` de `Post`: llamamos al método `take` para sacar el valor `Some`
+del campo `state` y dejar un `None` en su lugar, porque Rust no nos permite
+tener campos no poblados en los structs. Esto nos permite mover el valor
+`state` fuera de `Post` en lugar de pedir borrowing. Luego estableceremos el
+valor `state` de la publicación en el resultado de esta operación.
 
-We need to set `state` to `None` temporarily rather than setting it directly
-with code like `self.state = self.state.request_review();` to get ownership of
-the `state` value. This ensures `Post` can’t use the old `state` value after
-we’ve transformed it into a new state.
+Necesitamos establecer `state` como `None` temporalmente en lugar de
+establecerlo directamente con código como
+`self.state = self.state.request_review();` para obtener la propiedad del
+valor `state`. Esto asegura que `Post` no pueda usar el valor `state` antiguo
+después de que lo hayamos transformado en un nuevo estado.
 
-The `request_review` method on `Draft` returns a new, boxed instance of a new
-`PendingReview` struct, which represents the state when a post is waiting for a
-review. The `PendingReview` struct also implements the `request_review` method
-but doesn’t do any transformations. Rather, it returns itself, because when we
-request a review on a post already in the `PendingReview` state, it should stay
-in the `PendingReview` state.
+El método `request_review` en `Draft` devuelve una nueva instancia de un nuevo
+struct llamado `PendingReview`, que representa el estado cuando un post está
+esperando una revisión. El struct `PendingReview` también implementa
+el método `request_review`, pero no hace ninguna transformación. En cambio,
+devuelve a sí mismo, porque cuando solicitamos una revisión en una publicación
+que ya está en el estado `PendingReview`, debe permanecer en el estado
+`PendingReview`.
 
-Now we can start seeing the advantages of the state pattern: the
-`request_review` method on `Post` is the same no matter its `state` value. Each
-state is responsible for its own rules.
+Ahora podemos comenzar a ver las ventajas del state pattern: el método
+`request_review` en `Post` es el mismo sin importar su valor `state`. Cada
+estado es responsable de sus propias reglas.
 
-We’ll leave the `content` method on `Post` as is, returning an empty string
-slice. We can now have a `Post` in the `PendingReview` state as well as in the
-`Draft` state, but we want the same behavior in the `PendingReview` state.
-Listing 17-11 now works up to line 10!
+Dejaremos el método `content` en `Post` tal como está, devolviendo un string
+slice vacío. Ahora podemos tener un `Post` en el estado `PendingReview` así
+como en el estado `Draft`, pero queremos el mismo comportamiento en el estado
+`PendingReview`. ¡El Listado 17-11 ahora funciona hasta la línea 10!
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 
-### Adding `approve` to Change the Behavior of `content`
+### Agregando `approve` para cambiar el comportamiento de `content`
 
-The `approve` method will be similar to the `request_review` method: it will
-set `state` to the value that the current state says it should have when that
-state is approved, as shown in Listing 17-16:
+El método `approve` será similar al método `request_review`: establecerá el
+valor de `state` al estado que el estado actual indique que debería tener
+cuando ese estado sea aprobado, como se muestra en el Listado 17-16:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -228,24 +243,24 @@ state is approved, as shown in Listing 17-16:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-16: Implementing the `approve` method on
-`Post` and the `State` trait</span>
+<span class="caption">Listing 17-16: Implementando el método `approve` en
+`Post` y el trait `State`</span>
 
-We add the `approve` method to the `State` trait and add a new struct that
-implements `State`, the `Published` state.
+Agregamos el método `approve` al trait `State` y agregamos un nuevo struct
+que implementa el trait `State`, el estado `Published`.
 
-Similar to the way `request_review` on `PendingReview` works, if we call the
-`approve` method on a `Draft`, it will have no effect because `approve` will
-return `self`. When we call `approve` on `PendingReview`, it returns a new,
-boxed instance of the `Published` struct. The `Published` struct implements the
-`State` trait, and for both the `request_review` method and the `approve`
-method, it returns itself, because the post should stay in the `Published`
-state in those cases.
+De manera similar a cómo funciona `request_review` en `PendingReview`, si
+llamamos al método `approve` en un estado `Draft`, no tendrá efecto porque
+`approve` devolverá `self`. Cuando llamamos a `approve` en `PendingReview`,
+devuelve una nueva instancia de `Published` struct. El struct `Published`
+implementa el trait `State`, y para ambos el método `request_review` y el
+método `approve`, devuelve a sí mismo, porque la publicación debe permanecer
+en el estado `Published` en esos casos.
 
-Now we need to update the `content` method on `Post`. We want the value
-returned from `content` to depend on the current state of the `Post`, so we’re
-going to have the `Post` delegate to a `content` method defined on its `state`,
-as shown in Listing 17-17:
+Ahora debemos actualizar el método `content` en `Post`. Queremos que el valor
+devuelto por `content` dependa del estado actual de `Post`, por lo que vamos
+a hacer que `Post` delegue a un método `content` definido en su `state`, como
+se muestra en el Listado 17-17:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -253,34 +268,35 @@ as shown in Listing 17-17:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-17/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-17: Updating the `content` method on `Post` to
-delegate to a `content` method on `State`</span>
+<span class="caption">Listing 17-17: Actualizando el método `content` en `Post`
+para delegar en un método `content` en `State`</span>
 
-Because the goal is to keep all these rules inside the structs that implement
-`State`, we call a `content` method on the value in `state` and pass the post
-instance (that is, `self`) as an argument. Then we return the value that’s
-returned from using the `content` method on the `state` value.
+Debido a que el objetivo es mantener todas estas reglas dentro de los structs
+que implementan `State`, llamamos a un método `content` en el valor en `state`
+y pasamos la instancia de publicación (es decir, `self`) como argumento. Luego
+devolvemos el valor devuelto del uso del método `content` en el valor `state`.
 
-We call the `as_ref` method on the `Option` because we want a reference to the
-value inside the `Option` rather than ownership of the value. Because `state`
-is an `Option<Box<dyn State>>`, when we call `as_ref`, an `Option<&Box<dyn
-State>>` is returned. If we didn’t call `as_ref`, we would get an error because
-we can’t move `state` out of the borrowed `&self` of the function parameter.
+Llamamos al método `as_ref` en un `Option` porque queremos una referencia al
+valor dentro del `Option` en lugar del ownership del valor. Debido a que
+`state` es un `Option<Box<dyn State>>`, cuando llamamos a `as_ref`, se
+devuelve una `Option<&Box<dyn State>>`. Si no llamamos a `as_ref`, obtendríamos
+un error porque no podemos mover `state` fuera del `&self` prestado del
+parámetro de la función.
 
-We then call the `unwrap` method, which we know will never panic, because we
-know the methods on `Post` ensure that `state` will always contain a `Some`
-value when those methods are done. This is one of the cases we talked about in
-the [“Cases In Which You Have More Information Than the
-Compiler”][more-info-than-rustc]<!-- ignore --> section of Chapter 9 when we
-know that a `None` value is never possible, even though the compiler isn’t able
-to understand that.
+Luego llamamos al método `unwrap`, el cual sabemos que nunca generará un error,
+porque los métodos en `Post` aseguran que `state` siempre contendrá un valor
+`Some` cuando esos métodos finalicen. Este es uno de los casos que mencionamos
+en la sección [“Casos en los que tienes más información que el
+compilador”][more-info-than-rustc]<!-- ignore --> del Capítulo 9 cuando
+sabemos que un valor `None` nunca es posible, aunque el compilador no puede
+entender eso.
 
-At this point, when we call `content` on the `&Box<dyn State>`, deref coercion
-will take effect on the `&` and the `Box` so the `content` method will
-ultimately be called on the type that implements the `State` trait. That means
-we need to add `content` to the `State` trait definition, and that is where
-we’ll put the logic for what content to return depending on which state we
-have, as shown in Listing 17-18:
+En este punto, cuando llamamos a `content` en el `&Box<dyn State>`, la coerción
+de dereferencia entrará en vigencia en el `&` y el `Box`, por lo que el método
+`content` se llamará en el tipo que implementa el trait `State`. Eso significa
+que debemos agregar `content` a la definición del trait `State`, y allí es
+donde pondremos la lógica para qué contenido devolver dependiendo de qué
+estado tengamos, como se muestra en el Listado 17-18:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -288,100 +304,111 @@ have, as shown in Listing 17-18:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-18/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-18: Adding the `content` method to the `State`
-trait</span>
+<span class="caption">Listing 17-18: Agregando el método `content` al trait
+`State`</span>
 
-We add a default implementation for the `content` method that returns an empty
-string slice. That means we don’t need to implement `content` on the `Draft`
-and `PendingReview` structs. The `Published` struct will override the `content`
-method and return the value in `post.content`.
+Agregamos una implementación predeterminada para el método `content` que
+devuelve un string slice vacío. Eso significa que no necesitamos implementar
+`content` en los structs `Draft` y `PendingReview`. El struct `Published`
+anulará el método `content` y devolverá el valor en `post.content`.
 
-Note that we need lifetime annotations on this method, as we discussed in
-Chapter 10. We’re taking a reference to a `post` as an argument and returning a
-reference to part of that `post`, so the lifetime of the returned reference is
-related to the lifetime of the `post` argument.
+Es importante destacar que necesitamos anotaciones de lifetime en este método,
+como discutimos en el Capítulo 10. Estamos tomando una referencia a un `post`
+como argumento y devolviendo una referencia a una parte de ese `post`, por lo
+que el lifetime de la referencia devuelta está relacionado con el tiempo
+de vida del argumento `post`.
 
-And we’re done—all of Listing 17-11 now works! We’ve implemented the state
-pattern with the rules of the blog post workflow. The logic related to the
-rules lives in the state objects rather than being scattered throughout `Post`.
+¡Y hemos terminado! ¡Todo lo que se muestra en el Listado 17-11 ahora funciona!
+Hemos implementado el patrón de estado con las reglas del flujo de trabajo de
+la publicación de blog. La lógica relacionada con las reglas vive en los
+objetos de estado en lugar de estar dispersa en `Post`.
 
-> #### Why Not An Enum?
+> #### ¿Por qué no un enum?
 >
-> You may have been wondering why we didn’t use an `enum` with the different
-> possible post states as variants. That’s certainly a possible solution, try
-> it and compare the end results to see which you prefer! One disadvantage of
-> using an enum is every place that checks the value of the enum will need a
-> `match` expression or similar to handle every possible variant. This could
-> get more repetitive than this trait object solution.
+> Puede que te hayas preguntado por qué no usamos un `enum` con los diferentes
+> estados posibles de la publicación como variantes. Esa es ciertamente una
+> solución posible, ¡pruébala y compara los resultados finales para ver cuál
+> prefieres! Una desventaja de usar un enum es que cada lugar que verifica el
+> valor del enum necesitará una expresión `match` o similar para manejar cada
+> variante posible. Esto podría ser más repetitivo que esta solución de trait
+> object.
 
-### Trade-offs of the State Pattern
+### Trade-offs del State Pattern
 
-We’ve shown that Rust is capable of implementing the object-oriented state
-pattern to encapsulate the different kinds of behavior a post should have in
-each state. The methods on `Post` know nothing about the various behaviors. The
-way we organized the code, we have to look in only one place to know the
-different ways a published post can behave: the implementation of the `State`
-trait on the `Published` struct.
+Hemos demostrado que Rust es capaz de implementar el State Pattern orientado a
+objetos para encapsular los diferentes tipos de comportamiento que un post
+debería tener en cada estado. Los métodos en `Post` no saben nada sobre los
+diferentes comportamientos. La forma en que organizamos el código, solo
+tenemos que mirar en un solo lugar para conocer las diferentes formas en que
+un post publicado puede comportarse: la implementación del trait `State` en el
+struct `Published`.
 
-If we were to create an alternative implementation that didn’t use the state
-pattern, we might instead use `match` expressions in the methods on `Post` or
-even in the `main` code that checks the state of the post and changes behavior
-in those places. That would mean we would have to look in several places to
-understand all the implications of a post being in the published state! This
-would only increase the more states we added: each of those `match` expressions
-would need another arm.
+Si creáramos una implementación alternativa que no usara el State Pattern,
+en su lugar podríamos usar expresiones `match` en los métodos de `Post` o
+incluso en el código `main` que verifica el estado del post y cambia el
+comportamiento en esos lugares. ¡Eso significaría que tendríamos que mirar en
+varios lugares para comprender todas las implicaciones de un post que se
+encuentra en el estado publicado! ¡Esto solo aumentaría cuanto más estados
+agregáramos: cada una de esas expresiones `match` necesitaría otra opción!
 
-With the state pattern, the `Post` methods and the places we use `Post` don’t
-need `match` expressions, and to add a new state, we would only need to add a
-new struct and implement the trait methods on that one struct.
+Con el State Pattern, los métodos `Post` y los lugares donde usamos `Post` no
+necesitan expresiones `match`, y para agregar un nuevo estado, solo
+necesitaríamos agregar un nuevo struct e implementar los métodos del trait en
+ese struct.
 
-The implementation using the state pattern is easy to extend to add more
-functionality. To see the simplicity of maintaining code that uses the state
-pattern, try a few of these suggestions:
+La implementación utilizando el State Pattern es fácil de extender para agregar
+más funcionalidad. Para ver la simplicidad de mantener el código que usa el
+State Pattern, prueba algunas de estas sugerencias:
 
-* Add a `reject` method that changes the post’s state from `PendingReview` back
-  to `Draft`.
-* Require two calls to `approve` before the state can be changed to `Published`.
-* Allow users to add text content only when a post is in the `Draft` state.
-  Hint: have the state object responsible for what might change about the
-  content but not responsible for modifying the `Post`.
+- Agrega un método `reject` que cambia el estado de un post de `PendingReview`
+  a `Draft`.
+- Requiere dos llamadas a `approve` antes de que el estado pueda cambiar a
+  `Published`.
+- Permite a los usuarios agregar contenido de texto solo cuando un post está en
+  el estado `Draft`. Sugerencia: haz que el objeto de estado sea responsable de
+  lo que podría cambiar sobre el contenido, pero no sea responsable de modificar
+  el `Post`.
 
-One downside of the state pattern is that, because the states implement the
-transitions between states, some of the states are coupled to each other. If we
-add another state between `PendingReview` and `Published`, such as `Scheduled`,
-we would have to change the code in `PendingReview` to transition to
-`Scheduled` instead. It would be less work if `PendingReview` didn’t need to
-change with the addition of a new state, but that would mean switching to
-another design pattern.
+Un inconveniente del State Pattern es que, debido a que los estados implementan
+las transiciones entre estados, algunos de los estados están acoplados entre sí.
+Si agregamos otro estado entre `PendingReview` y `Published`, como `Scheduled`,
+tendríamos que cambiar el código en `PendingReview` para hacer la transición a
+`Scheduled` en su lugar. Sería menos trabajo si `PendingReview` no necesitara
+cambiar con la adición de un nuevo estado, pero eso significaría cambiar a
+otro patrón de diseño.
 
-Another downside is that we’ve duplicated some logic. To eliminate some of the
-duplication, we might try to make default implementations for the
-`request_review` and `approve` methods on the `State` trait that return `self`;
-however, this would violate object safety, because the trait doesn’t know what
-the concrete `self` will be exactly. We want to be able to use `State` as a
-trait object, so we need its methods to be object safe.
+Otro inconveniente es que hemos duplicado algo de lógica. Para eliminar parte
+de la duplicación, podríamos intentar hacer implementaciones predeterminadas
+para los métodos `request_review` y `approve` en el trait `State` que devuelvan
+`self`; sin embargo, esto violaría la seguridad del objeto, porque el trait no
+sabe exactamente cuál será el `self` concreto. Queremos poder usar `State` como
+un objeto de trait, por lo que sus métodos deben ser seguros para el objeto.
 
-Other duplication includes the similar implementations of the `request_review`
-and `approve` methods on `Post`. Both methods delegate to the implementation of
-the same method on the value in the `state` field of `Option` and set the new
-value of the `state` field to the result. If we had a lot of methods on `Post`
-that followed this pattern, we might consider defining a macro to eliminate the
-repetition (see the [“Macros”][macros]<!-- ignore --> section in Chapter 19).
+Otra duplicación incluye las implementaciones similares de los métodos
+`request_review` y `approve` en `Post`. Ambos métodos delegan a la
+implementación del mismo método en el valor del campo `state` de `Option` y
+establecen el nuevo valor del campo `state` en el resultado. Si tuviéramos
+muchos métodos en `Post` que siguieran este patrón, podríamos considerar
+definir un macro para eliminar la repetición (ver la sección [“Macros”][macros]
+en el Capítulo 19).
 
-By implementing the state pattern exactly as it’s defined for object-oriented
-languages, we’re not taking as full advantage of Rust’s strengths as we could.
-Let’s look at some changes we can make to the `blog` crate that can make
-invalid states and transitions into compile time errors.
+Al implementar el State Pattern exactamente como se define en lenguajes
+orientados a objetos, no estamos aprovechando al máximo las fortalezas de Rust.
+Veamos algunos cambios que podemos hacer en el crate `blog` que pueden hacer
+que los estados y transiciones no válidos sean errores de tiempo de
+compilación.
 
-#### Encoding States and Behavior as Types
+#### Codificando estados y comportamiento como tipos
 
-We’ll show you how to rethink the state pattern to get a different set of
-trade-offs. Rather than encapsulating the states and transitions completely so
-outside code has no knowledge of them, we’ll encode the states into different
-types. Consequently, Rust’s type checking system will prevent attempts to use
-draft posts where only published posts are allowed by issuing a compiler error.
+Vamos a mostrarte cómo replantear el State Pattern para obtener un conjunto
+diferente de compensaciones. En lugar de encapsular los estados y las
+transiciones por completo para que el código externo no tenga conocimiento de
+ellos, codificaremos los estados en diferentes tipos. En consecuencia, el
+sistema de verificación de tipos de Rust evitará los intentos de usar
+publicaciones borradores donde solo se permiten publicaciones publicadas
+emitiendo un error del compilador.
 
-Let’s consider the first part of `main` in Listing 17-11:
+Consideremos la primera parte de `main` en el Listado 17-11:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -389,15 +416,17 @@ Let’s consider the first part of `main` in Listing 17-11:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-11/src/main.rs:here}}
 ```
 
-We still enable the creation of new posts in the draft state using `Post::new`
-and the ability to add text to the post’s content. But instead of having a
-`content` method on a draft post that returns an empty string, we’ll make it so
-draft posts don’t have the `content` method at all. That way, if we try to get
-a draft post’s content, we’ll get a compiler error telling us the method
-doesn’t exist. As a result, it will be impossible for us to accidentally
-display draft post content in production, because that code won’t even compile.
-Listing 17-19 shows the definition of a `Post` struct and a `DraftPost` struct,
-as well as methods on each:
+Todavía permitimos la creación de nuevas publicaciones en el estado de borrador
+usando `Post::new` y la capacidad de agregar texto al contenido de la
+publicación. Pero en lugar de tener un método `content` en una publicación en
+borrador que devuelva un string vacío, haremos que las publicaciones en
+borrador no tengan el método `content` en absoluto. De esa manera, si
+intentamos obtener el contenido de una publicación en borrador, obtendremos un
+error del compilador que nos dice que el método no existe. Como resultado,
+será imposible mostrar accidentalmente el contenido de la publicación en
+borrador en producción, porque ese código ni siquiera se compilará. El Listado
+17-9 muestra la definición de un struct `Post` y un struct `DraftPost`, así
+como métodos en cada uno:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -405,35 +434,38 @@ as well as methods on each:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-19/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-19: A `Post` with a `content` method and a
-`DraftPost` without a `content` method</span>
+<span class="caption">Listing 17-19: Un `Post` con un método `content` y un
+`DraftPost` sin un método `content`</span>
 
-Both the `Post` and `DraftPost` structs have a private `content` field that
-stores the blog post text. The structs no longer have the `state` field because
-we’re moving the encoding of the state to the types of the structs. The `Post`
-struct will represent a published post, and it has a `content` method that
-returns the `content`.
+Tanto los structs `Post` como `DraftPost` tienen un campo privado `content`
+que almacena el texto de la publicación del blog. Los structs ya no tienen el
+campo `state` porque estamos moviendo la codificación del estado a los tipos
+de los structs. El struct `Post` representará una publicación publicada, y
+tiene un método `content` que devuelve el `content`.
 
-We still have a `Post::new` function, but instead of returning an instance of
-`Post`, it returns an instance of `DraftPost`. Because `content` is private
-and there aren’t any functions that return `Post`, it’s not possible to create
-an instance of `Post` right now.
+Todavía tenemos una función `Post::new`, pero en lugar de devolver una
+instancia de `Post`, devuelve una instancia de `DraftPost`. Debido a que
+`content` es privado y no hay funciones que devuelvan `Post`, no es posible
+crear una instancia de `Post` en este momento.
 
-The `DraftPost` struct has an `add_text` method, so we can add text to
-`content` as before, but note that `DraftPost` does not have a `content` method
-defined! So now the program ensures all posts start as draft posts, and draft
-posts don’t have their content available for display. Any attempt to get around
-these constraints will result in a compiler error.
+El struct `DraftPost` tiene un método `add_text`, por lo que podemos agregar
+texto al campo `content` como antes. Sin embargo, ten en cuenta que `DraftPost`
+no tiene un método `content` definido. Entonces, ahora el programa garantiza
+que todas las publicaciones comienzan como publicaciones en borrador, y las
+publicaciones en borrador no tienen su contenido disponible para mostrar.
+Cualquier intento de evitar estas restricciones dará como resultado un error
+del compilador.
 
-#### Implementing Transitions as Transformations into Different Types
+#### Implementando transiciones como transformaciones en diferentes tipos
 
-So how do we get a published post? We want to enforce the rule that a draft
-post has to be reviewed and approved before it can be published. A post in the
-pending review state should still not display any content. Let’s implement
-these constraints by adding another struct, `PendingReviewPost`, defining the
-`request_review` method on `DraftPost` to return a `PendingReviewPost`, and
-defining an `approve` method on `PendingReviewPost` to return a `Post`, as
-shown in Listing 17-20:
+Entonces, ¿cómo obtenemos una publicación publicada? Queremos hacer cumplir
+la regla de que una publicación en borrador debe ser revisada y aprobada antes
+de que pueda publicarse. Una publicación en el estado de revisión pendiente
+todavía no debe mostrar ningún contenido. Implementemos estas restricciones
+agregando otro struct, `PendingReviewPost`, definiendo el método `request_review`
+en `DraftPost` para devolver un `PendingReviewPost`, y definiendo un método
+`approve` en `PendingReviewPost` para devolver un `Post`, como se muestra en
+el Listado 17-20:
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -441,29 +473,31 @@ shown in Listing 17-20:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-20/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-20: A `PendingReviewPost` that gets created by
-calling `request_review` on `DraftPost` and an `approve` method that turns a
-`PendingReviewPost` into a published `Post`</span>
+<span class="caption">Listing 17-20: Un `PendingReviewPost` que se crea
+llamando a `request_review` en `DraftPost` y un método `approve` que convierte
+un `PendingReviewPost` en un `Post` publicado</span>
 
-The `request_review` and `approve` methods take ownership of `self`, thus
-consuming the `DraftPost` and `PendingReviewPost` instances and transforming
-them into a `PendingReviewPost` and a published `Post`, respectively. This way,
-we won’t have any lingering `DraftPost` instances after we’ve called
-`request_review` on them, and so forth. The `PendingReviewPost` struct doesn’t
-have a `content` method defined on it, so attempting to read its content
-results in a compiler error, as with `DraftPost`. Because the only way to get a
-published `Post` instance that does have a `content` method defined is to call
-the `approve` method on a `PendingReviewPost`, and the only way to get a
-`PendingReviewPost` is to call the `request_review` method on a `DraftPost`,
-we’ve now encoded the blog post workflow into the type system.
+Los métodos `request_review` y `approve` toman ownership de `self`, consumiendo
+así las instancias de `DraftPost` y `PendingReviewPost` y transformándolas en
+un `PendingReviewPost` y un `Post` publicado, respectivamente. De esta manera,
+no tendremos ninguna instancia de `DraftPost` persistente después de haber
+llamado a `request_review` en ellas, y así sucesivamente. El struct
+`PendingReviewPost` no tiene un método `content` definido en él, por lo que
+intentar leer su contenido da como resultado un error del compilador, como con
+`DraftPost`. Debido a que la única forma de obtener una instancia de `Post`
+publicada que tiene un método `content` definido es llamar al método `approve`
+en un `PendingReviewPost`, y la única forma de obtener un `PendingReviewPost`
+es llamar al método `request_review` en un `DraftPost`, ahora hemos codificado
+el workflow de la publicación del blog en el sistema de tipos.
 
-But we also have to make some small changes to `main`. The `request_review` and
-`approve` methods return new instances rather than modifying the struct they’re
-called on, so we need to add more `let post =` shadowing assignments to save
-the returned instances. We also can’t have the assertions about the draft and
-pending review posts’ contents be empty strings, nor do we need them: we can’t
-compile code that tries to use the content of posts in those states any longer.
-The updated code in `main` is shown in Listing 17-21:
+Pero también debemos hacer algunos cambios pequeños en `main`. Los métodos
+`request_review` y `approve` devuelven nuevas instancias en lugar de modificar
+el struct en el que se llaman, por lo que debemos agregar más asignaciones de
+sombreado `let post =` para guardar las instancias devueltas. Tampoco podemos
+tener las afirmaciones sobre el contenido de las publicaciones en borrador y
+revisión pendiente sean strings vacíos, ni los necesitamos: ya no podemos
+compilar el código que intenta usar el contenido de las publicaciones en esos
+estados. El código actualizado en `main` se muestra en el Listado 17-21:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -471,46 +505,49 @@ The updated code in `main` is shown in Listing 17-21:
 {{#rustdoc_include ../listings/ch17-oop/listing-17-21/src/main.rs}}
 ```
 
-<span class="caption">Listing 17-21: Modifications to `main` to use the new
-implementation of the blog post workflow</span>
+<span class="caption">Listing 17-21: Modificaciones a `main` para usar la nueva
+implementación del workflow de la publicación del blog</span>
 
-The changes we needed to make to `main` to reassign `post` mean that this
-implementation doesn’t quite follow the object-oriented state pattern anymore:
-the transformations between the states are no longer encapsulated entirely
-within the `Post` implementation. However, our gain is that invalid states are
-now impossible because of the type system and the type checking that happens at
-compile time! This ensures that certain bugs, such as display of the content of
-an unpublished post, will be discovered before they make it to production.
+Las modificaciones que hicimos a `main` para reasignar `post` significan que
+esta implementación ya no sigue el patrón de estado orientado a objetos: las
+transformaciones entre los estados ya no están encapsuladas completamente
+dentro de la implementación de `Post`. Sin embargo, nuestra ganancia es que
+los estados inválidos ahora son imposibles debido al sistema de tipos y la
+comprobación de tipos que ocurre en tiempo de compilación. Esto garantiza que
+ciertos errores, como la visualización del contenido de una publicación no
+publicada, se descubrirán antes de que lleguen a producción.
 
-Try the tasks suggested at the start of this section on the `blog` crate as it
-is after Listing 17-21 to see what you think about the design of this version
-of the code. Note that some of the tasks might be completed already in this
-design.
+Prueba las tareas sugeridas al comienzo de esta sección en el crate `blog` tal
+como está después del Listado 17-21 para evaluar el diseño de esta versión del
+código. Ten en cuenta que es posible que algunas de las tareas ya estén
+completadas en este diseño.
 
-We’ve seen that even though Rust is capable of implementing object-oriented
-design patterns, other patterns, such as encoding state into the type system,
-are also available in Rust. These patterns have different trade-offs. Although
-you might be very familiar with object-oriented patterns, rethinking the
-problem to take advantage of Rust’s features can provide benefits, such as
-preventing some bugs at compile time. Object-oriented patterns won’t always be
-the best solution in Rust due to certain features, like ownership, that
-object-oriented languages don’t have.
+Hemos visto que aunque Rust es capaz de implementar patrones de diseño
+orientados a objetos, también están disponibles en Rust otros patrones, como
+la codificación del estado en el sistema de tipos. Estos patrones tienen
+diferentes compensaciones. Aunque es posible que estés muy familiarizado con
+los patrones orientados a objetos, repensar el problema para aprovechar las
+características de Rust puede proporcionar beneficios, como prevenir algunos
+errores en tiempo de compilación. Los patrones orientados a objetos no siempre
+serán la mejor solución en Rust debido a ciertas características, como el
+ownership, que los lenguajes orientados a objetos no tienen.
 
-## Summary
+## Resumen
 
-No matter whether or not you think Rust is an object-oriented language after
-reading this chapter, you now know that you can use trait objects to get some
-object-oriented features in Rust. Dynamic dispatch can give your code some
-flexibility in exchange for a bit of runtime performance. You can use this
-flexibility to implement object-oriented patterns that can help your code’s
-maintainability. Rust also has other features, like ownership, that
-object-oriented languages don’t have. An object-oriented pattern won’t always
-be the best way to take advantage of Rust’s strengths, but is an available
-option.
+Sin importar si consideras a Rust como un lenguaje orientado a objetos después
+de leer este capítulo, ahora sabes que puedes usar objetos de tipo trait para
+obtener algunas características orientadas a objetos en Rust. La
+despatronización dinámica puede brindarle a tu código cierta flexibilidad a
+cambio de un poco de rendimiento en tiempo de ejecución. Puedes usar esta
+flexibilidad para implementar patrones orientados a objetos que pueden ayudar
+a la mantenibilidad de tu código. Rust también tiene otras características,
+como el ownership, que los lenguajes orientados a objetos no tienen. Un patrón
+orientado a objetos no siempre será la mejor manera de aprovechar las
+fortalezas de Rust, pero es una opción disponible.
 
-Next, we’ll look at patterns, which are another of Rust’s features that enable
-lots of flexibility. We’ve looked at them briefly throughout the book but
-haven’t seen their full capability yet. Let’s go!
+A continuación, veremos los patterns, que son otra de las características de
+Rust que permiten mucha flexibilidad. Hemos visto brevemente los patterns a lo
+largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá!
 
-[more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#cases-in-which-you-have-more-information-than-the-compiler
+[more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#casos-en-los-que-tienes-mas-informacion-que-el-compilador
 [macros]: ch19-06-macros.html#macros

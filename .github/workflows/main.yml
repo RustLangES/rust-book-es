@@ -17,7 +17,8 @@ jobs:
     - name: Install mdbook
       run: |
         mkdir bin
-        curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.21/mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
+        curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.4/mdbook-v0.4.36-localization-v0.4-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
+        curl -sSL https://github.com/catppuccin/mdBook/releases/download/v0.1.1/mdbook-catppuccin-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         echo "$(pwd)/bin" >> ${GITHUB_PATH}
     - name: Report versions
       run: |
@@ -64,14 +65,14 @@ jobs:
     - name: Install mdbook
       run: |
         mkdir bin
-        curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.21/mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
+        curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.4/mdbook-v0.4.36-localization-v0.4-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         echo "$(pwd)/bin" >> ${GITHUB_PATH}
     - name: Install mdbook-trpl-note
       run: cargo install --path packages/mdbook-trpl-note
     - name: Install mdbook-trpl-listing
       run: cargo install --path packages/mdbook-trpl-listing
     - name: Install aspell
-      run: sudo apt-get install aspell
+      run: sudo apt-get install aspell aspell-es aspell-en
     - name: Install shellcheck
       run: sudo apt-get install shellcheck
     - name: Report versions

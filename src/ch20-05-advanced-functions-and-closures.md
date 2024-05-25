@@ -1,26 +1,26 @@
-## Advanced Functions and Closures
+## Funciones y Closures Avanzados
 
-This section explores some advanced features related to functions and closures,
-including function pointers and returning closures.
+Esta sección cubre algunas características avanzadas relacionadas con
+funciones y closures, incluyendo punteros a funciones y retornar closures.
 
 ### Function Pointers
 
-We’ve talked about how to pass closures to functions; you can also pass regular
-functions to functions! This technique is useful when you want to pass a
-function you’ve already defined rather than defining a new closure. Functions
-coerce to the type `fn` (with a lowercase f), not to be confused with the `Fn`
-closure trait. The `fn` type is called a *function pointer*. Passing functions
-with function pointers will allow you to use functions as arguments to other
-functions.
+Hemos hablado de cómo pasar closures a funciones; ¡también puedes pasar
+funciones regulares a funciones! Esta técnica es útil cuando quieres pasar una
+función que ya has definido en lugar de definir un nuevo closure. Las funciones
+se coercen al tipo `fn` (con una f minúscula), no confundir con el trait de
+cierre `Fn`. El tipo `fn` se llama _puntero a función_. Pasar funciones con
+punteros a función te permitirá usar funciones como argumentos para otras
+funciones.
 
-The syntax for specifying that a parameter is a function pointer is similar to
-that of closures, as shown in Listing 19-27, where we’ve defined a function
-`add_one` that adds one to its parameter. The function `do_twice` takes two
-parameters: a function pointer to any function that takes an `i32` parameter
-and returns an `i32`, and one `i32` value. The `do_twice` function calls the
-function `f` twice, passing it the `arg` value, then adds the two function call
-results together. The `main` function calls `do_twice` with the arguments
-`add_one` and `5`.
+La sintaxis para especificar que un parámetro es un puntero a función es
+similar a la de los closures, como se muestra en el Listado 19-27, donde hemos
+definido una función `add_one` que suma uno a su parámetro. La función
+`do_twice` toma dos parámetros: un puntero a función a cualquier función que
+tome un parámetro `i32` y devuelva un `i32`, y un valor `i32`. La función
+`do_twice` llama a la función `f` dos veces, pasándole el valor `arg`, luego
+suma los dos resultados de la llamada a la función. La función `main` llama a
+`do_twice` con los argumentos `add_one` y `5`.
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -28,103 +28,109 @@ results together. The `main` function calls `do_twice` with the arguments
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-27/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-27: Using the `fn` type to accept a function
-pointer as an argument</span>
+<span class="caption">Listing 19-27: Usando el tipo `fn` para aceptar un
+puntero a function como un argumento</span>
 
-This code prints `The answer is: 12`. We specify that the parameter `f` in
-`do_twice` is an `fn` that takes one parameter of type `i32` and returns an
-`i32`. We can then call `f` in the body of `do_twice`. In `main`, we can pass
-the function name `add_one` as the first argument to `do_twice`.
+Este código imprime `The answer is: 12`. Especificamos que el parámetro `f` en
+`do_twice` es un `fn` que toma un parámetro de tipo `i32` y devuelve un `i32`.
+Luego podemos llamar a `f` en el cuerpo de `do_twice`. En `main`, podemos pasar
+el nombre de la función `add_one` como el primer argumento a `do_twice`.
 
-Unlike closures, `fn` is a type rather than a trait, so we specify `fn` as the
-parameter type directly rather than declaring a generic type parameter with one
-of the `Fn` traits as a trait bound.
+A diferencia de los closures, `fn` es un tipo en lugar de un trait, por lo que
+especificamos `fn` como el tipo de parámetro directamente en lugar de declarar
+un parámetro de tipo genérico con uno de los traits `Fn` como un trait bound.
 
-Function pointers implement all three of the closure traits (`Fn`, `FnMut`, and
-`FnOnce`), meaning you can always pass a function pointer as an argument for a
-function that expects a closure. It’s best to write functions using a generic
-type and one of the closure traits so your functions can accept either
-functions or closures.
+Los punteros a funciones implementan los tres closure traits (`Fn`, `FnMut` y
+`FnOnce`), lo que significa que siempre puedes pasar un puntero a función como
+un argumento para una función que espera un closure. Es mejor escribir
+funciones usando un tipo generic y uno de los closure traits para que tus
+funciones puedan aceptar funciones o closures.
 
-That said, one example of where you would want to only accept `fn` and not
-closures is when interfacing with external code that doesn’t have closures: C
-functions can accept functions as arguments, but C doesn’t have closures.
+Dicho esto, un ejemplo de dónde querrías aceptar solo `fn` y no closures es
+cuando te comunicas con código externo que no tiene closures: las funciones de
+C pueden aceptar funciones como argumentos, pero C no tiene closures.
 
-As an example of where you could use either a closure defined inline or a named
-function, let’s look at a use of the `map` method provided by the `Iterator`
-trait in the standard library. To use the `map` function to turn a vector of
-numbers into a vector of strings, we could use a closure, like this:
+Como ejemplo de dónde podrías usar un closure definido en línea o una función
+nombrada, veamos un uso del método `map` proporcionado por el trait `Iterator`
+en la biblioteca estándar. Para usar la función `map` para convertir un vector
+de números en un vector de strings, podríamos usar un closure, como este:
 
 ```rust
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-15-map-closure/src/main.rs:here}}
 ```
 
-Or we could name a function as the argument to `map` instead of the closure,
-like this:
+O podríamos nombrar una función como argumento para `map` en lugar del
+closure, como este:
 
 ```rust
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-16-map-function/src/main.rs:here}}
 ```
 
-Note that we must use the fully qualified syntax that we talked about earlier
-in the [“Advanced Traits”][advanced-traits]<!-- ignore --> section because
-there are multiple functions available named `to_string`. Here, we’re using the
-`to_string` function defined in the `ToString` trait, which the standard
-library has implemented for any type that implements `Display`.
+Ten en cuenta que debemos utilizar la sintaxis completamente calificada que
+mencionamos anteriormente en la sección [“Traits avanzados”][advanced-traits]
 
-Recall from the [“Enum values”][enum-values]<!-- ignore --> section of Chapter
-6 that the name of each enum variant that we define also becomes an initializer
-function. We can use these initializer functions as function pointers that
-implement the closure traits, which means we can specify the initializer
-functions as arguments for methods that take closures, like so:
+<!-- ignore --> porque hay múltiples funciones disponibles llamadas `to_string`.
+
+Aquí, estamos usando la función `to_string` definida en el trait `ToString`,
+que la biblioteca estándar ha implementado para cualquier tipo que implemente
+`Display`.
+
+Recuerda la sección [“Valores de Enum”][valores-enum]<!-- ignore --> del
+Capítulo 6, que el nombre de cada variante de enum que definimos también se
+convierte en una función inicializadora. Podemos usar estas funciones
+inicializadoras como punteros a función que implementan los closure traits,
+lo que significa que podemos especificar las funciones inicializadoras como
+argumentos para los métodos que toman closures, como se muestra a continuación:
 
 ```rust
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-17-map-initializer/src/main.rs:here}}
 ```
 
-Here we create `Status::Value` instances using each `u32` value in the range
-that `map` is called on by using the initializer function of `Status::Value`.
-Some people prefer this style, and some people prefer to use closures. They
-compile to the same code, so use whichever style is clearer to you.
+Aquí creamos instancias de `Status::Value` usando cada valor `u32` en el rango
+en el que se llama a `map` usando la función inicializadora de `Status::Value`.
+A algunas personas les gusta este estilo, y a otras les gusta usar closures.
+Compilan al mismo código, así que usa el estilo que sea más claro para ti.
 
-### Returning Closures
+### Retornando Closures
 
-Closures are represented by traits, which means you can’t return closures
-directly. In most cases where you might want to return a trait, you can instead
-use the concrete type that implements the trait as the return value of the
-function. However, you can’t do that with closures because they don’t have a
-concrete type that is returnable; you’re not allowed to use the function
-pointer `fn` as a return type, for example.
+Los closures se representan mediante traits, lo que significa que no puedes
+devolver closures directamente. En la mayoría de los casos en los que podrías
+querer devolver un trait, puedes usar en su lugar el tipo concreto que
+implementa el trait como el valor de retorno de la función. Sin embargo, no
+puedes hacer eso con los closures porque no tienen un tipo concreto que se
+pueda devolver; no se te permite usar el puntero a función `fn` como un tipo
+de retorno, por ejemplo.
 
-The following code tries to return a closure directly, but it won’t compile:
+El siguiente código intenta devolver un closure directamente, pero no
+compilará:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-18-returns-closure/src/lib.rs}}
 ```
 
-The compiler error is as follows:
+El error del compilador es el siguiente:
 
 ```console
 {{#include ../listings/ch19-advanced-features/no-listing-18-returns-closure/output.txt}}
 ```
 
-The error references the `Sized` trait again! Rust doesn’t know how much space
-it will need to store the closure. We saw a solution to this problem earlier.
-We can use a trait object:
+¡El error hace referencia nuevamente al trait `Sized`! Rust no sabe cuánto
+espacio necesitará para almacenar el closure. Vimos una solución a este
+problema anteriormente. Podemos usar un trait object:
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-19-returns-closure-trait-object/src/lib.rs}}
 ```
 
-This code will compile just fine. For more about trait objects, refer to the
-section [“Using Trait Objects That Allow for Values of Different
-Types”][using-trait-objects-that-allow-for-values-of-different-types]<!--
-ignore --> in Chapter 17.
+Este código se compilará correctamente. Para obtener más información sobre los
+trait objects, consulta la sección [“Usando trait objects que permiten valores
+de diferentes
+tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]
 
-Next, let’s look at macros!
+<!-- ignore --> en el Capítulo 17.
 
-[advanced-traits]:
-ch19-03-advanced-traits.html#advanced-traits
-[enum-values]: ch06-01-defining-an-enum.html#enum-values
-[using-trait-objects-that-allow-for-values-of-different-types]:
-ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+¡Ahora veamos las macros!
+
+[advanced-traits]: ch19-03-advanced-traits.html#traits-avanzados
+[valores-enum]: ch06-01-defining-an-enum.html#valores-enum
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos

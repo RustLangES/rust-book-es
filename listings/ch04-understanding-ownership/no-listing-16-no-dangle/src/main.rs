@@ -1,10 +1,10 @@
 fn main() {
-    let string = no_dangle();
+    let string = no_colgante();
 }
 
 // ANCHOR: here
-fn no_dangle() -> String {
-    let s = String::from("hello");
+fn no_colgante() -> String {
+    let s = String::from("hola");
 
     s
 }
