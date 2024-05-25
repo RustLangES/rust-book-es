@@ -311,6 +311,8 @@ Esta expresion elimina mucho anidamiento que sería necesario si usara `loop`,
 `if`, `else` y `break`, y es más claro. Mientras una condición se evalúa como
 `true`, el código se ejecuta; de lo contrario, sale del bucle.
 
+<a id="bucle-a-traves-de-una-coleccion-con-for"></a>
+
 #### Bucle a traves de una colección con `for`
 
 Tu puedes también puedes usar el `while` para recorrer los elementos de una 

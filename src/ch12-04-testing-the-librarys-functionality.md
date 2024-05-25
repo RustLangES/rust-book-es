@@ -250,5 +250,5 @@ cuando se escriben programas de línea de comandos.
 [validando-referencias-con-lifetimes]: ch10-03-lifetime-syntax.html#validando-referencias-con-lifetimes
 [ch11-anatomy]: ch11-01-writing-tests.html#la-anatomia-de-una-funcion-de-test
 [ch10-lifetimes]: ch10-03-lifetime-syntax.html
-[ch3-iter]: ch03-05-control-flow.html#bucle-a-traves-de-una-colección-con-for
+[ch3-iter]: ch03-05-control-flow.html#bucle-a-traves-de-una-coleccion-con-for
 [ch13-iterators]: ch13-02-iterators.html
