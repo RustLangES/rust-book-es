@@ -212,7 +212,7 @@ Si la característica es aceptada, se abre un problema en el repositorio de
 Rust, y alguien puede implementarla. ¡La persona que lo implementa muy bien no
 tiene por qué ser la persona que propuso la característica en primer lugar!
 Cuando la implementación está lista, aterriza en la rama `master` detrás de una
-puerta de características, como discutimos en la sección [“Característicascaracterísticas-inestables
+puerta de características, como discutimos en la sección [“Características
 inestables”](#caracteristicas-inestables)<!-- ignore -->.
 
 Después de algún tiempo, una vez que los desarrolladores de Rust que utilizan
