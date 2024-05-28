@@ -216,7 +216,7 @@ UTF-8 con cadenas”][strings]<!-- ignore --> en el capítulo 8.
 ### Tipos compuestos
 
 *Tipos compuestos* pueden agrupar múltiples valores en un solo tipo. Rust
-tiene dos tipos compuestos primitivos: tuplas y matrices.
+tiene dos tipos compuestos primitivos: tuplas y arreglos.
 
 #### El Tipo Tupla
 

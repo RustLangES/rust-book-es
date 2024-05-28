@@ -3,7 +3,7 @@
 A veces, sucede algo malo en su código y no hay nada que pueda hacer al
 respecto. En estos casos, Rust tiene la macro `panic!`. Hay dos formas de causar
 un panic en la práctica: tomando una acción que hace que nuestro código entre en
-pánico (como acceder a una matriz más allá del final) o llamando explícitamente
+pánico (como acceder a un arreglo más allá del final) o llamando explícitamente
 a la macro `panic!`. En ambos casos, causamos un pánico en nuestro programa. De
 forma predeterminada, estos pánicos imprimirán un mensaje de error, se desharán,
 limpiarán la pila y se cerrarán. A través de una variable de entorno, también

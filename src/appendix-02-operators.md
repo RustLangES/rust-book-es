@@ -50,7 +50,7 @@ sobrecargar ese operador.
 | `:` | `ident: expr` | Inicializador de campo de estructura | |
 | `:` | `'a: loop {...}` | Etiqueta de bucle | |
 | `;` | `expr;` | Terminador de declaración y elemento | |
-| `;` | `[...; len]` | Parte de la sintaxis de matriz de tamaño fijo | |
+| `;` | `[...; len]` | Parte de la sintaxis de arreglos de tamaño fijo | |
 | `<<` | `expr << expr` | Desplazamiento a la izquierda | `Shl` |
 | `<<=` | `var <<= expr` | Desplazamiento a la izquierda y asignación | `ShlAssign` |
 | `<` | `expr < expr` | Comparador de menor que | `PartialOrd` |
@@ -199,8 +199,8 @@ Tabla B-10 muestra los contextos en los que se usan los corchetes.
 
 | Contexto | Explicación |
 |---------|-------------|
-| `[...]` | Expresión de matriz |
-| `[type; expr]` | Matriz de tipo y tamaño |
+| `[...]` | Expresión de arreglo |
+| `[type; expr]` | Arreglo de tipo y tamaño |
 | `expr[expr]` | Índice de colección. Sobrecargable (`Index`, `IndexMut`) |
 | `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Índice de colección fingiendo ser recortes de colección, usando `Range`, `RangeFrom`, `RangeTo`, o `RangeFull` como el “índice” |
 
