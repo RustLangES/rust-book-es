@@ -1,7 +1,8 @@
 ## Tipos de datos
 
 Cada valor en Rust es de un cierto *tipo de dato*, que le dice a Rust qué tipo
-de dato se está especificando para que sepa cómo trabajar con ese dato. Veremos dos subconjuntos de tipos de datos: escalares y compuestos.
+de dato se está especificando para que sepa cómo trabajar con ese dato. Veremos 
+dos subconjuntos de tipos de datos: escalares y compuestos.
 
 Tenga en cuenta que Rust es un lenguaje *estáticamente tipado*, lo que significa
 que debe conocer los tipos de todas las variables en tiempo de compilación. El
@@ -201,7 +202,9 @@ El tipo `char` de Rust es el tipo alfabético más primitivo del lenguaje. Estos
 ```
 
 Tenga en cuenta que especificamos literales `char` con comillas simples, en
-oposición a literales de cadena, que usan comillas dobles. El tipo `char` de Rust tiene un tamaño de cuatro bytes y representa un valor escalar Unicode, lo que significa que puede representar mucho más que ASCII. Letras
+oposición a literales de cadena, que usan comillas dobles. El tipo `char` de 
+Rust tiene un tamaño de cuatro bytes y representa un valor escalar Unicode, lo 
+que significa que puede representar mucho más que ASCII. Letras
 acentuadas; Caracteres chinos, japoneses y coreanos; Emojis; y espacios de ancho
 cero son todos valores `char` válidos en Rust. Los valores escalar de Unicode
 van desde `U+0000` a `U+D7FF` y `U+E000` a `U+10FFFF` inclusive. Sin embargo,
@@ -217,10 +220,14 @@ tiene dos tipos compuestos primitivos: tuplas y matrices.
 
 #### El Tipo Tupla
 
-Una *tupla* es una forma general de agrupar varios valores de distintos tipos en un tipo compuesto. Las tuplas tienen una longitud fija: una vez declaradas, su tamaño no puede aumentar ni disminuir.
+Una *tupla* es una forma general de agrupar varios valores de distintos tipos en 
+un tipo compuesto. Las tuplas tienen una longitud fija: una vez declaradas, su 
+tamaño no puede aumentar ni disminuir.
 
 Creamos una tupla escribiendo una lista de valores separados por comas dentro de
-paréntesis. Cada posición de la tupla tiene un tipo, y los tipos de los distintos valores de la tupla no tienen por qué ser iguales. En este ejemplo hemos añadido anotaciones de tipo opcionales:
+paréntesis. Cada posición de la tupla tiene un tipo, y los tipos de los 
+distintos valores de la tupla no tienen por qué ser iguales. En este ejemplo 
+hemos añadido anotaciones de tipo opcionales:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -228,7 +235,10 @@ paréntesis. Cada posición de la tupla tiene un tipo, y los tipos de los distin
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
 ```
 
-La variable `tup` se vincula a toda la tupla porque una tupla se considera un único elemento compuesto. Para obtener los valores individuales de una tupla, podemos utilizar la concordancia de patrones para desestructurar un valor de tupla, así:
+La variable `tup` se vincula a toda la tupla porque una tupla se considera un 
+único elemento compuesto. Para obtener los valores individuales de una tupla, 
+podemos utilizar la concordancia de patrones para desestructurar un valor de 
+tupla, así:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -320,7 +330,9 @@ de una manera más concisa.
 
 ##### Accediendo a los Elementos del Arreglo
 
-Un arreglo es un trozo de memoria de tamaño fijo y conocido que puede asignarse a la pila. Se puede acceder a los elementos de una matriz utilizando la indexación, de la siguiente manera:
+Un arreglo es un trozo de memoria de tamaño fijo y conocido que puede asignarse 
+a la pila. Se puede acceder a los elementos de una arreglo utilizando la 
+indexación, de la siguiente manera:
 
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
@@ -361,9 +373,23 @@ index out of bounds: the len is 5 but the index is 10
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-El programa dio lugar a un *error en tiempo de ejecución* al momento de utilizar un valor no válido en la operación de indexación. El programa salió con un mensaje de error y no ejecutó la sentencia final `println!`. Cuando intentas acceder a un elemento utilizando la indexación, Rust comprobará que el índice que has especificado es menor que la longitud del array. Si el índice es mayor o igual que la longitud, Rust entrará en pánico. Esta comprobación tiene que ocurrir en tiempo de ejecución, especialmente en este caso, porque el compilador no puede saber qué valor introducirá el usuario cuando ejecute el código más tarde.
+El programa dio lugar a un *error en tiempo de ejecución* al momento de utilizar 
+un valor no válido en la operación de indexación. El programa salió con un 
+mensaje de error y no ejecutó la sentencia final `println!`. Cuando intentas 
+acceder a un elemento utilizando la indexación, Rust comprobará que el índice 
+que has especificado es menor que la longitud del array. Si el índice es mayor o 
+igual que la longitud, Rust entrará en pánico. Esta comprobación tiene que 
+ocurrir en tiempo de ejecución, especialmente en este caso, porque el compilador 
+no puede saber qué valor introducirá el usuario cuando ejecute el código más 
+tarde.
 
-Este es un ejemplo de los principios de seguridad de memoria de Rust en acción. En muchos lenguajes de bajo nivel, este tipo de comprobación no se hace, y cuando proporcionas un índice incorrecto, se puede acceder a memoria inválida. Rust te protege contra este tipo de error saliendo inmediatamente en lugar de permitir el acceso a la memoria y continuar. El Capítulo 9 discute más sobre el manejo de errores de Rust y cómo puedes escribir código legible y seguro que no entre en pánico ni permita el acceso a memoria inválida.
+Este es un ejemplo de los principios de seguridad de memoria de Rust en acción. 
+En muchos lenguajes de bajo nivel, este tipo de comprobación no se hace, y 
+cuando proporcionas un índice incorrecto, se puede acceder a memoria inválida. 
+Rust te protege contra este tipo de error saliendo inmediatamente en lugar de 
+permitir el acceso a la memoria y continuar. El Capítulo 9 discute más sobre el 
+manejo de errores de Rust y cómo puedes escribir código legible y seguro que no 
+entre en pánico ni permita el acceso a memoria inválida.
 
 [comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparando-la-adivinanza-con-el-numero-secreto
 [twos-complement]: https://es.wikipedia.org/wiki/Complemento_a_dos
