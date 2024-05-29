@@ -31,7 +31,9 @@ muchos sistemas operativos proporcionan una API que el lenguaje puede llamar
 para crear nuevos hilos. La biblioteca estándar de Rust utiliza un modelo _1:1_
 de implementación de hilos, mediante el cual un programa utiliza un hilo del
 sistema operativo por un hilo de lenguaje. Hay crates que implementan otros
-modelos de enhebrado que hacen diferentes compensaciones al modelo 1:1.
+modelos de enhebrado que hacen diferentes compensaciones al modelo 1:1. 
+(El sistema async de Rust, que veremos en el próximo capítulo, también 
+proporciona otro enfoque para la concurrencia).
 
 ### Creando un Nuevo Hilo con `spawn`
 
