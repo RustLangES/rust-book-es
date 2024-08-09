@@ -197,7 +197,7 @@ manejador de la entrada estándar para tu terminal.
 A continuación, la línea `.read_line(&mut guess)` llama al método
 [`read_line`][read_line]<!-- ignore --> en el manejador de entrada estándar para
 obtener la entrada del usuario. También estamos pasando `&mut guess` como
-argumento a `read_line` para decirle qué cadena almacenar la entrada del
+argumento a `read_line` para decirle en qué cadena almacenar la entrada del
 usuario. El trabajo completo de `read_line` es tomar lo que el usuario escribe
 en la entrada estándar y agregar eso a una cadena (sin sobrescribir su
 contenido), por lo que, por lo tanto, pasamos esa cadena como argumento. La
