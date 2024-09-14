@@ -6,7 +6,7 @@ concretos diferentes. Primero veamos cómo definir funciones, structs,
 enums y métodos usando genéricos. Luego discutiremos cómo los genéricos
 afectan el rendimiento del código.
 
-### Definiciones in function
+### Definiciones En Function
 
 Al definir una función que usa genéricos, colocamos los genéricos en la firma de
 la función donde normalmente especificaríamos los tipos de datos de los
@@ -91,7 +91,7 @@ restringimos los tipos válidos para `T` solo a aquellos que implementan
 `PartialOrd` y este ejemplo se compilará, porque la biblioteca estándar
 implementa `PartialOrd` tanto en `i32` como en `char`.
 
-### Definiciones In Struct
+### Definiciones En Struct
 
 También podemos definir structs para usar tipos genéricos en uno o más campos
 usando la sintaxis `<>`. El listado 10-6 define un struct `Point<T>` para
@@ -158,7 +158,7 @@ de unos pocos hace que su código sea difícil de leer. Si encuentra que necesit
 muchos tipos genérico en su código, podría indicar que su código necesita
 reestructurarse en piezas más pequeñas.
 
-### Definiciones In Enum
+### Definiciones En Enum
 
 Como hicimos con structs, podemos definir enums para contener tipos genérico en
 sus variantes. Echemos otro vistazo al enum `Option<T>` que la biblioteca
@@ -202,7 +202,7 @@ Cuando reconoces situaciones en tu código con múltiples definiciones de struct
 o enum que difieren solo en los tipos de los valores que contienen, puedes
 evitar la duplicación usando tipos genérico en su lugar.
 
-### Definiciones In Method
+### Definiciones En Method
 
 Podemos implementar métodos en structs y enums y usar tipos genérico en sus
 definiciones también. El listado 10-9 muestra el struct `Point<T>` que
@@ -285,7 +285,7 @@ del método. Aquí, los parámetros genérico `X1` e `Y1` se declaran después d
 `Y2` se declaran después de `fn mixup`, porque solo son relevantes para el
 método.
 
-### Rendimiento de codigo usando genericos
+### Rendimiento de código usando genéricos
 
 Quizás te estés preguntando si hay un costo de rendimiento al usar parámetros
 de tipo genérico. La buena noticia es que usar tipos genérico no hará que tu
