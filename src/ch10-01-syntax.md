@@ -285,6 +285,8 @@ del método. Aquí, los parámetros genérico `X1` e `Y1` se declaran después d
 `Y2` se declaran después de `fn mixup`, porque solo son relevantes para el
 método.
 
+<a id="rendimiento-de-codigo-usando-genericos"></a>
+
 ### Rendimiento de código usando genéricos
 
 Quizás te estés preguntando si hay un costo de rendimiento al usar parámetros
