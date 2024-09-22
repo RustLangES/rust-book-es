@@ -114,32 +114,36 @@
   - [Concurrencia con Estado Compartido](ch16-03-shared-state.md)
   - [Concurrencia Extensible con los Traits `Sync` y `Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
-- [Rust como un Lenguaje de Programación Orientado a Objetos](ch17-00-oop.md)
-  - [Características de Lenguajes Orientados a Objetos](ch17-01-what-is-oo.md)
-  - [Usando Trait Objects que Permiten Valores de Diferentes Tipos](ch17-02-trait-objects.md)
-  - [Implementando un Patrón de Diseño Orientado a Objetos](ch17-03-oo-design-patterns.md)
+- [Async y Await](ch17-00-async-await.md)
+    - [Futures y la sintaxis Async](ch17-01-futures-and-syntax.md)
+    - [Concurrencia Con Async](ch17-02-concurrency-with-async.md)
+
+- [Rust como un Lenguaje de Programación Orientado a Objetos](ch18-00-oop.md)
+  - [Características de Lenguajes Orientados a Objetos](ch18-01-what-is-oo.md)
+  - [Usando Trait Objects que Permiten Valores de Diferentes Tipos](ch18-02-trait-objects.md)
+  - [Implementando un Patrón de Diseño Orientado a Objetos](ch18-03-oo-design-patterns.md)
 
 ## Temas Avanzados
 
-- [Patterns and Matching](ch18-00-patterns.md)
+- [Patterns and Matching](ch19-00-patterns.md)
 
-  - [Todos los lugares donde se pueden usar Patterns](ch18-01-all-the-places-for-patterns.md)
-  - [Refutabilidad: Si un Pattern Puede Fallar al Hacer Match](ch18-02-refutability.md)
-  - [Sintaxis de los Patterns](ch18-03-pattern-syntax.md)
+  - [Todos los lugares donde se pueden usar Patterns](ch19-01-all-the-places-for-patterns.md)
+  - [Refutabilidad: Si un Pattern Puede Fallar al Hacer Match](ch19-02-refutability.md)
+  - [Sintaxis de los Patterns](ch19-03-pattern-syntax.md)
 
-- [Características Avanzadas](ch19-00-advanced-features.md)
+- [Características Avanzadas](ch20-00-advanced-features.md)
 
-  - [Rust Inseguro](ch19-01-unsafe-rust.md)
-  - [Advanced Traits](ch19-03-advanced-traits.md)
-  - [Advanced Types](ch19-04-advanced-types.md)
-  - [Advanced Functions and Closures](ch19-05-advanced-functions-and-closures.md)
-  - [Macros](ch19-06-macros.md)
+  - [Rust Inseguro](ch20-01-unsafe-rust.md)
+  - [Advanced Traits](ch20-03-advanced-traits.md)
+  - [Advanced Types](ch20-04-advanced-types.md)
+  - [Advanced Functions and Closures](ch20-05-advanced-functions-and-closures.md)
+  - [Macros](ch20-06-macros.md)
 
-- [Final Project: Building a Multithreaded Web Server](ch20-00-final-project-a-web-server.md)
+- [Final Project: Building a Multithreaded Web Server](ch21-00-final-project-a-web-server.md)
 
-  - [Building a Single-Threaded Web Server](ch20-01-single-threaded.md)
-  - [Turning Our Single-Threaded Server into a Multithreaded Server](ch20-02-multithreaded.md)
-  - [Graceful Shutdown and Cleanup](ch20-03-graceful-shutdown-and-cleanup.md)
+  - [Building a Single-Threaded Web Server](ch21-01-single-threaded.md)
+  - [Turning Our Single-Threaded Server into a Multithreaded Server](ch21-02-multithreaded.md)
+  - [Graceful Shutdown and Cleanup](ch21-03-graceful-shutdown-and-cleanup.md)
 
 - [Apéndice](appendix-00.md)
   - [A - Palabras claves](appendix-01-keywords.md)
