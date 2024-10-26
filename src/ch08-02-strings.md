@@ -142,7 +142,7 @@ Como resultado, `s` contendrá `lol`.
 #### Concatenacion con el operador `+` o la Macro `format!`
 
 A menudo, querrás combinar dos cadenas existentes. Una forma de hacerlo es 
-usar el operador +, como se muestra en el Listado 8-18.
+usar el operador `+`, como se muestra en el Listado 8-18.
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-18/src/main.rs:here}}
