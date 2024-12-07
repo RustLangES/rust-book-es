@@ -21,7 +21,7 @@ particular.
 Las variables nombradas son patterns irrefutables que coinciden con cualquier
 valor, y las hemos usado muchas veces en el libro. Sin embargo, hay una
 complicación cuando usas variables nombradas en expresiones `match`. Debido a
-que `match` inicia un nuevo alcance, las variables declaradas como parte de un
+que `match` inicia un nuevo scope, las variables declaradas como parte de un
 pattern dentro de la expresión `match` ocultarán aquellas con el mismo nombre
 fuera del constructo `match`, como es el caso de todas las variables. En el
 Listado 18-11, declaramos una variable llamada `x` con el valor `Some(5)` y una
