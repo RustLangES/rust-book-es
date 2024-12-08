@@ -149,9 +149,8 @@ Como resultado, `s` contendrá `lol`.
 
 #### Concatenacion con el operador `+` o la Macro `format!`
 
-A veces, necesitarás combinar dos strings. Sin embargo, no es tan simple como
-usar el operador `+` con dos referencias a `String`. El código en el listado
-8-18 no compilará:
+A menudo, querrás combinar dos cadenas existentes. Una forma de hacerlo es 
+usar el operador `+`, como se muestra en el Listado 8-18.
 
 <Listing number="8-18" caption="Usando el operador `+` para combinar dos valores `String` en un nuevo valor `String`">
 

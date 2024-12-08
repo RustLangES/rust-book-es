@@ -324,26 +324,26 @@ muestra cada elemento en el arreglo `a`.
 
 </Listing>
 
-Aquí, el código cuenta hacia arriba a través de los elementos en la matriz. Se
+Aquí, el código cuenta hacia arriba a través de los elementos en el arreglo. Se
 inicia en el índice `0`, y luego se ejecuta hasta que alcanza el índice final
-en la matriz (es decir, cuando `index < 5` ya no es `true`). Ejecutar este
-código imprimirá cada elemento en la matriz:
+en el arreglo (es decir, cuando `index < 5` ya no es `true`). Ejecutar este
+código imprimirá cada elemento en el arreglo:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/listing-03-04/output.txt}}
 ```
 
-Todos los cinco valores de la matriz aparecen en la terminal, como se esperaba.
+Los cinco valores del arreglo aparecen en la terminal, como se esperaba.
 Aunque `index` llegará a un valor de `5` en algún momento, el bucle deja de
-ejecutarse antes de intentar obtener un sexto valor de la matriz.
+ejecutarse antes de intentar obtener un sexto valor del arreglo.
 
 Sin embargo, este enfoque es propenso a errores; podríamos causar que el
 programa se descomponga si el valor del índice o la condición de prueba es
-incorrecta. Por ejemplo, si cambia la definición de la matriz `a` para tener
+incorrecta. Por ejemplo, si cambia la definición del arreglo `a` para tener
 cuatro elementos, pero olvida actualizar la condición a `while index < 4`, el
 código se descompondría. También es lento, porque el compilador agrega código
 de tiempo de ejecución para realizar la verificación condicional de si el
-índice está dentro de los límites de la matriz en cada iteración del bucle.
+índice está dentro de los límites del arreglo en cada iteración del bucle.
 
 Como una alternativa más concisa, puede usar un bucle `for` y ejecutar algún
 código para cada elemento en una colección. Un bucle `for` se ve como el código
@@ -360,10 +360,10 @@ en el Listado 3-5.
 Cuando ejecutamos este código, veremos la misma salida que en el Listado 3-4.
 Lo más importante es que ahora hemos aumentado la seguridad del código y
 eliminado la posibilidad de errores que podrían deberse a ir más allá del final
-de la matriz o no ir lo suficientemente lejos y perder algunos elementos.
+del arreglo o no ir lo suficientemente lejos y perder algunos elementos.
 
 Usando el bucle `for`, no necesitaría recordar cambiar cualquier otro código si
-cambiara el número de valores en la matriz, como lo haría con el método usado en
+cambiara el número de valores en el arreglo, como lo haría con el método usado en
 el Listado 3-4.
 
 La seguridad y concisión de los bucles `for` los convierten en la

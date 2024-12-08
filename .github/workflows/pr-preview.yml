@@ -18,6 +18,7 @@ on:
   pull_request_target:
     types:
       - opened
+      - synchronize
       - closed
 
 # cancel in-progress runs on new commits to same PR (github.event.number)

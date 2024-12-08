@@ -12,7 +12,7 @@ Rust agrupa los errores en dos categorías principales: errores *recuperables* e
 encontrado*, lo más probable es que solo queramos informar el problema al
 usuario y volver a intentar la operación. Los errores irreversibles siempre son
 síntomas de errores, como intentar acceder a una ubicación más allá del final
-de una matriz, por lo que queremos detener inmediatamente el programa.
+de un arreglo, por lo que queremos detener inmediatamente el programa.
 
 La mayoría de los lenguajes no distinguen entre estos dos tipos de errores y los
 manejan de la misma manera, utilizando mecanismos como excepciones. Rust no

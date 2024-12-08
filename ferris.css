@@ -6,6 +6,15 @@ body.rust .panics,
 body.rust .not_desired_behavior {
   background: #fff1f1;
 }
+html.rust, html.light{
+  --sidebar-image: url(../img/RustLangES-light.svg);
+}
+html.navy, html.ayu, html.coal{
+  --sidebar-image: url(../img/RustLangES-dark.svg);
+}
+body{
+  container-name: body;
+}
 
 body.coal .does_not_compile,
 body.coal .panics,
@@ -42,4 +51,25 @@ body.ayu .not_desired_behavior {
 
 .ferris-explain {
   width: 100px;
+}
+.sidebar-image {
+  width: var(--sidebar-width);
+  height: 100px;
+  background-image: var(--sidebar-image);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  background-position: center;
+  top: 0;
+}
+.sidebar .sidebar-scrollbox{
+  margin-top: 100px;
+}
+
+.logo-separator{
+  height: 100px;
+  width: var(--sidebar-width);
+  position: fixed;
+  z-index: 1;
+  background: var(--quote-bg);
 }

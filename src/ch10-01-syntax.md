@@ -6,7 +6,7 @@ concretos diferentes. Primero veamos cómo definir funciones, structs,
 enums y métodos usando genéricos. Luego discutiremos cómo los genéricos
 afectan el rendimiento del código.
 
-### Definiciones in function
+### Definiciones En Function
 
 Al definir una función que usa genéricos, colocamos los genéricos en la firma de
 la función donde normalmente especificaríamos los tipos de datos de los
@@ -44,7 +44,7 @@ Cuando usamos un parámetro en el cuerpo de la función, tenemos que declarar el
 nombre del parámetro en la firma para que el compilador sepa qué significa ese
 nombre. De manera similar, cuando usamos un nombre de parámetro de tipo en la
 firma de una función, tenemos que declarar el nombre del parámetro de tipo
-antes de usarlo. Para definir la función genérico `largest`, coloque las
+antes de usarlo. Para definir un genérico en la función `largest`, coloque las
 declaraciones de nombre de tipo dentro de corchetes angulares, `<>`, entre el
 nombre de la función y la lista de parámetros, así:
 
@@ -58,7 +58,7 @@ de tipo `T`. La función `largest` devolverá una referencia a un valor del mism
 tipo `T`.
 
 El listado 10-5 muestra la definición de la función `largest` combinada usando
-el tipo de datos genérico en su firma. La lista también muestra cómo podemos
+el tipo de datos genéricos en su firma. La lista también muestra cómo podemos
 llamar a la función con un slice de valores `i32` o valores `char`. Tenga en
 cuenta que este código aún no se compilará, pero lo arreglaremos más adelante
 en este capítulo.
@@ -89,7 +89,7 @@ restringimos los tipos válidos para `T` solo a aquellos que implementan
 `PartialOrd` y este ejemplo se compilará, porque la biblioteca estándar
 implementa `PartialOrd` tanto en `i32` como en `char`.
 
-### Definiciones In Struct
+### Definiciones En Struct
 
 También podemos definir structs para usar tipos genéricos en uno o más campos
 usando la sintaxis `<>`. El listado 10-6 define un struct `Point<T>` para
@@ -150,12 +150,12 @@ generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
 ¡Ahora todas las instancias de `Point` que se muestran se permiten! Puede usar
 tantos parámetros de tipo genérico en una definición como desee, pero usar más
 de unos pocos hace que su código sea difícil de leer. Si encuentra que necesita
-muchos tipos genérico en su código, podría indicar que su código necesita
+muchos tipos genéricos en su código, podría indicar que su código necesita
 reestructurarse en piezas más pequeñas.
 
-### Definiciones In Enum
+### Definiciones En Enum
 
-Como hicimos con structs, podemos definir enums para contener tipos genérico en
+Como hicimos con structs, podemos definir enums para contener tipos genéricos en
 sus variantes. Echemos otro vistazo al enum `Option<T>` que la biblioteca
 estándar proporciona, que usamos en el Capítulo 6:
 
@@ -173,7 +173,7 @@ Al usar el enum `Option<T>`, podemos expresar el concepto abstracto de un valor
 opcional, y porque `Option<T>` es genérico, podemos usar esta abstracción sin
 importar el tipo del valor opcional.
 
-Los enums también pueden usar múltiples tipos genérico. La definición del enum
+Los enums también pueden usar múltiples tipos genéricos. La definición del enum
 `Result` que usamos en el Capítulo 9 es un ejemplo:
 
 ```rust
@@ -195,11 +195,11 @@ usamos para abrir un archivo en el listado 9-3, donde `T` se llenó con el tipo
 
 Cuando reconoces situaciones en tu código con múltiples definiciones de struct
 o enum que difieren solo en los tipos de los valores que contienen, puedes
-evitar la duplicación usando tipos genérico en su lugar.
+evitar la duplicación usando tipos genéricos en su lugar.
 
-### Definiciones In Method
+### Definiciones En Method
 
-Podemos implementar métodos en structs y enums y usar tipos genérico en sus
+Podemos implementar métodos en structs y enums y usar tipos genéricos en sus
 definiciones también. El listado 10-9 muestra el struct `Point<T>` que
 definimos en el listado 10-6 con un método llamado `x` implementado en él.
 
@@ -225,7 +225,7 @@ escritos dentro de un `impl` que declara el tipo genérico se definirán en
 cualquier instancia del tipo, sin importar qué tipo concreto termine
 sustituyendo al tipo genérico.
 
-También podemos especificar restricciones en los tipos genérico al definir
+También podemos especificar restricciones en los tipos genéricos al definir
 métodos en el tipo. Por ejemplo, podríamos implementar métodos solo en
 instancias de `Point<T>` con un tipo `f32` concreto en lugar de en instancias
 de `Point<T>` con cualquier tipo genérico. En el listado 10-10 usamos el tipo
@@ -248,7 +248,7 @@ matemáticas que solo están disponibles para tipos de punto flotante.
 
 Los parámetros de tipo genérico en una definición de struct no siempre son los
 mismos que los que usas en las firmas de métodos de ese mismo struct. El
-listado 10-11 usa los tipos genérico `X1` e `Y1` para el struct `Point` y `X2`
+listado 10-11 usa los tipos genéricos `X1` e `Y1` para el struct `Point` y `X2`
 `Y2` para la firma del método `mixup` para hacer el ejemplo más claro. El
 método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 (de tipo `X1`) y el valor `y` del `Point` pasado (de tipo `Y2`).
@@ -276,10 +276,12 @@ del método. Aquí, los parámetros genérico `X1` e `Y1` se declaran después d
 `Y2` se declaran después de `fn mixup`, porque solo son relevantes para el
 método.
 
-### Rendimiento de codigo usando genericos
+<a id="rendimiento-de-codigo-usando-genericos"></a>
+
+### Rendimiento de código usando genéricos
 
 Quizás te estés preguntando si hay un costo de rendimiento al usar parámetros
-de tipo genérico. La buena noticia es que usar tipos genérico no hará que tu
+de tipo genérico. La buena noticia es que usar tipos genéricos no hará que tu
 programa se ejecute más lento de lo que lo haría con tipos concretos.
 
 Rust logra esto realizando _monomorfización_ del código usando genéricos en
