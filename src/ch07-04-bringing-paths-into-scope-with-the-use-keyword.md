@@ -13,13 +13,13 @@ de la función `eat_at_restaurant` para que solo tengamos que especificar
 `hosting::add_to_waitlist` para llamar a la función `add_to_waitlist` en
 `eat_at_restaurant`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-11" file-name="src/lib.rs" caption="Introducir un módulo en el ámbito de aplicación con `use`">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-11: Introducir un módulo en el ámbito de aplicación con `use`</span>
+</Listing>
 
 Agregar `use` y una ruta en un ámbito es similar a crear un enlace simbólico
 en el sistema de archivos. Al agregar `use crate::front_of_house::hosting` en
@@ -33,14 +33,13 @@ ocurre él `use`. El Listado 7-12 mueve la función `eat_at_restaurant` a un
 nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente al de la sentencia `use`,
 por lo que el cuerpo de la función no compilará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-12" file-name="src/lib.rs" caption="La sentencia `use` solo aplica en el ámbito donde se encuentra declarado">
 
 ```rust,noplayground,test_harness,does_not_compile,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-12: La sentencia `use` solo aplica en el
-ámbito donde se encuentra declarado</span>
+</Listing>
 
 El error del compilador muestra que el acceso directo ya no se aplica dentro del módulo del
 `customer`:
@@ -62,14 +61,13 @@ en `eat_at_restaurant`, en lugar de especificar toda la ruta
 hasta la función `add_to_waitlist` para lograr el mismo resultado, como en el
 Listado 7-13.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-13" file-name="src/lib.rs" caption="Incorporando la función `add_to_waitlist` en el ámbito con `use`, que no es idiomático">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-13/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-13: Incorporando la función `add_to_waitlist`
-en el ámbito con `use`, que no es idiomático</span>
+</Listing>
 
 Aunque el Listado 7-11 y 7-13 logran la misma tarea, el Listado 7-11 es la
 forma idiomática de traer una función al ámbito con `use`. Traer el módulo
@@ -85,14 +83,13 @@ idiomático especificar la ruta completa. El Listado 7-14 muestra la forma
 idiomática de traer la struct `HashMap` de la biblioteca estándar al ámbito de
 un crate binario.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="7-14" file-name="src/main.rs" caption="Trayendo `HashMap` al ámbito de una manera idiomática">
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-14/src/main.rs}}
 ```
 
-<span class="caption">Listado 7-14: Trayendo `HashMap` al ámbito de una
-manera idiomática</span>
+</Listing>
 
 No hay una razón fuerte detrás de este idioma: es solo la convención que ha
 surgido, y la gente se ha acostumbrado a leer y escribir código Rust de esta
@@ -103,14 +100,13 @@ al ámbito con declaraciones `use`, porque Rust no lo permite. El Listado
 7-15 muestra cómo traer dos tipos `Result` al ámbito que tienen el mismo nombre
 pero módulos padres diferentes, y cómo referirse a ellos.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-15" file-name="src/lib.rs" caption="Incorporando dos tipos con el mismo nombre en el mismo ámbito requiere el uso de sus módulos principales.">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-15/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 7-15: Incorporando dos tipos con el mismo nombre
-en el mismo ámbito requiere el uso de sus módulos principales.</span>
+</Listing>
 
 Como puedes ver, usar los módulos padres distingue los dos tipos `Result`. Sí,
 en cambio, especificamos `use std::fmt::Result` y `use std::io::Result`,
@@ -125,14 +121,13 @@ nombre local, o _alias_, para el tipo. El Listado 7-16 muestra otra forma de
 escribir el código en el Listado 7-15 renombrando uno de los dos tipos
 `Result` usando `as`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-16" file-name="src/lib.rs" caption="Cambiando el nombre de un tipo cuando se introduce en el ámbito con la keyword `as`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 7-16: Cambiando el nombre de un tipo cuando se
-introduce en el ámbito con la keyword `as`</span>
+</Listing>
 
 En la segunda declaración `use`, elegimos el nuevo nombre `IoResult` para el
 tipo `std::io::Result`, que no entrará en conflicto con el `Result` de
@@ -151,14 +146,13 @@ disponible para que otros lo traigan a su ámbito.
 El listado 7-17 muestra el código del listado 7-11 con `use` en el módulo
 `front_of_house` cambiado a `pub use`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-17" file-name="src/lib.rs" caption="Hacer que un nombre esté disponible para que lo use cualquier código desde un nuevo ámbito con `pub use`">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-17/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-17: Hacer que un nombre esté disponible para que
-lo use cualquier código desde un nuevo ámbito con `pub use`</span>
+</Listing>
 
 Antes de este cambio, el código externo tendría que llamar a la función
 `add_to_waitlist` usando la ruta
@@ -192,11 +186,13 @@ paquete externo llamado `rand` para obtener números aleatorios. Para usar
 * ch14-03-cargo-workspaces.md
 -->
 
-<span class="filename">Filename: Cargo.toml</span>
+<Listing file-name="Cargo.toml">
 
 ```toml
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:9:}}
 ```
+
+</Listing>
 
 Añadir `rand` como dependencia en _Cargo.toml_ le dice a Cargo que descargue el
 paquete `rand` y cualquier dependencia de [crates.io](https://crates.io/) y
@@ -237,23 +233,25 @@ enumerar cada elemento en su propia línea puede ocupar mucho espacio vertical e
 nuestros archivos. Por ejemplo, estas dos declaraciones `use` que teníamos en
 el juego de adivinanzas en el Listado 2-4 traen items de `std` al ámbito:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/no-listing-01-use-std-unnested/src/main.rs:here}}
 ```
 
+</Listing>
+
 En su lugar, podemos utilizar rutas anidadas para incluir los mismos elementos en una sola línea.
 Hacemos esto especificando la parte común de la ruta, seguida de
 dos puntos y luego entre llaves los elementos, como se muestra en el Listado 7-18.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="7-18" file-name="src/main.rs" caption="Especificación de una ruta anidada para incluir en el ámbito varios elementos con el mismo prefijo">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 7-18: Especificación de una ruta anidada para incluir en el ámbito varios elementos con el mismo prefijo</span>
+</Listing>
 
 En programas más grandes, traer muchos items al ámbito desde el mismo crate o
 módulo usando rutas anidadas puede reducir la cantidad de declaraciones `use`
@@ -264,26 +262,25 @@ combinamos dos sentencias `use` que comparten una sub-ruta. Por ejemplo, el List
 7-19 muestra dos sentencias use: una que trae `std::io` al ámbito y
 otra que trae `std::io::Write` al ámbito.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-19" file-name="src/lib.rs" caption="Dos sentencias `use` donde una es una sub-ruta de la otra">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-19/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-19: Dos sentencias `use` donde una es una sub-ruta de la otra</span>
+</Listing>
 
 La parte común de estas dos rutas es `std::io`, así que podemos usar una ruta
 anidada para traer ambos al ámbito en una línea, como se muestra en el Listado
 7-20.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-20" file-name="src/lib.rs" caption="Combinando las rutas del listado 7-19 en una sentencia `use`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-20/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-20: Combinando las rutas del listado 7-19 en
-una sentencia `use`</span>
+</Listing>
 
 Esta línea trae `std::io` y `std::io::Write` al ámbito.
 

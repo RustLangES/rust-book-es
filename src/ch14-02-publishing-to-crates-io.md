@@ -29,14 +29,13 @@ comentarios de documentación justo antes del elemento que están documentando.
 El Listado 14-1 muestra comentarios de documentación para una función `add_one`
 en un crate llamado `my_crate`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="14-1" file-name="src/lib.rs" caption="Un comentario de documentación para una función">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-01/src/lib.rs}}
 ```
 
-<span class="caption">Listing 14-1: Un comentario de documentación para una
-función</span>
+</Listing>
 
 Aquí, damos una descripción de lo que hace la función `add_one`, comenzamos una
 sección con el encabezado `Examples` y luego proporcionamos código que
@@ -71,7 +70,7 @@ secciones que los autores de crates comúnmente usan en su documentación:
   se devuelvan puede ser útil para los llamadores para que puedan escribir
   código para manejar los diferentes tipos de errores de diferentes maneras.
 - **Seguridad**: Si la función es `unsafe` de llamar (discutimos unsafe en
-  el Capítulo 19), debería haber una sección que explique por qué la función es
+  el Capítulo 20), debería haber una sección que explique por qué la función es
   insegura y cubra las invariantes que la función espera que los llamadores
   mantengan.
 
@@ -123,14 +122,13 @@ Por ejemplo, para agregar documentación que describe el propósito del crate
 documentación que comienzan con `//!` al principio del archivo _src/lib.rs_,
 como se muestra en el Listado 14-2:
 
-<span class="filename">Nombre de archivo: src/lib.rs</span>
+<Listing number="14-2" file-name="src/lib.rs" caption="Documentación para el crate `my_crate` como un todo">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-02/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 14-2: Documentación para el crate `my_crate` como
-un todo</span>
+</Listing>
 
 Observa que no hay ningún código después de la última línea que comienza con
 `//!`. Debido a que comenzamos los comentarios con `//!` en lugar de `///`,
@@ -182,14 +180,13 @@ conceptos artísticos. Dentro de esta biblioteca hay dos módulos: un módulo
 módulo `utils` que contiene una función llamada `mix`, como se muestra en el
 Listado 14-3:
 
-<span class="filename">Nombre de archivo: src/lib.rs</span>
+<Listing number="14-3" file-name="src/lib.rs" caption="Una biblioteca llamada `art` con items organizados en los módulos `kinds` y `utils">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-03/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 14-3: Una biblioteca llamada `art` con items
-organizados en los módulos `kinds` y `utils`</span>
+</Listing>
 
 La Figura 14-3 muestra cómo se vería la página frontal de la documentación para
 este crate generada por `cargo doc`:
@@ -208,14 +205,13 @@ traigan los items de `art` al scope, especificando la estructura de módulos
 actualmente definida. El Listado 14-4 muestra un ejemplo de un crate que usa
 los items `PrimaryColor` y `mix` del crate `art`:
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="14-4" file-name="src/main.rs" caption="Un crate que utiliza los items del crate `art` con su estructura interna exportada">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-04/src/main.rs}}
 ```
 
-<span class="caption">Listado 14-4: Un crate que utiliza los items del crate
-`art` con su estructura interna exportada</span>
+</Listing>
 
 El autor del código en el Listado 14-4, que usa el crate `art`, tuvo que
 averiguar que `PrimaryColor` está en el módulo `kinds` y `mix` está en el
@@ -231,14 +227,13 @@ código del crate `art` en el Listado 14-3 para agregar declaraciones `pub use`
 para reexportar los items en el nivel superior, como se muestra en el Listado
 14-5:
 
-<span class="filename">Nombre de archivo: src/lib.rs</span>
+<Listing number="14-5" file-name="src/lib.rs" caption="Agregando declaraciones `pub use` para re-exportar items">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-05/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 14-5: Agregando declaraciones `pub use` para
-re-exportar items</span>
+</Listing>
 
 La documentación de la API que `cargo doc` genera para este crate ahora
 listará y enlazará los reexports en la página principal, como se muestra en la
@@ -254,14 +249,13 @@ Los usuarios del crate `art` aún pueden ver y usar la estructura interna del
 Listado 14-3 como se demuestra en el Listado 14-4, o pueden usar la estructura
 más conveniente del Listado 14-5, como se muestra en el Listado 14-6:
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="14-6" file-name="src/main.rs" caption="Un programa que utiliza los items reexportados del crate `art`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 14-6: Un programa que utiliza los items
-reexportados del crate `art`</span>
+</Listing>
 
 En casos donde hay muchos módulos anidados, reexportar los tipos en el nivel
 superior con `pub use` puede hacer una diferencia significativa en la
@@ -340,7 +334,7 @@ See https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata for
 error: failed to publish to registry at https://crates.io
 
 Caused by:
-  the remote server responded with an error: missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for how to upload metadata
+  the remote server responded with an error (status 400 Bad Request): missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for more information on configuring these field
 ```
 
 Estos errores se deben a que te faltan algunos datos cruciales: se requiere una
@@ -425,7 +419,7 @@ $ cargo publish
    Verifying guessing_game v0.1.0 (file:///projects/guessing_game)
    Compiling guessing_game v0.1.0
 (file:///projects/guessing_game/target/package/guessing_game-0.1.0)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.19s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.19s
    Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 ```
 

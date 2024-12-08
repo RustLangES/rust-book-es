@@ -9,7 +9,7 @@ Como viste en el Capítulo 6, puedes hacer coincidir patterns contra literales
 directamente. El siguiente código da algunos ejemplos:
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-01-literals/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-01-literals/src/main.rs:here}}
 ```
 
 Este código imprime `one` porque el valor en `x` es 1. Esta sintaxis es útil
@@ -24,19 +24,18 @@ complicación cuando usas variables nombradas en expresiones `match`. Debido a
 que `match` inicia un nuevo alcance, las variables declaradas como parte de un
 pattern dentro de la expresión `match` ocultarán aquellas con el mismo nombre
 fuera del constructo `match`, como es el caso de todas las variables. En el
-Listado 18-11, declaramos una variable llamada `x` con el valor `Some(5)` y una
+Listado 19-11, declaramos una variable llamada `x` con el valor `Some(5)` y una
 variable `y` con el valor `10`. Luego creamos una expresión `match` en el valor
 `x`. Mira los patterns en las opciones `match` y `println!` al final, e intenta
 averiguar qué imprimirá el código antes de ejecutar este código o leer más.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-11" file-name="src/main.rs" caption="Una expresión `match` con una opción que introduce una variable sombreada (shadowing)">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-11/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-11: Una expresión `match` con una opción que
-introduce una variable sombreada (shadowing) `y`</span>
+</Listing>
 
 Vamos a repasar lo que sucede cuando se ejecuta la expresión `match`. El pattern
 en la primera opción de `match` no coincide con el valor definido de `x`, por
@@ -77,7 +76,7 @@ coincide con cualquiera de los valores en esa opción, se ejecutará el código 
 esa opción:
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-02-multiple-patterns/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-02-multiple-patterns/src/main.rs:here}}
 ```
 
 Este código imprime `one or two`.
@@ -89,7 +88,7 @@ siguiente código, cuando un patrón coincide con cualquiera de los valores
 dentro del rango dado, esa opción se ejecutará:
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-03-ranges/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-03-ranges/src/main.rs:here}}
 ```
 
 Si `x` es 1, 2, 3, 4 o 5, la primera opción coincidirá. Esta sintaxis es más
@@ -106,7 +105,7 @@ con valores numéricos o `char`.
 Aquí tienes un ejemplo que utiliza rangos de valores `char`:
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-04-ranges-of-char/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-04-ranges-of-char/src/main.rs:here}}
 ```
 
 Rust puede determinar que `'c'` se encuentra dentro del rango especificado en
@@ -119,17 +118,16 @@ diferentes partes de estos valores. Veamos cada uno de ellos.
 
 #### Desestructurando Structs
 
-El Listado 18-12 muestra un struct `Point` con dos campos, `x` e `y`, que
+El Listado 19-12 muestra un struct `Point` con dos campos, `x` e `y`, que
 podemos desestructurar usando un pattern con una declaración `let`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-12" file-name="src/main.rs" caption="Desestructurando los campos de un struct en variables separadas">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-12/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-12/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-12: Desestructurando los campos de un struct
-en variables separadas</span>
+</Listing>
 
 Este código crear las variables `a` y `b` que coinciden con los valores de los
 campos `x` e `y` del struct `p`. Este ejemplo muestra que los nombres de las
@@ -140,18 +138,17 @@ de qué campos. Debido a este uso común, y porque escribir `let Point { x: x, y
 y } = p;` contiene mucha duplicación, Rust tiene una abreviatura para los
 patterns que coinciden con los campos de los structs: solo necesitas listar el
 nombre del campo del struct, y las variables creadas a partir del pattern
-tendrán los mismos nombres. El Listado 18-13 se comporta de la misma manera que
-el código del Listado 18-12, pero las variables creadas en el pattern `let` son
+tendrán los mismos nombres. El Listado 19-13 se comporta de la misma manera que
+el código del Listado 19-12, pero las variables creadas en el pattern `let` son
 `x` e `y` en lugar de `a` y `b`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-13" file-name="src/main.rs" caption="Desestructurando los campos de un struct utilizando la forma abreviada de los campos struct">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-13/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-13/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-13: Desestructurando los campos de un struct
-utilizando la forma abreviada de los campos struct</span>
+</Listing>
 
 Este código crea las variables `x` e `y` que coinciden con los campos `x` e `y`
 del struct `p`. El resultado es que las variables `x` e `y` contienen los
@@ -162,18 +159,17 @@ del struct en lugar de crear variables para todos los campos. Hacerlo nos
 permite probar algunos de los campos para valores particulares mientras
 creamos variables para desestructurar los otros campos.
 
-En el Listado 18-14, tenemos una expresión `match` que separa los valores de
+En el Listado 19-14, tenemos una expresión `match` que separa los valores de
 `Point` en tres casos: puntos que se encuentran directamente en el eje `x` (lo
 cual es cierto cuando `y = 0`), en el eje `y` (`x = 0`), o ninguno.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-14" file-name="src/main.rs" caption="Desestructurar y coincidir valores literales en un solo pattern">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-14/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-14: Desestructurar y coincidir valores
-literales en un solo pattern</span>
+</Listing>
 
 El primer bloque coincidirá con cualquier punto que se encuentre en el eje `x`
 especificando que el campo `y` debe coincidir con el valor `0`. El pattern aún
@@ -198,18 +194,17 @@ vez que ha encontrado el primer patrón que coincide, por lo que, aunque `Point
 Hemos desestructurado enums en este libro (por ejemplo, el Listado 6-5 en el
 Capítulo 6), pero aún no hemos discutido explícitamente que el pattern para
 desestructurar un enum corresponde a la forma en que se define los datos
-almacenados dentro del enum. Como ejemplo, en el Listado 18-15 usamos el enum
+almacenados dentro del enum. Como ejemplo, en el Listado 19-15 usamos el enum
 `Message` del Listado 6-2 y escribimos un `match` con patterns que desestructuran
 cada valor interno.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-15" file-name="src/main.rs" caption="Desestructurando variantes enum que contienen diferentes tipos de valores">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-15/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-15/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-15: Desestructurando variantes enum que
-contienen diferentes tipos de valores</span>
+</Listing>
 
 Este código imprimirá `Change the color to red 0, green 160, and blue 255`.
 Prueba cambiar el valor de `msg` para ver el código de las otras opciones.
@@ -232,16 +227,18 @@ el número de elementos en la variante que estamos coincidiendo.
 
 #### Desestructurando Structs y Enums Anidados
 
-So far, our examples have all been matching structs or enums one level deep,
-but matching can work on nested items too! For example, we can refactor the
-code in Listing 18-15 to support RGB and HSV colors in the `ChangeColor`
-message, as shown in Listing 18-16.
+Hasta ahora, nuestros ejemplos han coincidido con structs o enums a un nivel 
+superficial, ¡pero también es posible trabajar con elementos anidados! Por 
+ejemplo, podemos refactorizar el código del Listado 19-15 para admitir colores 
+RGB y HSV en el mensaje `ChangeColor`, como se muestra en el Listado 19-16.
+
+<Listing number="19-16" caption="Coincidencias en enums anidados">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-16/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-16/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-16: Matching on nested enums</span>
+</Listing>
 
 El pattern de la primera opción en la expresión `match` coincide con la
 variante de enum `Message::ChangeColor` que contiene una variante
@@ -259,7 +256,7 @@ complicada donde anidamos structs y tuplas dentro de una tupla y
 desestructuramos todos los valores primitivos:
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-05-destructuring-structs-and-tuples/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-05-destructuring-structs-and-tuples/src/main.rs:here}}
 ```
 
 Este código nos permite descomponer tipos complejos en sus partes componentes
@@ -284,16 +281,15 @@ Hemos utilizado el guion bajo como un pattern comodín que coincide con
 cualquier valor pero no se enlaza con él. Esto es especialmente útil como la
 última opción en una expresión `match`, pero también podemos usarlo en
 cualquier pattern, incluyendo los parámetros de una función, como se muestra en
-el Listado 18-17.
+el Listado 19-17.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-17" file-name="src/main.rs" caption="Utilizando `_` en la firma de una función">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-17/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-17/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-17: Utilizando `_` en la firma de una
-función</span>
+</Listing>
 
 Este código ignorará completamente el valor `3` pasado como primer argumento,
 e imprimirá `This code only uses the y parameter: 4`.
@@ -312,40 +308,42 @@ utilizaras un nombre en su lugar.
 En este caso, el pattern `_` se utiliza dentro de otro pattern para ignorar
 solo una parte del valor. Esto puede ser útil cuando queremos probar solo una
 parte del valor, pero no tenemos uso para las otras partes en el código
-correspondiente que queremos ejecutar. El Listado 18-18 muestra un código
+correspondiente que queremos ejecutar. El Listado 19-18 muestra un código
 encargado de gestionar el valor de una configuración. Los requisitos
 son que el usuario no debe poder sobrescribir una personalización existente de
 una configuración, pero puede eliminar la configuración y asignarle un valor si
 actualmente no está establecida.
 
+<Listing number="19-18" caption="Utilizando un guion bajo dentro de patterns que coinciden con variantes `Some` cuando no necesitamos usar el valor dentro del `Some`">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-18/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-18: Utilizando un guion bajo dentro de patterns
-que coinciden con variantes `Some` cuando no necesitamos usar el valor dentro
-del `Some`</span>
+</Listing>
 
-Este código imprimirá `setting is None` y luego `setting is Some(5)`. En la
-primera opción de `match`, no necesitamos hacer coincidir ni usar los valores
-dentro de ninguna de las variantes `Some`, pero si necesitamos comprobar en
-el caso en el que tanto `setting_value` como `new_setting_value` son la
-variante `Some`. En ese caso, imprimimos la razón por la que no cambiamos
-`setting_value`, y no lo cambiamos.
+Este código imprimirá `Can't overwrite an existing customized value` y luego 
+`setting is Some(5)`. En la primera opción de `match`, no necesitamos hacer 
+coincidir ni usar los valores dentro de ninguna de las variantes `Some`, pero si 
+necesitamos comprobar en el caso en el que tanto `setting_value` como 
+`new_setting_value` son la variante `Some`. En ese caso, imprimimos la razón por 
+la que no cambiamos `setting_value`, y no lo cambiamos.
 
 En todos los demás casos (si `setting_value` o `new_setting_value` son `None`)
 expresados por el pattern `_` en la segunda opción, queremos permitir que
 `new_setting_value` se convierta en `setting_value`.
 
 También podemos usar guiones bajos en múltiples lugares dentro de un solo
-pattern para ignorar valores particulares. El Listado 18-19 muestra un ejemplo
+pattern para ignorar valores particulares. El Listado 19-19 muestra un ejemplo
 de ignorar el segundo y cuarto valores en una tupla de cinco elementos.
 
+<Listing number="19-19" caption="Ignorando múltiples partes de una tupla">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-19/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-19/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-19: Ignorando múltiples partes de una tupla</span>
+</Listing>
 
 Este código imprimirá `Some numbers: 2, 8, 32`, y los valores 4 y 16 serán
 ignorados.
@@ -358,17 +356,16 @@ Sin embargo, a veces es útil poder crear una variable que aún no se utilizará
 como cuando estás prototipando o simplemente comenzando un proyecto. En esta
 situación, puedes decirle a Rust que no te advierta sobre la variable no
 utilizada comenzando el nombre de la variable con un guion bajo. En el Listado
-18-20, creamos dos variables no utilizadas, pero cuando compilamos este código,
+19-20, creamos dos variables no utilizadas, pero cuando compilamos este código,
 solo deberíamos obtener una advertencia sobre una de ellas.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-20" file-name="src/main.rs" caption="Comenzar el nombre de una variable con un guion bajo para evitar recibir advertencias de variables no utilizadas">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-20/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-20/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-20: Comenzar el nombre de una variable con un
-guion bajo para evitar recibir advertencias de variables no utilizadas</span>
+</Listing>
 
 Aquí recibimos una advertencia sobre no utilizar la variable `y`, pero no
 recibimos una advertencia sobre no utilizar `_x`.
@@ -376,47 +373,50 @@ recibimos una advertencia sobre no utilizar `_x`.
 Es importante destacar que hay una diferencia sutil entre usar solo `_` y usar
 un nombre que comienza con un guion bajo. La sintaxis `_x` todavía enlaza el
 valor a la variable, mientras que `_` no enlaza en absoluto. Para mostrar un
-caso en el que esta distinción importa, el Listado 18-21 nos proporcionará un
+caso en el que esta distinción importa, el Listado 19-21 nos proporcionará un
 error.
 
+<Listing number="19-21" caption="Una variable no utilizada que comienza con un guion bajo aún vincula el valor, lo que puede tomar ownership del valor">
+
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-21/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-21/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-21: Una variable no utilizada que comienza con
-un guion bajo aún vincula el valor, lo que puede tomar ownership del
-valor</span>
+</Listing>
 
 Recibiremos un error porque el valor de `s` se mueve a `_s`, lo que invalida
 usar `s` nuevamente. Sin embargo, usar solo el guion bajo no vincula el valor
 en ningún momento. El Listado 18-22 se compilará sin errores porque `s` no se
 mueve a `_`.
 
+<Listing number="19-22" caption="Usar un guion bajo no vincula el valor">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-22/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-22/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-22: Usar un guion bajo no vincula el
-valor</span>
+</Listing>
 
 Este código funciona bien porque nunca vinculamos `s` a nada; no se mueve.
 
-#### Ignorando las partes restantes de un valor con `..`
+#### Ignoring Remaining Parts of a Value with `..`
 
 Con los valores que tiene muchas partes, podemos usar la sintaxis `..` para
 usar partes específicas e ignorar el resto, evitando la necesidad de enumerar
 guiones bajos para cada valor ignorado. El pattern `..` ignora cualquier parte
 de un valor que no hayamos coincidido explícitamente en el resto del pattern.
-En el Listado 18-23, tenemos un struct `Point` que contiene una coordenada en
+En el Listado 19-23, tenemos un struct `Point` que contiene una coordenada en
 el espacio tridimensional. En la expresión `match`, queremos operar solo en la
 coordenada `x` e ignorar los valores en los campos `y` y `z`.
 
+<Listing number="19-23" caption="Ignorando todos los campos de un `Point`
+excepto `x` mediante el uso de `..`">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-23/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-23/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-23: Ignorando todos los campos de un `Point`
-excepto `x` mediante el uso de `..`</span>
+</Listing>
 
 Listamos el valor `x` y luego simplemente incluimos el pattern `..`. Esto es
 más rápido que tener que listar `y: _` y `z: _`, particularmente cuando
@@ -424,38 +424,36 @@ estamos trabajando con structs que tienen muchos campos en situaciones en las
 que solo uno o dos campos son relevantes.
 
 La sintaxis `..` se expandirá a tantos valores como sea necesario. El Listado
-18-24 muestra cómo usar `..` con una tupla.
+19-24 muestra cómo usar `..` con una tupla.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-24" file-name="src/main.rs" caption="Coincidir solo con el primer y último valor en una tupla e ignorar todos los demás valores">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-24/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-24/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-24: Coincidir solo con el primer y último
-valor en una tupla e ignorar todos los demás valores</span>
+</Listing>
 
 En este código, el primer y último valor se coinciden con `first` y `last`. El
 `..` coincidirá con cualquier número de valores entre el primero y el último.
 
 Sin embargo, el uso de `..` debe ser inequívoco. Si no está claro qué valores
 deben coincidir y cuáles deben ignorarse, Rust nos dará un error. El Listado
-18-25 muestra un ejemplo de usar `..` de manera ambigua, por lo que no se
+19-25 muestra un ejemplo de usar `..` de manera ambigua, por lo que no se
 compilará.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-25" file-name="src/main.rs" caption="Un intento de usar `..` de manera ambigua">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-25/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-25/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-25: Un intento de usar `..` de manera
-ambigua</span>
+</Listing>
 
 Cuando compilamos este ejemplo, obtenemos este error:
 
 ```console
-{{#include ../listings/ch18-patterns-and-matching/listing-18-25/output.txt}}
+{{#include ../listings/ch19-patterns-and-matching/listing-19-25/output.txt}}
 ```
 
 Es imposible para Rust determinar cuántos valores en la tupla ignorar antes de
@@ -474,17 +472,18 @@ pattern en una opción `match`, que también debe coincidir para que se elija
 esa opción. Los match guards son útiles para expresar ideas más complejas que
 las que permite un pattern solo.
 
-La condición puede utilizar variables creadas en el pattern. El Listado 18-26
+La condición puede utilizar variables creadas en el pattern. El Listado 19-26
 muestra un `match` donde la primera opción tiene el pattern `Some(x)` y también
 tiene un match guard de `if x % 2 == 0` (que será verdadero si el número es
 par).
 
+<Listing number="19-26" caption="Agregando un match guard a un pattern">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-26/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-26/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-26: Agregando un match guard a un
-pattern</span>
+</Listing>
 
 Este ejemplo imprimirá `The number 4 is even`. Cuando `num` se compara con el
 pattern en la primera opción, coincide, porque `Some(4)` coincide con `Some(x)`.
@@ -502,21 +501,20 @@ desventaja de esta expresividad adicional es que el compilador no intenta
 verificar la exhaustividad cuando están involucradas las expresiones de match
 guard.
 
-En el Listado 18-11, mencionamos que podríamos usar match guards para resolver
+En el Listado 19-11, mencionamos que podríamos usar match guards para resolver
 nuestro problema de shadowing de pattern. Recordemos que creamos una nueva
 variable dentro del pattern en la expresión `match` en lugar de usar la
 variable fuera del `match`. Esa nueva variable significaba que no podíamos
-probar contra el valor de la variable externa. El Listado 18-27 muestra cómo
+probar contra el valor de la variable externa. El Listado 19-27 muestra cómo
 podemos usar un match guard para solucionar este problema.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-27" file-name="src/main.rs" caption="Utilizando un match guard para probar la igualdad con una variable externa">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-27/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-27/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-27: Utilizando un match guard para probar
-la igualdad con una variable externa</span>
+</Listing>
 
 Este código imprimirá `Default case, x = Some(5)`. El pattern en la segunda
 opción no introduce una nueva variable `y` que sombree la variable externa `y`,
@@ -532,17 +530,18 @@ podemos buscar un valor que tenga el mismo valor que el `y` externo comparando
 
 También puedes usar el operador _or_ `|` en un match guard para especificar
 múltiples patterns; la condición del match guard se aplicará a todos los
-patterns. El Listado 18-28 muestra la precedencia al combinar un pattern que
+patterns. El Listado 19-28 muestra la precedencia al combinar un pattern que
 usa `|` con un match guard. La parte importante de este ejemplo es que el
 match guard `if y` se aplica a `4`, `5` y _6_, aunque podría parecer que `if y`
 solo se aplica a `6`.
 
+<Listing number="19-28" caption="Combinando múltiples patterns con un match guard">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-28/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-28/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-28: Combinando múltiples patterns con un match
-guard</span>
+</Listing>
 
 La condición de match establece que la opción solo coincide si el valor de `x`
 es igual a `4`, `5` o `6` _y_ si `y` es `true`. Cuando se ejecuta este código,
@@ -572,18 +571,19 @@ habría impreso `yes`.
 
 El operador `@`, conocido como _at_, nos permite crear una variable que almacena
 un valor al mismo tiempo que lo comprobamos para una coincidencia de pattern.
-En el Listado 18-29, queremos probar que el campo `id` de un `Message::Hello`
+En el Listado 19-29, queremos probar que el campo `id` de un `Message::Hello`
 está dentro del rango `3..=7`. También queremos vincular el valor a la variable
 `id_variable` para poder usarlo en el código asociado con la opción. Podríamos
 nombrar esta variable `id`, igual que el campo, pero para este ejemplo usaremos
 un nombre diferente.
 
+<Listing number="19-29" caption="Usando `@` para enlazar un valor en un pattern mientras también lo testeamos">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-29/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-29/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-29: Usando `@` para enlazar un valor en un
-pattern mientras también lo testeamos</span>
+</Listing>
 
 Este ejemplo imprimirá `Found an id in range: 5`. Al especificar `id_variable 
 @` antes del rango `3..=7`, estamos capturando cualquier valor que coincida con

@@ -1,7 +1,7 @@
-# Características Avanzadas
+# Advanced Features
 
 Por ahora, has aprendido las partes más comúnmente usadas del lenguaje de
-programación Rust. Antes de hacer otro proyecto en el Capítulo 20, veremos
+programación Rust. Antes de hacer otro proyecto en el Capítulo 21, veremos
 algunos aspectos del lenguaje que podrías encontrar de vez en cuando, pero
 que no usarás todos los días. Puede usar este capítulo como referencia para
 cuando encuentre algo desconocido. Las características cubiertas aquí son

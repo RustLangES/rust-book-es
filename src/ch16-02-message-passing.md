@@ -60,7 +60,7 @@ abreviaturas `tx` y `rx` se usan tradicionalmente en muchos campos para
 *transmisor* y *receptor* respectivamente, por lo que nombramos nuestras
 variables de esa manera para indicar cada extremo. Estamos usando una
 sentencia `let` con un patrón que deconstruye las tuplas; discutiremos el uso
-de patrones en las sentencias `let` y la deconstrucción en el Capítulo 18. Por
+de patrones en las sentencias `let` y la deconstrucción en el Capítulo 19. Por
 ahora, sepa que usar una sentencia `let` de esta manera es un enfoque
 conveniente para extraer las piezas de la tupla devuelta por `mpsc::channel`.
 
@@ -69,14 +69,13 @@ para que el hilo generado se comunique con el hilo principal, como se muestra
 en el Listado 16-7. Esto es como poner un patito de goma en el río aguas arriba
 o enviar un mensaje de chat de un hilo a otro.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-7" file-name="src/main.rs" caption="Moviendo `tx` a un hilo generado y enviar “hi”">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-7: Moviendo `tx` a un hilo generado y enviar
-“hi”</span>
+</Listing>
 
 Nuevamente, estamos usando `thread::spawn` para crear un nuevo hilo y luego
 usando `move` para mover `tx` al cierre para que el hilo generado posea `tx`.
@@ -93,14 +92,13 @@ En el Listado 16-8, recibiremos el valor enviado en el hilo principal. Esto es
 como recibir el patito de goma en el río aguas abajo o recibir un mensaje de
 chat.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-8" file-name="src/main.rs" caption="Recibiendo el valor “hi” en el hilo thread e imprimiéndolo">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-08/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-8: Recibiendo el valor “hi” en el hilo thread
-e imprimiéndolo</span>
+</Listing>
 
 El receptor tiene dos métodos útiles: `recv` y `try_recv`. Estamos usando
 `recv`, abreviatura de *receive* (recibir), que bloqueará la ejecución del
@@ -145,14 +143,13 @@ ownership funcionan juntos para evitar problemas: intentaremos usar un valor
 compilar el código en el Listado 16-9 para ver por qué este código no está
 permitido:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-9" file-name="src/main.rs" caption="Attempting to use `val` after we’ve sent it down the channel">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-09/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-9: Attempting to use `val` after we’ve sent it
-down the channel</span>
+</Listing>
 
 Aquí, intentamos imprimir `val` después de haberlo enviado por el canal a
 través de `tx.send`. Permitir esto sería una mala idea: una vez que el valor
@@ -181,14 +178,13 @@ demostrarán que el código en el Listado 16-8 se está ejecutando
 concurrentemente: el hilo generado ahora enviará varios mensajes y se
 pausará durante un segundo entre cada mensaje.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-10" file-name="src/main.rs" caption="Enviando múltiples mensajes y pausando entre cada uno">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-10/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-10: Enviando múltiples mensajes y pausando
-entre cada uno</span>
+</Listing>
 
 Esta vez, el hilo generado tiene un vector de strings que queremos enviar al
 hilo principal. Iteramos sobre ellos, enviando cada uno individualmente, y
@@ -225,14 +221,13 @@ en uso y expandamos el código en el Listado 16-10 para crear múltiples hilos
 que envíen valores al mismo receptor. Podemos hacerlo clonando el transmisor,
 como se muestra en el Listado 16-11:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-11" file-name="src/main.rs" caption="Envío de múltiples mensajes de múltiples productores">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 16-11: Envío de múltiples mensajes de múltiples
-productores</span>
+</Listing>
 
 Esta vez, antes de crear el primer hilo generado, llamamos a `clone` en el
 transmisor, lo que nos dará un nuevo transmisor que podemos pasar al primer

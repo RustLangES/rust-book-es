@@ -32,14 +32,13 @@ funcionalidad personalizada es que imprimirá `Dropping CustomSmartPointer!`
 cuando la instancia sale del scope, para mostrar cuándo Rust ejecuta la
 función `drop`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-14" file-name="src/main.rs" caption="Un struct `CustomSmartPointer` que implementa el trait `Drop` donde colocaríamos nuestro código de limpieza">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-14/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-14: Un struct `CustomSmartPointer` que
-implementa el trait `Drop` donde colocaríamos nuestro código de limpieza</span>
+</Listing>
 
 El trait `Drop` está incluido en el prelude, así que no necesitamos traerlo al
 scope. Implementamos el trait `Drop` en `CustomSmartPointer` y proveemos una
@@ -84,16 +83,15 @@ Si intentamos llamar manualmente al método `drop` del trait `Drop` modificando
 la función `main` del Listado 15-14, como se muestra en el Listado 15-15, 
 obtendremos un error del compilador:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-15" file-name="src/main.rs" caption="Intento de llamar manualmente al método `drop` del trait `Drop` para limpiar de forma anticipada">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-15/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-15: Intento de llamar manualmente al método
-`drop` del trait `Drop` para limpiar de forma anticipada</span>
+</Listing>
 
-When we try to compile this code, we’ll get this error:
+Cuando nosotros intentemos compilar este código, obtendremos el siguiente error:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-15/output.txt}}
@@ -119,14 +117,13 @@ La llamamos pasando como argumento el valor que queremos forzar a dropear. La
 función está en el prelude, así que podemos modificar `main` en el Listado
 15-15 para llamar a la función `drop`, como se muestra en el Listado 15-16:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-16" file-name="src/main.rs" caption="Llamando a `std::mem::drop` para eliminar explícitamente un valor antes de que salga del scope">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-16: Llamando a `std::mem::drop` para eliminar
-explícitamente un valor antes de que salga del scope</span>
+</Listing>
 
 Ejecutar este código imprimirá lo siguiente:
 

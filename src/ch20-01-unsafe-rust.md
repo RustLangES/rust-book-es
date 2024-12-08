@@ -98,56 +98,64 @@ la seguridad garantizada a cambio de un mayor rendimiento o la capacidad de
 interactuar con otro lenguaje o hardware donde las garantías de Rust no se
 aplican.
 
-El Listing 19-1 muestra cómo crear un puntero crudo inmutable y mutable a
+El Listing 20-1 muestra cómo crear un puntero crudo inmutable y mutable a
 partir de referencias.
 
+<Listing number="20-1" caption="reando punteros crudos a partir de referencias">
+
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-01/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-1: Creando punteros crudos a partir de
-referencias</span>
+</Listing>
 
 Observa que no incluimos la palabra clave `unsafe` en este código. Podemos
 crear punteros crudos en código seguro; simplemente no podemos desreferenciar
 punteros crudos fuera de un bloque `unsafe`, como verás en un momento.
 
-Hemos creado punteros crudos utilizando `as` para convertir una referencia
-inmutable y una mutable en sus tipos de puntero crudo correspondientes. Como
-los creamos directamente a partir de referencias garantizadas como válidas,
-sabemos que estos punteros crudos particulares son válidos, pero no podemos
-hacer esa suposición sobre cualquier puntero crudo.
+Hemos creado punteros sin procesar utilizando los operadores de referencia sin 
+procesar: `&raw const num` crea un raw pointer (un puntero sin procesar) 
+inmutable `*const i32`, y `&raw mut num` crea un puntero sin procesar mutable 
+`*mut i32`. Debido a que los creamos directamente a partir de una variable 
+local, sabemos que estos punteros sin procesar en particular son válidos, pero 
+no podemos hacer esa suposición sobre cualquier puntero sin procesar.
 
-Para demostrar esto, a continuación crearemos un puntero crudo cuya validez
-no podemos estar tan seguros. El Listado 19-2 muestra cómo crear un puntero
-crudo a una ubicación arbitraria en la memoria. Intentar usar memoria arbitraria
-es indefinido: puede haber datos en esa dirección o no, el compilador puede
-optimizar el código para que no haya acceso a la memoria, o el programa puede
-generar un error con un fallo de segmentación. Por lo general, no hay una buena
-razón para escribir código como este, pero es posible.
+Para demostrar esto, a continuación crearemos un puntero sin procesar cuya 
+validez no podemos estar tan seguros, utilizando `as` para convertir un valor en 
+lugar de usar los operadores de referencia sin procesar. El Listado 20-2 muestra 
+cómo crear un puntero sin procesar hacia una ubicación arbitraria en la memoria. 
+Intentar usar memoria arbitraria resulta en un comportamiento indefinido: podría 
+haber datos en esa dirección o podría no haberlos, el compilador podría 
+optimizar el código de manera que no haya acceso a la memoria, o el programa 
+podría generar un error con una falla de segmentación. Generalmente, no hay una 
+buena razón para escribir código de este tipo, especialmente en casos donde 
+puedes usar un operador de referencia sin procesar en su lugar, pero es posible 
+hacerlo.
+
+<Listing number="20-2" caption="Creando un puntero sin procesar a una dirección de memoria arbitraria">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-02/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-2: Creando un puntero crudo a una dirección de
-memoria arbitraria</span>
+</Listing>
 
 Recuerda que podemos crear punteros crudos en código seguro, pero no podemos
-_desreferenciar_ punteros crudos y leer la memoria a la que apuntan fuera de un
-bloque `unsafe`.
+_desreferenciar_ punteros crudos (raw pointers) y leer la memoria a la que 
+apuntan fuera de un bloque `unsafe`.
+
+<Listing number="20-3" caption="Desreferenciando punteros crudos dentro de un bloque `unsafe`">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-03/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-3: Desreferenciando punteros crudos dentro de
-un bloque `unsafe`</span>
+</Listing>
 
 Crear un puntero no causa daño; solo cuando intentamos acceder al valor al que
 apunta que podríamos terminar tratando con un valor no válido.
 
-También ten en cuenta que en los Listados 19-1 y 19-3, creamos `*const i32` y
+También ten en cuenta que en los Listados 20-1 y 20-3, creamos `*const i32` y
 `*mut i32` punteros crudos que apuntaban a la misma ubicación de memoria, donde
 se almacena `num`. Si en su lugar intentáramos crear una referencia inmutable y
 mutable a `num`, el código no se compilaría porque las reglas de ownership de
@@ -181,7 +189,7 @@ Aquí hay un ejemplo de una función insegura llamada `dangerous` que no hace
 nada en su cuerpo:
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-01-unsafe-fn/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-01-unsafe-fn/src/main.rs:here}}
 ```
 
 Debemos llamar a la función `dangerous` dentro de un bloque `unsafe` separado.
@@ -189,7 +197,7 @@ Si intentamos llamar a esta función sin un bloque `unsafe`, obtendremos un
 error:
 
 ```console
-{{#include ../listings/ch19-advanced-features/output-only-01-missing-unsafe/output.txt}}
+{{#include ../listings/ch20-advanced-features/output-only-01-missing-unsafe/output.txt}}
 ```
 
 Con el bloque `unsafe`, le estamos indicando a Rust que hemos leído la
@@ -208,27 +216,29 @@ una función segura es una abstracción común. Como ejemplo, estudiemos la
 función `split_at_mut` de la biblioteca estándar, que requiere algo de código
 inseguro. Exploraremos cómo podríamos implementarlo. Este método seguro está
 definido en slices mutables: toma un slice y lo divide en dos al dividir
-el slice en el índice dado como argumento. El Listado 19-4 muestra cómo usar
+el slice en el índice dado como argumento. El Listado 20-4 muestra cómo usar
 `split_at_mut`.
 
+<Listing number="20-4" caption="Usando la función segura `split_at_mut`">
+
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-04/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-4: Usando la función segura
-`split_at_mut`</span>
+</Listing>
 
 No podemos implementar esta función utilizando solo Rust seguro. Un intento
-podría ser algo como el Listado 19-5, que no se compilará. Para simplificar,
+podría ser algo como el Listado 20-5, que no se compilará. Para simplificar,
 implementaremos `split_at_mut` como una función en lugar de un método y solo
 para slices de valores `i32` en lugar de para un tipo genérico `T`.
 
+<Listing number="20-5" caption="Un intento de implementación de `split_at_mut` usando solo Rust seguro">
+
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-05/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-5: Un intento de implementación de
-`split_at_mut` usando solo Rust seguro</span>
+</Listing>
 
 Esta función primero obtiene la longitud total del slice. Luego verifica si el
 índice dado como parámetro está dentro del slice al verificar si es menor o
@@ -240,10 +250,10 @@ Luego, devolvemos dos slices mutables en una tupla: uno desde el inicio del
 slice original hasta el índice `mid` y otro desde `mid` hasta el final del
 slice.
 
-Cuando intentamos compilar el código en el Listado 19-5, obtendremos un error:
+Cuando intentamos compilar el código en el Listado 20-5, obtendremos un error:
 
 ```console
-{{#include ../listings/ch19-advanced-features/listing-19-05/output.txt}}
+{{#include ../listings/ch20-advanced-features/listing-20-05/output.txt}}
 ```
 
 El borrow checker de Rust no puede entender que estamos tomando prestado
@@ -253,16 +263,17 @@ fundamentalmente correcto porque los dos slices no se superponen, pero Rust no
 es lo suficientemente inteligente como para saber esto. Cuando sabemos que el
 código está bien, pero Rust no lo sabe, es hora de recurrir al código inseguro.
 
-El Listado 19-6 muestra cómo usar un bloque `unsafe`, un puntero sin procesar
+El Listado 20-6 muestra cómo usar un bloque `unsafe`, un puntero sin procesar
 y algunas llamadas a funciones inseguras para hacer que la implementación de
 `split_at_mut` funcione.
 
+<Listing number="20-6" caption="Usando código inseguro en la implementación de la función `split_at_mut`">
+
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-06/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-6: Usando código inseguro en la implementación
-de la función `split_at_mut`</span>
+</Listing>
 
 Recordemos la sección [“The Slice Type”][el-tipo-slice]<!-- ignore --> del
 Capítulo 4 que los slices son un puntero a algunos datos y la longitud del
@@ -297,16 +308,17 @@ una abstracción segura para el código inseguro con una implementación de la
 función que usa código `unsafe` de manera segura, porque crea solo punteros
 válidos a partir de los datos a los que esta función tiene acceso.
 
-Por el contrario, el uso de `slice::from_raw_parts_mut` en el Listado 19-7
+Por el contrario, el uso de `slice::from_raw_parts_mut` en el Listado 20-7
 probablemente se bloqueará cuando se use el slice. Este código toma una
 ubicación de memoria arbitraria y crea un slice de 10,000 elementos.
 
+<Listing number="20-7" caption="Creando un slice a partir de una ubicación de memory arbitraria">
+
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-07/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-7: Creando un slice a partir de una ubicación
-de memory arbitraria</span>
+</Listing>
 
 No somos propietarios de la memoria en esta ubicación arbitraria, y no hay
 garantía de que el slice que este código crea contenga valores `i32` válidos.
@@ -321,28 +333,46 @@ creación y el uso de una _Foreign Function Interface (FFI)_. Una FFI es una
 forma para que un lenguaje de programación defina funciones y permita que un
 lenguaje de programación diferente (extranjero) llame a esas funciones.
 
-El Listado 19-8 demuestra cómo configurar una integración con la función `abs`
+El Listado 20-8 demuestra cómo configurar una integración con la función `abs`
 de la biblioteca estándar de C. Las funciones declaradas dentro de bloques
-`extern` siempre son inseguras de llamar desde el código Rust. La razón es que
-otros lenguajes no hacen cumplir las reglas y garantías de Rust, y Rust no
-puede verificarlas, por lo que la responsabilidad recae en el programador para
-garantizar la seguridad.
+`extern` usualmente son inseguras de llamar desde el código Rust, por lo que 
+deben también ser marcadas como `unsafe`. La razón es que otros lenguajes no 
+hacen cumplir las reglas y garantías de Rust, y Rust no puede verificarlas, por 
+lo que la responsabilidad recae en el programador para garantizar la seguridad.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="20-8" file-name="src/main.rs" caption="Declarando y llamando a una función `extern` definida en otro lenguaje">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-08/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-08/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-8: Declarando y llamando a una función `extern`
-definida en otro lenguaje</span>
+</Listing>
 
-Dentro del bloque `extern "C"` en el Listado 19-8, enumeramos los nombres y
-las firmas de las funciones externas que queremos llamar. El nombre y la firma
-de la función `abs` se definen en el estándar C y son parte de la biblioteca
-estándar de C. La firma de la función `abs` es `int abs(int)`, lo que significa
-que toma un argumento `int` y devuelve un `int`. La función `abs` devuelve el
-valor absoluto de su argumento.
+Dentro del bloque `unsafe extern "C"`, enumeramos los nombres y las firmas de 
+las funciones externas de otro lenguaje que queremos llamar. La parte `"C"` 
+define qué *interfaz binaria de aplicación (ABI, por sus siglas en inglés)* usa 
+la función externa: el ABI determina cómo llamar a la función a nivel de 
+ensamblador. El ABI `"C"` es el más común y sigue el ABI del lenguaje de 
+programación C.
+
+Sin embargo, esta función en particular no tiene consideraciones de seguridad de 
+memoria. De hecho, sabemos que cualquier llamada a `abs` será siempre segura 
+para cualquier valor de tipo `i32`, por lo que podemos usar la palabra clave 
+`safe` para indicar que esta función específica es segura de llamar, incluso si 
+está en un bloque `unsafe extern`. Una vez que hacemos este cambio, llamarla ya 
+no requiere un bloque `unsafe`, como se muestra en el Listado 20-9.
+
+<Listing number="20-9" file-name="src/main.rs" caption="Marcar explícitamente una función como `safe` dentro de un bloque `unsafe extern` y llamarla de forma segura">
+
+```rust
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-09/src/main.rs}}
+```
+
+</Listing>
+
+¡Marcar una función como `safe` no la hace intrínsecamente segura! En cambio, es 
+como una promesa que le haces a Rust de que *es* segura. Aún así, es tu 
+responsabilidad asegurarte de que esa promesa se cumpla.
 
 > #### Llamando a funciones Rust desde otros lenguajes
 >
@@ -350,21 +380,24 @@ valor absoluto de su argumento.
 > lenguajes llamen funciones Rust. En lugar de crear un bloque `extern`, podemos
 > agregar la palabra clave `extern` y especificar la ABI a usar justo antes de
 > la palabra clave `fn` para la función relevante. También necesitamos agregar
-> una anotación `#[no_mangle]` para decirle al compilador de Rust que no
+> una anotación `#[unsafe(no_mangle)]` para decirle al compilador de Rust que no
 > cambie el nombre de esta función. _Mangling_ es cuando un compilador cambia
 > el nombre que le hemos dado a una función a un nombre diferente que contiene
 > más información para otras partes del proceso de compilación para consumir,
-> , pero es menos legible para los humanos. Cada compilador de lenguaje de
+> pero es menos legible para los humanos. Cada compilador de lenguaje de
 > programación mangla los nombres de manera ligeramente diferente, por lo que
 > para que una función Rust sea nombrable por otros lenguajes, debemos
-> deshabilitar el mangling del compilador de Rust.
+> deshabilitar el mangling del compilador de Rust. Esto es **inseguro** porque 
+> podrían ocurrir colisiones de nombres entre bibliotecas al no usar el mangling 
+> integrado. Por lo tanto, es nuestra responsabilidad asegurarnos de que el 
+> nombre que hemos exportado sea seguro para exportar sin mangling.
 >
 > En el siguiente ejemplo, hacemos que la función `call_from_c` sea accesible
 > desde el código C, después de que se compile a una biblioteca compartida y
 > se vincule desde C:
 >
 > ```rust
-> #[no_mangle]
+> #[unsafe(no_mangle)]
 > pub extern "C" fn call_from_c() {
 >     println!("Just called a Rust function from C!");
 > }
@@ -380,17 +413,16 @@ dos hilos acceden a la misma variable global mutable, puede causar una
 condición de carrera.
 
 En Rust, las variables globales son llamadas variables _static_. El Listado
-19-9 muestra un ejemplo de declaración y uso de una variable static con un
+20-10 muestra un ejemplo de declaración y uso de una variable static con un
 string slice como valor.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="20-10" file-name="src/main.rs" caption="Definición y uso de una variable static inmutable">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-09/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-10/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-9: Definición y uso de una variable static
-inmutable</span>
+</Listing>
 
 Las static variables son similares a las constantes, que discutimos en la
 sección ["Diferencias entre variables y
@@ -406,23 +438,32 @@ valores en una variable static tienen una dirección fija en la memoria. Usar el
 valor siempre accederá a los mismos datos. Las constantes, por otro lado,
 pueden duplicar sus datos cada vez que se usan. Otra diferencia es que las
 variables static pueden ser mutables. Acceder y modificar variables static
-mutables es _inseguro_. El Listado 19-10 muestra cómo declarar, acceder y
+mutables es _inseguro_. El Listado 20-11 muestra cómo declarar, acceder y
 modificar una variable static mutable llamada `COUNTER`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="20-11" file-name="src/main.rs" caption="Leer o escribir en una variable static mutable es inseguro">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-10/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-10: Leer o escribir en una variable static
-mutable es inseguro</span>
+</Listing>
 
-Como con las variables regulares, especificamos la mutabilidad usando la
-palabra clave `mut`. Cualquier código que lea o escriba desde `COUNTER` debe
-estar dentro de un bloque `unsafe`. Este código se compila e imprime `COUNTER:
-3` como esperaríamos porque es de un solo hilo. Tener múltiples hilos accediendo
-a `COUNTER`, probablemente habría condiciones de carrera.
+Al igual que con las variables regulares, especificamos la mutabilidad usando la 
+palabra clave `mut`. Cualquier código que lea o escriba en `COUNTER` debe estar 
+dentro de un bloque `unsafe`. Este código compila y muestra `COUNTER: 3`, como 
+cabría esperar, porque es de un solo hilo. Sin embargo, si múltiples hilos 
+accedieran a `COUNTER`, probablemente resultaría en *data races*, lo cual se 
+considera comportamiento indefinido. Por lo tanto, debemos marcar toda la 
+función como `unsafe` y documentar las limitaciones de seguridad, para que 
+cualquiera que llame a la función sepa qué puede y qué no puede hacer de forma 
+segura.
+
+Cada vez que escribimos una función insegura, es idiomático agregar un 
+comentario que comience con `SAFETY` y explique qué debe hacer el llamador para 
+usar la función de forma segura. De manera similar, siempre que realicemos una 
+operación insegura, es idiomático escribir un comentario que comience con 
+`SAFETY` para explicar cómo se cumplen las reglas de seguridad.
 
 Con datos mutables que son accesibles globalmente, es difícil asegurarse de que
 no haya carreras de datos, por lo que Rust considera que las variables static
@@ -437,14 +478,15 @@ Podemos usar `unsafe` para implementar un trait inseguro. Un trait se considera
 inseguro cuando al menos uno de sus métodos tiene algún invariante que el
 compilador no puede verificar. Declaramos que un trait es `unsafe` agregando la
 palabra clave `unsafe` antes de `trait` y marcando la implementación del trait
-como `unsafe` también, como se muestra en el Listado 19-11.
+como `unsafe` también, como se muestra en el Listado 20-12.
+
+<Listing number="20-12" caption="Definiendo e implementando un trait inseguro">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-11/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-12/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-11: Definiendo e implementando un trait
-inseguro</span>
+</Listing>
 
 Al utilizar `unsafe impl`, estamos prometiendo que mantendremos las invariantes
 que el compilador no puede verificar.
@@ -470,6 +512,49 @@ a los campos de la union es inseguro porque Rust no puede garantizar el tipo de
 los datos que se almacenan actualmente en la instancia de la union. Puedes
 aprender más sobre las uniones en [la Referencia de Rust][reference].
 
+### Usar Miri para verificar código inseguro
+
+Al escribir código inseguro, es posible que quieras asegurarte de que lo que has 
+escrito sea realmente seguro y correcto. Una de las mejores maneras de hacerlo 
+es usar [Miri][miri], una herramienta oficial de Rust para detectar 
+comportamiento indefinido. Mientras que el *borrow checker* es una herramienta 
+*estática* que funciona en tiempo de compilación, Miri es una herramienta 
+*dinámica* que funciona en tiempo de ejecución. Miri verifica tu código 
+ejecutando tu programa o su suite de pruebas, detectando cuándo violas las 
+reglas que comprende sobre cómo debería funcionar Rust.
+
+Usar Miri requiere una versión nightly de Rust (hablamos más sobre esto en el 
+[Apéndice G: Cómo se desarrolla Rust y “Rust Nightly”][nightly]). Puedes 
+instalar tanto una versión nightly de Rust como la herramienta Miri escribiendo 
+`rustup +nightly component add miri`. Esto no cambia la versión de Rust que usa 
+tu proyecto; solo agrega la herramienta a tu sistema para que puedas usarla 
+cuando lo desees. Puedes ejecutar Miri en un proyecto escribiendo 
+`cargo +nightly miri run` o `cargo +nightly miri test`.
+
+Para ver lo útil que puede ser, considera lo que ocurre cuando lo ejecutamos con 
+el Listado 20-11:
+
+```console
+{{#include ../listings/ch20-advanced-features/listing-20-11/output.txt}}
+```
+
+Miri detecta de manera útil y correcta que tenemos referencias compartidas a 
+datos mutables y nos advierte al respecto. En este caso, no nos dice cómo 
+solucionar el problema, pero nos permite saber que existe un posible 
+inconveniente, lo que nos da la oportunidad de pensar cómo garantizar su 
+seguridad. En otros casos, Miri puede incluso decirnos que cierto código está 
+*seguramente* mal y hacer recomendaciones sobre cómo corregirlo.
+
+Sin embargo, Miri no detecta *todo* lo que podrías hacer mal al escribir código 
+inseguro. Por un lado, como es una verificación dinámica, solo detecta problemas 
+en el código que realmente se ejecuta. Esto significa que necesitarás usarlo en 
+conjunto con buenas técnicas de prueba para aumentar tu confianza en el código 
+inseguro que hayas escrito. Por otro lado, no cubre todas las posibles formas 
+en que tu código puede ser inseguro. Si Miri *detecta* un problema, sabes que 
+hay un error, pero que Miri *no detecte* un error no significa que no exista. 
+Aun así, Miri puede detectar muchas cosas. ¡Intenta ejecutarlo en los otros 
+ejemplos de código inseguro de este capítulo y observa qué te dice!
+
 ### Cuándo usar código inseguro
 
 Utilizar `unsafe` para llevar a cabo una de las cinco acciones (superpoderes)
@@ -478,9 +563,13 @@ difícil obtener código `unsafe` correcto porque el compilador no puede ayudar 
 mantener la seguridad de la memoria. Cuando tengas una razón para usar código
 `unsafe`, puedes hacerlo, y tener la anotación `unsafe` explícita hace que sea
 más fácil rastrear la fuente de los problemas cuando ocurren.
+Cada vez que escribas código inseguro, puedes usar Miri para ayudarte a tener 
+más confianza en que el código que has escrito respeta las reglas de Rust.
 
 [referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes
 [differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constantes
 [concurrencia-extensible-con-los-traits-sync-y-send]: ch16-04-extensible-concurrency-sync-and-send.html#concurrencia-extensible-con-los-traits-sync-y-send
 [el-tipo-slice]: ch04-03-slices.html#el-tipo-slice
 [reference]: https://doc.rust-lang.org/reference/items/unions.html
+[miri]: https://github.com/rust-lang/miri
+[nightly]: appendix-07-nightly-rust.html

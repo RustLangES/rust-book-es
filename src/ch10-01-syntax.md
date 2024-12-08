@@ -18,14 +18,13 @@ Continuando con nuestra función `largest`, el listado 10-4 muestra dos
 funciones que encuentran el valor más grande en un slice. Luego
 combinaremos estos en una sola función que usa genéricos.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-4" file-name="src/main.rs" caption="Dos funciones que difieren solo en sus nombres y los tipos en sus firmas">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-4: Dos funciones que difieren solo en sus
-nombres y los tipos en sus firmas</span>
+</Listing>
 
 La función `largest_i32` es la que extrajimos en el listado 10-3 que encuentra
 el `i32` más grande en un slice. La función `largest_char` encuentra el
@@ -64,14 +63,13 @@ llamar a la función con un slice de valores `i32` o valores `char`. Tenga en
 cuenta que este código aún no se compilará, pero lo arreglaremos más adelante
 en este capítulo.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-5" file-name="src/main.rs" caption="La función `largest` está usando parámetros de tipo genérico; esto aún no se compila">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-5: La función `largest` está usando parámetros
-de tipo genérico; esto aún no se compila</span>
+</Listing>
 
 Si compilamos este código ahora, obtendremos este error:
 
@@ -97,14 +95,13 @@ También podemos definir structs para usar tipos genéricos en uno o más campos
 usando la sintaxis `<>`. El listado 10-6 define un struct `Point<T>` para
 contener valores `x` e `y` de cualquier tipo `T`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-6" file-name="src/main.rs" caption="Un struct `Point<T>` que contiene valores `x` and `y` de tipo `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-06/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-6: Un struct `Point<T>` que contiene valores
-`x` and `y` de tipo `T`</span>
+</Listing>
 
 La sintaxis para usar genéricos en las definiciones de structs es similar a la
 que se usa en las definiciones de funciones. Primero, declaramos el nombre del
@@ -118,18 +115,17 @@ tipo `T`, y los campos `x` e `y` son _ambos_ ese mismo tipo, sea cual sea ese
 tipo. Si creamos una instancia de un `Point<T>` que tenga valores de diferentes
 tipos, como en el listado 10-7, nuestro código no se compilará.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-7" file-name="src/main.rs" caption="Los campos `x` e `y` deben ser del mismo tipo porque ambos tienen el mismo tipo de dato genérico `T`.">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 10-7: Los campos `x` e `y` deben ser del mismo
-tipo porque ambos tienen el mismo tipo de dato genérico `T`.</span>
+</Listing>
 
-En este ejemplo, cuando asignamos el valor entero 5 a `x`, le decimos al
+En este ejemplo, cuando asignamos el valor entero `5` a `x`, le decimos al
 compilador que el tipo genérico `T` será un entero para esta instancia de
-`Point<T>`. Luego, cuando especificamos 4.0 para `y`, que hemos definido para
+`Point<T>`. Luego, cuando especificamos `4.0` para `y`, que hemos definido para
 tener el mismo tipo que `x`, obtendremos un error de tipo incompatible como
 este:
 
@@ -143,14 +139,13 @@ ejemplo, en el listado 10-8, cambiamos la definición de `Point` para que sea
 generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
 `U`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-8" file-name="src/main.rs" caption="Un `Point<T, U>` genérico sobre dos tipos para que `x` e `y` puedan ser valores de tipos diferentes">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-08/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-8: Un `Point<T, U>` genérico sobre dos tipos
-para que `x` e `y` puedan ser valores de tipos diferentes</span>
+</Listing>
 
 ¡Ahora todas las instancias de `Point` que se muestran se permiten! Puede usar
 tantos parámetros de tipo genérico en una definición como desee, pero usar más
@@ -208,14 +203,13 @@ Podemos implementar métodos en structs y enums y usar tipos genérico en sus
 definiciones también. El listado 10-9 muestra el struct `Point<T>` que
 definimos en el listado 10-6 con un método llamado `x` implementado en él.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-9" file-name="src/main.rs" caption="Implementando un método llamado `x` en el struct `Point<T>` que devolverá una referencia al campo `x` de tipo `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-09/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-9: Implementando un método llamado `x` en el
-struct `Point<T>` que devolverá una referencia al campo `x` de tipo `T`</span>
+</Listing>
 
 Aquí, hemos definido un método llamado `x` en `Point<T>` que devuelve una
 referencia a la data en el campo `x`.
@@ -238,15 +232,13 @@ de `Point<T>` con cualquier tipo genérico. En el listado 10-10 usamos el tipo
 concreto `f32`, lo que significa que no declaramos ningún tipo después de
 `impl`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-10" file-name="src/main.rs" caption="Un bloque `impl` que solo aplica a un struct con un tipo concreto particular para el parámetro del tipo genérico `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-10: Un bloque `impl` que solo aplica a un
-struct con un tipo concreto particular para el parámetro del tipo genérico
-`T`</span>
+</Listing>
 
 Este código significa que el tipo `Point<f32>` tendrá un método
 `distance_from_origin` definido en él, y otros tipos de `Point<T>` que no sean
@@ -261,14 +253,13 @@ listado 10-11 usa los tipos genérico `X1` e `Y1` para el struct `Point` y `X2`
 método crea una nueva instancia de `Point` con el valor `x` del `self` `Point`
 (de tipo `X1`) y el valor `y` del `Point` pasado (de tipo `Y2`).
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-11" file-name="src/main.rs" caption="Un método que usa diferentes tipos genérico de la definición de su struct">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-11: Un método que usa diferentes tipos genérico
-de la definición de su struct</span>
+</Listing>
 
 En `main`, hemos definido un `Point` que tiene un `i32` para `x` (con valor `5`)
 y un `f64` para `y` (con valor `10.4`). La variable `p2` es un `Point` struct
@@ -317,7 +308,7 @@ genérica con las específicas.
 La versión monomorfizada del código se ve similar al siguiente (el compilador
 usa nombres diferentes a los que estamos usando aquí para ilustración):
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 enum Option_i32 {
@@ -335,6 +326,8 @@ fn main() {
     let float = Option_f64::Some(5.0);
 }
 ```
+
+</Listing>
 
 El genérico `Option<T>` se reemplaza con las definiciones específicas creadas por
 el compilador. Debido a que Rust compila código genérico en código que

@@ -50,7 +50,7 @@ como a una tabla utilizada para buscar métodos de trait en ese tipo en tiempo
 de ejecución. Creamos un objeto de trait especificando algún tipo de puntero,
 como una referencia `&` o un puntero inteligente `Box<T>`, luego la palabra
 clave `dyn` y luego especificando el trait relevante. (Hablaremos sobre la
-razón por la que los objetos de trait deben usar un puntero en el Capítulo 19
+razón por la que los objetos de trait deben usar un puntero en el Capítulo 20
 en la sección [“Tipos de tamaño dinámico y el
 trait `Sized`.”][dynamically-sized]<!-- ignore -->) Podemos usar objetos de
 trait en lugar de un tipo genérico o concreto. Donde sea que usemos un objeto
@@ -71,46 +71,43 @@ agregar datos a un objeto de trait. Los objetos de trait no son tan útiles en
 general como los objetos en otros lenguajes: su propósito específico es
 permitir la abstracción a través del comportamiento común.
 
-El Listado 17-3 muestra cómo definir un trait llamado `Draw` con un método
+El Listado 18-3 muestra cómo definir un trait llamado `Draw` con un método
 llamado `draw`:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-3" file-name="src/lib.rs" caption="Definición del trait `Draw`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-03/src/lib.rs}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-03/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-3: Definición del trait `Draw`</span>
+</Listing>
 
 Esta sintaxis debería verse familiar de nuestras discusiones sobre cómo
 definir traits en el Capítulo 10. A continuación viene una sintaxis nueva: el
-Listado 17-4 define un struct llamado `Screen` que contiene un vector llamado
+Listado 18-4 define un struct llamado `Screen` que contiene un vector llamado
 `components`. Este vector es de tipo `Box<dyn Draw>`, que es un objeto de
 trait; es un sustituto de cualquier tipo dentro de una `Box` que implementa el
 trait `Draw`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-4" file-name="src/lib.rs" caption="Definición del struct `Screen` con un campo `components` que contiene un vector de trait objects que implementan el trait `Draw`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-04/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-04/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-4: Definición del struct `Screen` con un campo
-`components` que contiene un vector de trait objects que implementan el trait
-`Draw`</span>
+</Listing>
 
 En el struct `Screen` hemos definido un método llamado `run` que llamará al
 método `draw` en cada uno de sus `components`, como se muestra en el Listado
-17-5:
+18-5:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-5" file-name="src/lib.rs" caption="Un método `run` en `Screen` que llama al método `draw` en cada componente">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-05/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-05/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-5: Un método `run` en `Screen` que llama al
-método `draw` en cada componente</span>
+</Listing>
 
 Esto funciona de manera diferente a la definición de un struct que usa un
 parámetro de tipo generic con trait bound. Un parámetro de tipo generic
@@ -118,16 +115,15 @@ solo se puede sustituir con un tipo concreto a la vez, mientras que los
 trait objects permiten que varios tipos concretos llenen el trait object
 en tiempo de ejecución. Por ejemplo, podríamos haber definido el struct
 `Screen` usando un parámetro de tipo generic y un trait bound como en el
-Listado 17-6:
+Listado 18-6:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-6" file-name="src/lib.rs" caption="Una implementación alternativa del struct `Screen` y su método `run` usando generics y trait bounds">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-06/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-06/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-6: Una implementación alternativa del struct
-`Screen` y su método `run` usando generics y trait bounds</span>
+</Listing>
 
 Esto nos restringe a una instancia de `Screen` que tiene una lista de
 componentes de tipo `Button` o de tipo `TextField`. Si solo tendrá
@@ -147,16 +143,15 @@ Proporcionaremos el tipo `Button`. Nuevamente, implementar una biblioteca GUI
 está más allá del alcance de este libro, por lo que el método `draw` no tendrá
 ninguna implementación útil en su cuerpo. Para imaginar cómo podría ser la
 implementación, un struct `Button` podría tener campos para `width`, `height`
-y `label`, como se muestra en el Listado 17-7:
+y `label`, como se muestra en el Listado 18-7:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-7" file-name="src/lib.rs" caption="Un `Button` que implementa el trait `Draw`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-07/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-07/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-7: Un `Button` que implementa el trait
-`Draw`</span>
+</Listing>
 
 Los campos `width`, `height` y `label` en `Button` serán diferentes de los
 campos en otros componentes; por ejemplo, un tipo `TextField` podría tener
@@ -172,32 +167,30 @@ como `TextField`.
 Si alguien que utiliza nuestra biblioteca decide implementar un struct
 `SelectBox` que tiene campos `width`, `height` y `options`, también
 implementará el trait `Draw` en el tipo `SelectBox`, como se muestra en el
-Listado 17-8:
+Listado 18-8:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="18-8" file-name="src/main.rs" caption="Otro crate usando `gui` e implementando el trait `Draw` en un struct `SelectBox`">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch17-oop/listing-17-08/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 17-8: Otro crate usando `gui` e implementando
-el trait `Draw` en un struct `SelectBox`</span>
+</Listing>
 
 El usuario de nuestra biblioteca ahora puede escribir su función `main` para
 crear una instancia de `Screen`. A la instancia de `Screen`, pueden agregar
 un `SelectBox` y un `Button` colocando cada uno en una `Box<T>` para
 convertirse en un trait object. Luego pueden llamar al método `run` en la
 instancia de `Screen`, que llamará a `draw` en cada uno de los componentes.
-El Listado 17-9 muestra esta implementación:
+El Listado 18-9 muestra esta implementación:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="18-9" file-name="src/main.rs" caption="Usando trait objects para almacenar valores de diferentes tipos que implementan el mismo trait">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch17-oop/listing-17-09/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 17-9: Usando trait objects para almacenar valores
-de diferentes tipos que implementan el mismo trait</span>
+</Listing>
 
 Cuando escribimos la biblioteca, no sabíamos que alguien podría agregar el tipo
 `SelectBox`, pero nuestra implementación de `Screen` pudo operar en el nuevo
@@ -208,7 +201,7 @@ Este concepto, de preocuparnos solo por los mensajes a los que responde un valor
 en lugar del tipo concreto del valor, es similar al concepto de _duck typing_ en
 lenguajes de tipado dinámico: si camina como un pato y grazna como un pato,
 ¡entonces debe ser un pato! En la implementación de `run` en `Screen` en el
-Listado 17-5, `run` no necesita saber cuál es el tipo concreto de cada
+Listado 18-5, `run` no necesita saber cuál es el tipo concreto de cada
 componente. No verifica si un componente es una instancia de un `Button` o de
 un `SelectBox`, simplemente llama al método `draw` en el componente. Al
 especificar `Box<dyn Draw>` como el tipo de los valores en el vector
@@ -222,22 +215,21 @@ o preocuparnos por obtener errores si un valor no implementa un método, pero lo
 llamamos de todos modos. Rust no compilará nuestro código si los valores no
 implementan los traits que necesitan los trait objects.
 
-Por ejemplo, el Listado 17-10 muestra lo que sucede si intentamos crear una
+Por ejemplo, el Listado 18-10 muestra lo que sucede si intentamos crear una
 `Screen` con un `String` como componente:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="18-10" file-name="src/main.rs" caption="Intentando utilizar un tipo que no implementa the trait del trait object">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch17-oop/listing-17-10/src/main.rs}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-10/src/main.rs}}
 ```
 
-<span class="caption">Listing 17-10: Intentando utilizar un tipo que no
-implementa the trait del trait object</span>
+</Listing>
 
 Obtendremos este error porque `String` no implementa el trait `Draw`:
 
 ```console
-{{#include ../listings/ch17-oop/listing-17-10/output.txt}}
+{{#include ../listings/ch18-oop/listing-18-10/output.txt}}
 ```
 
 Este error nos indica que o bien estamos pasando algo a `Screen` que no
@@ -266,8 +258,8 @@ para saber qué método llamar. Esta búsqueda incurre en un costo de tiempo de
 ejecución que no ocurre con el static dispatch. Dynamic dispatch también evita
 que el compilador elija la opción de _inline_ del código de un método, lo que a
 su vez evita algunas optimizaciones. Sin embargo, obtuvimos flexibilidad
-adicional en el código que escribimos en el Listado 17-5 y pudimos admitir en
-el Listado 17-9, por lo que es un compromiso a considerar.
+adicional en el código que escribimos en el Listado 18-5 y pudimos admitir en
+el Listado 18-9, por lo que es un compromiso a considerar.
 
 [rendimiento-de-codigo-usando-genericos]: ch10-01-syntax.html#rendimiento-de-codigo-usando-genericos
-[dynamically-sized]: ch19-04-advanced-types.html#tipos-de-tamano-dinamico-y-el-trait-sized
+[dynamically-sized]: ch20-04-advanced-types.html#tipos-de-tamano-dinamico-y-el-trait-sized

@@ -129,11 +129,13 @@ punto en que se declara hasta el final del _contexto de ejecución_ actual. El l
 muestra un programa con comentarios que anotan dónde sería válida la variable
 `s`.
 
+<Listing number="4-1" caption="Una variable y el contexto de ejecución en el que es válida">
+
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 4-1: Una variable y el contexto de ejecución en el que es válida</span>
+</Listing>
 
 En otras palabras, hay dos puntos importantes en el tiempo aquí:
 
@@ -261,12 +263,13 @@ situaciones ahora.
 Varias variables pueden interactuar con los mismos datos de diferentes formas
 en Rust. Veamos un ejemplo usando un entero en la Lista 4-2.
 
+<Listing number="4-2" caption="Asignando el valor entero de la variable `x` a `y`">
+
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-02/src/main.rs:here}}
 ```
 
-<span class="caption">Lista 4-2: Asignando el valor entero de la variable `x`
-a `y`</span>
+</Listing>
 
 Podemos adivinar lo que está haciendo: "vincular el valor `5` a `x`; luego
 hacer una copia del valor en `x` y vincularlo a `y`". Ahora tenemos dos
@@ -375,6 +378,35 @@ creará automáticamente "copias profundas" de tus datos. Por lo tanto, cualquie
 copia _automática_ se puede asumir que es económica en términos de rendimiento
 en tiempo de ejecución.
 
+#### Alcance y Asignación
+
+Lo inverso también es cierto para la relación entre el alcance, la propiedad y 
+la liberación de memoria mediante la función `drop`. Cuando asignas un valor 
+completamente nuevo a una variable existente, Rust llamará a `drop` y liberará 
+inmediatamente la memoria del valor original. Considera este código, por 
+ejemplo:
+
+
+```rust
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04b-replacement-drop/src/main.rs:here}}
+```
+
+Inicialmente, declaramos una variable `s` y la vinculamos a un `String` con el 
+valor `"hola"`. Luego, inmediatamente creamos un nuevo `String` con el valor 
+`"ahoy"` y lo asignamos a `s`. En este punto, nada hace referencia al valor 
+original en el heap.
+
+<div style="width:50%; max-width: 100%;">
+{{#include img/trpl04-05.svg}}
+</div>
+
+<span class="caption">Figura 4-5: Representación en memoria después de que el 
+valor inicial ha sido completamente reemplazado.</span>
+
+El string original, por lo tanto, sale inmediatamente de su alcance. Rust 
+ejecutará la función `drop` sobre él y su memoria será liberada de inmediato. 
+Cuando imprimimos el valor al final, será `"ahoy, mundo!"`.
+
 <!-- Old heading. Do not remove or links may break. -->
 
 <a id="ways-variables-and-data-interact-clone"></a>
@@ -454,14 +486,13 @@ valor a una variable. Pasar una variable a una función moverá o copiará, como
 hace la asignación. La Lista 4-3 tiene un ejemplo con algunas anotaciones que
 muestran dónde entran y salen las variables del alcance.
 
-<span class="filename">Nombre del archivo: src/main.rs</span>
+<Listing number="4-3" file-name="src/main.rs" caption="Funciones con propiedad y alcance anotados">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-03/src/main.rs}}
 ```
 
-<span class="caption">Lista 4-3: Funciones con propiedad y alcance
-anotados</span>
+</Listing>
 
 Si intentamos usar `s` después de llamar a `tomar_ownership`, Rust lanzaría un
 error de tiempo de compilación. Estas comprobaciones estáticas nos protegen de
@@ -474,14 +505,13 @@ Los valores de retorno también pueden transferir la propiedad. La Lista 4-4
 muestra un ejemplo de una función que devuelve algún valor, con anotaciones
 similares a las de la Lista 4-3.
 
-<span class="filename">Nombre del archivo: src/main.rs</span>
+<Listing number="4-4" file-name="src/main.rs" caption="Transferencia de propiedad de los valores de retorno">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-04/src/main.rs}}
 ```
 
-<span class="caption">Lista 4-4: Transferencia de propiedad de los valores
-de retorno</span>
+</Listing>
 
 La propiedad (ownership) de una variable sigue el mismo patrón cada vez:
 asignar un valor a otra variable lo mueve. Cuando una variable que incluye datos
@@ -497,14 +527,13 @@ que resulte del cuerpo de la función que también podríamos querer devolver.
 Rust nos permite devolver múltiples valores usando una tupla, como se muestra
 en la Lista 4-5.
 
-<span class="filename">Nombre del archivo: src/main.rs</span>
+<Listing number="4-5" file-name="src/main.rs" caption="Retornando la propiedad de los parámetros">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-05/src/main.rs}}
 ```
 
-<span class="caption">Lista 4-5: Devolución de la propiedad de los
-parámetros</span>
+</Listing>
 
 Pero esto es demasiado ceremonioso y mucho trabajo para un concepto que debería
 ser común. Afortunadamente para nosotros, Rust tiene una característica para

@@ -23,14 +23,13 @@ tenemos una forma de hablar sobre "una _porción_ de un string". Sin embargo,
 podríamos retornar el índice del final de la palabra, indicado por un espacio.
 Probemos eso, como se muestra en Listing 4-7.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="4-7" file-name="src/main.rs" caption="La función `first_word` retorna un valor de índice en bytes dentro de un parámetro `String`">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-7: La función `first_word` retorna un
-valor de índice en bytes dentro de un parámetro `String`</span>
+</Listing>
 
 Dado que necesitamos recorrer el `String` elemento por elemento y comprobar si
 un valor es un espacio, convertiremos nuestro `String` a un array de bytes
@@ -77,14 +76,13 @@ En otras palabras, debido a que es un valor separado del `String`, no hay
 garantía de que siga siendo válido en el futuro. Considera el programa en
 Listing 4-8 que usa la función `first_word` del Listing 4-7.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="4-8" file-name="src/main.rs" caption="Almacenando el resultado de llamar a la función `first_word` y luego cambiar el contenido del `String`">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-8: Almacenando el resultado de llamar a
-la función `first_word` y luego cambiar el contenido del `String`</span>
+</Listing>
 
 Este programa compila sin errores y también lo hará si usáramos `word` después
 de llamar a `s.clear()`. Debido a que `word` no está conectado al estado de `s`
@@ -128,15 +126,15 @@ inicial y la longitud del slice, lo que corresponde a `ending_index` menos
 sería un slice que contiene un puntero al byte en el índice 6 de `s` con un
 valor de longitud de `5`.
 
-Figure 4-6 muestra esto en el diagrama.
+Figure 4-7 muestra esto en el diagrama.
 
 <img alt="Three tables: a table representing the stack data of s, which points
 to the byte at index 0 in a table of the string data &quot;hello world&quot; on
 the heap. The third table rep-resents the stack data of the slice world, which
 has a length value of 5 and points to byte 6 of the heap data table."
-src="img/trpl04-06.svg" class="center" style="width: 50%;" />
+src="img/trpl04-07.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 4-6: String slice referencia una parte de un
+<span class="caption">Figure 4-7: String slice referencia una parte de un
 `String`</span>
 
 Con la sintaxis de rango `..` de Rust, si queremos comenzar en el índice 0,
@@ -185,11 +183,13 @@ let slice = &s[..];
 Con toda esta información en mente, reescribamos `first_word` para retornar un
 slice. El tipo que significa “string slice” se escribe como `&str`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}
 ```
+
+</Listing>
 
 Obtenemos el índice para el final de la palabra de la misma manera que lo
 hicimos en el Listing 4-7, buscando la primera aparición de un espacio. Cuando
@@ -217,11 +217,13 @@ Los Slices hacen que este error sea imposible y nos permiten saber que tenemos
 un problema en nuestro código mucho antes. El uso de la versión slice de
 `first_word` arrojará un error en tiempo de compilación:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/src/main.rs:here}}
 ```
+
+</Listing>
 
 Aquí está el error del compilador:
 
@@ -270,13 +272,13 @@ Un Rustacean más experimentado escribiría la firma mostrada en el Listing 4-9
 en su lugar porque nos permite usar la misma función en ambos valores `&String`
 y `&str`.
 
+<Listing number="4-9" caption="Mejorando la función `first_word` usando un string slice como parámetro para el tipo del parámetro de`s`">
+
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-9:
-Mejorando la función `first_word` usando un string slice como parámetro
-para el tipo del parámetro de`s`</span>
+</Listing>
 
 Si tenemos un string slice, podemos pasar directamente ese valor. Si tenemos
 un `String`, podemos pasar un slice del `String` o una referencia al `String`.
@@ -289,11 +291,13 @@ Definir una función para tomar un string slice en lugar de una referencia a un
 `String` hace que nuestra API sea más general y útil sin perder ninguna
 funcionalidad:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}
 ```
+
+</Listing>
 
 ### Otros Slices
 

@@ -19,21 +19,19 @@ renombraremos nuestro viejo test de `one_result` a `case_sensitive` para
 clarificar las diferencias entre los dos tests, como se muestra en el Listado
 12-20.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-20" file-name="src/lib.rs" caption="Agregando un nuevo test fallido para la función insensible a mayúsculas y minúsculas que estamos a punto de agregar">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-20/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-20: Agregando un nuevo test fallido para la
-función insensible a mayúsculas y minúsculas que estamos a punto de 
-agregar</span>
+</Listing>
 
 Ten en cuenta que hemos editado el `contents` del viejo test también. Hemos
-agregado una nueva línea con el texto `"Duct tape."` usando una D mayúscula que
-no debería coincidir con la consulta `"duct"` cuando estamos buscando de manera
-sensible a mayúsculas y minúsculas. Cambiar el viejo test de esta manera ayuda
-a asegurar que no rompamos accidentalmente la funcionalidad de búsqueda
+agregado una nueva línea con el texto `"Duct tape."` usando una *D* mayúscula 
+que no debería coincidir con la consulta `"duct"` cuando estamos buscando de 
+manera sensible a mayúsculas y minúsculas. Cambiar el viejo test de esta manera 
+ayuda a asegurar que no rompamos accidentalmente la funcionalidad de búsqueda
 sensible a mayúsculas y minúsculas que ya hemos implementado. Este test debería
 pasar ahora y debería continuar pasando mientras trabajamos en la búsqueda
 insensible a mayúsculas y minúsculas.
@@ -41,7 +39,7 @@ insensible a mayúsculas y minúsculas.
 El nuevo test para la búsqueda insensible a mayúsculas y minúsculas usa `"rUsT"`
 como su consulta. En la función `search_case_insensitive` que estamos a punto
 de agregar, la consulta `"rUsT"` debería coincidir con la línea que contiene
-`"Rust:"` con una R mayúscula y coincidir con la línea `"Trust me."` aunque
+`"Rust:"` con una *R* mayúscula y coincidir con la línea `"Trust me."` aunque
 ambas tienen diferente capitalización que la consulta. Este es nuestro test
 fallido, y fallará al compilar porque aún no hemos definido la función
 `search_case_insensitive`. Siéntete libre de agregar una implementación
@@ -57,15 +55,13 @@ convertiremos a minúsculas la `query` y cada `line` para que no importe la
 mayúscula o minúscula de los argumentos de entrada, serán la misma mayúscula o
 minúscula cuando verifiquemos si la línea contiene la consulta.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-21" file-name="src/lib.rs" caption="Definiendo la función `search_case_insensitive` para convertir a minúsculas tanto la consulta como la línea antes de compararlas">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-21/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-21: Definiendo la función 
-`search_case_insensitive` para convertir a minúsculas tanto la consulta como la
-línea antes de compararlas</span>
+</Listing>
 
 Primero, convertimos el string `query` a minúsculas y lo almacenamos en una
 variable sombreada con el mismo nombre. Llamar a `to_lowercase` en la consulta
@@ -116,14 +112,13 @@ usar eso para decidir si llamar a la función `search` o la función
 `search_case_insensitive`, como se muestra en el Listado 12-22. Esto aún no se
 compilará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-22" file-name="src/lib.rs" caption="Llamando a `search` o `search_case_insensitive` en función del valor de `config.ignore_case`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/lib.rs:there}}
 ```
 
-<span class="caption">Listing 12-22: Llamando a `search` o
-`search_case_insensitive` en función del valor de `config.ignore_case`</span>
+</Listing>
 
 Finalmente, necesitamos verificar la variable de entorno. Las funciones para
 trabajar con variables de entorno están en el módulo `env` en la biblioteca
@@ -132,16 +127,15 @@ estándar, así que traemos ese módulo al alcance en la parte superior de
 si se ha establecido algún valor para una variable de entorno llamada
 `IGNORE_CASE`, como se muestra en el Listado 12-23.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-23" file-name="src/lib.rs" caption="Comprobando si existe algún valor en una variable de entorno llamada `IGNORE_CASE`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-23/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-23: Comprobando si existe algún valor en una 
-variable de entorno llamada `IGNORE_CASE`</span>
+</Listing>
 
-Aquí, creamos una nueva variable `ignore_case`. Para establecer su valor,
+Aquí, creamos una nueva variable, `ignore_case`. Para establecer su valor,
 llamamos a la función `env::var` y le pasamos el nombre de la variable de
 entorno `IGNORE_CASE`. La función `env::var` devuelve un `Result` que será la
 variante `Ok` exitosa que contiene el valor de la variable de entorno si la
@@ -163,14 +157,14 @@ que la función `run` pueda leer ese valor y decidir si llamar a la función
 
 ¡Probémoslo! Primero, ejecutemos el programa sin la variable de entorno
 establecida y con la consulta `to`, que debería coincidir con cualquier línea
-que contenga la palabra "to" en minúsculas:
+que contenga la palabra *to* en minúsculas:
 
 ```console
 {{#include ../listings/ch12-an-io-project/listing-12-23/output.txt}}
 ```
 
 ¡Parece que aún funciona! Ahora, ejecutemos el programa con `IGNORE_CASE`
-establecido en `1` pero con la misma consulta `to`.
+establecido en `1` pero con la misma consulta *to*.
 
 ```console
 $ export IGNORE_CASE=1; cargo run -- to poem.txt
@@ -189,7 +183,7 @@ shell. Puede desestablecerse con el comando `Remove-Item`:
 PS> Remove-Item Env:IGNORE_CASE
 ```
 
-Deberíamos obtener líneas que contengan "to" que podrían tener letras
+Deberíamos obtener líneas que contengan *to* que podrían tener letras
 mayúsculas:
 
 <!-- manual-regeneration
@@ -205,7 +199,7 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
-Excelente, ¡también obtuvimos líneas que contienen "To"! Nuestro programa
+Excelente, ¡también obtuvimos líneas que contienen *To*! Nuestro programa
 `minigrep` ahora puede hacer búsquedas insensibles a mayúsculas y minúsculas
 controladas por una variable de entorno. Ahora sabes cómo administrar las
 opciones establecidas mediante argumentos de línea de comandos o variables de

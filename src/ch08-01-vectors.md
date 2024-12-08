@@ -12,12 +12,13 @@ los precios de los artículos en un carrito de compras.
 Para crear un nuevo vector vacío, llamamos a la función `Vec::new`, como se
 muestra en el listado 8-1.
 
+<Listing number="8-1" caption="Creando un nuevo vector vacío para mantener valores de tipo `i32`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-1: Creando un nuevo vector vacío para mantener
-valores de tipo `i32`</span>
+</Listing>
 
 Ten en cuenta que agregamos una anotación de tipo aquí. Como no estamos
 insertando ningún valor en este vector, Rust no sabe qué tipo de elementos
@@ -37,12 +38,13 @@ crea un nuevo `Vec<i32>` que contiene los valores `1`, `2` y `3`. El tipo
 entero es `i32` porque ese es el tipo entero predeterminado, como discutimos
 en la sección ["Tipos de datos"][data-types]<!-- ignore --> del Capítulo 3.
 
+<Listing number="8-2" caption="Creando un nuevo vector que contiene valores">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-2: Creando un nuevo vector que contiene
-valores</span>
+</Listing>
 
 Debido a que hemos dado valores iniciales `i32`, Rust puede inferir que el tipo
 de `v` es `Vec<i32>`, y la anotación de tipo no es necesaria. A continuación,
@@ -53,12 +55,13 @@ veremos cómo modificar un vector.
 Para crear un vector y luego agregar elementos a él, podemos usar el método
 `push`, como se muestra en el listado 8-3.
 
+<Listing number="8-3" caption="Usando el método `push` para añadir valores a un vector">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-3: Usando el método `push` para añadir valores
-a un vector</span>
+</Listing>
 
 Como con cualquier variable, si queremos poder cambiar su valor, necesitamos
 hacerlo mutable usando la palabra clave `mut`, como se discutió en el Capítulo
@@ -75,12 +78,13 @@ obtener una mayor claridad.
 En el listado 8-4 se muestran ambos métodos de acceso a un valor en un vector,
 con sintaxis de indexación y el método `get`.
 
+<Listing number="8-4" caption="Usando la sintaxis de indexación o el método `get` accediendo a un objeto en un vector">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-4: Usando la sintaxis de indexación o el método
-`get` accediendo a un objeto en un vector</span>
+</Listing>
 
 Ten en cuenta algunos detalles aquí. Usamos el valor de índice `2` para obtener
 el tercer elemento porque los vectores se indexan por número, comenzando en
@@ -95,12 +99,13 @@ veamos qué sucede cuando tenemos un vector de cinco elementos y luego intentamo
 acceder a un elemento en el índice 100 con cada técnica, como se muestra en el
 listado 8-5.
 
+<Listing number="8-5" caption="Intentando acceder al elemento en el índice 100 en un vector que contiene 5 elementos">
+
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-5: Intentando acceder al elemento en el índice
-100 en un vector que contiene 5 elementos</span>
+</Listing>
 
 Cuando ejecutamos este código, el primer método `[]` causará que el programa
 falle porque intenta acceder a un elemento que no existe. Este método es mejor
@@ -127,12 +132,13 @@ listado 8-6, donde tenemos una referencia inmutable al primer elemento en un
 vector e intentamos agregar un elemento al final. Este programa no funcionará si
 también intentamos referirnos a ese elemento más adelante en la función.
 
+<Listing number="8-6" caption="Intentando agregar un elemento a un vector mientras se mantiene una referencia a un elemento">
+
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-6: Intentando agregar un elemento a un vector
-mientras se mantiene una referencia a un elemento</span>
+</Listing>
 
 Al compilar este código se producirá este error:
 
@@ -161,23 +167,25 @@ los elementos, en lugar de usar índices para acceder a uno a la vez. El listado
 8-7 muestra cómo usar un bucle `for` para obtener referencias inmutables a cada
 elemento en un vector de valores `i32` e imprimirlos.
 
+<Listing number="8-7" caption="Imprimiendo cada elemento en un vector iterando sobre los elementos usando un ciclo `for`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-7: Imprimiendo cada elemento en un vector
-iterando sobre los elementos usando un ciclo `for`</span>
+</Listing>
 
 También podemos iterar sobre referencias mutables a cada elemento en un vector
 mutable, lo que nos permite cambiar los valores en un vector en el lugar. El
 código en el listado 8-8 agregará `50` a cada elemento en un vector.
 
+<Listing number="8-8" caption="Iterando sobre referencias mutables a elementos en un vector">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-8: Iterando sobre referencias mutables a
-elementos en un vector</span>
+</Listing>
 
 Para cambiar el valor al que se refiere la referencia mutable, tenemos que usar
 el operador de desreferencia `*` para llegar al valor en `i` antes de poder
@@ -209,12 +217,13 @@ el del `enum`. Luego podemos crear un vector para contener ese `enum` y, por lo
 tanto, en última instancia, contener diferentes tipos. Hemos demostrado esto en
 el listado 8-9.
 
+<Listing number="8-9" caption="Definiendo un `enum` para almacenar valores de diferentes tipos en un vector">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-9: Definiendo un `enum` para almacenar valores
-de diferentes tipos en un vector</span>
+</Listing>
 
 Rust necesita saber qué tipos habrá en el vector en tiempo de compilación para
 saber exactamente cuánta memoria en el montón se necesitará para almacenar cada
@@ -228,7 +237,7 @@ que se maneje cada caso posible, como se discutió en el Capítulo 6.
 Si tu no sabes el conjunto exhaustivo de tipos que un programa obtendrá en
 tiempo de ejecución para almacenar en un vector, la técnica de `enum` no
 funcionará. En su lugar, puede usar un objeto de rasgo, que cubriremos en el
-Capítulo 17.
+Capítulo 18.
 
 Ahora que hemos discutido algunas de las formas más comunes de usar vectores,
 asegúrese de revisar [la documentación de la API][vec-api]<!-- ignore --> para
@@ -241,12 +250,13 @@ estándar. Por ejemplo, además de `push`, un método `pop` elimina y devuelve e
 Como cualquier otro `struct`, un vector se libera cuando sale del ámbito, como
 se anota en el listado 8-10.
 
+<Listing number="8-10" caption="Mostrando dónde se colocan el vector y sus elementos">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-10: Mostrando dónde se colocan el vector y sus
-elementos</span>
+</Listing>
 
 Cuando se libera el vector, también se libera todo su contenido, lo que
 significa que se limpiarán los enteros que contiene. El borrow checker garantiza

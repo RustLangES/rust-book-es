@@ -56,14 +56,13 @@ librería estándar provee la macro `eprintln!` que imprime en el flujo de error
 estándar, así que cambiaremos los dos lugares donde estábamos llamando
 `println!` para imprimir errores usando `eprintln!` en su lugar.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-24" file-name="src/main.rs" caption="Escribiendo mensajes de error en el error estándar en lugar del output estándar utilizando `eprintln!`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-24/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-24: Escribiendo mensajes de error en el 
-error estándar en lugar del output estándar utilizando `eprintln!`</span>
+</Listing>
 
 Ahora, ejecutaremos el programa de la misma manera que antes, sin pasar ningún
 argumento y redirigiendo el output estándar con `>`:
@@ -110,3 +109,4 @@ estará bien testeado.
 
 A continuación, exploraremos algunas características de Rust que fueron
 influenciadas por lenguajes funcionales: closures e iterators.
+

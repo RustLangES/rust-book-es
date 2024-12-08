@@ -42,14 +42,13 @@ closure (hablamos sobre closures en el Capítulo 13) que contiene el código que
 queremos ejecutar en el nuevo hilo. El ejemplo en el Listado 16-1 imprime
 algunos textos desde un hilo principal y otros textos desde un nuevo hilo:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-1" file-name="src/main.rs" caption="Creando un nuevo hilo para imprimir una cosa mientras el hilo principal imprime algo más">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-1: Creando un nuevo hilo para imprimir una cosa
-mientras el hilo principal imprime algo más</span>
+</Listing>
 
 Nota que cuando el hilo principal de un programa Rust se completa, todos los
 hilos creados se apagan, independientemente de si han terminado de ejecutarse o
@@ -99,14 +98,13 @@ su hilo termine. El Listado 16-2 muestra cómo usar el `JoinHandle` del hilo que
 creamos en el Listado 16-1 y llamar a `join` para asegurarnos de que el hilo
 creado termine antes de que `main` salga:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-2" file-name="src/main.rs" caption="Guardando un `JoinHandle` devuelto por `thread::spawn` para garantizar que el hilo se ejecute hasta completarse">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-2: Guardando un `JoinHandle` devuelto por
-`thread::spawn` para garantizar que el hilo se ejecute hasta completarse</span>
+</Listing>
 
 Llamar a `join` en el handle bloquea el hilo que está actualmente en ejecución
 hasta que el hilo representado por el handle termine. Bloquear un hilo significa
@@ -140,11 +138,13 @@ llamada a `handle.join()` y no termina hasta que el hilo creado haya terminado.
 Pero veamos que sucede cuando movemos la llamada a `handle.join()` antes del
 bucle `for` en `main`, como esto:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/no-listing-01-join-too-early/src/main.rs}}
 ```
+
+</Listing>
 
 El hilo principal ahora espera a que el hilo creado termine antes de comenzar su
 bucle `for`, para que el output no se intercale más. La salida ahora se verá
@@ -189,14 +189,13 @@ del hilo creado debe capturar los valores que necesita. El Listado 16-3 muestra
 un intento de crear un vector en el hilo principal y usarlo en el hilo creado.
 Sin embargo, esto aún no funcionará, como verás en un momento.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-3" file-name="src/main.rs" caption="Intentando usar un vector creado por el hilo principal en otro hilo">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-03/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-3: Intentando usar un vector creado por el hilo
-principal en otro hilo</span>
+</Listing>
 
 El closure usa `v`, por lo que capturará `v` y lo hará parte del entorno del
 closure. Debido a que `thread::spawn` ejecuta este closure en un nuevo hilo,
@@ -215,14 +214,13 @@ que no sabe si la referencia a `v` siempre será válida.
 El Listado 16-4 proporciona un escenario que es más probable que tenga una
 referencia a `v` que no sea válida:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-4" file-name="src/main.rs" caption="Un hilo con un closure que intenta capturar una referencia a `v` desde un hilo principal que deja de tener `v`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-4: Un hilo con un closure que intenta capturar
-una referencia a `v` desde un hilo principal que deja de tener `v`</span>
+</Listing>
 
 Si Rust nos permitiera ejecutar este código, existe la posibilidad de que el
 hilo creado se ponga inmediatamente en segundo plano sin ejecutarse en absoluto.
@@ -250,14 +248,14 @@ ownership de los valores que está usando en lugar de permitir que Rust infiera
 que debería pedir prestado los valores. La modificación al Listado 16-3 que se
 muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-5" file-name="src/main.rs" caption="Usando la keyword `move` para forzar a un closure a tomar ownership de los valores que utiliza">
+
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-5: Usando la keyword `move` para forzar a un
-closure a tomar ownership de los valores que utiliza</span>
+</Listing>
 
 Podríamos sentir la tentación de intentar lo mismo para arreglar el código en el
 Listado 16-4 donde el hilo principal llamó a `drop` usando un closure `move`.

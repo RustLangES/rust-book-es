@@ -65,12 +65,13 @@ dirección IP; solo sabemos qué tipo es. Dado que acabas de aprender sobre los
 structs en el Capítulo 5, podrías estar tentado a abordar este problema con
 structs como se muestra en el Listing 6-1.
 
+<Listing number="6-1" caption="Almacenando los datos y la variante `IpAddrKind` de una dirección IP usando un `struct`">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-1: Almacenando los datos y la variante
-`IpAddrKind` de una dirección IP usando un `struct`</span>
+</Listing>
 
 Aquí, hemos definido un struct `IpAddr` que tiene dos campos: un campo `kind`
 que es de tipo `IpAddrKind` (el `enum` que definimos anteriormente) y un campo
@@ -148,12 +149,13 @@ contexto de ejecución. Hablaremos más sobre cómo traer tipos al contexto de e
 Veamos otro ejemplo de una enumeración en el Listing 6-2: este tiene una amplia
 variedad de tipos incrustados en sus variantes.
 
+<Listing number="6-2" caption="Un enum `Message` cuyas variantes almacenan diferentes cantidades y tipos de valores">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-2: Un enum `Message` cuyas variantes almacenan
-diferentes cantidades y tipos de valores</span>
+</Listing>
 
 Este `enum` tiene cuatro variantes con diferentes tipos:
 

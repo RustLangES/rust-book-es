@@ -42,14 +42,13 @@ El código en el Listado 12-1 permite que tu programa `minigrep` lea cualquier
 argumento de línea de comandos que se le pase y luego recoja los valores en un
 vector.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-1" file-name="src/main.rs" caption="Colectando los argumentos de línea de comandos en un vector e imprimiéndolos">
 
 ```rust
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 12-1: Recopilando los argumentos de línea de
-comandos en un vector e imprimiéndolos</span>
+</Listing>
 
 Primero, traemos el módulo `std::env` al alcance con una declaración `use` para
 que podamos usar su función `args`. Ten en cuenta que la función
@@ -107,14 +106,13 @@ argumentos de línea de comandos. Ahora necesitamos guardar los valores de los
 dos argumentos en variables para que podamos usar los valores en el resto del
 programa. Hacemos eso en el Listado 12-2.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-2" file-name="src/main.rs" caption="Creando variables para contener el argumento de consulta y la ruta de archivo">
 
 ```rust,should_panic,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 12-2: Creando variables para contener el argumento
-de consulta y la ruta de archivo</span>
+</Listing>
 
 Como vimos cuando imprimimos en el vector, el nombre del programa ocupa el
 primer valor del vector en `args[0]`, por lo que estamos comenzando a leer los

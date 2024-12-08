@@ -32,11 +32,13 @@ facilitar el seguimiento de la fuente del panic.
 
 Intentemos llamar un `panic!` en un programa simple:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-01-panic/src/main.rs}}
 ```
+
+</Listing>
 
 Cuando ejecutes el programa, verás algo como esto:
 
@@ -59,21 +61,27 @@ de las funciones de las que provino la llamada a `panic!` para determinar la
 parte de nuestro código que está causando el problema. Discutiremos el backtrace
 en más detalle a continuación.
 
+<!-- Old heading. Do not remove or links may break. -->
+<a id="using-a-panic-backtrace"></a>
+
 ### Usando el backtrace de `panic!`
 
-Veamos otro ejemplo de cómo es cuando una llamada a `panic!` proviene de una
-biblioteca debido a un error en nuestro código en lugar de que nuestro código
-llame directamente a la macro. El listado 9-1 tiene algún código que intenta
-acceder a un índice en un vector más allá del rango de índices válidos.
+Podemos usar el rastreo de llamadas (*backtrace*) de las funciones desde donde 
+se originó la llamada a `panic!` para identificar la parte de nuestro código que 
+está causando el problema. Para entender cómo usar un *backtrace* de `panic!`, 
+veamos otro ejemplo y analicemos qué ocurre cuando una llamada a `panic!` 
+proviene de una biblioteca debido a un error en nuestro código, en lugar de que 
+sea nuestro código llamando directamente a la macro. El Listado 9-1 contiene 
+código que intenta acceder a un índice en un vector fuera del rango de índices 
+válidos.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="9-1" file-name="src/main.rs" caption="Intentando acceder a un elemento más allá del fin de un vector, que provocará una llamada a `panic!`">
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-01/src/main.rs}}
 ```
 
-<span class="caption">Listado 9-1: Intentando acceder a un elemento más allá del
-fin de un vector, que provocará una llamada a `panic!`</span>
+</Listing>
 
 Aquí, estamos intentando acceder al elemento 100 de nuestro vector (que está en
 el índice 99 porque el indexado comienza en cero), pero el vector solo tiene 3
@@ -98,7 +106,9 @@ continuar. Intentémoslo y veamos:
 ```
 
 Este error apunta a la línea 4 de nuestro `main.rs` donde intentamos acceder al
-índice 99. La siguiente línea de nota nos dice que podemos establecer la
+índice 99 de el vector `v`. 
+
+La siguiente línea de nota nos dice que podemos establecer la
 variable de entorno `RUST_BACKTRACE` para obtener el backtrace de exactamente lo
 que sucedió para causar el error. El _Backtrace_ es una lista de todas las
 funciones que se han llamado para llegar a este punto. El backtrace en Rust
@@ -109,7 +119,7 @@ el código que su código ha llamado; las líneas a continuación son el código
 llamó a su código. Estas líneas antes y después pueden incluir código de Rust
 core, código de biblioteca estándar o crates que estés usando. Intentemos
 obtener el backtrace estableciendo la variable de entorno `RUST_BACKTRACE` a
-cualquier valor excepto 0. El listado 9-2 muestra una salida similar a la que
+cualquier valor excepto `0`. El listado 9-2 muestra una salida similar a la que
 verás.
 
 <!-- manual-regeneration
@@ -119,33 +129,33 @@ copy the backtrace output below
 check the backtrace number mentioned in the text below the listing
 -->
 
+<Listing number="9-2" caption="El backtrace generado por una llamada a `panic!` se muestra cuando la variable de entorno `RUST_BACKTRACE` está configurada">
+
 ```console
 $ export RUST_BACKTRACE=1; cargo run
 thread 'main' panicked at src/main.rs:4:6:
 index out of bounds: the len is 3 but the index is 99
 stack backtrace:
    0: rust_begin_unwind
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/std/src/panicking.rs:645:5
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/std/src/panicking.rs:662:5
    1: core::panicking::panic_fmt
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/core/src/panicking.rs:72:14
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/core/src/panicking.rs:74:14
    2: core::panicking::panic_bounds_check
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/core/src/panicking.rs:208:5
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/core/src/panicking.rs:276:5
    3: <usize as core::slice::index::SliceIndex<[T]>>::index
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/core/src/slice/index.rs:255:10
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/core/src/slice/index.rs:302:10
    4: core::slice::index::<impl core::ops::index::Index<I> for [T]>::index
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/core/src/slice/index.rs:18:9
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/core/src/slice/index.rs:16:9
    5: <alloc::vec::Vec<T,A> as core::ops::index::Index<I>>::index
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/alloc/src/vec/mod.rs:2770:9
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/alloc/src/vec/mod.rs:2920:9
    6: panic::main
              at ./src/main.rs:4:6
    7: core::ops::function::FnOnce::call_once
-             at /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/core/src/ops/function.rs:250:5
+             at /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/core/src/ops/function.rs:250:5
 note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
 ```
 
-<span class="caption">Listado 9-2: El backtrace generado por una llamada a
-`panic!` se muestra cuando la variable de entorno `RUST_BACKTRACE` está
-configurada</span>
+</Listing>
 
 ¡Eso es mucho resultado! La salida exacta que vea puede ser diferente según su
 sistema operativo y la versión de Rust. Para obtener el backtrace con esta

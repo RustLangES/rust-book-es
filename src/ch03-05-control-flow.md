@@ -126,14 +126,13 @@ Dado que `if` es una expresión, podemos usarlo en el lado derecho de una
 declaración `let` para asignar el resultado a una variable, como en el Listado
 3-2.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="3-2" file-name="src/main.rs" caption="Asignando el resultado de una expresión `if` a una variable">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-02/src/main.rs}}
 ```
 
-<span class="caption">Listado 3-2: Asignando el resultado de una expresión
-`if` a una variable</span>
+</Listing>
 
 La variable `number` estará vinculada a un valor basado en el resultado de la
 expresión `if`. Ejecute este código para ver qué sucede:
@@ -200,7 +199,7 @@ que se vea así:
 
 Cuando ejecutemos este programa, veremos `again!` impreso una y otra vez
 continuamente hasta que detengamos manualmente el programa. La mayoría de los
-terminales admiten el atajo de teclado <span class="keystroke">ctrl-c</span>
+terminales admiten el atajo de teclado <kbd>ctrl</kbd>-<kbd>c</kbd>
 para interrumpir un programa que está atascado en un bucle continuo.
 Inténtelo:
 
@@ -213,7 +212,7 @@ CTRL-C
 ```console
 $ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.29s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
      Running `target/debug/loops`
 again!
 again!
@@ -222,8 +221,7 @@ again!
 ^Cagain!
 ```
 
-El símbolo `^C` representa dónde presionó <span
-class="keystroke">ctrl-c</span>. Puede que vea o no la palabra `again!`
+El símbolo `^C` representa dónde presionó </kbd>ctrl</kbd>-<kbd>c</kbd>. Puede que vea o no la palabra `again!`
 impresa después del `^C`, dependiendo de dónde estaba el código en el bucle
 cuando recibió la señal de interrupción.
 
@@ -298,14 +296,13 @@ integrada para ello, llamada `while` loop. En el Listado 3-3, usamos `while`
 para ejecutar el programa tres veces, contando hacia atrás cada vez, y luego,
 después del bucle, imprimir un mensaje y salir.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="3-3" file-name="src/main.rs" caption="Usando un bucle `while` para ejecutar código mientras una condición es verdadera">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-03/src/main.rs}}
 ```
 
-<span class="caption">Listado 3-3: Usando un bucle `while` para ejecutar código
-mientras una condición es verdadera</span>
+</Listing>
 
 Esta expresion elimina mucho anidamiento que sería necesario si usara `loop`,
 `if`, `else` y `break`, y es más claro. Mientras una condición se evalúa como
@@ -319,14 +316,13 @@ Tu puedes también puedes usar el `while` para recorrer los elementos de una
 colección, justo como un arreglo. Por ejemplo, el bucle en el Listado 3-4
 muestra cada elemento en el arreglo `a`.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="3-4" file-name="src/main.rs" caption="Bucle a través de cada elemento de una colección usando un bucle `while`">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-04/src/main.rs}}
 ```
 
-<span class="caption">Listado 3-4: Bucle a través de cada elemento de una
-colección usando un bucle `while`</span>
+</Listing>
 
 Aquí, el código cuenta hacia arriba a través de los elementos en la matriz. Se
 inicia en el índice `0`, y luego se ejecuta hasta que alcanza el índice final
@@ -353,14 +349,13 @@ Como una alternativa más concisa, puede usar un bucle `for` y ejecutar algún
 código para cada elemento en una colección. Un bucle `for` se ve como el código
 en el Listado 3-5.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="3-5" file-name="src/main.rs" caption="Bucle a través de cada elemento de una colección usando un bucle `for`">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-05/src/main.rs}}
 ```
 
-<span class="caption">Listado 3-5: Bucle a través de cada elemento de una
-colección usando un bucle `for`</span>
+</Listing>
 
 Cuando ejecutamos este código, veremos la misma salida que en el Listado 3-4.
 Lo más importante es que ahora hemos aumentado la seguridad del código y

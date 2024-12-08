@@ -6,12 +6,14 @@ resto. Considera el programa en el Listado 6-6 que coincide con un valor
 `Option<u8>` en la variable `config_max` pero solo quiere ejecutar el código si
 el valor es la variante `Some`.
 
+<Listing number="6-6" caption="Un `match` que solo se preocupa por ejecutar código cuando el valor es `Some`">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 6-6: Un `match` que solo se preocupa por ejecutar
-código cuando el valor es `Some`</span>
+</Listing>
+
 
 Si el valor es `Some`, imprimimos el valor en la variante `Some` vinculando el
 valor a la variable `max` en el patrón. No queremos hacer nada con el valor
@@ -32,12 +34,14 @@ igual. Funciona de la misma manera que un `match`, donde la expresión se da al
 `match` y el patrón es su primer brazo. En este caso, el patrón es `Some(max)`,
 y el `max` se vincula al valor dentro del `Some`. Luego podemos usar `max` en
 el cuerpo del bloque `if let` de la misma manera que usamos `max` en el brazo
-`match` correspondiente. El código en el bloque `if let` no se ejecuta si el
-valor no coincide con el patrón.
+`match` correspondiente. El código en el bloque `if let` solo se ejecuta si el
+valor coincide con el patrón.
 
-Usar `if let` significa menos escritura, menos indentación y menos código repetitivo. Sin embargo, pierdes la verificación exhaustiva que hace cumplir
+Usar `if let` significa menos escritura, menos indentación y menos código 
+repetitivo. Sin embargo, pierdes la verificación exhaustiva que hace cumplir
 `match`. Elegir entre `match` e `if let` depende de lo que estés haciendo en tu
-situación particular y de si ser más conciso a cambio de la verificación exhaustiva es un intercambio adecuado.
+situación particular y de si ser más conciso a cambio de la verificación 
+exhaustiva es un intercambio adecuado.
 
 En otras palabras, puedes pensar en `if let` como una sintaxis dulce para un
 `match` que ejecuta código cuando el valor coincide con un patrón y luego
@@ -48,8 +52,8 @@ Podemos incluir un `else` con un `if let`. El bloque de código que va con el
 expresión `match` que es equivalente al `if let` y `else`. Recuerda la
 definición de `Coin` en el Listado 6-4, donde la variante `Quarter` también
 tenía un valor `UsState`. Si quisiéramos contar todas las monedas que no son
-cuartos que vemos mientras también anunciamos el estado de los cuartos, podríamos
-hacerlo con una expresión `match`, como esta:
+cuartos que vemos mientras también anunciamos el estado de los cuartos, 
+podríamos hacerlo con una expresión `match`, como esta:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-13-count-and-announce-match/src/main.rs:here}}

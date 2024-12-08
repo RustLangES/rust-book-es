@@ -16,7 +16,7 @@ el tipo `!` y los tipos de tamaño dinámico.
 El newtype pattern también es útil para tareas más allá de las que hemos
 discutido hasta ahora, incluyendo hacer cumplir estáticamente que los valores
 nunca se confundan e indicar las unidades de un valor. Viste un ejemplo de
-usar newtypes para indicar unidades en el Listado 19-15: recuerda que los
+usar newtypes para indicar unidades en el Listado 20-16: recuerda que los
 structs `Millimeters` y `Meters` envolvieron valores `u32` en un newtype. Si
 escribiéramos una función con un parámetro de tipo `Millimeters`, no podríamos
 compilar un programa que accidentalmente intentara llamar a esa función con
@@ -36,7 +36,7 @@ newtype pattern es una forma ligera de lograr la encapsulación para ocultar
 los detalles de implementación, que discutimos en la sección [“Encapsulación
 que Oculta los Detalles de
 Implementación”][encapsulacion-que-oculta-los-detalles-de-implementacion]<!-- ignore -->
-del Capítulo 17.
+del Capítulo 18.
 
 ### Creando Type Synonyms con Type Aliases
 
@@ -45,16 +45,16 @@ tipo existente otro nombre. Para esto usamos la palabra clave `type`. Por
 ejemplo, podemos crear el alias `Kilometers` a `i32` de la siguiente manera:
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-04-kilometers-alias/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-04-kilometers-alias/src/main.rs:here}}
 ```
 
 Ahora, el alias `Kilometers` es un _sinónimo_ para `i32`; a diferencia de los
-tipos `Millimeters` y `Meters` que creamos en el Listado 19-15, `Kilometers`
+tipos `Millimeters` y `Meters` que creamos en el Listado 20-16, `Kilometers`
 no es un tipo nuevo y separado. Los valores que tienen el tipo `Kilometers`
 se tratarán de la misma manera que los valores del tipo `i32`:
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-04-kilometers-alias/src/main.rs:there}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-04-kilometers-alias/src/main.rs:there}}
 ```
 
 Debido a que `Kilometers` e `i32` son el mismo tipo, podemos agregar valores
@@ -73,26 +73,28 @@ Box<dyn Fn() + Send + 'static>
 
 Escribir este tipo extenso en firmas de función y como anotaciones de tipo
 en todo el código puede ser tedioso y propenso a errores. Imagina tener un
-proyecto lleno de código como el del Listado 19-24.
+proyecto lleno de código como el del Listado 20-25.
+
+<Listing number="20-25" caption="Usando un tipo largo en muchos lugares">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-24/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-25/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-24: Usando un tipo largo en muchos
-lugares</span>
+</Listing>
 
 Un type alias hace que este código sea más manejable al reducir la repetición.
-En el Listado 19-25, hemos introducido un alias llamado `Thunk` para el tipo
+En el Listado 20-26, hemos introducido un alias llamado `Thunk` para el tipo
 extenso y podemos reemplazar todos los usos del tipo con el alias más corto
 `Thunk`.
 
+<Listing number="20-26" caption="Introduciendo un type alias `Thunk` para reducir la repetición">
+
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-25/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-26/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 19-25: Introduciendo un type alias `Thunk` para
-reducir la repetición</span>
+</Listing>
 
 ¡Este código es mucho más fácil de leer y escribir! Elegir un nombre
 significativo para un alias de tipo también puede ayudar a comunicar tu
@@ -108,14 +110,14 @@ de E/S. Muchas de las funciones en `std::io` devolverán `Result<T, E>` donde
 `E` es `std::io::Error`, como estas funciones en el trait `Write`:
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-05-write-trait/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-05-write-trait/src/lib.rs}}
 ```
 
 Él `Result<..., Error>` se repite mucho. Como tal, `std::io` tiene esta
 declaración de alias de tipo:
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-06-result-alias/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-06-result-alias/src/lib.rs:here}}
 ```
 
 Dado que esta declaración está en el módulo `std::io`, podemos usar el alias
@@ -124,7 +126,7 @@ con `E` lleno como `std::io::Error`. Las firmas de las funciones del trait
 `Write` terminan viéndose así:
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-06-result-alias/src/lib.rs:there}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-06-result-alias/src/lib.rs:there}}
 ```
 
 El type alias ayuda de dos maneras: hace que el código sea más fácil de
@@ -141,7 +143,7 @@ never_ porque se encuentra en el lugar del tipo de retorno cuando una función
 nunca retornará. Aquí hay un ejemplo:
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-07-never-type/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-07-never-type/src/lib.rs:here}}
 ```
 
 Este código se lee como “la función `bar` devuelve never”. Las funciones que
@@ -150,14 +152,15 @@ del tipo `!` por lo que `bar` nunca puede devolver.
 
 Pero, ¿qué utilidad tiene un tipo del que nunca se pueden crear valores?
 Recuerda el código del Juego de Adivinar el Número mostrado en el Listado
-2-5; hemos reproducido parte de él aquí en el Listado 19-26.
+2-5; hemos reproducido parte de él aquí en el Listado 20-27.
+
+<Listing number="20-27" caption="Un `match` con una opción que termina en `continue`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-05/src/main.rs:ch19}}
 ```
 
-<span class="caption">Listing 19-26: Un `match` con una opción que termina en
-`continue`</span>
+</Listing>
 
 En ese momento, omitimos algunos detalles en este código. En el Capítulo 6 en
 la sección [“El operador de control de flujo
@@ -166,13 +169,13 @@ discutimos que las opciones de `match` deben devolver todos el mismo tipo. Por
 lo tanto, por ejemplo, el siguiente código no funciona:
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-08-match-arms-different-types/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-08-match-arms-different-types/src/main.rs:here}}
 ```
 
 El tipo de `guess` en este código tendría que ser un entero _y_ un string, y
 Rust requiere que `guess` tenga solo un tipo. Entonces, ¿qué devuelve
 `continue`? ¿Cómo se nos permitió devolver un `u32` de una opción y tener otra
-opción que termina con `continue` en el Listado 19-26?
+opción que termina con `continue` en el Listado 20-27?
 
 Como habrás adivinado, `continue` tiene un valor `!`. Es decir, cuando Rust
 calcula el tipo de `guess`, mira ambas opciones de `match`, el primero con un
@@ -190,10 +193,10 @@ El tipo never también es útil con la macro `panic!`. Recordemos la función
 generar un panic con esta definición:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-09-unwrap-definition/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-09-unwrap-definition/src/lib.rs:here}}
 ```
 
-en este código, ocurre lo mismo que en el `match` del Listado 19-26: Rust ve
+En este código, ocurre lo mismo que en el `match` del Listado 20-27: Rust ve
 que `val` tiene el tipo `T` y `panic!` tiene el tipo `!`, por lo que el
 resultado de la expresión `match` es `T`. Este código funciona porque `panic!`
 no produce un valor; termina el programa. En el caso de `None`, no devolveremos
@@ -202,7 +205,7 @@ un valor de `unwrap`, por lo que este código es válido.
 Una expresión final que tiene el tipo `!` es un `loop`:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-10-loop-returns-never/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-10-loop-returns-never/src/main.rs:here}}
 ```
 
 Aquí, el bucle nunca termina, por lo que `!` es el valor de la expresión. Sin
@@ -226,7 +229,7 @@ podemos tomar un argumento de tipo `str`. Considera el siguiente código, que
 no funciona:
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-11-cant-create-str/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-11-cant-create-str/src/main.rs:here}}
 ```
 
 Rust necesita conocer cuánta memoria asignar para cualquier valor de un tipo
@@ -254,7 +257,7 @@ algún tipo de puntero.
 Podemos combinar `str` con todo tipo de punteros: por ejemplo, `Box<str>` o
 `Rc<str>`. De hecho, ya has visto esto antes, pero con un tipo de tamaño
 dinámico diferente: los traits. Cada trait es un tipo de tamaño dinámico al que
-podemos referirnos usando el nombre del trait. En el Capítulo 17 en la
+podemos referirnos usando el nombre del trait. En el Capítulo 18 en la
 sección [“Usando trait objects que permiten valores de diferentes
 tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]<!--
 ignore -->, mencionamos que para usar traits como objetos de trait, debemos
@@ -268,13 +271,13 @@ compilación. Además, Rust agrega implícitamente un límite en `Sized` a cada
 función generic. Es decir, una definición de función generic como esta:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-12-generic-fn-definition/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-12-generic-fn-definition/src/lib.rs}}
 ```
 
 en realidad se trata como si hubiéramos escrito esto:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-13-generic-implicit-sized-bound/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-13-generic-implicit-sized-bound/src/lib.rs}}
 ```
 
 De forma predeterminada, las funciones generic solo funcionarán en tipos que
@@ -282,7 +285,7 @@ tienen un tamaño conocido en tiempo de compilación. Sin embargo, puede usar la
 siguiente sintaxis especial para relajar esta restricción:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-14-generic-maybe-sized/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-14-generic-maybe-sized/src/lib.rs}}
 ```
 
 Un trait bound en `?Sized` significa “`T` puede o no ser `Sized`” y esta
@@ -296,8 +299,8 @@ detrás de algún tipo de puntero. En este caso, hemos elegido una referencia.
 
 ¡A continuación, hablaremos sobre funciones y closures!
 
-[encapsulacion-que-oculta-los-detalles-de-implementacion]: ch17-01-what-is-oo.html#encapsulacion-que-oculta-los-detalles-de-implementacion
+[encapsulacion-que-oculta-los-detalles-de-implementacion]: ch18-01-what-is-oo.html#encapsulacion-que-oculta-los-detalles-de-implementacion
 [string-slices]: ch04-03-slices.html#string-slices
 [the-match-control-flow-operator]: ch06-02-match.html#the-match-control-flow-operator
-[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
-[using-the-newtype-pattern]: ch19-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[using-the-newtype-pattern]: ch20-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos

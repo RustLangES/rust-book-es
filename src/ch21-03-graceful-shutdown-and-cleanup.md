@@ -1,12 +1,12 @@
 ## Apagado y limpieza eficientes
 
-El código del Listing 20-20 está respondiendo requests de forma asíncrona 
+El código del Listing 21-20 está respondiendo requests de forma asíncrona 
 mediante el uso de un pool de threads, como pretendíamos, Recibimos 
 algunas advertencias sobre los campos `workers`, `id` y `thread` que no
 estamos usando de forma directa que nos recuerda que no estamos limpiando
-nada. Cuando usamos el método menos elegante <span class="keystroke">ctrl-c</span>
-para detener el thread principal, todos los demás threads se detienen inmediatamente
-también, incluso si están en medio de servir una request.
+nada. Cuando usamos el método menos elegante <kbd>ctrl</kbd>-<kbd>c</kbd>
+para detener el thread principal, todos los demás threads se detienen 
+inmediatamente también, incluso si están en medio de servir una request.
 
 A continuación, implementaremos el trait `Drop` para llamar a `join` en cada uno
 de los threads del pool para que puedan terminar las requests en las que están
@@ -15,21 +15,25 @@ threads que deben dejar de aceptar nuevas requests y cerrarse. Para ver este
 código en acción, modificaremos nuestro servidor para que acepte solo dos
 requests antes de cerrar el pool de threads correctamente.
 
+Algo importante a tener en cuenta mientras avanzamos: nada de esto afecta las 
+partes del código que manejan la ejecución de los closures, por lo que todo 
+aquí sería exactamente igual si estuviéramos usando un thread pool para un 
+runtime asincrónico.
+
 ### Implementando el Trait `Drop` en `ThreadPool`
 
 Comencemos implementando `Drop` en nuestro pool de threads. Cuando el pool se
 destruye, nuestros threads deberían unirse para asegurarse de que terminan su
-trabajo. El Listing 20-22 muestra un primer intento de implementación de `Drop`;
+trabajo. El Listing 21-22 muestra un primer intento de implementación de `Drop`;
 este código aún no funcionará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-22" file-name="src/lib.rs" caption="Uniendo cada thread cuando el thread pool se sale del scope">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-22/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-22/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-22: Uniendo cada thread cuando el thread pool
-se sale del scope</span>
+</Listing>
 
 Primero, iteramos a través de cada uno de los `workers` del pool de threads.
 Usamos `&mut` para esto porque `self` es una referencia mutable, y también
@@ -41,7 +45,7 @@ diciendo que este worker en particular se está cerrando, y luego llamamos a
 Aquí está el error que obtenemos cuando compilamos este código:
 
 ```console
-{{#include ../listings/ch20-web-server/listing-20-22/output.txt}}
+{{#include ../listings/ch21-web-server/listing-21-22/output.txt}}
 ```
 
 El error nos dice que no podemos llamar a `join` porque solo tenemos un
@@ -59,40 +63,46 @@ queramos limpiar un `Worker`, reemplazaremos `Some` con `None` para que el
 Entonces sabemos que queremos actualizar la definición de `Worker` de esta
 manera:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing file-name="src/lib.rs">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-04-update-worker-definition/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-04-update-worker-definition/src/lib.rs:here}}
 ```
+
+</Listing>
 
 Ahora usemos el compilador para encontrar los otros lugares que necesitan
 cambiar. Al verificar este código, obtenemos dos errores:
 
 ```console
-{{#include ../listings/ch20-web-server/no-listing-04-update-worker-definition/output.txt}}
+{{#include ../listings/ch21-web-server/no-listing-04-update-worker-definition/output.txt}}
 ```
 
 Abordemos el segundo error, que apunta al código al final de `Worker::new`;
 necesitamos envolver el valor `thread` en `Some` cuando creamos un nuevo
 `Worker`. Haga los siguientes cambios para corregir este error:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing file-name="src/lib.rs">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-05-fix-worker-new/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-05-fix-worker-new/src/lib.rs:here}}
 ```
+
+</Listing>
 
 El primer error está en nuestra implementación de `Drop`. Mencionamos
 anteriormente que pretendíamos llamar a `take` en el valor `Option` para mover
 `thread` fuera de `worker`. Los siguientes cambios lo harán:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing file-name="src/lib.rs">
 
 ```rust,ignore,not_desired_behavior
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-06-fix-threadpool-drop/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-06-fix-threadpool-drop/src/lib.rs:here}}
 ```
 
-Como discutimos en el Capítulo 17, el método `take` en `Option` toma la variante
+</Listing>
+
+Como discutimos en el Capítulo 18, el método `take` en `Option` toma la variante
 `Some` y deja `None` en su lugar. Estamos usando `if let` para deconstruir el
 `Some` y obtener el thread; luego llamamos a `join` en el thread. Si el thread
 de un worker ya es `None`, sabemos que ese worker ya ha tenido su thread
@@ -114,47 +124,44 @@ Para solucionar este problema, necesitamos un cambio en la implementación de
 
 En primer lugar, cambiemos la implementación de `drop` de `ThreadPool` para
 soltar explícitamente el `sender` antes de esperar a que los threads terminen.
-El Listing 20-23 muestra los cambios en `ThreadPool` para soltar explícitamente
+El Listing 21-23 muestra los cambios en `ThreadPool` para soltar explícitamente
 `sender`. Usamos la misma técnica `Option` y `take` que hicimos con el thread
 para poder mover `sender` fuera de `ThreadPool`:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-23" file-name="src/lib.rs" caption="Libera explicitamente `sender` antes de unirse a los threads del worker">
 
 ```rust,noplayground,not_desired_behavior
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-23/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-23/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-23: Dejar caer explícitamente `sender` antes de 
-unirse a los threads del worker</span>
+</Listing>
 
 Soltar `sender` cierra el canal, lo que indica que no se enviarán más mensajes.
 Cuando eso sucede, todas las llamadas a `recv` que los workers hacen en el loop
-infinito devolverán un error. En el Listing 20-24, cambiamos el loop de `Worker`
+infinito devolverán un error. En el Listing 21-24, cambiamos el loop de `Worker`
 para salir del loop con gracia en ese caso, lo que significa que los hreads
 terminarán cuando la implementación de `drop` de `ThreadPool` llame a `join`
 en ellos.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-24" file-name="src/lib.rs" caption="Saliendo explícitamente del loop cuando `recv` devuelve un error">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-24/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-24/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-24: Saliendo explícitamente del loop cuando 
-`recv` devuelve un error</span>
+</Listing>
 
 Para ver este código en acción, modifiquemos `main` para aceptar solo dos
 requests antes de cerrar el servidor con gracia, como se muestra en el
-Listing 20-25.
+Listing 21-25.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="21-25" file-name="src/main.rs" caption="Shut down the server after serving two requests by exiting the loop">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-25/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-25/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 20-25: Apagando el servidor después de servir dos 
-requests saliendo del loop</span>
+</Listing>
 
 No querríamos que un servidor web del mundo real se apague después de servir
 solo dos requests. Este código solo demuestra que el apagado y la limpieza
@@ -168,7 +175,7 @@ Iniciamos el servidor con `cargo run` y hacemos tres requests. La tercera
 request debería fallar, y en su terminal debería ver una salida similar a esta:
 
 <!-- manual-regeneration
-cd listings/ch20-web-server/listing-20-25
+cd listings/ch21-web-server/listing-21-25
 cargo run
 curl http://127.0.0.1:7878
 curl http://127.0.0.1:7878
@@ -181,7 +188,7 @@ Can't automate because the output depends on making requests
 ```console
 $ cargo run
    Compiling hello v0.1.0 (file:///projects/hello)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.0s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.41s
      Running `target/debug/hello`
 Worker 0 got a job; executing.
 Shutting down.
@@ -220,17 +227,21 @@ un apagado con gracia del servidor, que limpia todos los threads del pool.
 
 Aquí está el código completo como referencia:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-07-final-code/src/main.rs}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-07-final-code/src/main.rs}}
 ```
 
-<span class="filename">Filename: src/lib.rs</span>
+</Listing>
+
+<Listing file-name="src/lib.rs">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-07-final-code/src/lib.rs}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-07-final-code/src/lib.rs}}
 ```
+
+</Listing>
 
 ¡Podríamos hacer más! Si quieres seguir mejorando este proyecto, aquí hay algunas
 ideas:

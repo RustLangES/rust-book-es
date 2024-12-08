@@ -117,6 +117,10 @@
 - [Async y Await](ch17-00-async-await.md)
     - [Futures y la sintaxis Async](ch17-01-futures-and-syntax.md)
     - [Concurrencia Con Async](ch17-02-concurrency-with-async.md)
+    - [Trabajar con cualquier número de futuros](ch17-03-more-futures.md)
+    - [Streams](ch17-04-streams.md)
+    - [Profundizando en los Traits para Async](ch17-05-traits-for-async.md)
+    - [Futuros, tareas e hilos](ch17-06-futures-tasks-threads.md)
 
 - [Rust como un Lenguaje de Programación Orientado a Objetos](ch18-00-oop.md)
   - [Características de Lenguajes Orientados a Objetos](ch18-01-what-is-oo.md)

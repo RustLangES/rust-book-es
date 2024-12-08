@@ -38,14 +38,13 @@ función `search`: tomará una consulta y el texto a buscar, y devolverá solo l
 líneas del texto que contengan la consulta. El listado 12-15 muestra esta
 prueba, que aún no se compilará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-15" file-name="src/lib.rs" caption="Creando un test fallido para la función `search` que deseamos tener">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-15/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-15: Creando un test fallido para la función
-`search` que deseamos tener</span>
+</Listing>
 
 Este test busca el string `"duct"`. El texto que estamos buscando son tres
 líneas, solo una de las cuales contiene `"duct"` (Tenga en cuenta que la barra
@@ -62,14 +61,13 @@ un vector vacío, como se muestra en el listado 12-16. Luego, la prueba debería
 compilar y fallar porque un vector vacío no coincide con un vector que
 contiene la línea `"safe, fast, productive."`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-16" file-name="src/lib.rs" caption="Definiendo solo lo necesario de la función `search` para que nuestro test compile">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-16: Definiendo solo lo necesario de la función
-`search` para que nuestro test compile</span>
+</Listing>
 
 Observa que necesitamos definir un lifetime explícito `'a` en la firma de
 `search` y usar ese lifetime con el argumento `contents` y el valor de retorno.
@@ -120,11 +118,11 @@ Actualmente, nuestro test falla porque siempre devolvemos un vector vacío. Para
 solucionar eso e implementar `search`, nuestro programa debe seguir estos
 pasos:
 
-- Iterar a través de cada línea del contenido.
-- Compruebe si la línea contiene nuestro string de consulta.
-- Si es así, agréguelo a la lista de valores que estamos devolviendo.
-- Si no lo hace, no haga nada.
-- Devuelve la lista de resultados que coinciden.
+1. Iterar a través de cada línea del contenido.
+2. Compruebe si la línea contiene nuestro string de consulta.
+3. Si es así, agréguelo a la lista de valores que estamos devolviendo.
+4. Si no lo hace, no haga nada.
+5. Devuelve la lista de resultados que coinciden.
 
 Trabajaremos en cada paso, comenzando por iterar a través de las líneas.
 
@@ -134,14 +132,13 @@ Rust tiene un método útil para manejar la iteración línea por línea de stri
 convenientemente llamado `lines`, que funciona como se muestra en el listado
 12-17. Tenga en cuenta que esto aún no se compilará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-17" file-name="src/lib.rs" caption="Iterando a través de cada línea en `contents`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-17/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-17: Iterando a través de cada línea en
-`contents`</span>
+</Listing>
 
 El método `lines` devuelve un iterador. Hablaremos sobre los iteradores en
 profundidad en [Capítulo 13][ch13-iterators]<!-- ignore -->, pero recuerde que
@@ -157,14 +154,13 @@ que hace esto por nosotros. Agregue una llamada al método `contains` en la
 función `search`, como se muestra en el listado 12-18. Tenga en cuenta que esto
 aún no se compilará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-18" file-name="src/lib.rs" caption="Agregando funcionalidad para verificar si la línea contiene el string en `query`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-18/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-18: Agregando funcionalidad para verificar si
-la línea contiene el string en `query`</span>
+</Listing>
 
 En este punto, estamos construyendo funcionalidad. Para que compile, debemos
 devolver un valor del cuerpo como indicamos en la firma de la función.
@@ -177,14 +173,13 @@ antes del bucle `for` y llamar al método `push` para almacenar una `line` en el
 vector. Después del bucle `for`, devolvemos el vector, como se muestra en el
 listado 12-19.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-19" file-name="src/lib.rs" caption="Almacenando las líneas que coinciden para poder devolverlas">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-19/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-19: Almacenando las líneas que coinciden para
-poder devolverlas</span>
+</Listing>
 
 Ahora la función `search` debería devolver solo las líneas que contienen
 `query`, y nuestro test debería pasar. Ejecutemos el test:

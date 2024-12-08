@@ -43,7 +43,7 @@ hasta ahora:
 * Escribiendo tests ([Capítulo 11][ch11]<!-- ignore -->)
 
 También presentaremos brevemente los closures, iterators, y trait objects, que
-los capítulos [13][ch13]<!-- ignore --> y [17][ch17]<!-- ignore --> cubrirán en
+los capítulos [13][ch13]<!-- ignore --> y [18][ch18]<!-- ignore --> cubrirán en
 detalle.
 
 [ch7]: ch07-00-managing-growing-projects-with-packages-crates-and-modules.html
@@ -52,4 +52,4 @@ detalle.
 [ch10]: ch10-00-generics.html
 [ch11]: ch11-00-testing.html
 [ch13]: ch13-00-functional-features.html
-[ch17]: ch17-00-oop.html
+[ch18]: ch18-00-oop.html

@@ -6,9 +6,9 @@ fn main() {
 
     let x = 5;                      // x aparece en el ámbito
 
-    hacer_una_copia(x);                  // x deberia moverse a la función,
+    hacer_una_copia(x);             // x deberia moverse a la función,
                                     // pero i32 implementa Copy, entonces es
-                                    // valido aún despues de llamar a la función
+    println!("{}", x);              // valido aún despues de llamar a la función
 
 } // Aquí termina el ámbito, x es destruido con drop. La memoria es liberada.
   // s ya no existia porque habia sido movido a la función.

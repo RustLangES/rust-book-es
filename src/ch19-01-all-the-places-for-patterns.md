@@ -54,25 +54,24 @@ una forma más corta de escribir el equivalente de un `match` que solo coincide
 con un caso. Opcionalmente, `if let` puede tener un `else` correspondiente que
 contenga código para ejecutar si el patrón en el `if let` no coincide.
 
-El Listado 18-1 muestra que también es posible mezclar y combinar expresiones
+El Listado 19-1 muestra que también es posible mezclar y combinar expresiones
 `if let`, `else if` y `else if let`. Hacerlo nos da más flexibilidad que una
 expresión `match` en la que solo podemos expresar un valor para comparar con
 los patrones. Además, Rust no requiere que las condiciones en una serie de
 brazos `if let`, `else if`, `else if let` se relacionen entre sí.
 
-El código en el Listado 18-1 determina de qué color hacer su fondo en función
+El código en el Listado 19-1 determina de qué color hacer su fondo en función
 de una serie de comprobaciones para varias condiciones. Para este ejemplo,
 hemos creado variables con valores codificados que un programa real podría
 recibir de la entrada del usuario.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-1" file-name="src/main.rs" caption="Combinando `if let`, `else if`, `else if let`, y `else`">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-01/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-1: Combinando
-`if let`, `else if`, `else if let`, y `else`</span>
+</Listing>
 
 Si el usuario especifica un color favorito, ese color se usa como fondo. Si no
 se especifica un color favorito y hoy es martes, el color de fondo es verde.
@@ -100,43 +99,47 @@ casos, el compilador no nos alertaría sobre el posible bug de lógica.
 
 ### Bucles condicionales `while let`
 
-Similar en su construcción a `if let`, el bucle condicional `while let` permite
-que un bucle `while` se ejecute mientras un patrón continúe coincidiendo. En
-el Listado 18-2 codificamos un bucle `while let` que usa un vector como una
-pila e imprime los valores en el vector en el orden opuesto en el que se
-pusieron.
+Similar en su construcción a `if let`, el bucle condicional `while let` permite 
+que un bucle `while` se ejecute mientras un patrón continúe coincidiendo. Vimos 
+por primera vez un bucle `while let` en el Capítulo 17, donde lo usamos para 
+seguir iterando mientras un flujo producía nuevos valores. De manera similar, en 
+el Listado 19-2 mostramos un bucle `while let` que espera mensajes enviados 
+entre hilos, pero en este caso verificando un `Result` en lugar de una `Option`.
+
+<Listing number="19-2" caption="Usando un bucle `while let` para imprimir valores mientras `rx.recv()` devuelva `Ok`">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-02/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-2: Utilizando un bucle `while let` para
-imprimir valores mientras `stack.pop()` devuelva `Some`</span>
+</Listing>
 
-Este ejemplo imprime 3, 2 y luego 1. El método `pop` toma el último elemento
-del vector y devuelve `Some(value)`. Si el vector está vacío, `pop` devuelve
-`None`. El bucle `while` continúa ejecutando el código en su bloque siempre que
-`pop` devuelva `Some`. Cuando `pop` devuelve `None`, el bucle se detiene.
-Podemos usar `while let` para sacar todos los elementos de nuestra pila.
+Este ejemplo imprime 1, 2 y 3. Cuando vimos `recv` en el Capítulo 16, manejamos 
+el error directamente con `unwrap` o interactuamos con él como un iterador 
+usando un bucle `for`. Sin embargo, como muestra el Listado 19-2, también 
+podemos usar `while let`, ya que el método `recv` devuelve `Ok` mientras el 
+remitente siga produciendo mensajes, y luego genera un `Err` cuando el lado del 
+remitente se desconecta.
 
 ### Bucles `for`
 
 En un bucle `for`, el valor que sigue directamente a la palabra clave `for` es
-un pattern. Por ejemplo, en `for x in y` el `x` es el pattern. El Listado 18-3
+un pattern. Por ejemplo, en `for x in y` el `x` es el pattern. El Listado 19-3
 demuestra cómo usar un pattern en un bucle `for` para destruir, o romper, una
 tupla como parte del bucle `for`.
 
+<Listing number="19-3" caption="Usando un pattern en un bucle `for` para desestructurar una tupla">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-03/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-3: Usando un pattern en un bucle `for` para
-desestructurar una tupla</span>
+</Listing>
 
-El código en el Listado 18-3 imprimirá lo siguiente:
+El código en el Listado 19-3 imprimirá lo siguiente:
 
 ```console
-{{#include ../listings/ch18-patterns-and-matching/listing-18-03/output.txt}}
+{{#include ../listings/ch19-patterns-and-matching/listing-19-03/output.txt}}
 ```
 
 Adaptamos un iterator usando el método `enumerate` para que produzca un valor y
@@ -173,15 +176,16 @@ nombre `x` es todo el pattern, este pattern significa efectivamente “vincula
 todo a la variable `x`, sea cual sea el valor”.
 
 Para ver más claramente el aspecto de coincidencia de patrones de `let`,
-considera el Listado 18-4, que usa un pattern con `let` para destruir una
+considera el Listado 19-4, que usa un pattern con `let` para destruir una
 tupla.
 
+<Listing number="19-4" caption="Using a pattern to destructure a tuple and create three variables at once">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-04/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-4: Usando un pattern para desestructurar una
-tupla y crear tres variables a la vez</span>
+<span class="caption">Listing 18-4: Usando un pattern para desestructurar una tupla y crear tres variables a la vez</span>
 
 Aquí, emparejamos una tupla con un pattern. Rust compara el valor `(1, 2, 3)`
 con el pattern `(x, y, z)` y ve que el valor y el pattern coinciden, por lo que
@@ -190,20 +194,21 @@ tupla anida tres patterns de variable individuales dentro de él.
 
 Si el número de elementos en el pattern no coincide con el número de elementos
 en la tupla, el tipo general no coincidirá y obtendremos un error del
-compilador. Por ejemplo, el Listado 18-5 muestra un intento de destruir una
+compilador. Por ejemplo, el Listado 19-5 muestra un intento de destruir una
 tupla con tres elementos en dos variables, lo cual no funcionará.
 
+<Listing number="19-5" caption="Al construir incorrectamente un pattern cuyas variables no coinciden con el número de elementos en la tupla">
+
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-05/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-5: Al construir incorrectamente un pattern
-cuyas variables no coinciden con el número de elementos en la tupla</span>
+</Listing>
 
 Intentar compilar este código resulta en este error de tipo:
 
 ```console
-{{#include ../listings/ch18-patterns-and-matching/listing-18-05/output.txt}}
+{{#include ../listings/ch19-patterns-and-matching/listing-19-05/output.txt}}
 ```
 
 Para solucionar el error, podríamos ignorar uno o más valores en la tupla
@@ -216,28 +221,28 @@ número de elementos en la tupla.
 ### Parámetros de función
 
 Los parámetros de función también pueden ser patterns. El código del Listado
-18-6, que declara una función llamada `foo` que toma un parámetro llamado `x`
+19-6, que declara una función llamada `foo` que toma un parámetro llamado `x`
 de tipo `i32`, debería ser familiar a estas alturas.
 
+<Listing number="19-6" caption="La firma de una función que utiliza patterns en los parámetros">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-06/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-6: La firma de una función que utiliza
-patterns en los parámetros</span>
+</Listing>
 
 ¡La parte `x` es un pattern! Como hicimos con `let`, podríamos hacer coincidir
-una tupla en los argumentos de una función con el pattern. El Listado 18-7
+una tupla en los argumentos de una función con el pattern. El Listado 19-7
 divide los valores en una tupla a medida que la pasamos a una función.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="19-7" file-name="src/main.rs" caption="Una función con parámetros que desetructura una tupla">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-07/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 18-7: Una función con parámetros que desetructura
-una tupla</span>
+</Listing>
 
 Este código imprime `Current location: (3, 5)`. El valor `(3, 5)` coincide con
 el pattern `(x, y)`, por lo que `x` es `3` y `y` es `5`.
@@ -251,4 +256,4 @@ funcionarán de la misma manera en todos los lugares donde podemos usarlos. En
 algunos casos, los patrones deben ser irrefutables; en otras circunstancias,
 pueden ser refutables. Discutiremos estos dos conceptos a continuación.
 
-[ignoring-values-in-a-pattern]: ch18-03-pattern-syntax.html#ignorando-valores-en-un-patron
+[ignoring-values-in-a-pattern]: ch19-03-pattern-syntax.html#ignorando-valores-en-un-patron

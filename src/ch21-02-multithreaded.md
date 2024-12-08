@@ -14,28 +14,27 @@ esto, pero primero, veremos el problema en acción.
 Para simular una solicitud lenta, podemos hacer que el servidor duerma durante
 un tiempo antes de responder. Veremos cómo una solicitud de procesamiento
 lento puede afectar a otras solicitudes realizadas a nuestra implementación
-actual del servidor. El listado 20-10 implementa el manejo de una solicitud a
+actual del servidor. El listado 21-10 implementa el manejo de una solicitud a
 _/sleep_ con una respuesta lenta simulada que hará que el servidor duerma
 durante 5 segundos antes de responder.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="21-10" file-name="src/main.rs" caption="Simulando una solicitud lenta durmiendo durante 5 segundos">
 
 ```rust,no_run
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-10/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 20-10: Simulando una solicitud lenta durmiendo
-durante 5 segundos</span>
+</Listing>
 
 Hemos cambiado de `if` a `match` ahora que tenemos tres casos. Necesitamos
 hacer coincidir explícitamente con un slice de `request_line` para hacer
 coincidir con los valores literales de string; `match` no hace referencia
 automática y desreferenciación como el método de igualdad.
 
-La primera opción es la misma que el bloque `if` del Listado 20-9. La segunda
+La primera opción es la misma que el bloque `if` del Listado 21-9. La segunda
 opción coincide con una solicitud a _/sleep_. Cuando se recibe esa solicitud, el
 servidor dormirá durante 5 segundos antes de representar la página HTML
-correcta. La tercera opción es la misma que el bloque `else` del Listado 20-9.
+correcta. La tercera opción es la misma que el bloque `else` del Listado 21-9.
 
 Puedes ver cómo nuestro servidor es primitivo: ¡las bibliotecas reales
 manejarían el reconocimiento de múltiples solicitudes de una manera mucho menos
@@ -48,8 +47,8 @@ Pero si ingresas _/sleep_ y luego cargas _/_, verás que _/_ espera hasta que
 `sleep` haya dormido durante sus 5 segundos completos antes de cargarse.
 
 Existen varias técnicas que podríamos usar para evitar que las solicitudes se
-acumulen detrás de una solicitud lenta; la que implementaremos es un _pool de
-hilos_.
+acumulen detrás de una solicitud lenta, inlcuyendo usando async como vimos en el
+Capitulo 17; la que implementaremos es un _pool de hilos_.
 
 ### Mejorando el rendimiento con un pool de hilos
 
@@ -111,17 +110,17 @@ para cada conexión. Como se mencionó anteriormente, este no es nuestro plan
 final debido a los problemas con la posibilidad de generar un número ilimitado
 de hilos, pero es un punto de partida para obtener un servidor web
 multihilo. Luego agregaremos el pool de hilos como una mejora, y contrastar las
-dos soluciones será más fácil. El Listado 20-11 muestra los cambios que debe
+dos soluciones será más fácil. El Listado 21-11 muestra los cambios que debe
 realizar en `main` para crear un nuevo hilo para manejar cada flujo dentro del
 bucle `for`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="21-11" file-name="src/main.rs" caption="Creando un hilo para cada stream">
 
 ```rust,no_run
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-11/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 20-11: Creando un hilo para cada stream</span>
+</Listing>
 
 Como aprendiste en el Capítulo 16, `thread::spawn` creará un nuevo hilo y luego
 ejecutará el código en el cierre en el nuevo hilo. Si ejecutas este código y
@@ -129,6 +128,11 @@ cargas _/sleep_ en tu navegador, luego _/_ en otras dos pestañas del navegador,
 verás que las solicitudes a _/_ no tienen que esperar a que _/sleep_ termine.
 Sin embargo, como mencionamos, esto eventualmente abrumará el sistema porque
 estarías creando nuevos hilos sin ningún límite.
+
+También recordarás del Capítulo 17 que este es precisamente el tipo de situación 
+donde `async` y `await` realmente brillan. Ten esto en mente mientras 
+construimos el *thread pool* y reflexionamos sobre cómo se verían las cosas de 
+manera diferente o similar usando `async`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -138,17 +142,16 @@ estarías creando nuevos hilos sin ningún límite.
 
 Queremos que nuestro pool de hilos funcione de manera similar y familiar, de
 modo que cambiar de hilos a un pool de hilos no requiera grandes cambios en el
-código que usa nuestra API. El Listado 20-12 muestra la interfaz hipotética
+código que usa nuestra API. El Listado 21-12 muestra la interfaz hipotética
 para un struct `ThreadPool` que queremos usar en lugar de `thread::spawn`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="21-12" file-name="src/main.rs" caption="Nuestra interfaz ideal de `ThreadPool`">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-12/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 20-12: Nuestra interfaz ideal de
-`ThreadPool`</span>
+</Listing>
 
 Utilizamos `ThreadPool::new` para crear un nuevo pool de hilos con un número
 configurable de hilos, en este caso cuatro. Luego, en el bucle `for`,
@@ -164,12 +167,12 @@ compilador pueda guiarnos en cómo solucionarlo.
 
 #### Construyendo `ThreadPool` usando el desarrollo impulsado por el compilador
 
-Realiza los cambios en el Listado 20-12 a _src/main.rs_, y luego usemos los
+Realiza los cambios en el Listado 21-12 a _src/main.rs_, y luego usemos los
 errores del compilador de `cargo check` para impulsar nuestro desarrollo. Aquí
 está el primer error que obtenemos:
 
 ```console
-{{#include ../listings/ch20-web-server/listing-20-12/output.txt}}
+{{#include ../listings/ch21-web-server/listing-21-12/output.txt}}
 ```
 
 ¡Eso es genial! Este error nos dice que necesitamos un tipo o módulo
@@ -184,27 +187,31 @@ usando un pool de hilos y no solo para servir solicitudes web.
 Crea un _src/lib.rs_ que contenga lo siguiente, que es la definición más simple
 de un struct `ThreadPool` que podemos tener por ahora:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing file-name="src/lib.rs">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-01-define-threadpool-struct/src/lib.rs}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-01-define-threadpool-struct/src/lib.rs}}
 ```
+
+</Listing>
 
 Luego edita el archivo _main.rs_ para traer `ThreadPool` al scope del crate
 desde el crate de la biblioteca agregando el siguiente código en la parte
 superior de _src/main.rs_:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-01-define-threadpool-struct/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-01-define-threadpool-struct/src/main.rs:here}}
 ```
+
+</Listing>
 
 Este código aún no funcionará, pero verifiquémoslo nuevamente para obtener el
 siguiente error que debemos abordar:
 
 ```console
-{{#include ../listings/ch20-web-server/no-listing-01-define-threadpool-struct/output.txt}}
+{{#include ../listings/ch21-web-server/no-listing-01-define-threadpool-struct/output.txt}}
 ```
 
 Este error indica que a continuación debemos crear una función asociada
@@ -213,11 +220,13 @@ parámetro que pueda aceptar `4` como argumento y debe devolver una instancia de
 `ThreadPool`. Implementemos la función `new` más simple que tendrá esas
 características:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing file-name="src/lib.rs">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-02-impl-threadpool-new/src/lib.rs}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-02-impl-threadpool-new/src/lib.rs}}
 ```
+
+</Listing>
 
 Elegimos `usize` como el tipo del parámetro `size`, porque sabemos que un número
 negativo de hilos no tiene sentido. También sabemos que usaremos este `4` como
@@ -228,7 +237,7 @@ del Capítulo 3.
 Let’s check the code again:
 
 ```console
-{{#include ../listings/ch20-web-server/no-listing-02-impl-threadpool-new/output.txt}}
+{{#include ../listings/ch21-web-server/no-listing-02-impl-threadpool-new/output.txt}}
 ```
 
 Ahora ocurre un error porque no tenemos un método `execute` en `ThreadPool`.
@@ -270,11 +279,13 @@ transferir el closure de un hilo a otro y `'static` porque no sabemos cuánto
 tiempo tomará el hilo para ejecutarse. Creemos un método `execute` en
 `ThreadPool` que tomará un parámetro genérico de tipo `F` con estos bounds:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing file-name="src/lib.rs">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/no-listing-03-define-execute/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-03-define-execute/src/lib.rs:here}}
 ```
+
+</Listing>
 
 Aún usamos `()` después de `FnOnce` porque este `FnOnce` representa un closure
 que no toma parámetros y devuelve el tipo de unidad `()`. Al igual que las
@@ -286,7 +297,7 @@ nada, pero estamos tratando de que nuestro código compile. Verifiquemos
 nuevamente:
 
 ```console
-{{#include ../listings/ch20-web-server/no-listing-03-define-execute/output.txt}}
+{{#include ../listings/ch21-web-server/no-listing-03-define-execute/output.txt}}
 ```
 
 ¡Compila! Pero ten en cuenta que si intentas `cargo run` y haces una solicitud
@@ -302,6 +313,9 @@ capítulo. ¡Nuestra biblioteca aún no está llamando al closure pasado a
 > unitarias para verificar que el código se compile _y_ tenga el comportamiento
 > que queremos.
 
+Considera: ¿qué sería diferente aquí si fuéramos a ejecutar un *future* en lugar 
+de un *closure*?
+
 #### Validando el número de hilos en `new`
 
 No estamos haciendo nada con los parámetros a `new` y `execute`. Implementemos
@@ -312,16 +326,15 @@ sentido. Sin embargo, un pool con cero hilos tampoco tiene sentido, pero cero
 es un `usize` perfectamente válido. Agregaremos código para verificar que
 `size` es mayor que cero antes de devolver una instancia de `ThreadPool` y
 hacer que el programa se bloquee si recibe un cero usando el macro `assert!`,
-como se muestra en el Listado 20-13.
+como se muestra en el Listado 21-13.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-13" file-name="src/lib.rs" caption="Implementando `ThreadPool::new` para generar un panic si `size` es cero">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-13/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-13: Implementando `ThreadPool::new` para
-generar un panic si `size` es cero</span>
+</Listing>
 
 Hemos agregado documentación para nuestro `ThreadPool` con comentarios de
 documentación. Ten en cuenta que seguimos las buenas prácticas de documentación
@@ -361,20 +374,19 @@ closure devuelve. Intentemos usar `JoinHandle` también y veamos qué sucede. En
 nuestro caso, los closures que estamos pasando al pool de hilos manejarán la
 conexión y no devolverán nada, por lo que `T` será el tipo de unidad `()`.
 
-El código en el Listado 20-14 se compilará, pero aún no creará ningún hilo.
+El código en el Listado 21-14 se compilará, pero aún no creará ningún hilo.
 Hemos cambiado la definición de `ThreadPool` para contener un vector de
 instancias de `thread::JoinHandle<()>`, inicializado el vector con una
 capacidad de `size`, configurado un bucle `for` que ejecutará algún código para
 crear los hilos y devuelto una instancia de `ThreadPool` que los contiene.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-14" file-name="src/lib.rs" caption="Creando un vector para que `ThreadPool` contenga los hilos">
 
 ```rust,ignore,not_desired_behavior
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-14/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-14/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-14: Creando un vector para que `ThreadPool`
-contenga los hilos</span>
+</Listing>
 
 Hemos llevado `std::thread` al scope en la biblioteca, porque estamos usando
 `thread::JoinHandle` como el tipo de los elementos en el vector en
@@ -392,7 +404,7 @@ Cuando ejecutes `cargo check` nuevamente, debería tener éxito:
 
 #### Un struct `Worker` responsable de enviar código desde el `ThreadPool` a un hilo
 
-Dejamos un comentario en el bucle `for` en el Listado 20-14 con respecto a la
+Dejamos un comentario en el bucle `for` en el Listado 21-14 con respecto a la
 creación de hilos. Aquí, veremos cómo creamos hilos. La biblioteca estándar
 proporciona `thread::spawn` como una forma de crear hilos, y `thread::spawn`
 espera obtener algún código que el hilo debe ejecutar tan pronto como se cree
@@ -431,18 +443,17 @@ Implementaremos el código que envía el closure al hilo después de que tengamo
    el vector.
 
 Si estás listo para un desafío, intenta implementar estos cambios por ti mismo
-antes de ver el código en el Listado 20-15.
+antes de ver el código en el Listado 21-15.
 
-¿Listo? Aquí está el Listado 20-15 con una forma de hacer las modificaciones
+¿Listo? Aquí está el Listado 21-15 con una forma de hacer las modificaciones
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-15" file-name="src/lib.rs" caption="Modificando `ThreadPool` para contener instancias de `Worker` en lugar de contener hilos directamente">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-15/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-15/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-15: Modificando `ThreadPool` para contener
-instancias de `Worker` en lugar de contener hilos directamente</span>
+</Listing>
 
 Hemos cambiado el nombre del campo en `ThreadPool` de `threads` a `workers`
 porque ahora contiene instancias de `Worker` en lugar de instancias de
@@ -498,18 +509,17 @@ está el plan:
    cualquier trabajo que reciba.
 
 Empecemos por crear un canal en `ThreadPool::new` y mantener el emisor en la
-instancia `ThreadPool`, como se muestra en el Listado 20-16. El struct `Job`
+instancia `ThreadPool`, como se muestra en el Listado 21-16. El struct `Job`
 no contiene nada por ahora, pero será el tipo de elemento que enviaremos por el
 canal.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-16" file-name="src/lib.rs" caption="Modificando `ThreadPool` para almacenar el emisor de un canal que transmite instancias `Job`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-16/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-16: Modificando `ThreadPool` para almacenar el
-emisor de un canal que transmite instancias `Job`</span>
+</Listing>
 
 En `ThreadPool::new`, creamos nuestro nuevo canal y hacemos que el pool
 mantenga el emisor. Esto se compilará correctamente.
@@ -517,16 +527,15 @@ mantenga el emisor. Esto se compilará correctamente.
 Intentemos pasar un receptor del canal a cada trabajador mientras el pool de
 hilos crea el canal. Sabemos que queremos usar el receptor en el hilo que los
 trabajadores generan, por lo que haremos referencia al parámetro `receiver` en
-el closure. El código en el Listado 20-17 aún no se compilará.
+el closure. El código en el Listado 21-17 aún no se compilará.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-17" file-name="src/lib.rs" caption="Pasando el receptor a los trabajadores">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-17/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-17/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-17: Pasando el receptor a los
-trabajadores</span>
+</Listing>
 
 Hemos hecho algunos cambios pequeños y sencillos: pasamos el receptor al
 constructor `Worker::new`, y luego lo usamos dentro del closure.
@@ -534,7 +543,7 @@ constructor `Worker::new`, y luego lo usamos dentro del closure.
 Cuando intentamos compilar este código, obtenemos este error:
 
 ```console
-{{#include ../listings/ch20-web-server/listing-20-17/output.txt}}
+{{#include ../listings/ch21-web-server/listing-21-17/output.txt}}
 ```
 
 El código está intentando pasar `receiver` a múltiples instancias de `Worker`.
@@ -554,17 +563,16 @@ Recuerda los smart pointers thread-safe discutidos en el Capítulo 16: para
 compartir la propiedad entre varios hilos y permitir que los hilos muten el
 valor, necesitamos usar `Arc<Mutex<T>>`. El tipo `Arc` permitirá que varios
 trabajadores sean propietarios del receptor, y `Mutex` garantizará que solo un
-trabajador obtenga un trabajo del receptor a la vez. El Listado 20-18 muestra
+trabajador obtenga un trabajo del receptor a la vez. El Listado 21-18 muestra
 los cambios que debemos hacer.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-18" file-name="src/lib.rs" caption="Compartiendo el receptor entre los trabajadores usando `Arc` y `Mutex`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-18/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-18/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-18: Compartiendo el receptor entre los
-trabajadores usando `Arc` y `Mutex`</span>
+</Listing>
 
 En `ThreadPool::new`, ponemos el receptor en un `Arc` y un `Mutex`. Para cada
 nuevo trabajador, clonamos el `Arc` para aumentar el recuento de referencias
@@ -579,17 +587,16 @@ También cambiaremos `Job` de un struct a un alias de tipo para un objeto de
 trait que contiene el tipo de cierre que recibe `execute`. Como se discutió en
 la sección [“Creación de sinónimos de tipo con alias de
 tipo”][creating-type-synonyms-with-type-aliases]<!-- ignore -->
-del Capítulo 19, los alias de tipo nos permiten hacer tipos largos más cortos
-para facilitar su uso. Mira el Listado 20-19.
+del Capítulo 20, los alias de tipo nos permiten hacer tipos largos más cortos
+para facilitar su uso. Mira el Listado 21-19.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-19" file-name="src/lib.rs" caption="Creando un alias de tipo `Job` para un `Box` que contenga cada closure y luego enviamos el trabajo por el canal">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-19/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-19/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-19: Creando un alias de tipo `Job` para un
-`Box` que contenga cada closure y luego enviamos el trabajo por el canal</span>
+</Listing>
 
 Después de crear una nueva instancia de `Job` usando el closure que obtenemos
 en `execute`, enviamos ese trabajo por el extremo de envío del canal. Estamos
@@ -605,16 +612,15 @@ sabe eso.
 `thread::spawn` todavía solo _hace referencia_ al extremo receptor del canal.
 En su lugar, necesitamos que el cierre se repita para siempre, preguntando al
 extremo receptor del canal por un trabajo y ejecutando el trabajo cuando lo
-obtiene. Hagamos el cambio que se muestra en el Listado 20-20 a `Worker::new`.
+obtiene. Hagamos el cambio que se muestra en el Listado 21-20 a `Worker::new`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="21-20" file-name="src/lib.rs" caption="Receiving and executing the jobs in the worker’s thread">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-20/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-20/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-20: Recibiendo y ejecutando los trabajos en el
-hilo del trabajador</span>
+</Listing>
 
 Aquí, primero llamamos a `lock` en el `receiver` para adquirir el mutex, y
 luego llamamos a `unwrap` para que el hilo actual se bloquee en caso de que
@@ -639,7 +645,7 @@ que solo un hilo `Worker` a la vez está tratando de solicitar un trabajo.
 y haz algunas solicitudes:
 
 <!-- manual-regeneration
-cd listings/ch20-web-server/listing-20-20
+cd listings/ch21-web-server/listing-21-20
 cargo run
 make some requests to 127.0.0.1:7878
 Can't automate because the output depends on making requests
@@ -648,28 +654,28 @@ Can't automate because the output depends on making requests
 ```console
 $ cargo run
    Compiling hello v0.1.0 (file:///projects/hello)
-warning: field is never read: `workers`
+warning: field `workers` is never read
  --> src/lib.rs:7:5
   |
+6 | pub struct ThreadPool {
+  |            ---------- field in this struct
 7 |     workers: Vec<Worker>,
-  |     ^^^^^^^^^^^^^^^^^^^^
+  |     ^^^^^^^
   |
   = note: `#[warn(dead_code)]` on by default
 
-warning: field is never read: `id`
+warning: fields `id` and `thread` are never read
   --> src/lib.rs:48:5
    |
+47 | struct Worker {
+   |        ------ fields in this struct
 48 |     id: usize,
-   |     ^^^^^^^^^
-
-warning: field is never read: `thread`
-  --> src/lib.rs:49:5
-   |
+   |     ^^
 49 |     thread: thread::JoinHandle<()>,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^
 
-warning: `hello` (lib) generated 3 warnings
-    Finished dev [unoptimized + debuginfo] target(s) in 1.40s
+warning: `hello` (lib) generated 2 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.91s
      Running `target/debug/hello`
 Worker 0 got a job; executing.
 Worker 2 got a job; executing.
@@ -695,18 +701,23 @@ otro hilo las ejecute.
 > razones de almacenamiento en caché. Esta limitación no es causada por nuestro
 > servidor web.
 
-Después de aprender sobre el bucle `while let` en el Capítulo 18, es posible que
-te preguntes por qué no escribimos el código del hilo del trabajador como se
-muestra en el Listado 20-21.
+Este es un buen momento para pausar y considerar cómo sería diferente el código 
+de los Listados 21-18, 21-19 y 21-20 si usáramos futures en lugar de un closure 
+para el trabajo a realizar. ¿Qué tipos cambiarían? ¿Cómo serían diferentes las 
+firmas de los métodos, si es que cambiarían? ¿Qué partes del código 
+permanecerían iguales?
 
-<span class="filename">Filename: src/lib.rs</span>
+Después de aprender sobre el bucle `while let` en los Capítulos 17 y 18, es 
+posible que te preguntes por qué no escribimos el código del hilo del trabajador 
+como se muestra en el Listado 21-21.
+
+<Listing number="21-21" file-name="src/lib.rs" caption="Una implementación alternativa de `Worker::new` usando `while let`">
 
 ```rust,ignore,not_desired_behavior
-{{#rustdoc_include ../listings/ch20-web-server/listing-20-21/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/listing-21-21/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 20-21: Una implementación alternativa de
-`Worker::new` usando `while let`</span>
+</Listing>
 
 Este código se compila y se ejecuta, pero no produce el comportamiento de
 sub procesamiento deseado: una solicitud lenta aún hará que otras solicitudes
@@ -719,16 +730,16 @@ a menos que tengamos el bloqueo. Sin embargo, esta implementación también pued
 resultar en que el bloqueo se mantenga más tiempo de lo previsto si no somos
 conscientes de la duración del `MutexGuard<T>`.
 
-El código en el Listado 20-21 que usa `let job =
+El código en el Listado 21-21 que usa `let job =
 receiver.lock().unwrap().recv().unwrap();` funciona porque con `let`, los
 valores temporales utilizados en la expresión del lado derecho del signo igual
 se descartan inmediatamente cuando finaliza la declaración `let`. Sin embargo,
 `while let` (y `if let` y `match`) no descarta los valores temporales hasta el
-final del bloque asociado. En el Listado 20-21, el bloqueo permanece retenido
+final del bloque asociado. En el Listado 21-21, el bloqueo permanece retenido
 durante la duración de la llamada a `job()`, lo que significa que otros
 trabajadores no pueden recibir trabajos.
 
-[creating-type-synonyms-with-type-aliases]: ch19-04-advanced-types.html#creando-type-synonyms-con-type-aliases
+[creating-type-synonyms-with-type-aliases]: ch20-04-advanced-types.html#creando-type-synonyms-con-type-aliases
 [integer-types]: ch03-02-data-types.html#tipos-de-enteros
 [fn-traits]: ch13-01-closures.html#moving-captured-values-out-of-the-closure-and-the-fn-traits
 [builder]: https://doc.rust-lang.org/std/thread/struct.Builder.html

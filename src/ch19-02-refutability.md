@@ -25,16 +25,17 @@ esos casos, deberá cambiar el pattern o la construcción que está utilizando e
 pattern, según el comportamiento previsto del código.
 
 Veamos un ejemplo de lo que sucede cuando intentamos usar un pattern refutable
-donde Rust requiere un pattern irrefutable y viceversa. El Listado 18-8 muestra
+donde Rust requiere un pattern irrefutable y viceversa. El Listado 19-8 muestra
 una declaración `let`, pero para el pattern hemos especificado `Some(x)`, un
 pattern refutable. Como puede imaginar, este código no se compilará.
 
+<Listing number="19-8" caption="Intentando utilizar un pattern refutable con `let`">
+
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-08/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-8: Intentando utilizar un pattern refutable con
-`let`</span>
+</Listing>
 
 Si `some_option_value` fuera un valor `None`, no coincidiría con el pattern
 `Some(x)`, lo que significa que el pattern es refutable. Sin embargo, la 
@@ -44,7 +45,7 @@ Rust se quejará de que hemos intentado usar un pattern refutable donde se
 requiere un pattern irrefutable:
 
 ```console
-{{#include ../listings/ch18-patterns-and-matching/listing-18-08/output.txt}}
+{{#include ../listings/ch19-patterns-and-matching/listing-19-08/output.txt}}
 ```
 
 Debido a que no hemos cubierto (¡y no pudimos cubrir!) Cada valor válido con el
@@ -54,33 +55,35 @@ Si tenemos un pattern refutable donde se necesita un patrón irrefutable,
 podemos solucionarlo cambiando el código que utiliza el patrón: en lugar de 
 usar `let`, podemos usar `if let`. Entonces, si el pattern no coincide, el 
 código simplemente omitirá el código entre llaves, dándole una forma de 
-continuar válidamente. El Listado 18-9 muestra cómo solucionar el código del 
-Listado 18-8.
+continuar válidamente. El Listado 19-9 muestra cómo solucionar el código del 
+Listado 19-8.
+
+<Listing number="19-9" caption="Usando `if let` y un bloque con patterns refutables en lugar de `let`">
 
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-09/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-9: Usando `if let` y un bloque con patterns 
-refutables en lugar de `let`</span>
+</Listing>
 
 ¡Le hemos dado una solución al código! Este código es perfectamente válido ahora.
 Sin embargo, significa que no podemos usar un pattern irrefutable sin recibir un
 error. Si le damos a `if let` un pattern que siempre coincidirá, como `x`, como
 se muestra en el Listado 18-10, el compilador dará una advertencia.
 
+<Listing number="19-10" caption="Intentando usar un pattern irrefutable con `if let`">
+
 ```rust
-{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-10/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-10: Intentando usar un pattern irrefutable
-con `if let`</span>
+</Listing>
 
 Rust se queja de que no tiene sentido usar `if let` con un pattern 
 irrefutable:
 
 ```console
-{{#include ../listings/ch18-patterns-and-matching/listing-18-10/output.txt}}
+{{#include ../listings/ch19-patterns-and-matching/listing-19-10/output.txt}}
 ```
 
 Por esta razón, las opciones del match deben usar patterns refutables, excepto

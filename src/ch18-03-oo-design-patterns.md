@@ -40,19 +40,18 @@ tener ningún efecto. Por ejemplo, si intentamos aprobar un borrador de blog
 antes de haber solicitado una revisión, la publicación debería seguir siendo
 un borrador no publicado.
 
-El Listado 17-11 muestra este flujo de trabajo en forma de código: este es un
+El Listado 18-11 muestra este flujo de trabajo en forma de código: este es un
 ejemplo de uso de la API que implementaremos en una crate de biblioteca
 llamada `blog`. Esto aún no se compilará porque no hemos implementado el crate
 de biblioteca `blog`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="18-11" file-name="src/main.rs" caption="Código que demuestra el comportamiento deseado que queremos que tenga nuestro crate `blog`">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch17-oop/listing-17-11/src/main.rs:all}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-11/src/main.rs:all}}
 ```
 
-<span class="caption">Listing 17-11: Código que demuestra el comportamiento
-deseado que queremos que tenga nuestro crate `blog`</span>
+</Listing>
 
 Queremos permitir que el usuario cree una nueva publicación de blog en borrador
 con `Post::new`. Queremos permitir que se agregue texto a la publicación del
@@ -84,7 +83,7 @@ se revise.
 ¡Comencemos con la implementación de la biblioteca! Sabemos que necesitamos
 un struct `Post` público que contenga algún contenido, por lo que comenzaremos
 con la definición del struct y una función pública `new` asociada para crear
-una instancia de `Post`, como se muestra en el Listado 17-12. También haremos
+una instancia de `Post`, como se muestra en el Listado 18-12. También haremos
 un trait privado `State` que definirá el comportamiento que todos los objetos
 de estado para un `Post` deben tener.
 
@@ -92,15 +91,13 @@ Luego, `Post` contendrá un trait object de `Box<dyn State>` dentro de un campo
 privado llamado `state` para mantener el state object. Verás por qué
 `Option<T>` es necesario en un momento.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-12" file-name="src/lib.rs" caption="Definición de un struct `Post` y una función `new` que crea una nueva instancia de `Post`, un trait `State`, y un struct `Draft`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-12/src/lib.rs}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-12/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-12: Definición de un struct `Post` y una
-función `new` que crea una nueva instancia de `Post`, un trait `State`, y un
-struct `Draft`</span>
+</Listing>
 
 El trait `State` define el comportamiento compartido por los diferentes estados
 de una publicación. Los state objects son `Draft`, `PendingReview` y
@@ -117,22 +114,21 @@ comenzará como un borrador. Debido a que el campo `state` de `Post` es privado,
 
 ### Almacenando el texto del contenido del post
 
-Vimos en el Listado 17-11 que queremos poder llamar a un método llamado
+Vimos en el Listado 18-11 que queremos poder llamar a un método llamado
 `add_text` y pasarle un `&str` que luego se agregará como el contenido de texto
 de la publicación del blog. Implementaremos esto como un método, en lugar de
 exponer el campo `content` como `pub`, para que más tarde podamos implementar
 un método que controlará cómo se lee el campo `content`. El método `add_text`
-es bastante sencillo, así que agreguemos la implementación en el Listado 17-13
+es bastante sencillo, así que agreguemos la implementación en el Listado 18-13
 al bloque `impl Post`:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-13" file-name="src/lib.rs" caption="Implementando el método `add_text` para agregar texto al campo `content` de una publicación">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-13/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-13: Implementando el método `add_text` para
-agregar texto al campo `content` de una publicación</span>
+</Listing>
 
 El método `add_text` toma una referencia mutable a `self` porque estamos
 cambiando la instancia de `Post` en la que estamos llamando `add_text`. Luego
@@ -147,41 +143,38 @@ parte del comportamiento que queremos admitir.
 Incluso después de que hayamos llamado `add_text` y agregado algún contenido a
 nuestra publicación, todavía queremos que el método `content` devuelva un slice
 de string vacío porque la publicación todavía está en el estado de borrador,
-como se muestra en la línea 7 del Listado 17-11. Por ahora, implementemos el
+como se muestra en la línea 7 del Listado 18-11. Por ahora, implementemos el
 método `content` con lo más simple que cumplirá con este requisito: siempre
 devolver un string slice vacío. Lo cambiaremos más tarde una vez que
 implementemos la capacidad de cambiar el estado de una publicación para que
 pueda publicarse. Hasta ahora, las publicaciones solo pueden estar en el estado
 de borrador, por lo que el contenido de la publicación siempre debe estar
-vacío. El Listado 17-14 muestra esta implementación de marcador de posición:
+vacío. El Listado 18-14 muestra esta implementación de marcador de posición:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-14" file-name="src/lib.rs" caption="Agregando una implementación provisional para el método `content` en `Post` que siempre devuelve un string slice vacío">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-14/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-14/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-14: Agregando una implementación provisional
-para el método `content` en `Post` que siempre devuelve un string slice vacío
-</span>
+</Listing>
 
-Con este método `content` añadido, todo en el Listado 17-11 hasta la línea 7
+Con este método `content` añadido, todo en el Listado 18-11 hasta la línea 7
 funciona como se pretendía.
 
 ### Solicitar una revisión de los cambios de publicación de su estado
 
 A continuación, necesitamos agregar funcionalidad para solicitar una revisión
 de una publicación, lo que debería cambiar su estado de `Draft` a
-`PendingReview`. El Listado 17-15 muestra este código:
+`PendingReview`. El Listado 18-15 muestra este código:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-15" file-name="src/lib.rs" caption="Implementando los métodos `request_review` en `Post` y el trait `State`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-15/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-15/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-15: Implementando los métodos `request_review`
-en `Post` y el trait `State`</span>
+</Listing>
 
 Agregamos un método público llamado `request_review` a `Post` que toma una
 referencia mutable a `self`. Luego llamamos a un método interno `request_review`
@@ -225,7 +218,7 @@ estado es responsable de sus propias reglas.
 Dejaremos el método `content` en `Post` tal como está, devolviendo un string
 slice vacío. Ahora podemos tener un `Post` en el estado `PendingReview` así
 como en el estado `Draft`, pero queremos el mismo comportamiento en el estado
-`PendingReview`. ¡El Listado 17-11 ahora funciona hasta la línea 10!
+`PendingReview`. ¡El Listado 18-11 ahora funciona hasta la línea 10!
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -235,16 +228,15 @@ como en el estado `Draft`, pero queremos el mismo comportamiento en el estado
 
 El método `approve` será similar al método `request_review`: establecerá el
 valor de `state` al estado que el estado actual indique que debería tener
-cuando ese estado sea aprobado, como se muestra en el Listado 17-16:
+cuando ese estado sea aprobado, como se muestra en el Listado 18-16:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-16" file-name="src/lib.rs" caption="Implementando el método `approve` en `Post` y el trait `State`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-16/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-16/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-16: Implementando el método `approve` en
-`Post` y el trait `State`</span>
+</Listing>
 
 Agregamos el método `approve` al trait `State` y agregamos un nuevo struct
 que implementa el trait `State`, el estado `Published`.
@@ -260,16 +252,15 @@ en el estado `Published` en esos casos.
 Ahora debemos actualizar el método `content` en `Post`. Queremos que el valor
 devuelto por `content` dependa del estado actual de `Post`, por lo que vamos
 a hacer que `Post` delegue a un método `content` definido en su `state`, como
-se muestra en el Listado 17-17:
+se muestra en el Listado 18-17:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-17" file-name="src/lib.rs" caption="Actualizando el método `content` en `Post` para delegar en un método `content` en `State`">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch17-oop/listing-17-17/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-17/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-17: Actualizando el método `content` en `Post`
-para delegar en un método `content` en `State`</span>
+</Listing>
 
 Debido a que el objetivo es mantener todas estas reglas dentro de los structs
 que implementan `State`, llamamos a un método `content` en el valor en `state`
@@ -298,14 +289,13 @@ que debemos agregar `content` a la definición del trait `State`, y allí es
 donde pondremos la lógica para qué contenido devolver dependiendo de qué
 estado tengamos, como se muestra en el Listado 17-18:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-18" file-name="src/lib.rs" caption="Agregando el método `content` al trait `State`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-18/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-18/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-18: Agregando el método `content` al trait
-`State`</span>
+</Listing>
 
 Agregamos una implementación predeterminada para el método `content` que
 devuelve un string slice vacío. Eso significa que no necesitamos implementar
@@ -318,7 +308,7 @@ como argumento y devolviendo una referencia a una parte de ese `post`, por lo
 que el lifetime de la referencia devuelta está relacionado con el tiempo
 de vida del argumento `post`.
 
-¡Y hemos terminado! ¡Todo lo que se muestra en el Listado 17-11 ahora funciona!
+¡Y hemos terminado! ¡Todo lo que se muestra en el Listado 18-11 ahora funciona!
 Hemos implementado el patrón de estado con las reglas del flujo de trabajo de
 la publicación de blog. La lógica relacionada con las reglas vive en los
 objetos de estado en lugar de estar dispersa en `Post`.
@@ -390,7 +380,7 @@ implementación del mismo método en el valor del campo `state` de `Option` y
 establecen el nuevo valor del campo `state` en el resultado. Si tuviéramos
 muchos métodos en `Post` que siguieran este patrón, podríamos considerar
 definir un macro para eliminar la repetición (ver la sección [“Macros”][macros]
-en el Capítulo 19).
+en el Capítulo 20).
 
 Al implementar el State Pattern exactamente como se define en lenguajes
 orientados a objetos, no estamos aprovechando al máximo las fortalezas de Rust.
@@ -408,13 +398,15 @@ sistema de verificación de tipos de Rust evitará los intentos de usar
 publicaciones borradores donde solo se permiten publicaciones publicadas
 emitiendo un error del compilador.
 
-Consideremos la primera parte de `main` en el Listado 17-11:
+Consideremos la primera parte de `main` en el Listado 18-11:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch17-oop/listing-17-11/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-11/src/main.rs:here}}
 ```
+
+</Listing>
 
 Todavía permitimos la creación de nuevas publicaciones en el estado de borrador
 usando `Post::new` y la capacidad de agregar texto al contenido de la
@@ -425,17 +417,16 @@ intentamos obtener el contenido de una publicación en borrador, obtendremos un
 error del compilador que nos dice que el método no existe. Como resultado,
 será imposible mostrar accidentalmente el contenido de la publicación en
 borrador en producción, porque ese código ni siquiera se compilará. El Listado
-17-9 muestra la definición de un struct `Post` y un struct `DraftPost`, así
+18-9 muestra la definición de un struct `Post` y un struct `DraftPost`, así
 como métodos en cada uno:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-19" file-name="src/lib.rs" caption="Un `Post` con un método `content` y un `DraftPost` sin un método `content`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-19/src/lib.rs}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-19/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-19: Un `Post` con un método `content` y un
-`DraftPost` sin un método `content`</span>
+</Listing>
 
 Tanto los structs `Post` como `DraftPost` tienen un campo privado `content`
 que almacena el texto de la publicación del blog. Los structs ya no tienen el
@@ -465,17 +456,15 @@ todavía no debe mostrar ningún contenido. Implementemos estas restricciones
 agregando otro struct, `PendingReviewPost`, definiendo el método `request_review`
 en `DraftPost` para devolver un `PendingReviewPost`, y definiendo un método
 `approve` en `PendingReviewPost` para devolver un `Post`, como se muestra en
-el Listado 17-20:
+el Listado 18-20:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-20" file-name="src/lib.rs" caption="Un `PendingReviewPost` que se crea llamando a `request_review` en `DraftPost` y un método `approve` que convierte un `PendingReviewPost` en un `Post` publicado">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-20/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-20/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-20: Un `PendingReviewPost` que se crea
-llamando a `request_review` en `DraftPost` y un método `approve` que convierte
-un `PendingReviewPost` en un `Post` publicado</span>
+</Listing>
 
 Los métodos `request_review` y `approve` toman ownership de `self`, consumiendo
 así las instancias de `DraftPost` y `PendingReviewPost` y transformándolas en
@@ -497,16 +486,15 @@ sombreado `let post =` para guardar las instancias devueltas. Tampoco podemos
 tener las afirmaciones sobre el contenido de las publicaciones en borrador y
 revisión pendiente sean strings vacíos, ni los necesitamos: ya no podemos
 compilar el código que intenta usar el contenido de las publicaciones en esos
-estados. El código actualizado en `main` se muestra en el Listado 17-21:
+estados. El código actualizado en `main` se muestra en el Listado 18-21:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="18-21" file-name="src/main.rs" caption="Modifications to `main` to use the new implementation of the blog post workflow">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch17-oop/listing-17-21/src/main.rs}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-21/src/main.rs}}
 ```
 
-<span class="caption">Listing 17-21: Modificaciones a `main` para usar la nueva
-implementación del workflow de la publicación del blog</span>
+</Listing>
 
 Las modificaciones que hicimos a `main` para reasignar `post` significan que
 esta implementación ya no sigue el patrón de estado orientado a objetos: las
@@ -518,7 +506,7 @@ ciertos errores, como la visualización del contenido de una publicación no
 publicada, se descubrirán antes de que lleguen a producción.
 
 Prueba las tareas sugeridas al comienzo de esta sección en el crate `blog` tal
-como está después del Listado 17-21 para evaluar el diseño de esta versión del
+como está después del Listado 18-21 para evaluar el diseño de esta versión del
 código. Ten en cuenta que es posible que algunas de las tareas ya estén
 completadas en este diseño.
 
@@ -550,4 +538,4 @@ Rust que permiten mucha flexibilidad. Hemos visto brevemente los patterns a lo
 largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá!
 
 [more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#casos-en-los-que-tienes-mas-informacion-que-el-compilador
-[macros]: ch19-06-macros.html#macros
+[macros]: ch20-06-macros.html#macros

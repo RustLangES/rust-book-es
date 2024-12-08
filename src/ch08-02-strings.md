@@ -42,11 +42,13 @@ y capacidades adicionales. Un ejemplo de una función que funciona de la misma
 manera con `Vec<T>` y `String` es la función `new` para crear una instancia,
 que se muestra en el listado 8-11.
 
+<Listing number="8-11" caption="Creando un nuevo y vacío `String`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-11: Creando un nuevo y vacío `String`</span>
+</Listing>
 
 Esta línea crea un nuevo `String` vacío llamado `s`, el cual podemos luego cargar
 con datos. A menudo, tendremos algunos datos iniciales que queremos comenzar
@@ -54,12 +56,13 @@ en el string. Para eso, usamos el método `to_string`, que está disponible en
 cualquier tipo que implemente el trait `Display`, como lo hacen los String
 Literals. El listado 8-12 muestra dos ejemplos.
 
+<Listing number="8-12" caption="Usando el método `to_string` para crear un `String` a partir de un string literal">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-12: Usando el método `to_string` para crear un
-`String` a partir de un string literal</span>
+</Listing>
 
 Este código crea un string que contiene `initial contents`.
 
@@ -67,12 +70,13 @@ Podemos también usar la función `String::from` para crear un `String` a partir
 de un string literal. El código en el listado 8-13 es equivalente al código del
 listado 8-12 que usa `to_string`.
 
+<Listing number="8-13" caption="Usando la función `String::from` para crear un `String` a partir de un string literal">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-13/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-13: Usando la función `String::from` para crear
-un `String` a partir de un string literal</span>
+</Listing>
 
 Debido a que los strings se usan para muchas cosas, podemos usar muchas APIs
 genéricas diferentes para strings, lo que nos proporciona muchas opciones.
@@ -84,12 +88,13 @@ Recuerda que los strings son UTF-8 codificados, por lo que podemos incluir
 cualquier dato codificado correctamente en ellos, Como se muestra en el listado
 8-14.
 
+<Listing number="8-14" caption="Almacenamiento de saludos en diferentes idiomas en strings">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-14: Almacenamiento de saludos en diferentes
-idiomas en strings</span>
+</Listing>
 
 Todos estos strings son valores válidos de `String`.
 
@@ -105,24 +110,26 @@ convenientemente el operador `+` o el macro `format!` para concatenar valores de
 Podemos hacer crecer un `String` usando el método `push_str` para agregar un
 string slice, como se muestra en el listado 8-15.
 
+<Listing number="8-15" caption="Agregando un string slice a un `String` usando el método `push_str`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-15/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-15: Agregando un string slice a un `String`
-usando el método `push_str`</span>
+</Listing>
 
 Después de estas dos líneas, `s` contendrá `foobar`. El método `push_str` toma
 un string slice porque no necesariamente queremos tomar posesión del parámetro.
 Por ejemplo, en el código del listado 8-16, queremos poder usar `s2` después de
 agregar su contenido a `s1`.
 
+<Listing number="8-16" caption="Uso de un string slice después de agregar su contenido a un `String`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-16: Uso de un string slice después de agregar
-su contenido a un `String`</span>
+</Listing>
 
 Si el método `push_str` tomara posesión de `s2`, no podríamos imprimir su valor
 en la última línea. ¡Sin embargo, este código funciona como esperamos!
@@ -130,12 +137,13 @@ en la última línea. ¡Sin embargo, este código funciona como esperamos!
 El método `push` toma un solo carácter como parámetro y lo agrega al `String`.
 El listado 8-17 agrega la letra `l` a un `String` usando el método `push`.
 
+<Listing number="8-17" caption="Agregando un carácter a un valor `String` usando `push`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-17/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-17: Agregando un carácter a un valor `String`
-usando `push`</span>
+</Listing>
 
 Como resultado, `s` contendrá `lol`.
 
@@ -145,12 +153,13 @@ A veces, necesitarás combinar dos strings. Sin embargo, no es tan simple como
 usar el operador `+` con dos referencias a `String`. El código en el listado
 8-18 no compilará:
 
+<Listing number="8-18" caption="Usando el operador `+` para combinar dos valores `String` en un nuevo valor `String`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-18: Usando el operador `+` para combinar dos
-valores `String` en un nuevo valor `String`</span>
+</Listing>
 
 El string `s3` contendrá `Hello, world!`. La razón por la que `s1` ya no es
 válido después de la adición, y la razón por la que usamos una referencia a
@@ -220,12 +229,13 @@ embargo, si intentas acceder a partes de un `String` usando la sintaxis de
 indexación en Rust, obtendrás un error. Considera el código inválido en el
 listado 8-19.
 
+<Listing number="8-19" caption="Intentando usar la sintaxis de indexación con un String">
+
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-19/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-19: Intentando usar la sintaxis de indexación con
-un String</span>
+</Listing>
 
 Este código dará como resultado el siguiente error:
 
@@ -276,7 +286,7 @@ por sí solo. Devolver `208` probablemente no sea lo que un usuario querría si
 pidieran la primera letra de esta cadena; sin embargo, esos son los únicos
 datos que Rust tiene en el índice de bytes 0. Los usuarios generalmente no
 quieren que se devuelva el valor de byte, incluso si la cadena contiene solo
-letras latinas: si `&"hello"[0]` fuera un código válido que devolviera el valor
+letras latinas: si `&"hi"[0]` fuera un código válido que devolviera el valor
 de byte, devolvería `104`, no `h`.
 
 La respuesta, entonces, es que para evitar devolver un valor inesperado y

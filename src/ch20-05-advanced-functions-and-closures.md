@@ -14,7 +14,7 @@ punteros a función te permitirá usar funciones como argumentos para otras
 funciones.
 
 La sintaxis para especificar que un parámetro es un puntero a función es
-similar a la de los closures, como se muestra en el Listado 19-27, donde hemos
+similar a la de los closures, como se muestra en el Listado 20-28, donde hemos
 definido una función `add_one` que suma uno a su parámetro. La función
 `do_twice` toma dos parámetros: un puntero a función a cualquier función que
 tome un parámetro `i32` y devuelva un `i32`, y un valor `i32`. La función
@@ -22,14 +22,13 @@ tome un parámetro `i32` y devuelva un `i32`, y un valor `i32`. La función
 suma los dos resultados de la llamada a la función. La función `main` llama a
 `do_twice` con los argumentos `add_one` y `5`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="20-28" file-name="src/main.rs" caption="Usando el tipo `fn` para aceptar un puntero a function como un argumento">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-27/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-28/src/main.rs}}
 ```
 
-<span class="caption">Listing 19-27: Usando el tipo `fn` para aceptar un
-puntero a function como un argumento</span>
+</Listing>
 
 Este código imprime `The answer is: 12`. Especificamos que el parámetro `f` en
 `do_twice` es un `fn` que toma un parámetro de tipo `i32` y devuelve un `i32`.
@@ -56,14 +55,14 @@ en la biblioteca estándar. Para usar la función `map` para convertir un vector
 de números en un vector de strings, podríamos usar un closure, como este:
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-15-map-closure/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-15-map-closure/src/main.rs:here}}
 ```
 
 O podríamos nombrar una función como argumento para `map` en lugar del
 closure, como este:
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-16-map-function/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-16-map-function/src/main.rs:here}}
 ```
 
 Ten en cuenta que debemos utilizar la sintaxis completamente calificada que
@@ -83,7 +82,7 @@ lo que significa que podemos especificar las funciones inicializadoras como
 argumentos para los métodos que toman closures, como se muestra a continuación:
 
 ```rust
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-17-map-initializer/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-17-map-initializer/src/main.rs:here}}
 ```
 
 Aquí creamos instancias de `Status::Value` usando cada valor `u32` en el rango
@@ -105,13 +104,13 @@ El siguiente código intenta devolver un closure directamente, pero no
 compilará:
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-18-returns-closure/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-18-returns-closure/src/lib.rs}}
 ```
 
 El error del compilador es el siguiente:
 
 ```console
-{{#include ../listings/ch19-advanced-features/no-listing-18-returns-closure/output.txt}}
+{{#include ../listings/ch20-advanced-features/no-listing-18-returns-closure/output.txt}}
 ```
 
 ¡El error hace referencia nuevamente al trait `Sized`! Rust no sabe cuánto
@@ -119,18 +118,17 @@ espacio necesitará para almacenar el closure. Vimos una solución a este
 problema anteriormente. Podemos usar un trait object:
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-19-returns-closure-trait-object/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-19-returns-closure-trait-object/src/lib.rs}}
 ```
 
 Este código se compilará correctamente. Para obtener más información sobre los
 trait objects, consulta la sección [“Usando trait objects que permiten valores
 de diferentes
 tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]
-
-<!-- ignore --> en el Capítulo 17.
+<!-- ignore --> en el Capítulo 19.
 
 ¡Ahora veamos las macros!
 
-[advanced-traits]: ch19-03-advanced-traits.html#traits-avanzados
+[advanced-traits]: ch20-03-advanced-traits.html#traits-avanzados
 [valores-enum]: ch06-01-defining-an-enum.html#valores-enum
-[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos

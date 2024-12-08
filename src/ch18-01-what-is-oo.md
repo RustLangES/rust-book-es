@@ -44,34 +44,31 @@ contiene un vector de valores `i32`. El struct también puede tener un campo que
 contiene el promedio de los valores en el vector, lo que significa que el
 promedio no tiene que calcularse a pedido cada vez que alguien lo necesite. En
 otras palabras, `AveragedCollection` almacenará en caché el promedio calculado
-para nosotros. El Listado 17-1 tiene la definición del struct
+para nosotros. El Listado 18-1 tiene la definición del struct
 `AveragedCollection`:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-1" file-name="src/lib.rs" caption="Un struct `AveragedCollection` que mantiene una lista de enteros y el promedio de los elementos en la colección">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-01/src/lib.rs}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-01/src/lib.rs}}
 ```
 
-<span class="caption">Listing 17-1: Un struct `AveragedCollection` que
-mantiene una lista de enteros y el promedio de los elementos en la colección
-</span>
+</Listing>
 
 El struct está marcado como `pub` para que otro código pueda usarlo, pero los
 campos dentro del struct permanecen privados. Esto es importante en este caso
 porque queremos asegurarnos de que cada vez que se agrega o elimina un valor de
 la lista, el promedio también se actualiza. Hacemos esto implementando los
 métodos públicos `add`, `remove` y `average` en el struct, como se muestra en
-el Listado 17-2:
+el Listado 18-2:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="18-2" file-name="src/lib.rs" caption="Implementaciones de los métodos públicos `add`, `remove`, y `average` en `AveragedCollection`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch17-oop/listing-17-02/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch18-oop/listing-18-02/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 17-2: Implementaciones de los métodos públicos
-`add`, `remove`, y `average` en `AveragedCollection`</span>
+</Listing>
 
 Los métodos públicos `add`, `remove`, y `average` son las únicas formas de
 acceder o modificar los datos en una instancia de `AveragedCollection`. Cuando
