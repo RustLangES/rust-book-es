@@ -131,7 +131,7 @@ podemos desestructurar usando un pattern con una declaración `let`.
 <span class="caption">Listing 18-12: Desestructurando los campos de un struct
 en variables separadas</span>
 
-Este código crear las variables `a` y `b` que coinciden con los valores de los
+Este código crea las variables `a` y `b` que coinciden con los valores de los
 campos `x` e `y` del struct `p`. Este ejemplo muestra que los nombres de las
 variables en el pattern no tienen que coincidir con los nombres de los campos
 del struct. Sin embargo, es común que los nombres de las variables coincidan
