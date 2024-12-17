@@ -533,7 +533,7 @@ También puedes usar el operador _or_ `|` en un match guard para especificar
 múltiples patterns; la condición del match guard se aplicará a todos los
 patterns. El Listado 18-28 muestra la precedencia al combinar un pattern que
 usa `|` con un match guard. La parte importante de este ejemplo es que el
-match guard `if y` se aplica a `4`, `5` y _6_, aunque podría parecer que `if y`
+match guard `if y` se aplica a `4`, `5` y `6`, aunque podría parecer que `if y`
 solo se aplica a `6`.
 
 ```rust
