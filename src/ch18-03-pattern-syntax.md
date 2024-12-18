@@ -597,8 +597,7 @@ el valor del campo `id` porque no hemos guardado el valor `id` en una variable.
 
 En la última opción, donde hemos especificado una variable sin un rango, sí
 tenemos el valor disponible para usar en el código de la opción en una variable
-llamada `id`. La razón es que hemos usado la sintaxis de campo de struct
-shorthand. Pero no hemos aplicado ninguna prueba al valor en el campo `id` en
+llamada `id`. La razón es que hemos usado la sintaxis abreviada del campo del struct. Pero no hemos aplicado ninguna prueba al valor en el campo `id` en
 esta opción, como hicimos con las dos primeras opciones: cualquier valor
 coincidiría con este pattern.
 
