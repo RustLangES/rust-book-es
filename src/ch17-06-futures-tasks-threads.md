@@ -1,35 +1,36 @@
-## Futures, Tasks, and Threads
+## Futures, Tasks y Threads
 
-As we saw in the previous chapter, threads provide one approach to concurrency.
-We’ve seen another approach to concurrency in this chapter, using async with
-futures and streams. You might be wondering why you would choose one or the
-other. The answer is: it depends! And in many cases, the choice isn’t threads
-*or* async but rather threads *and* async.
+Como vimos en el capítulo anterior, los hilos proporcionan un enfoque para la 
+concurrencia. Hemos visto otro enfoque para la concurrencia en este capítulo, 
+usando async con futuros y flujos. Puede que te preguntes por qué elegirías uno 
+u otro. La respuesta es: ¡depende! Y en muchos casos, la elección no es hilos 
+*o* async, sino más bien hilos *y* async.
 
-Many operating systems have supplied threading-based concurrency models for
-decades now, and many programming languages have support for them as a result.
-However, they are not without their tradeoffs. On many operating systems, they
-use a fair bit of memory for each thread, and they come with some overhead for
-starting up and shutting down. Threads are also only an option when your
-operating system and hardware support them! Unlike mainstream desktop and mobile
-computers, some embedded systems don’t have an OS at all, so they also don’t
-have threads!
+Muchos sistemas operativos han proporcionado modelos de concurrencia basados en
+hilos durante décadas, y muchos lenguajes de programación los admiten como
+resultado. Sin embargo, no están exentos de sus compensaciones. En muchos
+sistemas operativos, utilizan una buena cantidad de memoria para cada hilo, y
+tienen ciertos costos de inicio y cierre. ¡Los hilos también son una opción solo
+cuando su sistema operativo y hardware los admiten! A diferencia de las
+computadoras de escritorio y móviles convencionales, algunos sistemas embebidos
+no tienen un sistema operativo en absoluto, ¡por lo que tampoco tienen hilos!
 
-The async model provides a different—and ultimately complementary—set of
-tradeoffs. In the async model, concurrent operations don’t require their own
-threads. Instead, they can run on tasks, as when we used `trpl::spawn_task` to
-kick off work from a synchronous function throughout the streams section. A task
-is similar to a thread, but instead of being managed by the operating system,
-it’s managed by library-level code: the runtime.
+El modelo async proporciona un conjunto diferente —y en última instancia
+complementario— de compensaciones. En el modelo async, las operaciones
+concurrentes no requieren sus propios hilos. En su lugar, pueden ejecutarse en
+tareas, como cuando usamos `trpl::spawn_task` para iniciar el trabajo desde una
+función síncrona a lo largo de la sección de flujos. Una tarea es similar a un
+hilo, pero en lugar de ser administrada por el sistema operativo, es 
+administrada por código a nivel de biblioteca: el tiempo de ejecución.
 
-In the previous section, we saw that we could build a `Stream` by using an async
-channel and spawning an async task which we could call from synchronous code. We
-could do the exact same thing with a thread! In Listing 17-40, we used
-`trpl::spawn_task` and `trpl::sleep`. In Listing 17-41, we replace those with
-the `thread::spawn` and `thread::sleep` APIs from the standard library in the
-`get_intervals` function.
+En la sección anterior, vimos que podíamos construir un `Stream` usando un canal
+async y lanzando una tarea async que podíamos llamar desde el código síncrono.
+¡Podríamos hacer exactamente lo mismo con un hilo! En el Listado 17-40, usamos
+`trpl::spawn_task` y `trpl::sleep`. En el Listado 17-41, reemplazamos esos con
+las API `thread::spawn` y `thread::sleep` de la biblioteca estándar en la 
+función `get_intervals`.
 
-<Listing number="17-41" caption="Using the `std::thread` APIs instead of the async `trpl` APIs for the `get_intervals` function" file-name="src/main.rs">
+<Listing number="17-41" caption="Usar las API `std::thread` en lugar de las API async `trpl` para la función `get_intervals`" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-41/src/main.rs:threads}}
@@ -37,71 +38,79 @@ the `thread::spawn` and `thread::sleep` APIs from the standard library in the
 
 </Listing>
 
-If you run this, the output is identical. And notice how little changes here
-from the perspective of the calling code! What’s more, even though one of our
-functions spawned an async task on the runtime and the other spawned an
-OS thread, the resulting streams were unaffected by the differences.
+Si ejecutas esto, la salida es idéntica. ¡Y fíjate en cuánto cambia aquí desde
+la perspectiva del código que llama! Además, aunque una de nuestras funciones
+lanzó una tarea async en el tiempo de ejecución y la otra lanzó un hilo del
+sistema operativo, los flujos resultantes no se vieron afectados por las
+diferencias.
 
-Despite the similarities, these two approaches behave very differently, although
-we might have a hard time measuring it in this very simple example. We could
-spawn millions of async tasks on any modern personal computer. If we tried to do
-that with threads, we would literally run out of memory!
+A pesar de las similitudes, estos dos enfoques se comportan de manera muy
+diferente, aunque podríamos tener dificultades para medirlo en este ejemplo muy
+simple. Podríamos lanzar millones de tareas async en cualquier computadora
+personal moderna. ¡Si intentáramos hacer eso con hilos, literalmente nos 
+quedaríamos sin memoria!
 
-However, there’s a reason these APIs are so similar. Threads act as a boundary
-for sets of synchronous operations; concurrency is possible *between* threads.
-Tasks act as a boundary for sets of *asynchronous* operations; concurrency is
-possible both *between* and *within* tasks, because a task can switch between
-futures in its body. Finally, futures are Rust’s most granular unit of
-concurrency, and each future may represent a tree of other futures. The
-runtime—specifically, its executor—manages tasks, and tasks manage futures. In
-that regard, tasks are similar to lightweight, runtime-managed threads with
-added capabilities that come from being managed by a runtime instead of by the
-operating system.
+Sin embargo, hay una razón por la que estas API son tan similares. Los hilos
+actúan como un límite para conjuntos de operaciones síncronas; la concurrencia 
+es posible *entre* hilos. Las tareas actúan como un límite para conjuntos de
+operaciones *asíncronas*; la concurrencia es posible tanto *entre* como *dentro*
+de las tareas, porque una tarea puede cambiar entre futuros en su cuerpo.
+Finalmente, los futuros son la unidad de concurrencia más granular de Rust, y
+cada futuro puede representar un árbol de otros futuros. El tiempo de ejecución
+— específicamente, su ejecutor — administra las tareas, y las tareas administran
+los futuros. En ese sentido, las tareas son similares a hilos livianos
+administrados por el tiempo de ejecución con capacidades adicionales que 
+provienen de ser administrados por un tiempo de ejecución en lugar del sistema
+operativo.
 
-This doesn’t mean that async tasks are always better than threads, any more than
-that threads are always better than tasks.
+Esto no significa que las tareas async siempre sean mejores que los hilos, al
+igual que los hilos no siempre son mejores que las tareas.
 
-Concurrency with threads is in some ways a simpler programming model than
-concurrency with `async`. That can be a strength or a weakness. Threads are
-somewhat “fire and forget,” they have no native equivalent to a future, so they
-simply run to completion, without interruption except by the operating system
-itself. That is, they have no built-in support for *intra-task concurrency* the
-way futures do. Threads in Rust also have no mechanisms for cancellation—a
-subject we haven’t covered in depth in this chapter, but which is implicit in
-the fact that whenever we ended a future, its state got cleaned up correctly.
+La concurrencia con hilos es en ciertos aspectos un modelo de programación más
+simple que la concurrencia con `async`. Eso puede ser una fortaleza o una
+debilidad. Los hilos son algo así como “disparar y olvidar”, no tienen un
+equivalente nativo a un futuro, por lo que simplemente se ejecutan hasta su
+finalización, sin interrupciones excepto por el sistema operativo en sí mismo.
+Es decir, no tienen soporte integrado para la *concurrencia intra-tarea* de la
+forma en que lo hacen los futuros. Los hilos en Rust tampoco tienen mecanismos
+para la cancelación —un tema que no hemos cubierto en profundidad en este
+capítulo, pero que es implícito en el hecho de que cada vez que terminamos un
+futuro, su estado se limpió correctamente.
 
-These limitations also make threads harder to compose than futures. It’s much
-more difficult, for example, to use threads to build helpers such as the
-`timeout` we built in [“Building Our Own Async Abstractions”][combining-futures]
-or the `throttle` method we used with streams in [“Composing Streams”][streams].
-The fact that futures are richer data structures means they can be composed
-together more naturally, as we have seen.
+Estas limitaciones también hacen que los hilos sean más difíciles de componer 
+que los futuros. Es mucho más difícil, por ejemplo, usar hilos para construir
+ayudantes como el `timeout` que construimos en [“Construyendo nuestras propias
+abstracciones async”][combining-futures] o el método `throttle` que usamos con
+flujos en [“Componiendo flujos”][streams]. El hecho de que los futuros sean
+estructuras de datos más ricas significa que se pueden componer de manera más
+natural, como hemos visto.
 
-Tasks then give *additional* control over futures, allowing you to choose where
-and how to group the futures. And it turns out that threads and tasks often
-work very well together, because tasks can (at least in some runtimes) be moved
-around between threads. We haven’t mentioned it up until now, but under the
-hood the `Runtime` we have been using, including the `spawn_blocking` and
-`spawn_task` functions, is multithreaded by default! Many runtimes use an
-approach called *work stealing* to transparently move tasks around between
-threads based on the current utilization of the threads, with the aim of
-improving the overall performance of the system. To build that actually requires
-threads *and* tasks, and therefore futures.
+Las tareas dan *control adicional* sobre los futuros, permitiéndote elegir dónde
+y cómo agrupar los futuros. Y resulta que los hilos y las tareas a menudo
+funcionan muy bien juntos, porque las tareas pueden (al menos en algunos
+tiempos de ejecución) moverse entre hilos. No lo hemos mencionado hasta ahora,
+pero bajo el capó, el `Runtime` que hemos estado usando, incluidas las funciones
+`spawn_blocking` y `spawn_task`, es multihilo de forma predeterminada. ¡Muchos
+tiempos de ejecución utilizan un enfoque llamado *robo de trabajo* para mover
+tareas de manera transparente entre hilos basándose en la utilización actual de
+los hilos, con el objetivo de mejorar el rendimiento general del sistema. Para
+construir eso, en realidad se requieren hilos *y* tareas, y por lo tanto
+futuros.
 
-As a default way of thinking about which to use when:
+Como una forma predeterminada de pensar es cuando:
 
-- If the work is *very parallelizable*, such as processing a bunch of data where
-  each part can be processed separately, threads are a better choice.
-- If the work is *very concurrent*, such as handling messages from a bunch of
-  different sources which may come in a different intervals or different rates,
-  async is a better choice.
+- Si el trabajo es *muy paralelizable*, como procesar un montón de datos donde
+  cada parte puede procesarse por separado, los hilos son una mejor elección.
+- Si el trabajo es *muy concurrente*, como manejar mensajes de un montón de
+  fuentes diferentes que pueden llegar en intervalos o tasas diferentes, async
+  es una mejor elección.
 
-And if you need some mix of parallelism and concurrency, you don’t have to
-choose between threads and async. You can use them together freely, letting each
-one serve the part it is best at. For example, Listing 17-42 shows a fairly
-common example of this kind of mix in real-world Rust code.
+Y si necesitas una mezcla de paralelismo y concurrencia, no tienes que elegir
+entre hilos y async. Puedes usarlos juntos libremente, dejando que cada uno
+sirva la parte en la que es mejor. Por ejemplo, el Listado 17-42 muestra un
+ejemplo bastante común de este tipo de mezcla en código Rust del mundo real.
 
-<Listing number="17-42" caption="Sending messages with blocking code in a thread and awaiting the messages in an async block" file-name="src/main.rs">
+<Listing number="17-42" caption="Enviar mensajes con código bloqueante en un hilo y esperar los mensajes en un bloque async" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-42/src/main.rs:all}}
@@ -109,32 +118,36 @@ common example of this kind of mix in real-world Rust code.
 
 </Listing>
 
-We begin by creating an async channel. Then we spawn a thread which takes
-ownership of the sender side of the channel. Within the thread, we send the
-numbers 1 through 10, and sleep for a second in between each. Finally, we run a
-future created with an async block passed to `trpl::run` just as we have
-throughout the chapter. In that future, we await those messages, just as in
-the other message-passing examples we have seen.
+Comenzamos creando un canal async. Luego lanzamos un hilo que toma posesión del
+lado emisor del canal. Dentro del hilo, enviamos los números del 1 al 10, y
+dormimos durante un segundo entre cada uno. Finalmente, ejecutamos un futuro
+creado con un bloque async pasado a `trpl::run` tal como lo hemos hecho a lo
+largo del capítulo. En ese futuro, esperamos esos mensajes, al igual que en los
+otros ejemplos de paso de mensajes que hemos visto.
 
-To return to the examples we opened the chapter with: you could imagine running
-a set of video encoding tasks using a dedicated thread, because video encoding
-is compute bound, but notifying the UI that those operations are done with an
-async channel. Examples of this kind of mix abound!
+Para volver a los ejemplos con los que abrimos el capítulo: podrías imaginar
+ejecutar un conjunto de tareas de codificación de video usando un hilo
+dedicado, porque la codificación de video está limitada por la computación, pero
+notificar a la interfaz de usuario que esas operaciones se han completado con un
+canal async. ¡Los ejemplos de este tipo de mezcla abundan!
 
-## Summary
+## Resumen
 
-This isn’t the last you’ll see of concurrency in this book: the project in
-Chapter 21 will use the concepts in this chapter in a more realistic situation
-than the smaller examples discussed here—and compare more directly what it looks
-like to solve these kinds of problems with threading vs. with tasks and futures.
+Esto no es lo último que verás de la concurrencia en este libro: el proyecto en
+el Capítulo 21 utilizará los conceptos de este capítulo en una situación más
+realista que los ejemplos más pequeños discutidos aquí —y comparará de manera
+más directa cómo se ve resolver este tipo de problemas con hilos vs. con tareas 
+y futuros.
 
-Whether with threads, with futures and tasks, or with the combination of them
-all, Rust gives you the tools you need to write safe, fast, concurrent
-code—whether for a high-throughput web server or an embedded operating system.
+Ya sea con hilos, con futuros y tareas, o con la combinación de todos ellos, 
+Rust te brinda las herramientas que necesitas para escribir código concurrente
+seguro y rápido —ya sea para un servidor web de alto rendimiento o un sistema
+operativo embebido.
 
-Next, we’ll talk about idiomatic ways to model problems and structure solutions
-as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms
-relate to those you might be familiar with from object-oriented programming.
+A continuación, hablaremos sobre formas idiomáticas de modelar problemas y
+estructurar soluciones a medida que tus programas Rust se vuelven más grandes.
+Además, discutiremos cómo se relacionan los ídolos de Rust con los que podrías
+estar familiarizado de la programación orientada a objetos.
 
 
 [combining-futures]: ch17-03-more-futures.html#building-our-own-async-abstractions
