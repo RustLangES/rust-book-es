@@ -1,153 +1,164 @@
-## Async and Await
+## Async y Await
 
-Many operations we ask the computer to do can take a while to finish. For
-example, if you used a video editor to create a video of a family celebration,
-exporting it could take anywhere from minutes to hours. Similarly, downloading a
-video shared by someone in your family might take a long time. It would be nice
-if we could do something else while we are waiting for those long-running
-processes to complete.
+Muchas de las operaciones que pedimos a la computadora realizar pueden tardar un 
+tiempo en completarse. Por ejemplo, si utilizas un editor de video para crear un 
+video de una celebración familiar, exportarlo podría llevar desde unos minutos 
+hasta horas. De manera similar, descargar un video compartido por alguien de tu 
+familia podría tomar mucho tiempo. Sería ideal poder hacer algo más mientras 
+esperamos que esos procesos prolongados se completen.
 
-The video export will use as much CPU and GPU power as it can. If you only had
-one CPU core, and your operating system never paused that export until it
-completed, you couldn’t do anything else on your computer while it was running.
-That would be a pretty frustrating experience, though. Instead, your computer’s
-operating system can—and does!—invisibly interrupt the export often enough to
-let you get other work done along the way.
+La exportación de video utilizará toda la potencia de CPU y GPU que pueda. Si 
+solo tuvieras un núcleo de CPU y tu sistema operativo nunca interrumpiera esa 
+exportación hasta que se complete, no podrías hacer nada más en tu computadora 
+mientras se ejecuta. Eso sería una experiencia bastante frustrante. En cambio, 
+el sistema operativo de tu computadora puede — ¡y lo hace! — interrumpir 
+invisiblemente la exportación con la suficiente frecuencia para permitirte 
+realizar otras tareas mientras tanto.
 
-The file download is different. It does not take up very much CPU time. Instead,
-the CPU needs to wait on data to arrive from the network. While you can start
-reading the data once some of it is present, it might take a while for the rest
-to show up. Even once the data is all present, a video can be quite large, so it
-might take some time to load it all. Maybe it only takes a second or two—but
-that’s a very long time for a modern processor, which can do billions of
-operations every second. It would be nice to be able to put the CPU to use for
-other work while waiting for the network call to finish—so, again, your
-operating system will invisibly interrupt your program so other things can
-happen while the network operation is still ongoing.
+La descarga de archivos es diferente. No consume mucho tiempo de CPU. En su 
+lugar, la CPU necesita esperar a que los datos lleguen desde la red. Aunque 
+puedes comenzar a leer los datos una vez que parte de ellos están presentes, 
+puede llevar tiempo que el resto llegue. Incluso cuando todos los datos están 
+presentes, un video puede ser bastante grande, por lo que podría tomar algo de 
+tiempo cargarlo por completo. Quizás solo tome uno o dos segundos, pero eso es 
+muchísimo tiempo para un procesador moderno, que puede realizar miles de 
+millones de operaciones por segundo. Sería ideal poder usar la CPU para otras 
+tareas mientras esperamos que la llamada a la red se complete. Así que, 
+nuevamente, el sistema operativo interrumpirá invisiblemente tu programa para 
+que otras cosas puedan ocurrir mientras la operación de red sigue en curso.
 
-> Note: The video export is the kind of operation which is often described as
-> “CPU-bound” or “compute-bound”. It’s limited by the speed of the computer’s
-> ability to process data within the *CPU* or *GPU*, and how much of that speed
-> it can use. The video download is the kind of operation which is often
-> described as “IO-bound,” because it’s limited by the speed of the computer’s
-> *input and output*. It can only go as fast as the data can be sent across the
-> network.
+> Nota: La exportación de video es el tipo de operación que a menudo se describe 
+> como “limitada por la CPU” o “limitada por el cálculo” (*CPU-bound* o 
+> *compute-bound*). Está limitada por la velocidad con la que la computadora 
+> puede procesar datos dentro de la *CPU* o la *GPU*, y cuánto de esa velocidad 
+> puede usar. La descarga de video es el tipo de operación que se describe 
+> comúnmente como “limitada por IO” (*IO-bound*), porque está restringida por la 
+> velocidad de entrada y salida de la computadora. Solo puede ir tan rápido como 
+> los datos puedan transmitirse a través de la red.
 
-In both of these examples, the operating system’s invisible interrupts provide a
-form of concurrency. That concurrency only happens at the level of a whole
-program, though: the operating system interrupts one program to let other
-programs get work done. In many cases, because we understand our programs at a
-much more granular level than the operating system does, we can spot lots of
-opportunities for concurrency that the operating system cannot see.
+En ambos ejemplos, las interrupciones invisibles del sistema operativo 
+proporcionan una forma de concurrencia. Sin embargo, esa concurrencia solo 
+ocurre a nivel de todo un programa: el sistema operativo interrumpe un programa 
+para permitir que otros programas realicen trabajo. En muchos casos, como 
+entendemos nuestros programas a un nivel mucho más granular que el sistema 
+operativo, podemos detectar muchas oportunidades de concurrencia que el sistema 
+operativo no puede ver.
 
-For example, if we’re building a tool to manage file downloads, we should be
-able to write our program in such a way that starting one download does not lock
-up the UI, and users should be able to start multiple downloads at the same
-time. Many operating system APIs for interacting with the network are
-*blocking*, though. That is, these APIs block the program’s progress until the
-data that they are processing is completely ready.
+Por ejemplo, si estamos creando una herramienta para gestionar descargas de 
+archivos, deberíamos ser capaces de escribir nuestro programa de manera que 
+iniciar una descarga no bloquee la interfaz de usuario, y los usuarios puedan 
+comenzar varias descargas al mismo tiempo. Sin embargo, muchas APIs del sistema 
+operativo para interactuar con la red son *bloqueantes*. Es decir, estas APIs 
+bloquean el progreso del programa hasta que los datos con los que están 
+trabajando estén completamente listos.
 
-> Note: This is how *most* function calls work, if you think about it! However,
-> we normally reserve the term “blocking” for function calls which interact with
-> files, the network, or other resources on the computer, because those are the
-> places where an individual program would benefit from the operation being
-> *non*-blocking.
+> Nota: ¡Así es como funcionan *la mayoría* de las llamadas a funciones, si lo 
+piensas bien! Sin embargo, normalmente reservamos el término “bloqueante” para 
+llamadas a funciones que interactúan con archivos, la red u otros recursos de la 
+computadora, porque en esos casos un programa individual podría beneficiarse de 
+que la operación no sea *bloqueante*.
 
-We could avoid blocking our main thread by spawning a dedicated thread to
-download each file. However, we would eventually find that the overhead of those
-threads was a problem. It would also be nicer if the call were not blocking in
-the first place. Last but not least, it would be better if we could write in the
-same direct style we use in blocking code. Something similar to this:
+Podríamos evitar bloquear nuestro hilo principal creando un hilo dedicado para 
+descargar cada archivo. Sin embargo, eventualmente encontraríamos que el 
+sobrecosto de esos hilos es un problema. También sería más conveniente si la 
+llamada no fuera bloqueante desde el principio. Por último, pero no menos 
+importante, sería mejor si pudiéramos escribir en el mismo estilo directo que 
+usamos en el código bloqueante. Algo similar a esto:
 
 ```rust,ignore,does_not_compile
 let data = fetch_data_from(url).await;
 println!("{data}");
 ```
 
-That is exactly what Rust’s async abstraction gives us. Before we see how this
-works in practice, though, we need to take a short detour into the differences
-between parallelism and concurrency.
+Eso es exactamente lo que la abstracción de Rust nos ofrece. Antes de ver como 
+funciona esto en la práctica, debemos hacer una breve pausa para entender la 
+diferencia entre paralisimos y concurrencia.
 
-### Parallelism and Concurrency
+### Paralelismo y Concurrencia
 
-In the previous chapter, we treated parallelism and concurrency as mostly
-interchangeable. Now we need to distinguish between them more precisely, because
-the differences will show up as we start working.
+En el capitulo anterior, tratamos la concurrencia y el paralelismo como 
+conceptos mayormente intercambiales. Ahora necesitamos distinguirlos con más 
+precisión porque la diferencia se hará más evidente a medida que comencemos a 
+trabajar.
 
-Consider the different ways a team could split up work on a software project. We
-could assign a single individual multiple tasks, or we could assign one task per
-team member, or we could do a mix of both approaches.
+Considera las diferentes maneras en que un equipo podría dividir el trabajo en 
+un proyecto de software. Podríamos asignar múltiples tareas a una sola persona, 
+o podríamos asignar una tarea por miembro del equipo, o podríamos usar una 
+combinación de ambos enfoques.
 
-When an individual works on several different tasks before any of them is
-complete, this is *concurrency*. Maybe you have two different projects checked
-out on your computer, and when you get bored or stuck on one project, you switch
-to the other. You’re just one person, so you can’t make progress on both tasks
-at the exact same time—but you can multi-task, making progress on multiple
-tasks by switching between them.
+Cuando una persona trabaja en varias tareas diferentes antes de completar alguna 
+de ellas, esto es *concurrencia*. Tal vez tienes dos proyectos diferentes 
+abiertos en tu computadora, y cuando te aburres o te atascas en uno, cambias al 
+otro. Eres solo una persona, por lo que no puedes avanzar en ambas tareas al 
+mismo tiempo exacto, pero puedes hacer varias cosas a la vez, progresando en 
+múltiples tareas al cambiar entre ellas.
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-01.svg" class="center" />
+<img alt="Flujo de trabajo concurrente" src="img/trpl17-01.svg" class="center" />
 
-<figcaption>Figure 17-1: A concurrent workflow, switching between Task A and Task B.</figcaption>
+<figcaption>Figura 17-1: Un flujo de trabajo concurrente, cambiando entre la Tarea A y la Tarea B.</figcaption>
 
 </figure>
 
-When you agree to split up a group of tasks between the people on the team, with
-each person taking one task and working on it alone, this is *parallelism*. Each
-person on the team can make progress at the exact same time.
+Cuando acuerdas dividir un grupo de tareas entre las personas del equipo, con
+cada persona tomando una tarea y trabajando en ella sola, esto es *paralelismo*.
+Cada persona en el equipo puede avanzar al mismo tiempo. 
 
 <figure>
 
 <img alt="Concurrent work flow" src="img/trpl17-02.svg" class="center" />
 
-<figcaption>Figure 17-2: A parallel workflow, where work happens on Task A and Task B independently.</figcaption>
+<img alt="Flujo de trabajo paralelo" src="img/trpl17-02.svg" class="center" />
+
+<figcaption>Figura 17-2: Un flujo de trabajo paralelo, donde el trabajo se realiza en la Tarea A y la Tarea B de forma independiente.</figcaption>
 
 </figure>
 
-With both of these situations, you might have to coordinate between different
-tasks. Maybe you *thought* the task that one person was working on was totally
-independent from everyone else’s work, but it actually needs something finished
-by another person on the team. Some of the work could be done in parallel, but
-some of it was actually *serial*: it could only happen in a series, one thing
-after the other, as in Figure 17-3.
+Con ambas situaciones, es posible que debas coordinar entre diferentes tareas.
+Quizás *pensaste* que la tarea en la que una persona estaba trabajando era
+totalmente independiente del trabajo de todos los demás, pero en realidad
+necesita algo terminado por otra persona en el equipo. Alguno de los trabajos
+podría hacerse en paralelo, pero en realidad, algo de eso era *serial*: solo
+podría ocurrir en serie, una cosa tras otra, como en la Figura 17-3.
 
 <figure>
 
 <img alt="Concurrent work flow" src="img/trpl17-03.svg" class="center" />
 
-<figcaption>Figure 17-3: A partially parallel workflow, where work happens on Task A and Task B independently until task A3 is blocked on the results of task B3.</figcaption>
+<figcaption>Figura 17-3: Un flujo de trabajo parcialmente paralelo, donde el trabajo se realiza en la Tarea A y la Tarea B de forma independiente hasta que la tarea A3 está bloqueada en los resultados de la tarea B3.</figcaption>
 
 </figure>
 
-Likewise, you might realize that one of your own tasks depends on another of
-your tasks. Now your concurrent work has also become serial.
+Así mismo, puedes darte cuenta de que una de tus propias tareas depende de otra
+de tus tareas. Ahora tu trabajo concurrente también se ha vuelto serial.
 
-Parallelism and concurrency can intersect with each other, too. If you learn
-that a colleague is stuck until you finish one of your tasks, you’ll probably
-focus all your efforts on that task to “unblock” your colleague. You and your
-coworker are no longer able to work in parallel, and you’re also no longer able
-to work concurrently on your own tasks.
+El paralelismo y la concurrencia también pueden intersectarse entre sí. Si
+descubres que un colega está atascado hasta que termines una de tus tareas,
+probablemente centrarás todos tus esfuerzos en esa tarea para “desbloquear” a tu
+colega. Tú y tu compañero de trabajo ya no pueden trabajar en paralelo, y tú
+tampoco puedes trabajar en forma concurrente en tus propias tareas.
 
-The same basic dynamics come into play with software and hardware. On a machine
-with a single CPU core, the CPU can only do one operation at a time, but it can
-still work concurrently. Using tools such as threads, processes, and async, the
-computer can pause one activity and switch to others before eventually cycling
-back to that first activity again. On a machine with multiple CPU cores, it can
-also do work in parallel. One core can be doing one thing while another core
-does something completely unrelated, and those actually happen at the same
-time.
+Las mismas dinámicas básicas entran en juego con el software y el hardware. En
+una máquina con un solo núcleo de CPU, la CPU solo puede hacer una operación a 
+la vez, pero aún puede trabajar de manera concurrente. Utilizando herramientas
+como hilos, procesos y async, la computadora puede pausar una actividad y 
+cambiar a otras antes de volver eventualmente a esa primera actividad 
+nuevamente. En una máquina con múltiples núcleos de CPU, también puede hacer
+trabajo en paralelo. Un núcleo puede estar haciendo una cosa mientras que otro
+núcleo hace algo completamente no relacionado, y eso realmente sucede al mismo
+tiempo.
 
-When working with async in Rust, we’re always dealing with concurrency.
-Depending on the hardware, the operating system, and the async runtime we are
-using—more on async runtimes shortly!—that concurrency may also use parallelism
-under the hood.
+Cuando trabajamos con async en Rust, siempre estamos tratando con concurrencia.
+Dependiendo del hardware, el sistema operativo y el tiempo de ejecución async
+que estamos utilizando — ¡más sobre los tiempos de ejecución async en breve! —
+esa concurrencia también puede usar paralelismo bajo el capó.
 
-Now, let’s dive into how async programming in Rust actually works! In the rest
-of this chapter, we will:
+Ahora, ¡sumérgete en cómo funciona la programación async en Rust! En el resto de
+este capítulo, vamos a:
 
-* see how to use Rust’s `async` and `await` syntax
-* explore how to use the async model to solve some of the same challenges we
-  looked at in Chapter 16
-* look at how multithreading and async provide complementary solutions, which
-  you can even use together in many cases
+* ver cómo usar la sintaxis `async` y `await` de Rust
+* explorar cómo usar el modelo async para resolver algunos de los mismos
+  desafíos que vimos en el Capítulo 16
+* ver cómo el multiprocesamiento y async proporcionan soluciones 
+  complementarias, que incluso puedes usarlas juntas en muchos casos
