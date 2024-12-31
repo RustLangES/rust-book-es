@@ -106,7 +106,7 @@ fn main() {
 ```
 
 ¡Cargo ha generado un programa “Hello, world!”/“¡Hola, mundo!” para ti, 
-¡igual que el que escribimos enl Listado 1-1! Hasta ahora, las diferencias 
+¡igual que el que escribimos en el Listado 1-1! Hasta ahora, las diferencias 
 entre nuestro proyecto y el proyecto generado por Cargo son que Cargo 
 colocó el código en el directorio *src* y tenemos un archivo de 
 configuración *Cargo.toml* en el directorio superior.
