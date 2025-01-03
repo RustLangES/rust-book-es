@@ -15,4 +15,5 @@ fn generic<T: ?Sized>(t: &T) {
 ---
 
 You can find the latest version of this information
-[here](ch19-04-advanced-types.html#tipos-de-tamano-dinamico-y-el-trait-sized).
+[here](ch20-04-advanced-types.html#tipos-de-tamano-dinamico-y-el-trait-sized).
+

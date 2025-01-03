@@ -15,15 +15,13 @@ Vamos a ver cómo podría ocurrir una referencia circular y cómo prevenirla,
 comenzando con la definición del enum `List` y un método `tail` en el Listado
 15-25:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-25" file-name="src/main.rs" caption="Una definición de lista enlazada que contiene un `RefCell<T>` para poder modificar a que se refiere una variante `Cons`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-25/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-25: Una definición de lista enlazada 
-que contiene un `RefCell<T>` para poder modificar a que se refiere una
-variante `Cons`</span>
+</Listing>
 
 Estamos usando otra variación de la definición de `List` del Listado 15-5. El
 segundo elemento en la variante `Cons` es ahora `RefCell<Rc<List>>`, lo que
@@ -40,14 +38,13 @@ apunte a `b`, creando un ciclo de referencia. Hay declaraciones `println!` a lo
 largo del camino para mostrar cuáles son los recuentos de referencia en varios
 puntos de este proceso.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-26" file-name="src/main.rs" caption="Creando un ciclo de referencia de dos valores `List` que se apuntan mutuamente">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-26/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-26: Creando un ciclo de referencia de dos 
-valores `List` que se apuntan mutuamente.</span>
+</Listing>
 
 Creamos una instancia `Rc<List>` que contiene un valor `List` en la variable
 `a` con una lista inicial de `5, Nil`. Luego creamos una instancia `Rc<List>`
@@ -169,14 +166,13 @@ instancia `Node` llamada `leaf` con el valor 3 y sin hijos, y otra instancia
 llamada `branch` con el valor 5 y `leaf` como uno de sus hijos, como se muestra
 en el Listado 15-26:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-27" file-name="src/main.rs" caption="Creando un nodo `leaf` sin hijos y un nodo `branch` con `leaf` como uno de sus hijos">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-27/src/main.rs:there}}
 ```
 
-<span class="caption">Listing 15-27: Creando un nodo `leaf` sin hijos y un nodo
-`branch` con `leaf` como uno de sus hijos</span>
+</Listing>
 
 Clonamos el `Rc<Node>` en `leaf` y lo almacenamos en `branch`, lo que significa
 que el `Node` en `leaf` ahora tiene dos propietarios: `leaf` y `branch`. Podemos
@@ -214,14 +210,13 @@ Un nodo podrá referirse a su nodo padre, pero no será propietario de él. En
 el Listado 15-28, actualizamos `main` para usar esta nueva definición, por lo
 que el nodo `leaf` tendrá una forma de referirse a su nodo padre, `branch`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-28" file-name="src/main.rs" caption="Un nodo `leaf` con una referencia débil a su nodo padre `branch`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-28/src/main.rs:there}}
 ```
 
-<span class="caption">Listing 15-28: Un nodo `leaf` con una referencia débil a 
-su nodo padre `branch`</span>
+</Listing>
 
 La creación del nodo `leaf` se ve similar al Listado 15-27 con la excepción del
 campo `parent`: `leaf` comienza sin un padre, por lo que creamos una nueva
@@ -269,14 +264,13 @@ de referencia `strong_count` y `weak_count`. Al hacerlo, podemos ver qué
 sucede cuando se crea `branch` y luego se elimina cuando sale del scope. Las
 modificaciones se muestran en el Listado 15-29:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-29" file-name="src/main.rs" caption="Creando `branch` en un scope interno y examinando los recuentos de referencias fuertes y débiles">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-29/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-29: Creando `branch` en un scope interno y
-examinando los recuentos de referencias fuertes y débiles</span>
+</Listing>
 
 Después de crear `leaf`, el `Rc<Node>` tiene un `strong_count` de 1 y un
 `weak_count` de 0. En el scope interno, creamos `branch` y lo asociamos con

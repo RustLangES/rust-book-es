@@ -28,13 +28,15 @@ $ cd add
 Luego, en el directorio *add*, crearemos el archivo *Cargo.toml* que
 configurará todo el *workspace*. Este archivo no tendrá una sección `[package]`.
 En su lugar, comenzará con una sección `[workspace]` que nos permitirá agregar
-miembros al *workspace* especificando la ruta al paquete con nuestro *crate*
+miembros al *workspace*. También nos esforzamos en utilizar las últimas y mejores
+versión del algoritmo de resolución de Cargo en nuestro workspace configurando el
+`resolver` en `"2"`. Especificando la ruta al paquete con nuestro *crate*
 binario; en este caso, esa ruta es *adder*:
 
 <span class="filename">Filename: Cargo.toml</span>
 
 ```toml
-{{#include ../listings/ch14-more-about-cargo/no-listing-01-workspace-with-adder-crate/add/Cargo.toml}}
+{{#include ../listings/ch14-more-about-cargo/no-listing-01-workspace/add/Cargo.toml}}
 ```
 
 A continuación, crearemos el crate binario `adder` ejecutando `cargo new` 
@@ -49,7 +51,16 @@ copy output below
 
 ```console
 $ cargo new adder
-     Created binary (application) `adder` package
+    Creating binary (application) `adder` package
+      Adding `adder` as member of workspace at `file:///projects/add`
+```
+
+Ejecutando `cargo new` dentro de un espacio de trabajo también agrega 
+automáticamente el recién creado paquete a la clave `members` en la definición 
+`[workspace]` en el `Cargo.toml`, así:
+
+```toml
+{{#include ../listings/ch14-more-about-cargo/output-only-01-adder-crate/add/Cargo.toml}}
 ```
 
 En este punto, podemos construir el *workspace* ejecutando `cargo build`. Los
@@ -100,7 +111,8 @@ copy output below
 
 ```console
 $ cargo new add_one --lib
-     Created library `add_one` package
+    Creating library `add_one` package
+      Adding `add_one` as member of workspace at `file:///projects/add`
 ```
 
 Tu directorio *add* debería tener estos directorios y archivos:
@@ -146,14 +158,13 @@ en la parte superior para traer el nuevo *crate* de biblioteca `add_one` al
 alcance. Luego cambie la función `main` para llamar a la función `add_one`, como
 en el Listado 14-7.
 
-<span class="filename">Filename: adder/src/main.rs</span>
+<Listing number="14-7" file-name="adder/src/main.rs" caption="Usando el crate de biblioteca `add_one` desde el crate `adder`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-07/add/adder/src/main.rs}}
 ```
 
-<span class="caption">Listing 14-7: Usando el crate de biblioteca `add_one` 
-desde el crate `adder`</span>
+</Listing>
 
 ¡Construyamos el workspace ejecutando `cargo build` en el directorio superior
 *add*!
@@ -168,7 +179,7 @@ copy output below; the output updating script doesn't handle subdirectories in p
 $ cargo build
    Compiling add_one v0.1.0 (file:///projects/add/add_one)
    Compiling adder v0.1.0 (file:///projects/add/adder)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.68s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
 ```
 
 Para ejecutar el crate binario desde el directorio *add*, podemos especificar
@@ -183,7 +194,7 @@ copy output below; the output updating script doesn't handle subdirectories in p
 
 ```console
 $ cargo run -p adder
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
      Running `target/debug/adder`
 Hello, world! 10 plus one is 11!
 ```
@@ -241,9 +252,9 @@ warning: unused import: `rand`
   |
   = note: `#[warn(unused_imports)]` on by default
 
-warning: `add_one` (lib) generated 1 warning
+warning: `add_one` (lib) generated 1 warning (run `cargo fix --lib -p add_one` to apply 1 suggestion)
    Compiling adder v0.1.0 (file:///projects/add/adder)
-    Finished dev [unoptimized + debuginfo] target(s) in 10.18s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.95s
 ```
 
 El archivo *Cargo.lock* de nivel superior ahora contiene información sobre la
@@ -305,7 +316,7 @@ paths properly
 $ cargo test
    Compiling add_one v0.1.0 (file:///projects/add/add_one)
    Compiling adder v0.1.0 (file:///projects/add/adder)
-    Finished test [unoptimized + debuginfo] target(s) in 0.27s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
      Running unittests src/lib.rs (target/debug/deps/add_one-f0253159197f7841)
 
 running 1 test
@@ -343,7 +354,7 @@ copy output below; the output updating script doesn't handle subdirectories in p
 
 ```console
 $ cargo test -p add_one
-    Finished test [unoptimized + debuginfo] target(s) in 0.00s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
      Running unittests src/lib.rs (target/debug/deps/add_one-b3235fea9a156f74)
 
 running 1 test

@@ -84,7 +84,7 @@ faltantes a tu código, más uno o más de los siguientes:
 - No hay una buena manera de codificar esta información en los tipos que
   usas. Trabajaremos a través de un ejemplo de lo que queremos decir en la
   sección [“Codificación de estados y comportamientos como tipos”][encoding]
-  <!-- ignore --> del Capítulo 17.
+  <!-- ignore --> del Capítulo 18.
 
 Si alguien llama a tu código y pasa valores que no tienen sentido, es mejor
 devolver un error si puedes para que el usuario de la biblioteca pueda decidir
@@ -153,9 +153,13 @@ Una forma de hacer esto sería analizar la suposición como un `i32` en lugar de
 solo un `u32` para permitir números potencialmente negativos, y luego agregar
 una verificación de que el número esté en el rango, de esta manera:
 
+<Listing file-name="src/main.rs">
+
 ```rust,ignore
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-09-guess-out-of-range/src/main.rs:here}}
 ```
+
+</Listing>
 
 La expresión `if` verifica si nuestro valor está fuera del rango, le dice al
 usuario sobre el problema y llama a `continue` para iniciar la siguiente
@@ -176,17 +180,13 @@ confianza. El Listado 9-13 muestra una forma de definir un tipo `Guess` que
 solo creará una instancia de `Guess` si la función `new` recibe un valor entre
 1 y 100.
 
-<!-- Deliberately not using rustdoc_include here; the `main` function in the
-file requires the `rand` crate. We do want to include it for reader
-experimentation purposes, but don't want to include it for rustdoc testing
-purposes. -->
+<Listing number="9-13" caption="Un tipo `Guess` que solo continuará con valores entre 1 y 100">
 
 ```rust
-{{#include ../listings/ch09-error-handling/listing-09-13/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-13/src/lib.rs}}
 ```
 
-<span class="caption">Listing 9-13: Un tipo `Guess` que solo continuará con
-valores entre 1 y 100</span>
+</Listing>
 
 Primero, definimos un struct llamado `Guess` que tiene un campo llamado `value`
 que contiene un `i32`. Aquí es donde se almacenará el número.
@@ -238,4 +238,4 @@ Ahora que has visto formas útiles en que la biblioteca estándar usa generics
 con los enums `Option` y `Result`, hablaremos sobre cómo funcionan los
 generics y cómo puedes usarlos en tu código.
 
-[encoding]: ch17-03-oo-design-patterns.html#codificando-estados-y-comportamiento-como-tipos
+[encoding]: ch18-03-oo-design-patterns.html#codificando-estados-y-comportamiento-como-tipos

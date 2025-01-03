@@ -8,7 +8,7 @@ Rust tiene una construcción de flujo de control extremadamente poderosa llamada
 `match` que te permite comparar un valor contra una serie de patrones y luego
 ejecutar código basado en qué patrón coincide. Los patrones pueden estar
 compuestos de valores literales, nombres de variables, comodines y muchas otras
-cosas; El [Capítulo 18][ch18-00-patterns]<!-- ignore --> cubre todos los
+cosas; El [Capítulo 19][ch19-00-patterns]<!-- ignore --> cubre todos los
 diferentes tipos de patrones y lo que hacen. El poder de `match` viene de la
 expresividad de los patrones y el hecho de que el compilador confirma que se
 tratan todos los casos posibles.
@@ -26,12 +26,13 @@ una función que tome una moneda desconocida de los Estados Unidos y, de una
 manera similar a la máquina de conteo, determine qué moneda es y devuelva su
 valor en centavos, como se muestra en el Listing 6-3.
 
+<Listing number="6-3" caption="Una expresión `enum` y `match` que tiene las variantes del enum como sus patrones">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-3: Una expresión `enum` y `match` que tiene
-las variantes del enum como sus patrones</span>
+</Listing>
 
 Desglosemos el uso de `match` en la función `value_in_cents`.
 Primero listamos la palabra clave `match` seguida de una expresión,
@@ -85,12 +86,13 @@ cambiar el tipo de `value_in_cents` a `()`, ya que no estamos devolviendo un
 valor entero, sino que estamos ejecutando código. El código completo se muestra
 en el Listing 6-4.
 
+<Listing number="6-4" caption="Un enum `Coin` en el cual la variante `Quarter` también contiene un valor `UsState`">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-4: Un enum `Coin` en el cual la variante
-`Quarter` también contiene un valor `UsState`</span>
+</Listing>
 
 Imaginemos que tenemos un amigo que está tratando de coleccionar todas las
 monedas de 50 estados. Mientras clasificamos nuestra moneda suelta por tipo de
@@ -132,12 +134,13 @@ operación.
 Esta función es muy fácil de escribir, gracias a `match`, y se verá como el
 Listing 6-5.
 
+<Listing number="6-5" caption="Una función que usa una expresión `match` en un `Option<i32>`">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 6-5: Una función que usa una expresión `match` en
-un `Option<i32>`</span>
+</Listing>
 
 Examinemos la primera ejecución de `plus_one` en más detalle. Cuando llamamos
 a `plus_one(five)`, la variable `x` en el cuerpo de `plus_one` tendrá el
@@ -266,9 +269,10 @@ que no coincida con un patrón en una Opción anterior, y no queremos ejecutar
 ningún código en este caso.
 
 Hay más sobre patrones y coincidencias que cubriremos en el [Capítulo
-18][ch18-00-patterns]<!-- ignore -->. Por ahora, vamos a pasar a la sintaxis
+19][ch19-00-patterns]<!-- ignore -->. Por ahora, vamos a pasar a la sintaxis
 `if let` que puede ser útil en situaciones en las que la expresión `match` es
 un poco larga.
 
 [tuples]: ch03-02-data-types.html#el-tipo-tupla
-[ch18-00-patterns]: ch18-00-patterns.html
+
+[ch19-00-patterns]: ch19-00-patterns.html

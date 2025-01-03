@@ -48,6 +48,16 @@ Building the book requires a custom fork of [mdBook]:
 $ cargo install mdbook --git https://github.com/RustLangES/mdBook.git
 ```
 
+The book also uses two mdbook plugins which are part of this repository. If you
+do not install them, you will see warnings when building and the output will not
+look right, but you *will* still be able to build the book. To use the plugins,
+you should run:
+
+```bash
+$ cargo install --locked --path packages/mdbook-trpl-listing
+$ cargo install --locked --path packages/mdbook-trpl-note
+```
+
 ## Building
 
 To build the book, type:
@@ -78,7 +88,8 @@ $ start chrome.exe .\book\index.html            # Windows (Cmd)
 To run the tests:
 
 ```bash
-$ mdbook test
+$ cd packages/trpl
+$ mdbook test --library-path packages/trpl/target/debug/deps
 ```
 
 ## Contributing

@@ -28,7 +28,7 @@ error `the trait Send is not implemented for Rc<Mutex<i32>>`. Cuando cambiamos a
 
 Cualquier tipo compuesto enteramente de tipos `Send` se marca automáticamente
 como `Send` también. Casi todos los tipos primitivos son `Send`, aparte de los
-punteros sin procesar, que discutiremos en el Capítulo 19.
+punteros sin procesar, que discutiremos en el Capítulo 20.
 
 ### Permitiendo el acceso desde múltiples hilos con `Sync`
 
@@ -57,7 +57,7 @@ implementar. Son útiles para hacer cumplir invariantes relacionados con la
 concurrencia.
 
 Implementar manualmente estos traits implica implementar código inseguro de
-Rust. Hablaremos sobre el uso de código inseguro de Rust en el Capítulo 19; por
+Rust. Hablaremos sobre el uso de código inseguro de Rust en el Capítulo 20; por
 ahora, la información importante es que la construcción de nuevos tipos
 concurrentes que no están compuestos de partes `Send` y `Sync` requiere un
 pensamiento cuidadoso para mantener las garantías de seguridad. [“The
@@ -66,9 +66,10 @@ mantenerlas.
 
 ## Resumen
 
-No es la última vez que verás la concurrencia en este libro: el proyecto del
-Capítulo 20 usará los conceptos de este capítulo en una situación más realista
-que los ejemplos más pequeños que se discuten aquí.
+No es la última vez que verás la concurrencia en este libro: todo el siguiente 
+capitulo esta enfocado en programación asincrona, y el proyecto del Capítulo 21 
+usará los conceptos de este capítulo en una situación más realista que los 
+ejemplos más pequeños que se discuten aquí.
 
 Como se mencionó anteriormente, debido a que muy poco de cómo Rust maneja la
 concurrencia es parte del lenguaje, muchas soluciones de concurrencia se

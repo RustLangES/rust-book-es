@@ -1261,8 +1261,6 @@ Rustaceans
 abcabcabc
 abcd
 abcdefghijklmnopqrstuvwxyz
-adaptor
-adaptors
 AddAssign
 Addr
 adfb
@@ -1312,6 +1310,7 @@ bool
 boolean
 Boolean
 Booleans
+booleans
 Bors
 BorrowMutError
 BoxMeUp
@@ -1319,6 +1318,7 @@ BTreeSet
 BufRead
 BufReader
 BuildHasher
+byteorder
 Cacher
 cacher
 Cagain
@@ -1360,10 +1360,12 @@ CustomSmartPointer
 CustomSmartPointers
 datas
 DataStruct
+dbea
 deallocate
 deallocated
 deallocating
 deallocation
+debounce
 debuginfo
 decl
 decrementing
@@ -1402,10 +1404,12 @@ DisplayBacktrace
 DivAssign
 DraftPost
 DSTs
+durations
 ebook
 ebooks
 Edsger
 egular
+ElementRef
 elses
 emoji
 encodings
@@ -1436,6 +1440,7 @@ filesystems
 filesystems
 filmmaking
 Firefox
+FirstAwaitPoint
 FnMut
 FnOnce
 formatter
@@ -1444,6 +1449,8 @@ FrenchToast
 FromIterator
 FromResidual
 frontend
+FuturesUnordered
+GetAwaitPoint
 getrandom
 getter
 getters
@@ -1454,6 +1461,7 @@ grapheme
 Grapheme
 growable
 gzip
+handoff
 hardcode
 hardcoded
 hardcoding
@@ -1498,7 +1506,9 @@ inline
 instantiation
 internet
 interoperate
+IntoFuture
 IntoIterator
+intra
 InvalidDigit
 invariants
 ioerror
@@ -1513,10 +1523,12 @@ isize
 iter
 iterators
 JavaScript
+JoinAll
 JoinHandle
 Kays
 kinded
 Klabnik
+Krycho
 lang
 LastWriteTime
 latin
@@ -1545,14 +1557,19 @@ lval
 macOS
 Matsakis
 mathematic
+mdbook
 memoization
 metadata
 Metadata
 metaprogramming
 mibbit
 Mibbit
+microcontroller
+microcontrollers
 millis
 minigrep
+Miri
+miri
 mixup
 mkdir
 MockMessenger
@@ -1564,10 +1581,12 @@ monomorphized
 MoveMessage
 Mozilla
 mpsc
+MSRV
 msvc
 MulAssign
 multibyte
 multithreaded
+multithreading
 mutex
 mutexs
 Mutex
@@ -1575,6 +1594,7 @@ mutexes
 Mutexes
 MutexGuard
 mutext
+MyAsyncStateMachine
 MyBox
 myprogram
 namespace
@@ -1687,7 +1707,9 @@ OurError
 OutlinePrint
 overloadable
 overread
+PageTitleFuture
 PanicPayload
+parallelizable
 param
 parameterize
 ParseIntError
@@ -1700,6 +1722,7 @@ PlaceholderType
 polymorphism
 PoolCreationError
 portia
+postfix
 powershell
 PowerShell
 powi
@@ -1906,6 +1929,8 @@ RangeFull
 README
 desestructuradas
 READMEs
+ReadFinished
+ReceiverStream
 rect
 recurse
 recv
@@ -1939,6 +1964,7 @@ Rustaceans
 rUsT
 rustc
 rustdoc
+RUSTFLAGS
 Rustonomicon
 rustfix
 rustfmt
@@ -1947,6 +1973,7 @@ sampleproject
 screenshot
 searchstring
 SecondaryColor
+SecondAwaitPoint
 SelectBox
 semver
 SemVer
@@ -1964,6 +1991,7 @@ SliceIndex
 Smalltalk
 snuck
 someproject
+SomeType
 someusername
 SPDX
 spdx
@@ -1979,6 +2007,7 @@ stdlib
 stdout
 steveklabniks
 stringify
+StreamExt
 Stroustrup
 Stroustrups
 struct
@@ -2012,6 +2041,7 @@ TcpStream
 templating
 tests
 Fibonacci
+TextAwaitPoint
 TextField
 That
 expresion
@@ -2029,6 +2059,8 @@ tlborm
 tlsv
 TODO
 TokenStream
+Tokio
+tokio
 toml
 TOML
 toolchain
@@ -2053,6 +2085,8 @@ uncomment
 Uncomment
 uncommenting
 unevaluated
+unhandled
+unicode
 Uninstalling
 uninstall
 unittests
@@ -2071,6 +2105,7 @@ username
 USERPROFILE
 usize
 UsState
+util
 utils
 vals
 variables
@@ -2084,6 +2119,7 @@ Vlissides
 vscode
 vtable
 waitlist
+wasi
 wasn
 weakt
 WeatherForecast
@@ -2102,5 +2138,6 @@ WriteMessage
 xcode
 xpression
 yyyy
+zerocopy
 ZipImpl
 LIFO

@@ -154,8 +154,17 @@ En cualquier momento en que se proporcione un tipo o una función de la bibliote
 estándar y no estés seguro de lo que hace o cómo usarlo, usa la documentación de
 la interfaz de programación de aplicaciones (API) para averiguarlo.
 
+### Editores de Texto y Entornos de Desarrollo Integrados
+
+Este libro no asume qué herramientas usas para escribir código en Rust. ¡Casi 
+cualquier editor de texto servirá! Sin embargo, muchos editores de texto y 
+entornos de desarrollo integrados (IDEs) tienen soporte integrado para Rust. 
+Siempre puedes encontrar una lista bastante actualizada de muchos editores e 
+IDEs en [la página de herramientas][tools] del sitio web de Rust.
+
 [otherinstall]: https://forge.rust-lang.org/infra/other-installation-methods.html
 [install]: https://www.rust-lang.org/tools/install
 [msvc]: https://rust-lang.github.io/rustup/installation/windows-msvc.html
 [community]: https://www.rust-lang.org/community
 [visualstudio]: https://visualstudio.microsoft.com/downloads/
+[tools]: https://www.rust-lang.org/tools

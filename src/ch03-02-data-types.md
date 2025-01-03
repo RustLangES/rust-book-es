@@ -287,7 +287,8 @@ de corchetes:
 ```
 
 Los arreglos son útiles cuando desea que sus datos se asignen en el stack (pila)
-en lugar del heap (montículo) (hablaremos más sobre el stack y el heap en el
+en lugar del heap (montículo) al igual que los otros tipos que hemos visto hasta 
+ahora (hablaremos más sobre el stack y el heap en el 
 [Capítulo 4][stack-and-heap]<!-- ignore -->) o cuando desea asegurarse de que
 siempre tenga un número fijo de elementos. Sin embargo, un arreglo no es tan
 flexible como el tipo vector. Un *vector* es un tipo de colección similar

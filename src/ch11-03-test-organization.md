@@ -42,7 +42,7 @@ de este capítulo, Cargo generó este código para nosotros:
 ```
 
 Este código es el módulo de tests generado automáticamente. El atributo `cfg`
-significa _configuración_ y le dice a Rust que el siguiente item debería ser
+significa *configuración* y le dice a Rust que el siguiente item debería ser
 incluido solo si una cierta opción de configuración está presente. En este
 caso, la opción de configuración es `test`, la cual es provista por Rust para
 compilar y ejecutar tests. Al usar el atributo `cfg`, Cargo compila nuestro
@@ -59,13 +59,13 @@ testing a la que te adhieras, las reglas de privacidad de Rust te permiten
 testear funciones privadas. Considera el código en el Listado 11-12 con la
 función privada `internal_adder`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="11-12" file-name="src/lib.rs" caption="Testeando una función privada">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-12/src/lib.rs}}
 ```
 
-<span class="caption">Listing 11-12: Testeando una función privada</span>
+</Listing>
 
 Nota que la función `internal_adder` no está marcada como `pub`. Los tests son
 solo código Rust, y el módulo `tests` es solo otro módulo. Como discutimos en
@@ -111,23 +111,22 @@ adder
 ```
 
 Introducimos el código en el Listado 11-13 en el archivo
-_tests/integration_test.rs_:
+*tests/integration_test.rs*:
 
-<span class="filename">Filename: tests/integration_test.rs</span>
+<Listing number="11-13" file-name="tests/integration_test.rs" caption="Un test de integración de una función en el crate `adder`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-13/tests/integration_test.rs}}
 ```
 
-<span class="caption">Listing 11-13: Un test de integración de una función en el
-crate `adder`</span>
+</Listing>
 
-Cada archivo en el directorio _tests_ es un crate separado, así que necesitamos
+Cada archivo en el directorio *tests* es un crate separado, así que necesitamos
 importar nuestra biblioteca en el scope de cada crate de test. Por esa razón,
 agregamos `use adder::add_two` al inicio del código, lo cual no necesitamos en 
 los tests unitarios.
 
-No es necesario anotar ningún código en _tests/integration_test.rs_ con
+No es necesario anotar ningún código en *tests/integration_test.rs* con
 `#[cfg(test)]`. Cargo trata al directorio `tests` de manera especial y compila
 los archivos en este directorio solo cuando ejecutamos `cargo test`. Ejecuta
 `cargo test` ahora:
@@ -211,7 +210,7 @@ mostrado para él no es lo que queríamos. Solo queríamos compartir algo de có
 con los otros archivos de test de integración.
 
 Para evitar que `common` aparezca en el output de los tests, en lugar de crear
-_tests/common.rs_, crearemos _tests/common/mod.rs_. El directorio del proyecto
+*tests/common.rs*, crearemos *tests/common/mod.rs*. El directorio del proyecto
 ahora se ve así:
 
 ```text
@@ -258,11 +257,11 @@ exponen funciones que otros crates pueden usar; los crates binarios están
 destinados a ser ejecutados por sí mismos.
 
 Esta es una de las razones por las que los proyectos Rust que proveen un binario
-tienen un archivo _src/main.rs_ que llama a la lógica que vive en el archivo
-_src/lib.rs_. Usando esa estructura, los tests de integración _pueden_ probar el
+tienen un archivo *src/main.rs* que llama a la lógica que vive en el archivo
+*src/lib.rs*. Usando esa estructura, los tests de integración *pueden* probar el
 crate de la librería con `use` para hacer que la funcionalidad importante esté
 disponible. Si la funcionalidad importante funciona, la pequeña cantidad de
-código en el archivo _src/main.rs_ también funcionará, y ese pequeño código no
+código en el archivo *src/main.rs* también funcionará, y ese pequeño código no
 necesita ser testeado.
 
 ## Resumen
