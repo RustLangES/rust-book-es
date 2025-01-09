@@ -113,7 +113,7 @@ implementación de un restaurante.
 
 En la industria de restaurantes, algunas partes de un restaurante se llaman
 _front of house_ y otras _back of house_. El _front of house_ es donde están
-los clientes; esto incluye donde los anfitriones se sientan a los clientes,
+los clientes; esto incluye donde los anfitriones sientan a los clientes,
 los camareros toman los pedidos y el pago, y los bartenders preparan las
 bebidas. El _back of house_ es donde los chefs y los cocineros trabajan en la
 cocina, los lavaplatos limpian, y los gerentes hacen el trabajo administrativo.
