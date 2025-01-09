@@ -16,7 +16,7 @@ identificadores separados por dos puntos dobles (`::`).
 
 Volviendo al listado 7-1, digamos que queremos llamar a la función
 `add_to_waitlist` desde la función `eat_at_restaurant` definida en el crate
-root. Este es el mismo que preguntar: ¿cuál es la ruta de la función
+root. Esto es lo mismo que preguntar: ¿cuál es la ruta de la función
 `add_to_waitlist`? El listado 7-3 contiene el listado 7-1 con algunos de los
 módulos y funciones removidas.
 
