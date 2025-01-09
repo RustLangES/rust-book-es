@@ -131,7 +131,7 @@ Primero, el estilo de Rust es indentar con cuatro espacios, no con una tabulaci�
 
 Segundo, `println!` llamamos a una macro de Rust. Si hubiéramos llamado a una
 función en su lugar, habríamos ingresado `println` (sin el `!`). Discutiremos las
-macros de Rust en más detalle en el Capítulo 19. Por ahora, solo necesitas saber
+macros de Rust en más detalle en el Capítulo 20. Por ahora, solo necesitas saber
 que usar un `!` significa que estamos llamando a una macro en lugar de una función
 normal y que las macros no siempre siguen las mismas reglas que las funciones.
 

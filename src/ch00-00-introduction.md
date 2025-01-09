@@ -160,16 +160,19 @@ habilitan su funcionalidad.
 
 En el capítulo 16, recorreremos diferentes modelos de programación concurrente
 y hablaremos sobre cómo Rust te ayuda a programar en múltiples hilos sin
-temor. El capítulo 17 examina cómo los modismos de Rust se comparan con los
+temor. En el capítulo 17 nos basaremos en eso, explorando la sintaxis async y 
+await de Rust y el modelo de concurrencia ligero que admiten.
+
+El capítulo 18 examina cómo los modismos de Rust se comparan con los
 principios de programación orientada a objetos con los que podrías estar
 familiarizado.
 
-El capítulo 18 es una referencia a los patrones y el emparejamiento de patrones,
+El capítulo 19 es una referencia a los patrones y el emparejamiento de patrones,
 que son formas poderosas de expresar ideas en todo programa de Rust. El capítulo
-19 contiene un banquete de temas avanzados de interés, incluyendo Rust inseguro,
+20 contiene un banquete de temas avanzados de interés, incluyendo Rust inseguro,
 macros y más sobre lifetimes, traits, tipos, funciones y closures.
 
-En el capítulo 20, ¡completaremos un proyecto en el que implementaremos un
+En el capítulo 21, ¡completaremos un proyecto en el que implementaremos un
 servidor web de múltiples hilos de bajo nivel!
 
 Finalmente, algunos apéndices contienen información útil sobre el lenguaje en

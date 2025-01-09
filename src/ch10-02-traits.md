@@ -33,14 +33,13 @@ de cada tipo, y solicitaremos ese resumen llamando un método `summarize` en
 una instancia. El listado 10-12 muestra la definición de un trait `Summary`
 público que expresa este comportamiento.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="10-12" file-name="src/lib.rs" caption="Un trait `Summary` que consiste en el comportamiento proporcionado por un método `summarize`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-12/src/lib.rs}}
 ```
 
-<span class="caption">Listado 10-12: Un trait `Summary` que consiste en el
-comportamiento proporcionado por un método `summarize`</span>
+</Listing>
 
 Aquí, declaramos un trait usando la palabra clave `trait` y luego el nombre
 del trait, que en este caso es `Summary`. También hemos declarado el trait
@@ -69,14 +68,13 @@ encabezado, el autor y la ubicación para crear el valor de retorno de
 usuario seguido del texto completo del tweet, asumiendo que el contenido del
 tweet ya está limitado a 280 caracteres.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="10-13" file-name="src/lib.rs" caption="Implementación del trait `Summary` en los tipos `NewsArticle` y `Tweet`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 10-13: Implementación del trait `Summary` en los
-tipos `NewsArticle` y `Tweet`</span>
+</Listing>
 
 Implementar un trait en un tipo es similar a implementar métodos regulares.
 La diferencia es que después de `impl`, ponemos el nombre del trait que
@@ -104,7 +102,7 @@ probably already know, people`.
 Otros crates que dependen de nuestro crate `aggregator` pueden usar el trait
 `Summary` en el ámbito para implementar `Summary` en sus propios tipos. Una
 restricción a tener en cuenta es que podemos implementar un trait en un tipo
-solo si al menos uno de los trait o el tipo es local a nuestro crate. Por
+solo si ambos el trait o el tipo, o ambos, son local a nuestro crate. Por
 ejemplo, podemos implementar traits de la biblioteca estándar como `Display`
 en un tipo personalizado como `Tweet` como parte de nuestra funcionalidad de
 crate `aggregator`, porque el tipo `Tweet` es local a nuestro crate
@@ -136,14 +134,13 @@ En el listado 10-14, especificamos un string predeterminado para el método
 `summarize` del trait `Summary` en lugar de solo definir la firma del método,
 como hicimos en el listado 10-12.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="10-14" file-name="src/lib.rs" caption="Definición de un trait `Summary` con un valor predeterminado implementado del método `summarize`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-14/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 10-14: Definición de un trait `Summary` con un
-valor predeterminado implementado del método `summarize`</span>
+</Listing>
 
 Para usar una implementación predeterminada para resumir instancias de
 `NewsArticle`, especificamos un bloque `impl` vacío con `impl Summary for
@@ -346,7 +343,7 @@ restricciones en torno a cómo se implementa la sintaxis `impl Trait` en el
 compilador. Cubriremos cómo escribir una función con este comportamiento en la
 sección [“Usando objetos trait que permiten valores de diferentes
 tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]<!--
-ignore --> del Capítulo 17.
+ignore --> del Capítulo 18.
 
 ### Usando trait bounds para implementar métodos condicionalmente
 
@@ -361,18 +358,17 @@ implementa el método `cmp_display` si su tipo interno `T` implementa el trait
 `PartialOrd` que permite la comparación _y_ el trait `Display` que permite la
 impresión.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="10-15" file-name="src/lib.rs" caption="Implementación condicional de métodos en un tipo generic dependiendo de los trait bounds">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-15/src/lib.rs}}
 ```
 
-<span class="caption">Listado 10-15: Implementación condicional de métodos en un
-tipo generic dependiendo de los trait bounds</span>
+</Listing>
 
 También podemos implementar condicionalmente un trait para cualquier tipo que
 implemente otro trait. Implementaciones de un trait en cualquier tipo que
-satisfaga los trait bounds se llaman _implementaciones blanket_ y se usan
+satisfaga los trait bounds se llaman _implementaciones blanket_ y son usados
 extensivamente en la biblioteca estándar de Rust. Por ejemplo, la biblioteca
 estándar implementa el trait `ToString` en cualquier tipo que implemente el
 trait `Display`. El bloque `impl` en la biblioteca estándar se ve similar a este
@@ -410,5 +406,5 @@ código que verifique el comportamiento en tiempo de ejecución porque ya hemos
 verificado en tiempo de compilación. Hacerlo mejora el rendimiento sin tener que
 renunciar a la flexibilidad de los generics.
 
-[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
 [methods]: ch05-03-method-syntax.html#definiendo-metodos

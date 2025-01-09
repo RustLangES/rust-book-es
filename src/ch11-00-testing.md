@@ -27,9 +27,9 @@ función `add_two`, el valor devuelto es `5`. Podemos ejecutar estos tests
 siempre que hagamos cambios en nuestro código para asegurarnos de que cualquier
 comportamiento correcto existente no haya cambiado.
 
-El Testing es una habilidad compleja: aunque no podemos cubrir todos los
-detalles sobre cómo escribir buenos tests en un capítulo, discutiremos los
-mecanismos de las instalaciones de testing de Rust. Hablaremos sobre las
-anotaciones y macros disponibles para ti cuando escribas tus tests, el
+El Testing es una habilidad compleja: aunque no podemos cubrir en un capitulo 
+todos los detalles sobre cómo escribir buenos tests en este capítulo, 
+discutiremos los mecanismos de las instalaciones de testing de Rust. Hablaremos 
+sobre las anotaciones y macros disponibles para ti cuando escribas tus tests, el
 comportamiento predeterminado y las opciones proporcionadas para ejecutar tus
 tests, y cómo organizar los tests en tests unitarios y tests de integración.

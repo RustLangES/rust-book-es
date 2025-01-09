@@ -31,14 +31,13 @@ puntero es como una flecha a un valor almacenado en otro lugar. En el Listado
 15-6, creamos una referencia a un valor `i32` y luego usamos el operador de
 desreferencia para seguir la referencia al valor:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-6" file-name="src/main.rs" caption="Utilizando el operador de dereferencia para seguir una referencia a un valor `i32`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-06/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-6: Utilizando el operador de dereferencia
-para seguir una referencia a un valor `i32`</span>
+</Listing>
 
 La variable `x` contiene un valor `i32` de `5`. Establecemos `y` igual a una
 referencia a `x`. Podemos afirmar que `x` es igual a `5`. Sin embargo, si
@@ -65,14 +64,13 @@ una referencia; el operador de desreferencia usado en el `Box<T>` en el Listado
 15-7 funciona de la misma manera que el operador de desreferencia usado en la
 referencia en el Listado 15-6:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-7" file-name="src/main.rs" caption="Utilizando el operador de dereferencia en un `Box<i32>`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 15-7: Utilizando el operador de dereferencia
-en un `Box<i32>`</span>
+</Listing>
 
 La principal diferencia entre el Listado 15-7 y el Listado 15-6 es que aquí
 definimos `y` como una instancia de `Box<T>` apuntando a una copia del valor de
@@ -94,13 +92,13 @@ por lo que el Listado 15-8 define un tipo `MyBox<T>` de la misma manera.
 También definiremos una función `new` para que coincida con la función `new`
 definida en `Box<T>`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-8" file-name="src/main.rs" caption="Definiendo un tipo `MyBox<T>`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-8: Definiendo un tipo `MyBox<T>`</span>
+</Listing>
 
 Definimos un struct llamado `MyBox` y declaramos un parámetro generic `T`,
 porque queremos que nuestro tipo contenga valores de cualquier tipo. El tipo
@@ -113,14 +111,13 @@ cambiarla para usar el tipo `MyBox<T>` que hemos definido en lugar de `Box<T>`.
 El código en el Listado 15-9 no se compilará porque Rust no sabe cómo
 desreferenciar `MyBox`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-9" file-name="src/main.rs" caption="Intentando usar `MyBox<T>` de la misma manera en que usamos referencias y `Box<T>`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-9: Intentando usar `MyBox<T>` de la misma
-manera en que usamos referencias y `Box<T>`</span>
+</Listing>
 
 Aquí está el error de compilación resultante:
 
@@ -142,18 +139,18 @@ estándar, requiere que implementemos un método llamado `deref` que tome `self`
 y devuelva una referencia al dato interno. El Listado 15-10 contiene una
 implementación de `Deref` para agregar a la definición de `MyBox`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-10" file-name="src/main.rs" caption="Implementando `Deref` en `MyBox<T>`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-10: Implementando `Deref` en `MyBox<T>`</span>
+</Listing>
 
 La sintaxis `type Target = T;` define un tipo asociado que será utilizado por el
 trait `Deref`. Los tipos asociados son una forma ligeramente diferente de
 declarar un parámetro genérico, pero no necesitas preocuparte por ellos por
-ahora; los cubriremos con más detalle en el Capítulo 19.
+ahora; los cubriremos con más detalle en el Capítulo 20.
 
 Rellenamos el cuerpo del método `deref` con `&self.0` para que `deref` devuelva
 una referencia al valor al que queremos acceder con el operador `*`. Recordemos
@@ -217,28 +214,26 @@ en el Listado 15-8 y la implementación de `Deref` que agregamos en el Listado
 15-10. El Listado 15-11 muestra la definición de una función que tiene un
 parámetro de tipo string slice:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-11" file-name="src/main.rs" caption="Una función `hello` que tiene el parámetro `name` de tipo `&str`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-11: Una función `hello` que tiene el parámetro
-`name` de tipo `&str`</span>
+</Listing>
 
 Llamamos a la función `hello` con un string slice como un argumento, como
 `hello("Rust");` por ejemplo. La coerción Deref hace posible llamar a `hello`
 con una referencia a un valor de tipo `MyBox<String>`, como se muestra en el
 Listado 15-12:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-12" file-name="src/main.rs" caption="Llamando a `hello` con una referencia a un valor `MyBox<String>`, lo cual funciona debido a la coerción deref">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-12: Llamando a `hello` con una referencia a un
-valor `MyBox<String>`, lo cual funciona debido a la coerción deref</span>
+</Listing>
 
 Aquí estamos llamando a la función `hello` con el argumento `&m`, que es una
 referencia a un valor `MyBox<String>`. Debido a que implementamos el trait
@@ -253,14 +248,13 @@ Si Rust no implementara la coerción Deref, tendríamos que escribir el código
 en el Listado 15-13 en lugar del código en el Listado 15-12 para llamar a
 `hello` con un valor de tipo `&MyBox<String>`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-13" file-name="src/main.rs" caption="El código que tendríamos que escribir si Rust no tuviera deref coerción">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-13/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 15-13: El código que tendríamos que escribir si
-Rust no tuviera deref coerción</span>
+</Listing>
 
 El `(*m)` desreferencia el `MyBox<String>` en un `String`. Luego, el `&` y
 `[..]` toman un string slice del `String` que es igual a todo el string para

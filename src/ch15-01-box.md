@@ -24,10 +24,10 @@ tiempo porque los datos son copiados en el stack. Para mejorar el performance en
 esta situación, podemos almacenar la gran cantidad de datos en el heap en un
 box. Entonces, solo la pequeña cantidad de datos de puntero es copiada en el
 stack, mientras que los datos a los que apunta permanecen en un solo lugar en el
-heap. El tercer caso es conocido como un _trait object_, y el Capítulo 17 dedica
+heap. El tercer caso es conocido como un _trait object_, y el Capítulo 18 dedica
 una sección entera, [“Usando Trait Objects que Permiten Valores de Diferentes
 Tipos,”][trait-objects]<!-- ignore --> solo a ese tema. ¡Así que lo que aprendas
-aquí lo aplicarás nuevamente en el Capítulo 17!
+aquí lo aplicarás nuevamente en el Capítulo 18!
 
 ### Usando un `Box<T>` para Almacenar Datos en el Heap
 
@@ -38,14 +38,13 @@ dentro de un `Box<T>`.
 El Listado 15-1 muestra cómo usar un box para almacenar un valor `i32` en el
 heap:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-1" file-name="src/main.rs" caption="Almacenando un valor `i32` en el heap usando un box">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-01/src/main.rs}}
 ```
 
-<span class="caption">Listado 15-1: Almacenando un valor `i32` en el heap usando
-un box</span>
+</Listing>
 
 Declaramos una variable `b` para tener el valor de un `Box` que apunta al valor
 `5`, el cual está almacenado en el heap. Este programa imprimirá `b = 5`; en
@@ -112,14 +111,13 @@ El Listado 15-2 contiene una definición de enum para una cons list. Nota que
 este código no compilará aún porque el tipo `List` no tiene un tamaño conocido,
 lo cual demostraremos.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-2" file-name="src/main.rs" caption="El primer intento de definir un enum para representar una estructura de datos de lista de cons con valores `i32`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 15-2: El primer intento de definir un enum para
-representar una estructura de datos de lista de cons con valores `i32`</span>
+</Listing>
 
 > Nota: Estamos implementando una const list que solo contiene valores `i32` con
 > el propósito de este ejemplo. Podríamos haberla implementado usando genéricos,
@@ -129,14 +127,13 @@ representar una estructura de datos de lista de cons con valores `i32`</span>
 Usando el tipo `List` para almacenar la lista `1, 2, 3` se vería como el código
 en el Listado 15-3:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-3" file-name="src/main.rs" caption="Usando el enum `List` para almacenar la lista `1, 2, 3`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 15-3: Usando el enum `List` para almacenar la
-lista `1, 2, 3`</span>
+</Listing>
 
 El primer valor `Cons` contiene `1` y otro valor `List`. Este valor `List` es
 otro valor `Cons` que contiene `2` y otro valor `List`. Este valor `List` es
@@ -146,12 +143,13 @@ otro valor `Cons` que contiene `3` y un valor `List`, que es finalmente es
 Si intentamos compilar el código en el Listado 15-3, obtendremos el error que
 se muestra en el Listado 15-4:
 
+<Listing number="15-4" file-name="output.txt" caption="El error que obtenemos al intentar definir un enum recursivo">
+
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-03/output.txt}}
 ```
 
-<span class="caption">Listado 15-4: El error que obtenemos al intentar definir
-un enum recursivo</span>
+</Listing>
 
 El error muestra que este tipo “tiene un tamaño infinito”. La razón es que
 hemos definido `List` con una variante que es recursiva: contiene otro valor de
@@ -225,14 +223,13 @@ del otro.
 Podemos cambiar la definición del enum `List` en el Listado 15-2 y el uso de
 `List` en el Listado 15-3 al código del Listado 15-5, el cual compilará:
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="15-5" file-name="src/main.rs" caption="Definición de `List` que utiliza `Box<T>` para tener un tamaño conocido">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-05/src/main.rs}}
 ```
 
-<span class="caption">Listado 15-5: Definición de `List` que utiliza `Box<T>`
-para tener un tamaño conocido</span>
+</Listing>
 
 La variante `Cons` necesita el tamaño de un `i32` más el espacio para almacenar
 los datos del puntero. La variante `Nil` no almacena ningún valor, por lo que
@@ -252,7 +249,7 @@ capacidad especial, como veremos con los otros tipos de smart pointers.
 Tampoco tienen la sobrecarga de rendimiento que estas capacidades especiales
 incurran, por lo que pueden ser útiles en casos como la lista cons donde la
 indirección es la única característica que necesitamos. También veremos más
-casos de uso para los boxes en el Capítulo 17.
+casos de uso para los boxes en el Capítulo 18.
 
 El tipo `Box<T>` es un tipo de puntero inteligente porque implementa el trait
 `Deref`, que permite que los valores de `Box<T>` se traten como referencias
@@ -262,4 +259,4 @@ más importantes para la funcionalidad proporcionada por los otros tipos de
 smart pointers que discutiremos en el resto de este capítulo. Exploraremos estos
 dos traits en más detalle.
 
-[trait-objects]: ch17-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[trait-objects]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos

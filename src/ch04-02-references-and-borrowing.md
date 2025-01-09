@@ -13,24 +13,26 @@ particular para la vida de esa referencia.
 Aquí está cómo definirías y usarías una función `calcular_longitud` que tiene
 una referencia a un objeto como parámetro en lugar de tomar la propiedad del valor.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:all}}
 ```
+
+</Listing>
 
 Primero, ten en cuenta que todo el código de la tupla en la declaración de la
 variable y el valor de retorno de la función ha desaparecido. En segundo
 lugar, observe que pasamos `&s1` a `calcular_longitud` y, en su definición,
 tomamos `&String` en lugar de `String`. Este signo ampersands (&) representa
 *referencia*, y te permiten referirte a algún valor sin tomar la propiedad de
-él. La Figura 4-5 representa este concepto.
+él. La Figura 4-6 representa este concepto.
 
 <div class="center">
-{{#include img/trpl04-05.svg }}
+{{#include img/trpl04-06.svg }}
 </div>
 
-<span class="caption">Figura 4-5: Un diagrama de `&String s` apuntando a `String
+<span class="caption">Figura 4-6: Un diagrama de `&String s` apuntando a `String
 s1`</span>
 
 > Nota: Lo opuesto a la referencia usando `&` es *desreferenciar*, que se
@@ -69,13 +71,13 @@ Cuando termines, tienes que devolverlo. No lo posees.
 Entonces, ¿qué pasa si intentamos modificar algo que estamos prestando? Prueba
 el código en el Listado 4-6. Spoiler alert: ¡no funciona!
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="4-6" file-name="src/main.rs" caption="Intentando modificar un valor prestado">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-06/src/main.rs}}
 ```
 
-<span class="caption">Listado 4-6: Intentando modificar un valor prestado</span>
+</Listing>
 
 Aquí está el error:
 
@@ -92,11 +94,13 @@ Podemos arreglar el código del Listado 4-6 para permitirnos modificar un valor
 prestado con solo unos pequeños cambios que usen, en su lugar, una
 *referencia mutable*:
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-09-fixes-listing-04-06/src/main.rs}}
 ```
+
+</Listing>
 
 Primero cambiamos `s` a `mut`. Luego creamos una referencia mutable con `&mut
 s` donde llamamos a la función `modificar`, y actualizamos la firma de la función
@@ -107,11 +111,13 @@ Las referencias mutables tienen una gran restricción: si tienes una referencia
 mutable a un valor, no puedes tener otras referencias a ese valor. Este código
 que intenta crear dos referencias mutables a `s` fallará:
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/src/main.rs:here}}
 ```
+
+</Listing>
 
 Aquí está el error:
 
@@ -206,13 +212,13 @@ de que la referencia a los datos lo haga.
 Intentemos crear una referencia colgante para ver cómo Rust los previene con un
 error de tiempo de compilación:
 
-<span class="filename">Filename: src/main.rs</span>
-
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/src/main.rs}}
 ```
+
+</Listing>
 
 Aquí está el error:
 
@@ -237,11 +243,13 @@ el tipo de retorno de la función contiene un valor prestado, pero no hay ningú
 valor que pueda ser prestado
 ```
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-15-dangling-reference-annotated/src/main.rs:here}}
-````
+```
+
+</Listing>
 
 Porque `s` se crea dentro de `colgar`, cuando el código de `colgar` finaliza,
 `s` se desalocará. Pero intentamos devolver una referencia a él. Eso significa

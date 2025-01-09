@@ -46,8 +46,8 @@ comunidad de Rust ha desarrollado pautas para dividir las preocupaciones
 separadas de un programa binario cuando `main` comienza a crecer. Este proceso
 tiene los siguientes pasos:
 
-- Divide tu programa en un _main.rs_ y un _lib.rs_ y mueve la lógica de tu
-  programa a _lib.rs_.
+- Divide tu programa en un archivo _main.rs_ y un archivo _lib.rs_ y mueve la 
+  lógica de tu programa a _lib.rs_.
 - Mientras la lógica de análisis de línea de comandos sea pequeña, puede
   permanecer en _main.rs_.
 - Cuando la lógica de análisis de línea de comandos comience a complicarse,
@@ -78,14 +78,13 @@ comandos a _src/lib.rs_. La lista 12-5 muestra el nuevo inicio de `main` que
 llama a una nueva función `parse_config`, que definiremos en _src/main.rs_ por
 el momento.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-5" file-name="src/main.rs" caption="Extrayendo una función `parse_config` de `main`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-5: Extrayendo una función `parse_config` de
-`main`</span>
+</Listing>
 
 En este cambio, aún estamos recopilando los argumentos de la línea de comandos
 en un vector, pero en lugar de asignar el valor del argumento en el índice 1 a
@@ -122,14 +121,13 @@ propósito.
 
 Listing 12-6 muestra las mejoras a la función `parse_config`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-6" file-name="src/main.rs" caption="Refactorizando `parse_config` para que devuelva una instancia de un struct `Config`">
 
 ```rust,should_panic,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-6: Refactorizando `parse_config` para que
-devuelva una instancia de un struct `Config`</span>
+</Listing>
 
 Hemos agregado un struct llamado `Config` definido para tener campos llamados
 `query` y `file_path`. La firma de `parse_config` ahora índica que devuelve un
@@ -192,14 +190,13 @@ instancias de tipos en la biblioteca estándar, como `String`, llamando a
 asociada con `Config`, podremos crear instancias de `Config` llamando a
 `Config::new`. El listado 12-7 muestra los cambios que debemos hacer.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-7" file-name="src/main.rs" caption="Cambiando `parse_config` a `Config::new`">
 
 ```rust,should_panic,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-7: Cambiando `parse_config` a
-`Config::new`</span>
+</Listing>
 
 Hemos actualizado `main` donde estábamos llamando a `parse_config` para que en
 su lugar llame a `Config::new`. Hemos cambiado el nombre de `parse_config` a
@@ -229,20 +226,19 @@ verificará que el slice sea lo suficientemente largo antes de acceder al índic
 1 y 2. Si el slice no es lo suficientemente largo, el programa entra en pánico
 y muestra un mensaje de error mejor.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-8" file-name="src/main.rs" caption="Agregando una verificación para el número de argumentos">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-08/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-8: Agregando una verificación para el número de
-argumentos</span>
+</Listing>
 
 Este código es similar a [la función `Guess::new` que escribimos en el Listado
 9-13][ch9-custom-types]<!-- ignore -->, donde llamamos a `panic!` cuando el
 argumento `value` estaba fuera del rango de valores válidos. En lugar de
 verificar un rango de valores aquí, estamos verificando que la longitud de
-`args` sea al menos 3 y el resto de la función puede operar bajo la suposición
+`args` sea al menos `3` y el resto de la función puede operar bajo la suposición
 de que esta condición se ha cumplido. Si `args` tiene menos de tres elementos,
 esta condición será verdadera y llamaremos a la macro `panic!` para finalizar
 el programa inmediatamente.
@@ -286,14 +282,13 @@ necesario para devolver un `Result`. Ten en cuenta que esto no se compilará
 hasta que actualicemos `main` también, lo cual haremos en el siguiente
 listado.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-9" file-name="src/main.rs" caption="Devolviendo un `Result` desde `Config::build`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-9: Devolviendo un `Result` desde
-`Config::build`</span>
+</Listing>
 
 Nuestra función `build` devuelve un `Result` con una instancia de `Config` en
 el caso de éxito y una referencia a un string en el caso de error. Nuestros
@@ -322,14 +317,13 @@ de error distinto de cero de `panic!` e implementarlo a mano. Un estado de
 salida distinto de cero es una convención para señalar al proceso que llamó a
 nuestro programa que el programa salió con un estado de error.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-10" file-name="src/main.rs" caption="Saliendo con un código de error si falla la construcción de una `Config`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-10: Saliendo con un código de error si falla la
-construcción de una `Config`</span>
+</Listing>
 
 En este listado, hemos usado un método que aún no hemos cubierto en detalle:
 `unwrap_or_else`, que está definido en `Result<T, E>` por la biblioteca
@@ -375,14 +369,13 @@ El Listado 12-11 muestra la función `run` extraída. Por ahora, solo estamos
 haciendo la pequeña mejora incremental de extraer la función. Todavía estamos
 definiendo la función en _src/main.rs_.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-11" file-name="src/main.rs" caption="Extrayendo una función `run` conteniendo el resto de la logica del programa">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-11: Extracting a `run` function containing the
-rest of the program logic</span>
+</Listing>
 
 La función `run` ahora contiene toda la lógica restante de `main`, comenzando
 desde la lectura del archivo. La función `run` toma la instancia de `Config`
@@ -398,14 +391,13 @@ Esto nos permitirá consolidar aún más la lógica que rodea el manejo de error
 en `main` de una manera amigable para el usuario. El Listado 12-12 muestra los
 cambios que debemos hacer en la firma y el cuerpo de `run`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-12" file-name="src/main.rs" caption="Cambiando la función `run` para devolver `Result`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-12/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-12: Cambiando la función `run` para devolver
-`Result`</span>
+</Listing>
 
 Hemos realizado tres cambios significativos aquí. Primero, cambiamos el tipo de
 retorno de la función `run` a `Result<(), Box<dyn Error>>`. Esta función
@@ -414,12 +406,13 @@ devuelto en el caso `Ok`.
 
 Para el tipo de error, usamos el _trait object_ `Box<dyn Error>` (y hemos
 traído `std::error::Error` al alcance con una declaración `use` en la parte
-superior). Cubriremos los _trait objects_ en el [Capítulo 17][ch17]<!-- ignore
+superior). Cubriremos los _trait objects_ en el [Capítulo 18][ch18]<!-- ignore
 -->. Por ahora, solo sepa que `Box<dyn Error>` significa que la función
 devolverá un tipo que implementa el trait `Error`, pero no tenemos que
 especificar qué tipo particular será el valor de retorno. Esto nos da
 flexibilidad para devolver valores de error que pueden ser de diferentes tipos
-en diferentes casos de error. La palabra clave `dyn` es corta para “dynamic”.
+en diferentes casos de error. La palabra clave `dyn` es una abreviación de 
+*“dynamic”*.
 
 Segundo, hemos eliminado la llamada a `expect` en favor del operador `?`, como
 hablamos en el [Capítulo 9][ch9-question-mark]<!-- ignore -->. En lugar de
@@ -485,14 +478,13 @@ Listado 12-13 (omitimos los cuerpos de las funciones por brevedad). Ten en
 cuenta que esto no se compilará hasta que modifiquemos _src/main.rs_ en el
 Listado 12-14.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="12-13" file-name="src/lib.rs" caption="Moviendo `Config` y `run` a _src/lib.rs_">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 12-13: Moviendo `Config` y `run` a
-_src/lib.rs_</span>
+</Listing>
 
 Hemos hecho uso de la palabra clave `pub`: en `Config`, en sus campos y en su
 método `build`, y en la función `run`. ¡Ahora tenemos un crate de biblioteca que
@@ -501,14 +493,13 @@ tiene una API pública que podemos probar!.
 Ahora necesitamos traer el código que movimos a _src/lib.rs_ al scope del crate
 binario en _src/main.rs_, como se muestra en el Listado 12-14.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="12-14" file-name="src/main.rs" caption="Usando el crate biblioteca `minigrep` en _src/main.rs_">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 12-14: Usando el crate biblioteca `minigrep` en
-_src/main.rs_</span>
+</Listing>
 
 Agregamos una línea `use minigrep::Config` para traer el tipo `Config` desde el
 crate de biblioteca al scope del crate binario, y agregamos el prefijo
@@ -529,5 +520,5 @@ pruebas!
 [ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#creacion-de-tipos-personalizados-para-validacion
 [ch9-error-guidelines]: ch09-03-to-panic-or-not-to-panic.html#pautas-para-el-manejo-de-errores
 [ch9-result]: ch09-02-recoverable-errors-with-result.html
-[ch17]: ch17-00-oop.html
+[ch18]: ch18-00-oop.html
 [ch9-question-mark]: ch09-02-recoverable-errors-with-result.html#un-atajo-para-propagar-errores-el-operador-

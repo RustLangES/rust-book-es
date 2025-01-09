@@ -23,6 +23,11 @@ occasional maintenance tasks.
 To update the `edition = "[year]"` metadata in all the listings' `Cargo.toml`s,
 run the `./tools/update-editions.sh` script and commit the changes.
 
+## Update the `edition` in mdBook config
+
+Open `book.toml` and `nostarch/book.toml` and set the `edition` value in the
+`[rust]` table to the new edition.
+
 ## Release a new version of the listings
 
 We now make `.tar` files of complete projects containing every listing
@@ -68,7 +73,7 @@ extracted into a file. To do that:
 - If you only want to show part of the code in the file, use anchor comments
   (`// ANCHOR: some_tag` and `// ANCHOR_END: some_tag`) to mark the parts of
 	the file you want to show.
-- For Rust code, use the `{{#rustdoc_include [fileame:some_tag]}}` directive
+- For Rust code, use the `{{#rustdoc_include [filename:some_tag]}}` directive
   within the code blocks in the text. The `rustdoc_include` directive gives the
 	code that doesn't get displayed to `rustdoc` for `mdbook test` purposes.
 - For anything else, use the `{{#include [filename:some_tag]}}` directive.
@@ -133,3 +138,13 @@ $ dot dot/trpl04-01.dot -Tsvg > src/img/trpl04-01.svg
 In the generated SVG, remove the width and the height attributes from the `svg`
 element and set the `viewBox` attribute to `0.00 0.00 1000.00 1000.00` or other
 values that don't cut off the image.
+
+## Publish a preview to GitHub Pages
+
+We sometimes publish to GitHub Pages for in-progress previews. The recommended
+flow for publishing is:
+
+- Install the `ghp-import` tool by running `pip install ghp-import` (or `pipx install ghp-import`, using [pipx][pipx]).
+- In the root, run `tools/generate-preview.sh`
+
+[pipx]: https://pipx.pypa.io/stable/#install-pipx

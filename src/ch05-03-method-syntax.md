@@ -17,14 +17,13 @@ Vamos a cambiar la función `area` que tiene una instancia de `Rectangle` como
 parámetro y en vez de eso definamos un método `area` en el struct `Rectangle`,
 como se muestra en el Listado 5-13.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-13" file-name="src/main.rs" caption="Definición de un método `area` en el struct `Rectangle`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-13/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-13: Definición de un método `area` en el struct
-`Rectangle` </span>
+</Listing>
 
 Para definir la función dentro del contexto de `Rectangle`, iniciamos un bloque
 `impl` (implementación). Todo lo que esté dentro de este bloque `impl` estará
@@ -69,11 +68,13 @@ Nota que podemos elegir darle al método el mismo nombre que uno de los campos
 del struct. Por ejemplo, podemos definir un método en `Rectangle` que se llame
 `width`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-06-method-field-interaction/src/main.rs:here}}
 ```
+
+</Listing>
 
 Aquí, estamos eligiendo que el método `width` retorne `true` si el valor en el
 campo `width` de la instancia es mayor que `0` y `false` si el valor es `0`:
@@ -149,14 +150,13 @@ contrario, debería retornar `false`. Es decir, una vez que hayamos definido el
 método `can_hold`, queremos poder escribir el programa mostrado en el
 Listing 5-14.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-14" file-name="src/main.rs" caption="Uso del método `can_hold` aún no escrito">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-14/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-14: Uso del método `can_hold` aún no escrito
-</span>
+</Listing>
 
 La salida esperada se vería como la siguiente porque ambas dimensiones de
 `rect2` son más pequeñas que las dimensiones de `rect1`, pero `rect3` es más
@@ -181,14 +181,13 @@ alto de `self` son mayores que el ancho y alto del otro `Rectangle`,
 respectivamente. Agreguemos el nuevo método `can_hold` al bloque `impl` del
 Listing 5-13 que se muestra en el Listing 5-15.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-15" file-name="src/main.rs" caption="Implementando el método `can_hold` en `Rectangle` que toma otra instancia de `Rectangle` como un parámetro">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-15/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-15: Implementando el método `can_hold` en
-`Rectangle` que toma otra instancia de `Rectangle` como un parámetro</span>
+</Listing>
 
 Cuando ejecutamos este código con la función `main` en el Listing 5-14,
 obtendremos el resultado deseado. Los métodos pueden tomar múltiples parámetros
@@ -234,12 +233,13 @@ Cada struct es permitido tener múltiples bloques `impl`. Por ejemplo, el
 Listing 5-15 es equivalente al código mostrado en el Listing 5-16, que tiene
 cada método en su propio bloque `impl`.
 
+<Listing number="5-16" caption="Reescribiendo Listing 5-15 usando múltiples bloques `impl`">
+
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-16/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-16: Reescribiendo Listing 5-15 usando múltiples
-bloques `impl`</span>
+</Listing>
 
 No hay razón para separar estos métodos en múltiples bloques `impl` aquí, pero
 esta es una sintaxis válida. Veremos un caso en el que los múltiples bloques
@@ -259,6 +259,6 @@ Pero los structs no son la única forma de crear tipos personalizados: pasemos
 a la función enum de Rust para agregar otra herramienta a su toolbox.
 
 [enums]: ch06-00-enums.html
-[trait-objects]: ch17-02-trait-objects.md
+[trait-objects]: ch18-02-trait-objects.md
 [public]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#exponiendo-rutas-con-la-palabra-clave-pub
 [modules]: ch07-02-defining-modules-to-control-scope-and-privacy.html

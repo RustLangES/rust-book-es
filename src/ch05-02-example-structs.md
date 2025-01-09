@@ -10,14 +10,13 @@ el ancho y el alto de un rectángulo especificado en píxeles y calculará el á
 del rectángulo. La lista 5-8 muestra un programa corto con una forma de hacer
 exactamente eso en el _src/main.rs_ de nuestro proyecto.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-8" file-name="src/main.rs" caption="Calculando el área de un rectángulo especificado por separado en variables ancho y alto">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-08/src/main.rs:all}}
 ```
 
-<span class="caption">Listing 5-8: Calculando el área de un rectángulo
-especificado por separado en variables ancho y alto</span>
+</Listing>
 
 Ahora, ejecuta este programa usando `cargo run`:
 
@@ -46,14 +45,13 @@ una forma de hacerlo en la sección [“El Tipo Tupla”][el-tipo-tupla]<!-- ign
 
 Listings 5-9 muestra otra versión de nuestro programa que usa tuplas.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-9" file-name="src/main.rs" caption="Especificando el ancho y alto del rectángulo con una tupla">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-09/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-9: Especificando el ancho y alto del
-rectángulo con una tupla</span>
+</Listing>
 
 En un sentido, este programa es mejor. Las tuplas nos permiten agregar un poco
 de estructura, y ahora estamos pasando solo un argumento. Pero en otro sentido,
@@ -74,13 +72,13 @@ más fácil introducir errores.
 Hemos usado structs para agregar significado al etiquetar los datos. Podemos
 transformar la tupla que estamos usando en un struct con un nombre para la estructura y nombres para los campos, como se muestra en la lista 5-10.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-10" file-name="src/main.rs" caption="Definiendo un struct `Rectangle`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-10/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-10: Definiendo un struct `Rectangle`</span>
+</Listing>
 
 Hemos definido un struct y lo hemos llamado `Rectangle`. Dentro de las llaves,
 hemos definido los campos como `width` y `height`, ambos de los cuales tienen
@@ -110,14 +108,13 @@ depurando nuestro programa y ver los valores de todos sus campos. La lista 5-11
 intenta usar la macro [`println!`][println]<!-- ignore --> como hemos usado en
 capítulos anteriores. Sin embargo, esto no funcionará.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-11" file-name="src/main.rs" caption="Intentando imprimir una instancia de `Rectangle`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-11/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-11: Intentando imprimir una instancia de
-`Rectangle`</span>
+</Listing>
 
 Cuando compilamos este código, obtenemos un error con este mensaje principal:
 
@@ -168,14 +165,13 @@ disponible para nuestra estructura. Para hacer eso, agregamos el atributo
 externo `#[derive(Debug)]` justo antes de la definición de la estructura, como
 se muestra en la lista 5-12.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-12" file-name="src/main.rs" caption="Agregando el atributo para derivar el trait `Debug` e imprimiendo la instancia `Rectangle` usando el formato debug">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-12/src/main.rs}}
 ```
 
-<span class="caption">Listing 5-12: Agregando el atributo para derivar el trait
-`Debug` e imprimiendo la instancia `Rectangle` usando el formato debug</span>
+</Listing>
 
 Ahora, cuando compilamos el código, no obtendremos ningún error, y veremos la
 siguiente salida:

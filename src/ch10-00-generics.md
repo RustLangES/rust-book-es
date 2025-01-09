@@ -46,14 +46,13 @@ código duplicado que puede usar en los genéricos.
 Comenzamos con un corto programa en el listado 10-1 que encuentra el número
 más grande en una lista.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-1" file-name="src/main.rs" caption="Encontrando el mayor número en una lista de números">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-1: Encontrando el mayor número en una lista de
-números</span>
+</Listing>
 
 Almacenamos una lista de enteros en la variable `number_list` y colocamos una
 referencia al primer número de la lista en una variable llamada `largest`.
@@ -70,14 +69,13 @@ números. Para hacerlo, podemos duplicar el código en el listado 10-1 y usar la
 misma lógica en dos lugares diferentes en el programa, como se muestra en el
 listado 10-2.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-2" file-name="src/main.rs" caption="Código para encontrar el mayor número en *dos* listas de números">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-02/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-2: Código para encontrar el mayor número en
-_dos_ listas de números</span>
+</Listing>
 
 Aunque este código funciona, duplicar el código es tedioso y propenso a errores.
 También tenemos que recordar actualizar el código en varios lugares cuando
@@ -93,14 +91,13 @@ función llamada `largest`. Luego llamamos a la función para encontrar el mayor
 número en las dos listas del listado 10-2. También podríamos usar la función
 en cualquier otra lista de valores `i32` que podríamos tener en el futuro.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-3" file-name="src/main.rs" caption="Código abstracto para encontrar el número mayor en dos listas">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-3: Código abstracto para encontrar el número
-mayor en dos listas</span>
+</Listing>
 
 La función `largest` tiene un parámetro llamado `list`, que representa cualquier
 slice de valores `ì32` que podríamos pasar a la función. Como resultado, cuando

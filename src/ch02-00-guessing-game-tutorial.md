@@ -73,14 +73,13 @@ ingrese un valor, procesará ese valor y verificará que el valor esté en el
 formato esperado. Para comenzar, permitiremos al jugador ingresar una adivinanza.
 Ingresa el código de la Lista 2-1 en _src/main.rs_.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="2-1" file-name="src/main.rs" caption="Código que obtiene una adivinanza del usuario y la imprime">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:all}}
 ```
 
-<span class="caption">Lista 2-1: Código que obtiene una adivinanza del usuario
-y la imprime</span>
+</Listing>
 
 Este código contiene mucha información, así que repasémoslo línea por línea.
 Para obtener la entrada del usuario y luego imprimir el resultado como salida,
@@ -319,7 +318,7 @@ input 6 -->
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 6.44s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.44s
      Running `target/debug/guessing_game`
 Guess the number!
 Please input your guess.
@@ -392,29 +391,36 @@ rm Cargo.lock
 cargo clean
 cargo build -->
 
+<Listing number="2-2" caption="La salida de ejecutar `cargo build` después de agregar el crate rand como una dependencia">
+
 ```console
 $ cargo build
     Updating crates.io index
-  Downloaded rand v0.8.5
-  Downloaded libc v0.2.127
-  Downloaded getrandom v0.2.7
-  Downloaded cfg-if v1.0.0
-  Downloaded ppv-lite86 v0.2.16
-  Downloaded rand_chacha v0.3.1
-  Downloaded rand_core v0.6.3
-   Compiling libc v0.2.127
-   Compiling getrandom v0.2.7
+     Locking 16 packages to latest compatible versions
+      Adding wasi v0.11.0+wasi-snapshot-preview1 (latest: v0.13.3+wasi-0.2.2)
+      Adding zerocopy v0.7.35 (latest: v0.8.9)
+      Adding zerocopy-derive v0.7.35 (latest: v0.8.9)
+  Downloaded syn v2.0.87
+  Downloaded 1 crate (278.1 KB) in 0.16s
+   Compiling proc-macro2 v1.0.89
+   Compiling unicode-ident v1.0.13
+   Compiling libc v0.2.161
    Compiling cfg-if v1.0.0
-   Compiling ppv-lite86 v0.2.16
-   Compiling rand_core v0.6.3
+   Compiling byteorder v1.5.0
+   Compiling getrandom v0.2.15
+   Compiling rand_core v0.6.4
+   Compiling quote v1.0.37
+   Compiling syn v2.0.87
+   Compiling zerocopy-derive v0.7.35
+   Compiling zerocopy v0.7.35
+   Compiling ppv-lite86 v0.2.20
    Compiling rand_chacha v0.3.1
    Compiling rand v0.8.5
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.69s
 ```
 
-<span class="caption">Listado 2-2: La salida de ejecutar `cargo build` después
-de agregar el crate rand como una dependencia</span>
+</Listing>
 
 Es posible que veas números de versión diferentes (¡pero todos serán
 compatibles con el código, gracias a SemVer!) y líneas diferentes (dependiendo
@@ -450,7 +456,7 @@ cargo build -->
 ```console
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
 ```
 
 Estas líneas muestran que Cargo solo actualiza la compilación con su pequeño
@@ -528,14 +534,13 @@ que se ensamblan a partir de un número de paquetes.
 Comencemos a usar `rand` para generar un número para adivinar. El siguiente
 paso es actualizar _src/main.rs_, como se muestra en el Listado 2-3.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="2-3" file-name="src/main.rs" caption="Agregando código para generar un número aleatorio">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:all}}
 ```
 
-<span class="caption">Listado 2-3: Agregando código para generar un número
-aleatorio</span>
+</Listing>
 
 Primero agregamos la línea `use rand::Rng;`. El trait `Rng` define métodos que
 los generadores de números aleatorios implementan, y este trait debe estar en
@@ -580,7 +585,7 @@ cargo run
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 7
@@ -589,7 +594,7 @@ Please input your guess.
 You guessed: 4
 
 $ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 83
@@ -609,14 +614,13 @@ Ahora que tenemos la entrada del usuario y un número aleatorio, podemos
 compararlos. Ese paso se muestra en el Listado 2-4. Tenga en cuenta que este
 código aún no se compilará, como explicaremos.
 
-<span class="filename">Nombre del archivo: src/main.rs</span>
+<Listing number="2-4" file-name="src/main.rs" caption="Manejo de los posibles valores de retorno de la comparación de dos números">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 2-4: Manejo de los posibles valores de retorno
-de la comparación de dos números</span>
+</Listing>
 
 Primero agregamos otra declaración `use`, que trae un tipo llamado
 `std::cmp::Ordering` al alcance de la biblioteca estándar. El tipo `Ordering`
@@ -639,7 +643,7 @@ busca cada patrón de brazo en orden. Los patrones y la construcción `match` so
 potentes características de Rust: le permiten expresar una variedad de
 situaciones que su código puede encontrar y se aseguran de que los maneje
 todos. Estas características se cubrirán en detalle en el Capítulo 6 y el
-Capítulo 18, respectivamente.
+Capítulo 19, respectivamente.
 
 Vamos a repasar un ejemplo con la expresión `match` que usamos aquí. Digamos
 que el usuario ha adivinado 50 y el número secreto generado aleatoriamente
@@ -710,14 +714,12 @@ en la expresión se refiere a la variable `guess` original que contenía la
 entrada como una cadena. El método `trim` en una instancia `String` eliminará
 cualquier espacio en blanco al principio y al final, lo que debemos hacer para
 poder comparar la cadena con el `u32`, que solo puede contener datos numéricos.
-El usuario debe presionar <span class="keystroke">enter</span> para satisfacer
-`read_line` e ingresar su conjetura, lo que agrega un carácter de nueva línea
-a la cadena. Por ejemplo, si el usuario escribe <span class="keystroke">5</span>
-y presiona <span class="keystroke">enter</span>, `guess` se ve así: `5\n`. El
-`\n` representa "nueva línea". (En Windows, presionar <span
-class="keystroke">enter</span> resulta en un retorno de carro y una nueva
-línea, `\r\n`). El método `trim` elimina `\n` o `\r\n`, lo que resulta en solo
-`5`.
+El usuario debe presionar <kbd>enter</kbd> para satisfacer `read_line` e 
+ingresar su conjetura, lo que agrega un carácter de nueva línea a la cadena. Por 
+ejemplo, si el usuario escribe <kbd>5</kbd> y presiona <kbd>enter</kbd>, `guess` 
+se ve así: `5\n`. El `\n` representa "nueva línea". (En Windows, presionar 
+<kbd>enter</kbd> resulta en un retorno de carro y una nueva línea, `\r\n`). El 
+método `trim` elimina `\n` o `\r\n`, lo que resulta en solo `5`.
 
 El [método `parse` en las cadenas][parse]<!-- ignore --> convierte una cadena
 en otro tipo. Aquí, lo usamos para convertir de una cadena a un número. Debemos
@@ -750,6 +752,7 @@ exitosamente la cadena en un número, devolverá la variante `Ok` del tipo
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/no-listing-03-convert-string-to-number/
+touch src/main.rs
 cargo run
   76
 -->
@@ -757,7 +760,7 @@ cargo run
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.43s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 58
@@ -781,8 +784,6 @@ adivinar una vez. ¡Cambiamos eso agregando un bucle!
 La palabra clave `loop` crea un bucle infinito. Agregaremos un bucle para darle
 a los usuarios más oportunidades para adivinar el número:
 
-<span class="filename">Filename: src/main.rs</span>
-
 <span class="filename">Nombre de archivo: src/main.rs</span>
 
 ```rust,ignore
@@ -796,8 +797,8 @@ otra adivinanza para siempre, lo que introduce un nuevo problema! ¡Parece que e
 usuario no puede salir!
 
 El usuario siempre podría interrumpir el programa usando el atajo de teclado
-<span class="keystroke">ctrl-c</span>. Pero hay otra forma de escapar de este
-monstruo insaciable, como se mencionó en la discusión de `parse` en
+<kbd>ctrl</kbd>-<kbd>c</kbd>. Pero hay otra forma de escapar de este monstruo insaciable, 
+como se mencionó en la discusión de `parse` en
 [“Comparando la adivinanza con el número secreto”](#comparando-la-adivinanza-con-el-numero-secreto)<!--
 ignore -->: si el usuario ingresa una respuesta que no es un número, el
 programa se bloqueará. Podemos aprovechar eso para permitir que el usuario
@@ -805,6 +806,7 @@ salga, como se muestra aquí:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/no-listing-04-looping/
+touch src/main.rs
 cargo run
 (too small guess)
 (too big guess)
@@ -815,7 +817,7 @@ quit
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.50s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.23s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 59
@@ -868,14 +870,13 @@ ignore un número no válido para que el usuario pueda seguir adivinando. Podemo
 hacer eso alterando la línea donde `guess` se convierte de un `String` a un
 `u32`, como se muestra en el Listado 2-5.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="2-5" file-name="src/main.rs" caption="Ignorar una adivinanza que no es un número y pedir otra adivinanza en lugar de bloquear el programa">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 2-5: Ignorar una adivinanza que no es un número
-y pedir otra adivinanza en lugar de bloquear el programa</span>
+</Listing>
 
 Cambiamos de una llamada `expect` a una expresión `match` para pasar de
 bloquear el programa en un error a manejar el error. Recuerde que `parse`
@@ -914,7 +915,7 @@ foo
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 4.45s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 61
@@ -940,13 +941,13 @@ funcionó bien para las pruebas, pero arruina el juego. Vamos a eliminar el
 `println!` que muestra el número secreto. El listado 2-6 muestra el código
 final.
 
-<span class="filename">Nombre del archivo: src/main.rs</span>
+<Listing number="2-6" file-name="src/main.rs" caption="Código completo del juego de adivinanzas">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-06/src/main.rs}}
 ```
 
-<span class="caption">Listado 2-6: Código completo del juego de adivinanzas</span>
+</Listing>
 
 En este punto, ha construido exitosamente el juego de adivinanzas. ¡Felicidades!
 
