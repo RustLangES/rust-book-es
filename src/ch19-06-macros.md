@@ -5,8 +5,7 @@ explorado completamente qué es una macro y cómo funciona. El término _macro_ 
 refiere a una familia de características en Rust: macros _declarativas_ con
 `macro_rules!` y tres tipos de macros _procedurales_:
 
-- Macros Personalizadas `#[derive]` que especifican código agregado con el
-- atributo `derive` usado en structs y enums
+- Macros Personalizadas `#[derive]` que especifican código agregado con el atributo `derive` usado en structs y enums
 - Macros similares a atributos que definen atributos personalizados utilizables
   en cualquier item
 - Macros similares a funciones que se ven como llamadas a funciones, pero
