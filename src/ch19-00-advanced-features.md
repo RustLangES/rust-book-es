@@ -5,7 +5,8 @@ programación Rust. Antes de hacer otro proyecto en el Capítulo 20, veremos
 algunos aspectos del lenguaje que podrías encontrar de vez en cuando, pero
 que no usarás todos los días. Puede usar este capítulo como referencia para
 cuando encuentre algo desconocido. Las características cubiertas aquí son
-útiles en situaciones muy específicas. Aunque es posible que no las utilices con frecuencia, queremos asegurarnos de que tengas un dominio de todas las
+útiles en situaciones muy específicas. Aunque es posible que no las utilices con
+frecuencia, queremos asegurarnos de que tengas un dominio de todas las
 características que Rust tiene para ofrecer.
 
 En este capítulo, cubriremos:
