@@ -1,7 +1,8 @@
 ## Funciones y Closures Avanzados
 
 Esta sección cubre algunas características avanzadas relacionadas con
-funciones y closures, incluyendo function pointers (function pointers en español) y retornar closures.
+funciones y closures, incluyendo function pointers 
+(function pointers en español) y retornar closures.
 
 ### Function Pointers
 
