@@ -1,7 +1,8 @@
 ## Funciones y Closures Avanzados
 
 Esta sección cubre algunas características avanzadas relacionadas con
-funciones y closures, incluyendo punteros a funciones y retornar closures.
+funciones y closures, incluyendo function pointers 
+(function pointers en español) y retornar closures.
 
 ### Function Pointers
 
@@ -40,7 +41,7 @@ A diferencia de los closures, `fn` es un tipo en lugar de un trait, por lo que
 especificamos `fn` como el tipo de parámetro directamente en lugar de declarar
 un parámetro de tipo genérico con uno de los traits `Fn` como un trait bound.
 
-Los punteros a funciones implementan los tres closure traits (`Fn`, `FnMut` y
+Los function pointers implementan los tres closure traits (`Fn`, `FnMut` y
 `FnOnce`), lo que significa que siempre puedes pasar un puntero a función como
 un argumento para una función que espera un closure. Es mejor escribir
 funciones usando un tipo generic y uno de los closure traits para que tus
