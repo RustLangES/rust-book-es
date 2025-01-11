@@ -232,9 +232,11 @@ el número de elementos en la variante que estamos coincidiendo.
 
 #### Desestructurando Structs y Enums Anidados
 
-Hasta ahora, todos nuestros ejemplos han sido de coincidencia (Match) con structs o enums de un nivel de profundidad,
-pero el emparejamiento también puede funcionar en elementos anidados. Por ejemplo, podemos refactorizar el
-código del Listado 18-15 para admitir colores RGB y HSV en el mensaje `ChangeColor`, como se muestra en el Listado 18-16.
+Hasta ahora, todos nuestros ejemplos han sido de coincidencia (Match) con 
+structs o enums de un nivel de profundidad, pero el emparejamiento también puede 
+funcionar en elementos anidados. Por ejemplo, podemos refactorizar el código del 
+Listado 18-15 para admitir colores RGB y HSV en el mensaje `ChangeColor`, como 
+se muestra en el Listado 18-16.
 
 ```rust
 {{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-16/src/main.rs}}
