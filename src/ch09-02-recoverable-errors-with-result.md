@@ -472,8 +472,8 @@ el último carácter de la primera línea en el texto dado:
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 9-11: Using the `?` operator on an `Option<T>`
-value</span>
+<span class="caption">Listado 9-11: Usando el operador `?`  en un valor `Option<T>`
+</span>
 
 Esta función devuelve `Option<char>` porque es posible que haya un carácter
 allí, pero también es posible que no lo haya. Este código toma el argumento de
