@@ -140,7 +140,7 @@ este:
 Para definir un struct `Point` donde `x` e `y` son ambos genéricos pero podrían
 tener diferentes tipos, podemos usar múltiples parámetros de tipo genérico. Por
 ejemplo, en el listado 10-8, cambiamos la definición de `Point` para que sea
-generic sobre los tipos `T` y `U` donde `x` es de tipo `T` y `y` es de tipo
+generic sobre los tipos `T` y `U` donde `x` es de tipo `T` e `y` es de tipo
 `U`.
 
 <span class="filename">Filename: src/main.rs</span>
