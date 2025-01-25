@@ -253,7 +253,7 @@ pub fn notify(item1: &impl Summary, item2: &impl Summary) {
 ```
 
 Usando `impl Trait` es apropiado si queremos que esta función permita que
-`item1` y `item2` tengan tipos diferentes (siempre que ambos tipos implementen
+`item1` e `item2` tengan tipos diferentes (siempre que ambos tipos implementen
 `Summary`). Sin embargo, si queremos forzar que ambos parámetros tengan el
 mismo tipo, debemos usar un trait bound, como esto:
 
