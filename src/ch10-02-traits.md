@@ -205,7 +205,7 @@ una implementación primordial de ese mismo método.
 
 ### Traits como parametros
 
-Ahora que sabes cómo definir y implementar traits, podemos explorar cómo usar
+Ahora que sabes cómo definir e implementar traits, podemos explorar cómo usar
 traits para definir funciones que aceptan muchos tipos diferentes. Usaremos el
 trait `Summary` que implementamos en los tipos `NewsArticle` y `Tweet` en el
 listado 10-13 para definir una función `notify` que llama al método `summarize`
