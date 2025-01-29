@@ -98,7 +98,7 @@ binario podría usar nuestra biblioteca de `aggregator`:
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-01-calling-trait-method/src/main.rs}}
 ```
 
-Este código imprime `New article available! horse_ebooks: of course, as you
+Este código imprime `1 new tweet: horse_ebooks: of course, as you
 probably already know, people`.
 
 Otros crates que dependen de nuestro crate `aggregator` pueden usar el trait
