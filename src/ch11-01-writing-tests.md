@@ -254,7 +254,7 @@ resultado, nuestro test pasará si `can_hold` devuelve `false`:
 
 ¡Dos tests que pasan! Ahora veamos qué sucede con nuestros resultados de test
 cuando introducimos un bug en nuestro código. Cambiaremos la implementación del
-método `can_hold` reemplazando el signo mayor que con un signo menor que cuando
+método `can_hold` reemplazando el signo 'mayor que' por un signo 'menor que' cuando
 compara los anchos:
 
 ```rust,not_desired_behavior,noplayground
