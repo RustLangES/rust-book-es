@@ -1,19 +1,19 @@
 <!-- TODO: find the right home for this (maybe nowhere!) -->
 
-As we saw in the previous chapter, threads provide one approach to concurrency,
-and they let us solve some of these issues. However, they also have some
-tradeoffs. On many operating systems, they use a fair bit of memory for each
-thread, and they come with some overhead for starting up and shutting down.
-Threads are also only an option when your operating system and hardware support
-them! While mainstream desktop and mobile operating systems have all had
-threading for many years, many embedded operating systems, like those used on
-some microcontrollers, do not.
+Como vimos en el capítulo anterior, los hilos proporcionan un enfoque para la concurrencia
+y nos permiten resolver algunos de estos problemas. Sin embargo, también tienen ciertos
+inconvenientes. En muchos sistemas operativos, los hilos requieren una cantidad
+considerable de memoria por cada uno, y vienen con una sobrecarga para su inicio y
+apagado. Los hilos también son solo una opción cuando tu sistema operativo y hardware
+los soportan. Aunque los sistemas operativos de escritorio y móviles más comunes han
+tenido soporte para hilos durante muchos años, muchos sistemas operativos embebidos,
+como los que se usan en algunos microcontroladores, no lo tienen.
 
-The async model provides a different—and ultimately complementary—set of
-tradeoffs. In the async model, concurrent operations do not require their own
-threads. Instead, they can run on *tasks*. A task is a bit like a thread, but
-instead of being managed by the operating system, it is managed by code that
-lives at the level of libraries.
+El modelo async ofrece un enfoque diferente, con ventajas y desventajas que, en muchos casos,
+complementan las del uso de hilos. En el modelo async, las operaciones concurrentes no requieren sus
+propios hilos. En lugar de eso, pueden ejecutarse en tareas (tasks). Una tarea es algo
+similar a un hilo, pero en lugar de ser gestionada por el sistema operativo, es gestionada
+por el código a nivel de bibliotecas.
 
 <!--
   TODO: connective tissue as it were. Also, an open question on whether we want
