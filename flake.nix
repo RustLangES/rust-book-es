@@ -34,7 +34,7 @@
   in
   {
     devShells.${system}.default = craneLib.devShell {
-       packages = with pkgs; [ toolchain mdbook ];
+       packages = with pkgs; [ toolchain mdbook mdbook-epub];
     };
   };
 }
