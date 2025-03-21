@@ -13,18 +13,21 @@ jobs:
       run: |
         rustup set profile minimal
         rustup toolchain install 1.82 -c rust-docs
-        rustup default 1.82
     - name: Install mdbook
       run: |
         mkdir bin
         curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.4/mdbook-v0.4.36-localization-v0.4-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         curl -sSL https://github.com/catppuccin/mdBook/releases/download/v0.1.1/mdbook-catppuccin-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         echo "$(pwd)/bin" >> ${GITHUB_PATH}
+    - name: Install mdbook-epub backend
+      run: |
+        cargo install mdbook-epub --root .
     - name: Report versions
       run: |
         rustup --version
         rustc -Vv
         mdbook --version
+        mdbook-epub --version
 
     # mdBook does not currently have particularly good support for “external”
     # crates. To make the test suite work correctly with `trpl`, we must first
