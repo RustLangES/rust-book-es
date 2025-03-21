@@ -78,7 +78,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./book --project-name=rust-book --branch="${ env.BRANCH_NAME }"
+          command: pages deploy ./book --project-name=rust-book --branch="${{ env.BRANCH_NAME }}"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v4
@@ -113,7 +113,7 @@ jobs:
   #       with:
   #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
   #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-  #         command: pages --project-name=homepage --branch="${ env.BRANCH_NAME }"
+  #         command: pages --project-name=homepage --branch="${{ env.BRANCH_NAME }}"
 
   #     - name: Create comment
   #       uses: peter-evans/create-or-update-comment@v4
