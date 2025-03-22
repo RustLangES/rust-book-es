@@ -99,10 +99,6 @@ jobs:
         aspell --version
         shellcheck --version
         mdbook-epub --version
-    - name: Shellcheck
-      run: find . -name '*.sh' -print0 | xargs -0 shellcheck
-    - name: Spellcheck
-      run: bash ci/spellcheck.sh list
     - name: Lint for local file paths
       run: |
         mdbook build
@@ -111,6 +107,10 @@ jobs:
       run: mdbook-epub --standalone true
     - name: Validate exist epub file
       run: test -e book/*.epub || test -e book/epub/* || echo "Not found EPUB file."
+    - name: Shellcheck
+      run: find . -name '*.sh' -print0 | xargs -0 shellcheck
+    - name: Spellcheck
+      run: bash ci/spellcheck.sh list
     - name: Validate references
       run: bash ci/validate.sh
     - name: Check for broken links
