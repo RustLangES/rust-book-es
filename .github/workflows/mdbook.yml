@@ -42,7 +42,7 @@ jobs:
       - name: Build with mdBook
         run: mdbook build
       - name: Build with mdBook-epub
-        run:  mdbook-epub --standalone true
+        run:  mdbook-epub --standalone .
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

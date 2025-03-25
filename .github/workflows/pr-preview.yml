@@ -72,7 +72,7 @@ jobs:
       - name: Build with mdBook
         run: mdbook build
       - name: Build with mdBook-epub
-        run:  mdbook-epub --standalone true
+        run:  mdbook-epub --standalone .
 
       # Deploy
       - name: Deploy

@@ -97,7 +97,7 @@ jobs:
         mdbook build
         cargo run --bin lfp src
     - name: Run epub backend
-      run: mdbook-epub --standalone true
+      run: mdbook-epub --standalone .
     - name: Validate references
       run: bash ci/validate.sh
     - name: Check for broken links
