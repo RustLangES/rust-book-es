@@ -4,7 +4,7 @@
 
 Los métodos son similares a las funciones: los declaramos con la palabra clave
 `fn` y un nombre, pueden tener parámetros y un valor de retorno, y contienen
-alguno código que se ejecuta cuando el método es llamado desde otro lugar.
+algún código que se ejecuta cuando el método es llamado desde otro lugar.
 A diferencia de las funciones, los métodos se definen dentro del contexto de
 una estructura (o un enum o un objeto de tipo trait, que cubriremos en el
 [Capítulo 6][enums]<!-- ignore --> y el [Capítulo 17][trait-objects]<!-- ignore
