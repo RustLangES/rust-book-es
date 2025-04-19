@@ -47,7 +47,7 @@ Pero si ingresas _/sleep_ y luego cargas _/_, verás que _/_ espera hasta que
 `sleep` haya dormido durante sus 5 segundos completos antes de cargarse.
 
 Existen varias técnicas que podríamos usar para evitar que las solicitudes se
-acumulen detrás de una solicitud lenta, inlcuyendo usando async como vimos en el
+acumulen detrás de una solicitud lenta, incluyendo usando async como vimos en el
 Capitulo 17; la que implementaremos es un _pool de hilos_.
 
 ### Mejorando el rendimiento con un pool de hilos
@@ -614,7 +614,7 @@ En su lugar, necesitamos que el cierre se repita para siempre, preguntando al
 extremo receptor del canal por un trabajo y ejecutando el trabajo cuando lo
 obtiene. Hagamos el cambio que se muestra en el Listado 21-20 a `Worker::new`.
 
-<Listing number="21-20" file-name="src/lib.rs" caption="Receiving and executing the jobs in the worker’s thread">
+<Listing number="21-20" file-name="src/lib.rs" caption="Recibiendo y ejecutando los trabajos en el hilo del worker">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-20/src/lib.rs:here}}

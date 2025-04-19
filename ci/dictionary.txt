@@ -9,6 +9,12 @@ Rectangle
 hi
 streams
 poll
+asincrónicos
+worker
+Chris
+explícitamente
+Concurrent
+combining
 intervals
 Interval
 Context

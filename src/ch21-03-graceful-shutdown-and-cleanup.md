@@ -128,7 +128,7 @@ El Listing 21-23 muestra los cambios en `ThreadPool` para soltar explícitamente
 `sender`. Usamos la misma técnica `Option` y `take` que hicimos con el thread
 para poder mover `sender` fuera de `ThreadPool`:
 
-<Listing number="21-23" file-name="src/lib.rs" caption="Libera explicitamente `sender` antes de unirse a los threads del worker">
+<Listing number="21-23" file-name="src/lib.rs" caption="Libera explícitamente `sender` antes de unirse a los threads del worker">
 
 ```rust,noplayground,not_desired_behavior
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-23/src/lib.rs:here}}
@@ -155,7 +155,7 @@ Para ver este código en acción, modifiquemos `main` para aceptar solo dos
 requests antes de cerrar el servidor con gracia, como se muestra en el
 Listing 21-25.
 
-<Listing number="21-25" file-name="src/main.rs" caption="Shut down the server after serving two requests by exiting the loop">
+<Listing number="21-25" file-name="src/main.rs" caption="Apagar el servidor después de servir dos requests saliendo del loop">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-25/src/main.rs:here}}

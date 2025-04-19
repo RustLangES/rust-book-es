@@ -101,7 +101,7 @@ aplican.
 El Listing 20-1 muestra cómo crear un puntero crudo inmutable y mutable a
 partir de referencias.
 
-<Listing number="20-1" caption="reando punteros crudos a partir de referencias">
+<Listing number="20-1" caption="Creando punteros crudos a partir de referencias">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-01/src/main.rs:here}}
