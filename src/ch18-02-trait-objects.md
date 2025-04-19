@@ -257,9 +257,13 @@ cambio, en tiempo de ejecución, Rust usa los punteros dentro del trait object
 para saber qué método llamar. Esta búsqueda incurre en un costo de tiempo de
 ejecución que no ocurre con el static dispatch. Dynamic dispatch también evita
 que el compilador elija la opción de _inline_ del código de un método, lo que a
-su vez evita algunas optimizaciones. Sin embargo, obtuvimos flexibilidad
-adicional en el código que escribimos en el Listado 18-5 y pudimos admitir en
-el Listado 18-9, por lo que es un compromiso a considerar.
+su vez evita algunas optimizaciones, además, Rust tiene ciertas reglas sobre 
+dónde se puede y dónde no se puede usar la distribución dinámica, llamadas [_dyn
+compatibility_][dyn-compatibility]. Sin embargo, obtuvimos flexibilidad 
+adicional en el código que escribimos en el Listado 18-5 y pudimos admitir en el 
+Listado 18-9, por lo que es un compromiso a considerar.
 
 [rendimiento-de-codigo-usando-genericos]: ch10-01-syntax.html#rendimiento-de-codigo-usando-genericos
 [dynamically-sized]: ch20-04-advanced-types.html#tipos-de-tamano-dinamico-y-el-trait-sized
+[dyn-compatibility]: https://doc.rust-lang.org/reference/items/traits.html#dyn-compatibility
+

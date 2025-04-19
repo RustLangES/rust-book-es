@@ -1,4 +1,5 @@
 <!-- Old link, do not remove -->
+
 <a id="installing-binaries-from-cratesio-with-cargo-install"></a>
 
 ## Instalando Binarios con `cargo install`

@@ -11,16 +11,16 @@ características que Rust tiene para ofrecer.
 
 En este capítulo, cubriremos:
 
-* Unsafe Rust: cómo optar por algunas de las garantías de Rust y asumir la
+- Unsafe Rust: cómo optar por algunas de las garantías de Rust y asumir la
   responsabilidad de mantener manualmente esas garantías
-* Traits avanzados: tipos asociados, parámetros de tipo predeterminados,
+- Traits avanzados: tipos asociados, parámetros de tipo predeterminados,
   sintaxis completamente calificada, supertraits y el patrón newtype en
   relación con los traits
-* Tipos avanzados: más sobre el pattern newtype, tipo alias, el tipo never y
+- Tipos avanzados: más sobre el pattern newtype, tipo alias, el tipo never y
   tipos de tamaño dinámico
-* Funciones y closures avanzados: punteros a funciones y devolución de
+- Funciones y closures avanzados: punteros a funciones y devolución de
   closures
-* Macros: formas de definir código que define más código en tiempo de
+- Macros: formas de definir código que define más código en tiempo de
   compilación
 
 ¡Es una panoplia de características de Rust con algo para todos! ¡Vamos a

@@ -22,6 +22,7 @@ y cómo nos permite trabajar con referencias o smart pointers.
 
 <!-- Old link, do not remove -->
 
+
 <a id="following-the-pointer-to-the-value-with-the-dereference-operator"></a>
 
 ### Siguiendo el puntero al valor

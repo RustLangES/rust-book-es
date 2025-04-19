@@ -222,6 +222,7 @@ como en el estado `Draft`, pero queremos el mismo comportamiento en el estado
 
 <!-- Old headings. Do not remove or links may break. -->
 
+
 <a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 
 ### Agregando `approve` para cambiar el comportamiento de `content`
@@ -370,9 +371,10 @@ otro patrón de diseño.
 Otro inconveniente es que hemos duplicado algo de lógica. Para eliminar parte
 de la duplicación, podríamos intentar hacer implementaciones predeterminadas
 para los métodos `request_review` y `approve` en el trait `State` que devuelvan
-`self`; sin embargo, esto violaría la seguridad del objeto, porque el trait no
-sabe exactamente cuál será el `self` concreto. Queremos poder usar `State` como
-un objeto de trait, por lo que sus métodos deben ser seguros para el objeto.
+`self`; sin embargo no es compatible con dyn, esto violaría la seguridad del 
+objeto, porque el trait no sabe exactamente cuál será el `self` concreto. 
+Queremos poder usar `State` como un objeto de trait, por lo que sus métodos 
+deben ser seguros para el objeto.
 
 Otra duplicación incluye las implementaciones similares de los métodos
 `request_review` y `approve` en `Post`. Ambos métodos delegan a la

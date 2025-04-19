@@ -387,6 +387,7 @@ nombre y queremos probar que el nombre que pasamos a la función aparece en el
 output:
 
 <span class="filename">Filename: src/lib.rs</span>
+
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-05-greeter/src/lib.rs}}
 ```

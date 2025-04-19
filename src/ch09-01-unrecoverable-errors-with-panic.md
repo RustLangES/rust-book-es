@@ -62,6 +62,7 @@ parte de nuestro código que está causando el problema. Discutiremos el backtra
 en más detalle a continuación.
 
 <!-- Old heading. Do not remove or links may break. -->
+
 <a id="using-a-panic-backtrace"></a>
 
 ### Usando el backtrace de `panic!`

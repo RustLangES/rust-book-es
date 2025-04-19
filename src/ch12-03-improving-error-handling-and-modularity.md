@@ -262,6 +262,7 @@ error.
 
 <!-- Old headings. Do not remove or links may break. -->
 
+
 <a id="returning-a-result-from-new-instead-of-calling-panic"></a>
 
 #### Devolver un `Result` en lugar de llamar a `panic!`
@@ -304,6 +305,7 @@ Devolviendo un valor `Err` desde `Config::build` permite que la función
 de manera más limpia en el caso de error.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 
 <a id="calling-confignew-and-handling-errors"></a>
 

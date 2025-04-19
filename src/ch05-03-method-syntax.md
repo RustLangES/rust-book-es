@@ -111,6 +111,7 @@ como público o privado en el [Capítulo 7][public]<!-- ignore -->.
 >
 > <!-- CAN'T EXTRACT SEE BUG https://github.com/rust-lang/mdBook/issues/1127 -->
 >
+>
 > ```rust
 > # #[derive(Debug,Copy,Clone)]
 > # struct Point {

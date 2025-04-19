@@ -1,5 +1,6 @@
 <!-- Old heading. Do not remove or links may break. -->
 
+
 <a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
 
 ## Closures: Funciones anónimas que capturan su entorno
@@ -12,6 +13,7 @@ el que se definen. Demostraremos cómo estas características de los closures
 permiten la reutilización de código y la personalización del comportamiento.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 
 <a id="creating-an-abstraction-of-behavior-with-closures"></a>
 <a id="refactoring-using-functions"></a>
@@ -274,6 +276,7 @@ eliminar la palabra clave `move` o usar `list` en el hilo principal después de
 que se defina el closure para ver qué errores del compilador obtiene!
 
 <!-- Old headings. Do not remove or links may break. -->
+
 
 <a id="storing-closures-using-generic-parameters-and-the-fn-traits"></a>
 <a id="limitations-of-the-cacher-implementation"></a>

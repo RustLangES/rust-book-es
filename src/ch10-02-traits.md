@@ -221,6 +221,7 @@ o un `i32`, no compilará porque esos tipos no implementan `Summary`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
+
 <a id="fixing-the-largest-function-with-trait-bounds"></a>
 
 #### Sintaxis de trait bound

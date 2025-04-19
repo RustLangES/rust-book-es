@@ -1,7 +1,7 @@
 # El Lenguaje de Programación Rust
 
-*por Steve Klabnik, Carol Nichols y Chris Krycho, con contribuciones de la 
-Comunidad Rust*
+_por Steve Klabnik, Carol Nichols y Chris Krycho, con contribuciones de la 
+Comunidad Rust_
 
 Esta versión del texto asume que estás usando Rust 1.82.0 (lanzado 2024-10-17)
 o posterior. Vea la [sección “Instalación” del Capítulo 1][install]<!-- ignore -->

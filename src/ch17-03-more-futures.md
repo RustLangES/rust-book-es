@@ -44,7 +44,6 @@ cargo build
 copy just the compiler error
 -->
 
-
 ```text
 error[E0308]: mismatched types
   --> src/main.rs:45:37
@@ -626,7 +625,6 @@ cosas que podrías considerar:
   ¿En qué se diferenciaría su uso con respecto a un `Vec`? (No te preocupes por el hecho
   de que provenga de la parte de `stream` del crate; funciona perfectamente
   con cualquier colección de futuros).
-
 
 [collections]: ch08-01-vectors.html#using-an-enum-to-store-multiple-types
 [dyn]: ch12-03-improving-error-handling-and-modularity.html

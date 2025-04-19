@@ -256,6 +256,7 @@ situaciones ahora.
 
 <!-- Old heading. Do not remove or links may break. -->
 
+
 <a id="ways-variables-and-data-interact-move"></a>
 
 #### Variables y datos interactuando con Move
@@ -408,6 +409,7 @@ ejecutará la función `drop` sobre él y su memoria será liberada de inmediato
 Cuando imprimimos el valor al final, será `"ahoy, mundo!"`.
 
 <!-- Old heading. Do not remove or links may break. -->
+
 
 <a id="ways-variables-and-data-interact-clone"></a>
 

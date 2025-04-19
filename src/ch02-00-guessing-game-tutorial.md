@@ -215,6 +215,7 @@ mutable. (El capítulo 4 explicará las referencias con más detalle.)
 
 <!-- Old heading. Do not remove or links may break. -->
 
+
 <a id="handling-potential-failure-with-the-result-type"></a>
 
 ### Manejando el posible fallo con `Result`

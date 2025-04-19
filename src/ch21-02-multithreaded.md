@@ -101,6 +101,7 @@ exploraremos la técnica que no vamos a usar como punto de partida.
 
 <!-- Old headings. Do not remove or links may break. -->
 
+
 <a id="code-structure-if-we-could-spawn-a-thread-for-each-request"></a>
 
 #### Creando un hilo para cada solicitud
@@ -136,6 +137,7 @@ manera diferente o similar usando `async`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
+
 <a id="creating-a-similar-interface-for-a-finite-number-of-threads"></a>
 
 #### Creando un número finito de hilos
@@ -162,6 +164,7 @@ lo ejecute. Este código aún no se compilará, pero lo intentaremos para que el
 compilador pueda guiarnos en cómo solucionarlo.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 
 <a id="building-the-threadpool-struct-using-compiler-driven-development"></a>
 

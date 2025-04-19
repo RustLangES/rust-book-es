@@ -408,7 +408,9 @@ en aún más de las cosas que podemos hacer con asíncrono.
 
 [impl-trait]: ch10-02-traits.html#traits-as-parameters
 [iterators-lazy]: ch13-02-iterators.html
+
 <!-- TODO: map source link version to version of Rust? -->
+
 [crate-source]: https://github.com/rust-lang/book/tree/main/packages/trpl
 [futures-crate]: https://crates.io/crates/futures
 [tokio]: https://tokio.rs
