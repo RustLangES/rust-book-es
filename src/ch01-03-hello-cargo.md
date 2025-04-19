@@ -121,7 +121,7 @@ Si comenzaste un proyecto que no usa Cargo, como hicimos con el proyecto
 “¡Hola, mundo!”, puedes convertirlo en un proyecto que sí use Cargo. Mueve el
 código del proyecto al directorio *src* y crea un archivo *Cargo.toml*
 adecuado. Una forma sencilla de obtener el archivo *Cargo.toml* es ejecutar 
-`cargo init`, el cual lo creara automaticamente.
+`cargo init`, el cual lo creara automáticamente.
 
 ### Construir y ejecutar un proyecto de Cargo
 
