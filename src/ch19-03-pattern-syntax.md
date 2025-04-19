@@ -399,7 +399,7 @@ mueve a `_`.
 
 Este código funciona bien porque nunca vinculamos `s` a nada; no se mueve.
 
-#### Ignoring Remaining Parts of a Value with `..`
+### Ignorando partes restantes de un valor con `..`
 
 Con los valores que tiene muchas partes, podemos usar la sintaxis `..` para
 usar partes específicas e ignorar el resto, evitando la necesidad de enumerar

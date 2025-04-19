@@ -488,7 +488,7 @@ revisión pendiente sean strings vacíos, ni los necesitamos: ya no podemos
 compilar el código que intenta usar el contenido de las publicaciones en esos
 estados. El código actualizado en `main` se muestra en el Listado 18-21:
 
-<Listing number="18-21" file-name="src/main.rs" caption="Modifications to `main` to use the new implementation of the blog post workflow">
+<Listing number="18-21" file-name="src/main.rs" caption="Modificaciones a `main` para usar la nueva implementación del flujo de publicaciones de blog">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch18-oop/listing-18-21/src/main.rs}}

@@ -19,7 +19,7 @@ que se comporta de forma muy similar a la API de `thread::spawn`, y una función
 que es una versión async de `thread::sleep`. Podemos usarlas juntas para implementar
 el mismo ejemplo de conteo que con threads, como se muestra en el Listado 17-6.
 
-<Listing number="17-6" caption="Using `spawn_task` to count with two" file-name="src/main.rs">
+<Listing number="17-6" caption="Usando `spawn_task` para contar con dos" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-06/src/main.rs:all}}
@@ -68,7 +68,7 @@ En el Listado 17-7, podemos hacer lo mismo con `await`, ya que el handle de la t
 en sí es un future. Su tipo de `Output` es un `Result`, por lo que también usamos unwrap
 después de esperarlo con await.
 
-<Listing number="17-7" caption="Using `await` with a join handle to run a task to completion" file-name="src/main.rs">
+<Listing number="17-7" caption="Usando `await` con un join handle para ejecutar una tarea hasta su finalización" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-07/src/main.rs:handle}}
@@ -117,7 +117,7 @@ que tanto `fut1` como `fut2` finalicen. En lugar de hacer await sobre `fut1` y `
 el nuevo futuro producido por `trpl::join`. Ignoramos su salida, debido a que
 solo contiene una tupla con dos valores unitarios.
 
-<Listing number="17-8" caption="Using `trpl::join` to await two anonymous futures" file-name="src/main.rs">
+<Listing number="17-8" caption="Usando `trpl::join` para esperar dos futuros anónimos" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-08/src/main.rs:join}}
@@ -179,7 +179,7 @@ entre la concurrencia basada en threads y la basada en futures. En el Listado 17
 comenzaremos con un solo bloque async, sin generar una tarea
 separada como lo hicimos al crear un thread independiente.
 
-<Listing number="17-9" caption="Creating an async channel and assigning the two halves to `tx` and `rx`" file-name="src/main.rs">
+<Listing number="17-9" caption="Creando un canal async y asignando las dos mitades a `tx` y `rx`" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-09/src/main.rs:channel}}
@@ -220,7 +220,7 @@ muestra en el Listado 17-10:
 
 <!-- We cannot test this one because it never stops! -->
 
-<Listing number="17-10" caption="Sending and receiving multiple messages over the async channel and sleeping with an `await` between each message" file-name="src/main.rs">
+<Listing number="17-10" caption="Enviando y recibiendo múltiples mensajes a través del canal async y durmiendo con un `await` entre cada mensaje" file-name="src/main.rs">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-10/src/main.rs:many-messages}}
@@ -283,7 +283,7 @@ lo que queremos evitar.
 
 <!-- We cannot test this one because it never stops! -->
 
-<Listing number="17-11" caption="Separating `send` and `recv` into their own `async` blocks and awaiting the futures for those blocks" file-name="src/main.rs">
+<Listing number="17-11" caption="Separando `send` y `recv` en sus propios bloques `async` y esperando los futuros de esos bloques" file-name="src/main.rs">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-11/src/main.rs:futures}}
@@ -329,7 +329,7 @@ En el Listado 17-12, cambiamos el bloque async que envía los mensajes de un sim
 `async` a un bloque `async move`. Cuando ejecutamos *esta* versión del código, el
 programa se cierra correctamente después de que se envían y reciben todos los mensajes.
 
-<Listing number="17-12" caption="A working example of sending and receiving messages between futures which correctly shuts down when complete" file-name="src/main.rs">
+<Listing number="17-12" caption="Un ejemplo funcional de envío y recepción de mensajes entre futuros que se cierra correctamente cuando se completa" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-12/src/main.rs:with-move}}
@@ -351,7 +351,7 @@ de modo que tanto `tx` y `tx1` se eliminen (drop) cuando esos bloques terminen. 
 volveríamos al mismo bucle infinito del principio. Finalmente, cambiamos de
 `trpl::join` a `trpl::join3` para manejar el future adicional.
 
-<Listing number="17-13" caption="Using multiple producers with async blocks" file-name="src/main.rs">
+<Listing number="17-13" caption="Usando múltiples productores con bloques async" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-13/src/main.rs:here}}

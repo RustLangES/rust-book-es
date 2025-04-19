@@ -525,6 +525,10 @@ reales en tu código. Sin embargo, si *notas* que muchas tareas están ejecután
 serie cuando esperabas que fueran concurrentes, este concepto es clave para entender
 qué está ocurriendo.
 
+
+<!-- Old headings. Do not remove or links may break. -->
+<a id="building-our-own-async-abstractions"></a>
+
 ### Construyendo Nuestras Propias Abstracciones Asíncronas
 
 También podemos componer futuros para crear nuevos patrones. Por ejemplo, podemos construir

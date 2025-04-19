@@ -105,7 +105,7 @@ Luego, necesitamos actualizar el cuerpo de `Config::build` para usar los
 métodos del trait `Iterator` en lugar de indexar en el slice. En el Listado
 13-20 hemos actualizado el código del Listado 12-23 para usar el método `next`:
 
-<Listing number="13-20" file-name="src/lib.rs" caption="Changing the body of `Config::build` to use iterator methods">
+<Listing number="13-20" file-name="src/lib.rs" caption="Cambiando el cuerpo de `Config::build` para usar métodos de iterator">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/lib.rs:here}}

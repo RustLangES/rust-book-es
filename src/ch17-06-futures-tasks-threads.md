@@ -151,4 +151,4 @@ estar familiarizado de la programación orientada a objetos.
 
 
 [combining-futures]: ch17-03-more-futures.html#building-our-own-async-abstractions
-[streams]: ch17-04-streams.html#composing-streams
+[streams]: ch17-04-streams.html#componiendo-streams
