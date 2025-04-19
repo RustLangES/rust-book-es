@@ -139,6 +139,7 @@ impl TryFrom<&str> for Mode {
 }
 
 fn rewrite_listing(src: &str, mode: Mode) -> Result<String, String> {
+    println!("{:?}", src);
     let final_state = new_cmark_parser(src, true).try_fold(
         ListingState {
             current: None,
