@@ -185,7 +185,7 @@ tupla.
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 18-4: Usando un pattern para desestructurar una tupla y crear tres variables a la vez</span>
+</Listing>
 
 Aquí, emparejamos una tupla con un pattern. Rust compara el valor `(1, 2, 3)`
 con el pattern `(x, y, z)` y ve que el valor y el pattern coinciden, por lo que
