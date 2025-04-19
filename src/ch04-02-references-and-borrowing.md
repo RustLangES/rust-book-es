@@ -47,8 +47,8 @@ Vamos a echar un vistazo más de cerca a la llamada de función aquí:
 ```
 
 La sintaxis `&s1` nos permite crear una referencia que *se refiere* al valor de
-`s1` pero sin ser el propietario. Por este motivo, el valor al que apunta no se
-descartará cuando la referencia deje de usarse.
+`s1` pero sin ser el propietario. Como la referencia no es la dueña del valor, 
+el valor al que apunta no se descartará cuando la referencia deje de usarse.
 
 Del mismo modo, la firma de la función usa `&` para indicar que el tipo del
 parámetro `s` es una referencia. Vamos a agregar algunas anotaciones:

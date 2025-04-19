@@ -6,11 +6,11 @@ conceptos que cubrimos en los capítulos finales, así como recapitular algunas
 lecciones anteriores.
 
 Para nuestro proyecto final, haremos un servidor web que diga "hola" y se vea
-como la Figura 20-1 en un navegador web.
+como la Figura 21-1 en un navegador web.
 
-![hello from rust](img/trpl20-01.png)
+![hello from rust](img/trpl21-01.png)
 
-<span class="caption">Figure 20-1: Nuestro proyecto final compartido</span>
+<span class="caption">Figure 21-1: Nuestro proyecto final compartido</span>
 
 Aquí está nuestro plan para construir el web server:
 

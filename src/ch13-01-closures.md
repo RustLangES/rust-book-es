@@ -353,7 +353,9 @@ closures y es tan flexible como puede ser.
 > entorno, podemos usar el nombre de una función en lugar de un closure donde
 > necesitamos algo que implemente uno de los traits `Fn`. Por ejemplo, en un
 > valor `Option<Vec<T>>`, podríamos llamar a `unwrap_or_else(Vec::new)` para
-> obtener un nuevo vector vacío si el valor es `None`.
+> obtener un nuevo vector vacío si el valor es `None`. El compilador implementa 
+> automáticamente el trait Fn (o el que sea aplicable) para las definiciones de 
+> funciones.
 
 Ahora veamos el método de la biblioteca estándar `sort_by_key` definido en
 slices, para ver cómo difiere de `unwrap_or_else` y por qué `sort_by_key`

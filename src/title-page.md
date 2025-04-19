@@ -18,7 +18,6 @@ Este texto está disponible en [formato de libro impreso y ebook de No Starch
 Press][nsprust].
 
 [install]: ch01-01-installation.html
-[editions]: appendix-05-editions.html
 [nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
 [traducciones]: appendix-06-translation.html
 

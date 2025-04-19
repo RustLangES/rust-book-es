@@ -77,7 +77,8 @@ probablemente se turnarán, pero eso no está garantizado: depende de cómo su
 sistema operativo programe los hilos. En esta ejecución, el hilo principal
 imprimió primero, a pesar de que la instrucción de impresión del hilo creado
 aparece primero en el código. Y aunque le dijimos al hilo creado que imprimiera
-hasta que `i` sea 9, solo llegó a 5 antes de que el hilo principal se apagara.
+hasta que `i` sea `9`, solo llegó a `5` antes de que el hilo principal se 
+apagara.
 
 Si ejecutas este código y solo ves el output del hilo principal, o no ves
 ninguna superposición, intenta aumentar los números en los rangos para crear

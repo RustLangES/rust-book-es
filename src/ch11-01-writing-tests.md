@@ -63,6 +63,9 @@ cd ../../..
 
 </Listing>
 
+The file starts with an example `add` function, so that we have something
+to test.
+
 Por ahora, ignoremos las dos primeras líneas y nos enfoquemos solamente en la 
 función `it_works()`.
 Nota la anotación `#[test]`: este atributo indica que esta es una función de

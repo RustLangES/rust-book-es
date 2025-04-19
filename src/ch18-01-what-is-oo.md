@@ -15,9 +15,9 @@ Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides (Addison-Wesley
 Professional, 1994), coloquialmente conocido como el libro _Gang of Four_, es un
 catálogo de patrones de diseño orientados a objetos. Define OOP de esta manera:
 
-> Los programas orientados a objetos están compuestos por objetos. Un _objeto_
+> Los programas orientados a objetos están compuestos por objetos. Un **objeto**
 > empaqueta tanto datos como los procedimientos que operan en esos datos. Los
-> procedimientos se denominan típicamente _métodos_ u _operaciones_.
+> procedimientos se denominan típicamente **métodos** u **operaciones**.
 
 Usando esta definición, Rust es orientado a objetos: los structs y los
 enums tienen datos, y los bloques `impl` proporcionan métodos en structs y
@@ -151,7 +151,7 @@ compartir todas las características de su clase padre, pero lo harán con la
 herencia. Esto puede hacer que el diseño de un programa sea menos flexible.
 También introduce la posibilidad de llamar a métodos en subclases que no tienen
 sentido o que causan errores porque los métodos no se aplican a la subclase.
-Además, algunos lenguajes solo permitirán una herencia única (lo que significa
+Además, algunos lenguajes solo permitirán una _herencia simple_ (lo que significa
 que una subclase solo puede heredar de una clase), lo que restringe aún más la
 flexibilidad del diseño de un programa.
 

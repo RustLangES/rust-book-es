@@ -408,6 +408,8 @@ en aún más de las cosas que podemos hacer con asíncrono.
 
 [impl-trait]: ch10-02-traits.html#traits-as-parameters
 [iterators-lazy]: ch13-02-iterators.html
+[thread-spawn]: ch16-01-threads.html#creating-a-new-thread-with-spawn
+[cli-args]: ch12-01-accepting-command-line-arguments.html
 
 <!-- TODO: map source link version to version of Rust? -->
 

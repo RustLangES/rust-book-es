@@ -1,4 +1,4 @@
-## Futures, Tasks y Threads
+## Uniendo Todo: Futures, Tareas e Hilos
 
 Como vimos en el capítulo anterior, los hilos proporcionan un enfoque para la 
 concurrencia. Hemos visto otro enfoque para la concurrencia en este capítulo, 
@@ -150,5 +150,6 @@ Además, discutiremos cómo se relacionan los ídolos de Rust con los que podrí
 estar familiarizado de la programación orientada a objetos.
 
 
+[ch16]: http://localhost:3000/ch16-00-concurrency.html
 [combining-futures]: ch17-03-more-futures.html#building-our-own-async-abstractions
 [streams]: ch17-04-streams.html#componiendo-streams

@@ -192,4 +192,4 @@ el tipo `T` almacenado en el `Option<T>`.
 [creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update]: ch05-01-defining-structs.html#creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update
 [solo-datos-del-stack-copiar]: ch04-01-what-is-ownership.html#solo-datos-del-stack-copiar
 [ways-variables-and-data-interact-clone]: ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
-[macros]: ch20-06-macros.html#macros
+[macros]: ch20-05-macros.html#macros

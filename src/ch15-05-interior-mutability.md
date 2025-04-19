@@ -202,12 +202,13 @@ Sin embargo, hay un problema con este test, como se muestra aquí:
 {{#include ../listings/ch15-smart-pointers/listing-15-21/output.txt}}
 ```
 
-No podemos modificar `sent_messages` para realizar un seguimiento de los
-mensajes, porque el método `send` toma una referencia inmutable a `self`.
-Tampoco podemos tomar la sugerencia del texto de error para usar `&mut self`
-en su lugar, porque entonces la firma de `send` no coincidiría con la firma en
-la definición del trait `Messenger` (siéntase libre de intentarlo y ver qué
-mensaje de error obtiene).
+No podemos modificar `MockMessenger` para llevar un registro de los mensajes, 
+porque el método `send` toma una referencia inmutable a `self`. Tampoco podemos 
+seguir la sugerencia del mensaje de error de usar `&mut self` tanto en el método 
+del `impl` como en la definición del `trait`. No queremos cambiar el *trait* 
+`Messenger` solo por el propósito de las pruebas. En su lugar, necesitamos 
+encontrar una forma de hacer que nuestro código de prueba funcione correctamente 
+con el diseño actual.
 
 Esta es una situación en la que la mutabilidad interior puede ayudar.
 Almacenaremos los `sent_messages` dentro de un `RefCell<T>`, y luego el método

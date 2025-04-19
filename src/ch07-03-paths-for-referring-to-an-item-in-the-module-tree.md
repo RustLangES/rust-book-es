@@ -113,7 +113,7 @@ módulo `hosting` con la palabra clave `pub`, como se muestra en el listado 7-5.
 <Listing number="7-5" file-name="src/lib.rs" caption="Declarando el módulo `hosting` como `pub` para usarlo desde `eat_at_restaurant`">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs:here}}
 ```
 
 </Listing>
@@ -149,7 +149,7 @@ palabra clave `pub` antes de su definición, como se muestra en el listado 7-7.
 <Listing number="7-7" file-name="src/lib.rs" caption="Agregar la keyword `pub` a `mod hosting` y `fn add_to_waitlist` nos permite llamar a la función desde `eat_at_restaurant`">
 
 ```rust,noplayground,test_harness
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs:here}}
 ```
 
 </Listing>

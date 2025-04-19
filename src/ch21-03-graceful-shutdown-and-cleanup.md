@@ -84,8 +84,8 @@ necesitamos envolver el valor `thread` en `Some` cuando creamos un nuevo
 
 <Listing file-name="src/lib.rs">
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch21-web-server/no-listing-05-fix-worker-new/src/lib.rs:here}}
+```rust
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-04-update-drop-definition/src/lib.rs:here}}
 ```
 
 </Listing>

@@ -20,14 +20,15 @@ particular.
 
 Las variables nombradas son patterns irrefutables que coinciden con cualquier
 valor, y las hemos usado muchas veces en el libro. Sin embargo, hay una
-complicación cuando usas variables nombradas en expresiones `match`. Debido a
-que `match` inicia un nuevo alcance, las variables declaradas como parte de un
-pattern dentro de la expresión `match` ocultarán aquellas con el mismo nombre
-fuera del constructo `match`, como es el caso de todas las variables. En el
-Listado 19-11, declaramos una variable llamada `x` con el valor `Some(5)` y una
-variable `y` con el valor `10`. Luego creamos una expresión `match` en el valor
-`x`. Mira los patterns en las opciones `match` y `println!` al final, e intenta
-averiguar qué imprimirá el código antes de ejecutar este código o leer más.
+complicación cuando usas variables nombradas en expresiones `match`, `if let`, 
+o `while let` . Debido a que cada una de estas expresiones inicia un nuevo 
+bloque de código, las variables declaradas como parte de un pattern dentro de la 
+expresión ocultarán aquellas con el mismo nombre fuera de la expresión, como es 
+el caso de todas las variables. En el Listado 19-11, declaramos una variable 
+llamada `x` con el valor `Some(5)` y una variable `y` con el valor `10`. Luego 
+creamos una expresión `match` en el valor `x`. Mira los patterns en las opciones 
+`match` y `println!` al final, e intenta averiguar qué imprimirá el código 
+antes de ejecutar este código o leer más.
 
 <Listing number="19-11" file-name="src/main.rs" caption="Una expresión `match` con una opción que introduce una nueva variable sombreada (shadowing)">
 
@@ -470,7 +471,8 @@ es ambiguo.
 Un _match guard_ es una condición adicional `if`, especificada después del
 pattern en una opción `match`, que también debe coincidir para que se elija
 esa opción. Los match guards son útiles para expresar ideas más complejas que
-las que permite un pattern solo.
+las que permite un pattern solo. Solo están disponibles en expresiones `match`, 
+no en expresiones `if let` ni `while let`.
 
 La condición puede utilizar variables creadas en el pattern. El Listado 19-26
 muestra un `match` donde la primera opción tiene el pattern `Some(x)` y también

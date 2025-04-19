@@ -60,7 +60,8 @@ funcionalidad descrita.
 * `union` - define una [unión][union]<!-- ignore -->; solo es una palabra clave 
   cuando se usa en una declaración de unión
 * `unsafe` - denota código, funciones, rasgos o implementaciones inseguras
-* `use` - importa símbolos en el ámbito
+* `use` - importa símbolos en el ámbito; especificar capturas precisas para los 
+límites genéricos y de *lifetime*
 * `where` - denota cláusulas que restringen un tipo
 * `while` - bucle condicionalmente basado en el resultado de una expresión
 
@@ -76,6 +77,7 @@ reservadas por Rust para un uso potencial en el futuro.
 * `box`
 * `do`
 * `final`
+* `gen`
 * `macro`
 * `override`
 * `priv`
@@ -136,10 +138,10 @@ elegir nombres de identificadores, así como nos permite integrarnos con
 programas escritos en un lenguaje donde estas palabras no son palabras clave.
 Además, los identificadores brutos nos permiten usar bibliotecas escritas en
 una edición de Rust diferente a la de su crate. Por ejemplo, `try` no es una
-palabra clave en la edición 2015, pero lo es en la edición 2018. Si depende de
-una biblioteca que está escrita usando la edición 2015 y tiene una función
-`try`, necesitará usar la sintaxis de identificador bruto para llamar a esa
-función desde su código de la edición 2018. Vea [Apéndice E][appendix-e]<!--
+palabra clave en la edición 2015, pero lo es en la edición 2018, 2021 y 2024. 
+Si depende de una biblioteca que está escrita usando la edición 2015 y tiene una 
+función `try`, necesitará usar la sintaxis de identificador bruto para llamar a 
+esa función desde su código de la edición 2018. Vea [Apéndice E][appendix-e]<!--
 ignore --> para obtener más información sobre las ediciones.
 
 [appendix-e]: appendix-05-editions.html

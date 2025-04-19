@@ -1,5 +1,9 @@
 ## Profundizando en los rasgos para async
 
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="digging-into-the-traits-for-async"></a>
+
 A lo largo del capítulo, hemos utilizado los traits `Future`, `Pin`, `Unpin`,
 `Stream` y `StreamExt` de diversas maneras. Hasta ahora, sin embargo, hemos
 evitado profundizar demasiado en los detalles de cómo funcionan o cómo se
@@ -116,6 +120,10 @@ cubriremos incluso en esta sección de inmersión profunda. La clave aquí es ve
 el mecanismo básico de los futuros: un tiempo de ejecución *encuesta* cada 
 futuro del que es responsable, poniéndolo a dormir cuando aún no está listo.
 
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="pinning-and-the-pin-and-unpin-traits"></a>
+
 ### Pinning y los traits Pin y Unpin
 
 Cuando introdujimos la idea de pinning mientras trabajábamos en el Listado 
@@ -195,9 +203,10 @@ llamar a este método. En segundo lugar, una anotación de tipo en `self` no pue
 ser solo cualquier tipo. Solo se permite que sea el tipo en el que se implementa
 el método, una referencia o un puntero inteligente a ese tipo, o un `Pin` que
 envuelve una referencia a ese tipo. Veremos más sobre esta sintaxis en el
-Capítulo 18. Por ahora, es suficiente saber que si queremos encuestar un futuro
-(para comprobar si está `Pending` o `Ready(Output)`), necesitamos una referencia
-mutable al tipo, que está envuelto en un `Pin`.
+[Capítulo 18][ch-18]<!-- ignore -->. Por ahora, es suficiente saber que si 
+queremos encuestar un futuro (para comprobar si está `Pending` o 
+`Ready(Output)`), necesitamos una referencia mutable al tipo, que está envuelto 
+en un `Pin`.
 
 `Pin` es un tipo de envoltura (wrapper type). En ciertos aspectos, es similar a
 `Box`, `Rc` y otros tipos de punteros inteligentes que vimos en el Capítulo 15,
@@ -248,7 +257,7 @@ son detalles bastante complicados).
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-04.svg" class="center" />
+<img alt="A single-column, three-row table representing a future, fut1, which has data values 0 and 1 in the first two rows and an arrow pointing from the third row back to the second row, representing an internal reference within the future." src="img/trpl17-04.svg" class="center" />
 
 <figcaption>Figura 17-4: Un tipo de datos auto-referencial.</figcaption>
 
@@ -266,7 +275,7 @@ tarde.
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-05.svg" class="center" />
+<img alt="Two tables, depicting two futures, fut1 and fut2, each of which has one column and three rows, representing the result of having moved a future out of fut1 into fut2. The first, fut1, is grayed out, with a question mark in each index, representing unknown memory. The second, fut2, has 0 and 1 in the first and second rows and an arrow pointing from its third row back to the second row of fut1, representing a pointer that is referencing the old location in memory of the future before it was moved." src="img/trpl17-05.svg" class="center" />
 
 <figcaption>Figura 17-5: El resultado inseguro de mover un tipo de datos auto-referencial.</figcaption>
 
@@ -288,7 +297,7 @@ el valor `SomeType`, *no* el puntero `Box`. La Figura 17-6 ilustra esto:
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-06.svg" class="center" />
+<img alt="Three boxes laid out side by side. The first is labeled “Pin”, the second “b1”, and the third “pinned”. Within “pinned” is a table labeled “fut”, with a single column; it represents a future with cells for each part of the data structure. Its first cell has the value “0”, its second cell has an arrow coming out of it and pointing to the fourth and final cell, which has the value “1” in it, and the third cell has dashed lines and an ellipsis to indicate there may be other parts to the data structure. All together, the “fut” table represents a future which is self-referential. An arrow leaves the box labeled “Pin”, goes through the box labeled “b1” and has terminates inside the “pinned” box at the “fut” table." src="img/trpl17-06.svg" class="center" />
 
 <figcaption>Figura 17-6: Pineando un `Box` que apunta a un tipo de futuro auto-referencial.</figcaption>
 
@@ -306,7 +315,7 @@ auto-referencial en sí no puede moverse, porque todavía está pineado.
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-07.svg" class="center" />
+<img alt="Four boxes laid out in three rough columns, identical to the previous diagram with a change to the second column. Now there are two boxes in the second column, labeled “b1” and “b2”, “b1” is grayed out, and the arrow from “Pin” goes through “b2” instead of “b1”, indicating that the pointer has moved from “b1” to “b2”, but the data in “pinned” has not moved." src="img/trpl17-07.svg" class="center" />
 
 <figcaption>Figura 17-7: Moviendo un `Box` que apunta a un tipo de futuro auto-referencial.</figcaption>
 
@@ -500,8 +509,7 @@ Eso es todo lo que vamos a cubrir para los detalles de nivel inferior sobre
 estos traits. Para terminar, ¡consideremos cómo encajan los futuros (incluidos
 los streams), las tareas y los hilos!
 
-[futures-syntax]: ch17-01-futures-and-syntax.html
-[counting]: ch17-02-concurrency-with-async.html
+[ch-18]: ch18-00-oop.html
 [async-book]: https://rust-lang.github.io/async-book/
 [under-the-hood]: https://rust-lang.github.io/async-book/02_execution/01_chapter.html
 [pinning]: https://rust-lang.github.io/async-book/04_pinning/01_chapter.html

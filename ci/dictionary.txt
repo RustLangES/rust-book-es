@@ -1600,6 +1600,7 @@ grapheme
 Grapheme
 growable
 gzip
+handcoded
 handoff
 hardcode
 hardcoded
@@ -1648,6 +1649,7 @@ interoperate
 IntoFuture
 IntoIterator
 intra
+intratask
 InvalidDigit
 invariants
 ioerror
@@ -1811,6 +1813,7 @@ nondeterministic
 nonequality
 nongeneric
 noplayground
+NoStarch
 NotFound
 instalacion
 solucion
@@ -2171,6 +2174,7 @@ suboptimal
 subpath
 subslices
 substring
+subtasks
 subteams
 subtree
 subtyping

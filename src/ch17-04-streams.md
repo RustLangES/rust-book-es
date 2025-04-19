@@ -1,4 +1,8 @@
-## Streams
+## Streams: Futures en Secuencia
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="streams"></a>
 
 Hasta ahora en este capítulo, hemos estado trabajando principalmente con futuros
 individuales. La única gran excepción fue el receiver de canal asíncrono que
@@ -200,6 +204,16 @@ stream que necesita ser fijado para ser sondeado.
 
 </Listing>
 
+We start by adding a timeout to the stream with the `timeout` method, which
+comes from the `StreamExt` trait. Then we update the body of the `while let`
+loop, because the stream now returns a `Result`. The `Ok` variant indicates a
+message arrived in time; the `Err` variant indicates that the timeout elapsed
+before any message arrived. We `match` on that result and either print the
+message when we receive it successfully or print a notice about the timeout.
+Finally, notice that we pin the messages after applying the timeout to them,
+because the timeout helper produces a stream that needs to be pinned to be
+polled.
+
 Sin embargo, como no hay demoras entre los mensajes, este tiempo de espera
 no cambia el comportamiento del programa. Agreguemos una demora variable
 a los mensajes que enviamos. En `get_messages`, usamos el método
@@ -219,6 +233,13 @@ la mitad de los mensajes.
 ```
 
 </Listing>
+
+In `get_messages`, we use the `enumerate` iterator method with the `messages`
+array so that we can get the index of each item we’re sending along with the
+item itself. Then we apply a 100-millisecond delay to even-index items and a
+300-millisecond delay to odd-index items to simulate the different delays we
+might see from a stream of messages in the real world. Because our timeout is
+for 200 milliseconds, this should affect half of the messages.
 
 Para usar sleep entre mensajes en la función `get_messages` sin bloquear, 
 necesitamos usar async. Sin embargo, no podemos hacer de `get_messages` una 
@@ -336,6 +357,12 @@ ese stream combinado en lugar de sobre `messages` (listado 17-37).
 ```
 
 </Listing>
+
+We start by calling `get_intervals`. Then we merge the `messages` and
+`intervals` streams with the `merge` method, which combines multiple streams
+into one stream that produces items from any of the source streams as soon as
+the items are available, without imposing any particular ordering. Finally, we
+loop over that combined stream instead of over `messages`.
 
 En este punto, ni `messages` ni `intervals` necesitan ser fijados o
 mutables, porque ambos se combinarán en el único stream `merged`.

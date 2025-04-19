@@ -11,11 +11,11 @@ coincidirá.
 
 Los parámetros de funciones, las declaraciones `let` y los bucles `for` solo
 pueden aceptar patterns irrefutables, porque el programa no puede hacer nada
-significativo cuando los valores no coinciden. Las expresiones `if let` y
-`while let` aceptan patterns refutables e irrefutables, pero el compilador
-advierte contra los patterns irrefutables porque, por definición, están
-destinados a manejar posibles fallas: la funcionalidad de una condicional está
-en su capacidad de realizar de manera diferente dependiendo del éxito o el
+significativo cuando los valores no coinciden. Las expresiones `if let`,
+`while let` y `let`-`else` aceptan patterns refutables e irrefutables, pero el 
+compilador advierte contra los patterns irrefutables porque, por definición, 
+están destinados a manejar posibles fallas: la funcionalidad de una condicional 
+está en su capacidad de realizar de manera diferente dependiendo del éxito o el
 fracaso.
 
 En general, no debería preocuparse por la distinción entre patterns refutables

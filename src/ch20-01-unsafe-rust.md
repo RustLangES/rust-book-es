@@ -451,19 +451,28 @@ modificar una variable static mutable llamada `COUNTER`.
 
 Al igual que con las variables regulares, especificamos la mutabilidad usando la 
 palabra clave `mut`. Cualquier código que lea o escriba en `COUNTER` debe estar 
-dentro de un bloque `unsafe`. Este código compila y muestra `COUNTER: 3`, como 
-cabría esperar, porque es de un solo hilo. Sin embargo, si múltiples hilos 
-accedieran a `COUNTER`, probablemente resultaría en *data races*, lo cual se 
-considera comportamiento indefinido. Por lo tanto, debemos marcar toda la 
-función como `unsafe` y documentar las limitaciones de seguridad, para que 
-cualquiera que llame a la función sepa qué puede y qué no puede hacer de forma 
-segura.
+dentro de un bloque `unsafe`. Este código en el listado 20-11 compila y muestra 
+`COUNTER: 3`, como cabría esperar, porque es de un solo hilo. Sin embargo, si 
+múltiples hilos accedieran a `COUNTER`, probablemente resultaría en 
+*data races*, lo cual se considera comportamiento indefinido. Por lo tanto, 
+debemos marcar toda la función como `unsafe` y documentar las limitaciones de 
+seguridad, para que cualquiera que llame a la función sepa qué puede y qué no 
+puede hacer de forma segura.
 
 Cada vez que escribimos una función insegura, es idiomático agregar un 
 comentario que comience con `SAFETY` y explique qué debe hacer el llamador para 
 usar la función de forma segura. De manera similar, siempre que realicemos una 
 operación insegura, es idiomático escribir un comentario que comience con 
 `SAFETY` para explicar cómo se cumplen las reglas de seguridad.
+
+Además, el compilador no te permitirá crear referencias a una variable `static` 
+mutable. Solo se puede acceder a ella mediante un **puntero crudo** 
+(*raw pointer*), creado con uno de los operadores de *raw borrow*. Esto incluye 
+los casos en los que la referencia se crea de forma implícita, como cuando se 
+utiliza dentro de un `println!` en el ejemplo de código.  
+El requerimiento de que las referencias a variables estáticas mutables solo 
+puedan crearse a través de punteros crudos ayuda a que los requisitos de 
+seguridad para su uso sean más evidentes.
 
 Con datos mutables que son accesibles globalmente, es difícil asegurarse de que
 no haya carreras de datos, por lo que Rust considera que las variables static
@@ -566,10 +575,16 @@ más fácil rastrear la fuente de los problemas cuando ocurren.
 Cada vez que escribas código inseguro, puedes usar Miri para ayudarte a tener 
 más confianza en que el código que has escrito respeta las reglas de Rust.
 
+Para una exploración mucho más profunda sobre cómo trabajar de manera efectiva 
+con Rust inseguro, podés leer la guía oficial de Rust sobre el tema: el 
+[Rustonomicon][nomicon].
+
 [referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes
 [differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constantes
 [concurrencia-extensible-con-los-traits-sync-y-send]: ch16-04-extensible-concurrency-sync-and-send.html#concurrencia-extensible-con-los-traits-sync-y-send
 [el-tipo-slice]: ch04-03-slices.html#el-tipo-slice
 [reference]: https://doc.rust-lang.org/reference/items/unions.html
 [miri]: https://github.com/rust-lang/miri
+[editions]: appendix-05-editions.html
 [nightly]: appendix-07-nightly-rust.html
+[nomicon]: https://doc.rust-lang.org/nomicon/

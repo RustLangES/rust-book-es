@@ -130,6 +130,10 @@ Nuestro tipo `MyBox<T>` no puede ser desreferenciado porque no hemos
 implementado esa capacidad en nuestro tipo. Para habilitar la desreferencia con
 el operador `*`, implementamos el trait `Deref`.
 
+<!-- Old link, do not remove -->
+
+<a id="treating-a-type-like-a-reference-by-implementing-the-deref-trait"></a>
+
 ### Tratando un tipo como una referencia implementando el trait `Deref`
 
 Como discutimos en la sección del Capítulo 10
@@ -280,9 +284,9 @@ referencias inmutables, puedes usar el trait `DerefMut` para anular el operador
 Rust realiza la coerción Deref cuando encuentra tipos e implementaciones de
 traits en tres casos:
 
-- De `&T` a `&U` cuando `T: Deref<Target=U>`
-- De `&mut T` a `&mut U` cuando `T: DerefMut<Target=U>`
-- De `&mut T` a `&U` cuando `T: Deref<Target=U>`
+1. De `&T` a `&U` cuando `T: Deref<Target=U>`
+2. De `&mut T` a `&mut U` cuando `T: DerefMut<Target=U>`
+3. De `&mut T` a `&U` cuando `T: Deref<Target=U>`
 
 Los dos primeros casos son iguales entre sí, excepto que el segundo implementa
 mutabilidad. El primer caso establece que si tienes un `&T`, y `T` implementa

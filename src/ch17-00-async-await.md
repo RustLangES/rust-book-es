@@ -1,4 +1,4 @@
-## Async y Await
+## Fundamentos de la Programación Asíncrona: Async, Await, Futures y Streams
 
 Muchas de las operaciones que pedimos a la computadora realizar pueden tardar un 
 tiempo en completarse. Por ejemplo, si utilizas un editor de video para crear un 
@@ -107,7 +107,7 @@ Cada persona en el equipo puede avanzar al mismo tiempo.
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-02.svg" class="center" />
+<img src="img/trpl17-02.svg" class="center" alt="A diagram with boxes labeled Task A and Task B, with diamonds in them representing subtasks. There are arrows pointing from A1 to A2, A2 to A3, A3 to A4, B1 to B2, and B2 to B3. No arrows cross between the boxes for Task A and Task B." />
 
 <img alt="Flujo de trabajo paralelo" src="img/trpl17-02.svg" class="center" />
 
@@ -124,7 +124,7 @@ podría ocurrir en serie, una cosa tras otra, como en la Figura 17-3.
 
 <figure>
 
-<img alt="Concurrent work flow" src="img/trpl17-03.svg" class="center" />
+<img src="img/trpl17-03.svg" class="center" alt="A diagram with boxes labeled Task A and Task B, with diamonds in them representing subtasks. There are arrows pointing from A1 to A2, A2 to a pair of thick vertical lines like a “pause” symbol, from that symbol to A3, B1 to B2, B2 to B3, which is below that symbol, B3 to A3, and B3 to B4." />
 
 <figcaption>Figura 17-3: Un flujo de trabajo parcialmente paralelo, donde el trabajo se realiza en la Tarea A y la Tarea B de forma independiente hasta que la tarea A3 está bloqueada en los resultados de la tarea B3.</figcaption>
 

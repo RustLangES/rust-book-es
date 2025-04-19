@@ -540,4 +540,4 @@ Rust que permiten mucha flexibilidad. Hemos visto brevemente los patterns a lo
 largo del libro, pero aún no hemos visto su capacidad total. ¡Vamos allá!
 
 [more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#casos-en-los-que-tienes-mas-informacion-que-el-compilador
-[macros]: ch20-06-macros.html#macros
+[macros]: ch20-05-macros.html#macros

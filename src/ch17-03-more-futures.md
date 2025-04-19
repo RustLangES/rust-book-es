@@ -24,9 +24,10 @@ a que algunos o todos ellos se completen.
 
 Para manejar todos los futures dentro de una colección, necesitamos iterar sobre ellos y
 *unirlos* (join). La función `trpl::join_all` acepta cualquier tipo que implemente el rasgo
-(trait) `Iterator`,  que aprendimos en el Capítulo 13, por lo que parece la solución
-ideal. Probemos colocando nuestros futures en un vector y reemplazando
-`join!` con `join_all`.
+(trait) `Iterator`, el cual aprendiste en el 
+[*trait* `Iterator` y el método `next`][iterator-trait]<!-- ignore --> en el 
+Capítulo 13, por lo que parece la solución ideal. Probemos colocando nuestros 
+futures en un vector y reemplazando `join!` con `join_all`.
 
 <Listing number="17-15" caption="Almacenando futures anónimos en un vector y llamando a `join_all`" file-name="src/main.rs">
 
@@ -55,7 +56,8 @@ error[E0308]: mismatched types
    |                      ----- the found `async` block
 ...
 45 |         let futures = vec![tx1_fut, rx_fut, tx_fut];
-   |                                     ^^^^^^ expected `async` block, found a different `async` block
+   |                                     ^^^^^^ expected `async` block, found a 
+different `async` block
    |
    = note: expected `async` block `{async block@src/main.rs:10:23: 10:33}`
               found `async` block `{async block@src/main.rs:24:22: 24:27}`
@@ -64,19 +66,24 @@ error[E0308]: mismatched types
 ```
 
 Esto puede resultar sorprendente. Después de todo, ninguno de los futures devuelve un
-valor, por lo que cada bloque produce un `Future<Output = ()>`. Sin embargo, `Future` es un trait, no
-tipo concreto. Los tipos concretos (concrete types) son las estructuras de datos individuales que
-el compilador genera para los bloques async. No se pueden colocar dos estructuras diferentes escritas
-a mano dentro de un `Vec`, y lo mismo ocurre con las diferentes
-estructuras generadas por el compilador.
+valor, por lo que cada bloque produce un `Future<Output = ()>`. Recuerda que 
+`Future` es un *trait*, y que el compilador crea un *enum* único para cada 
+bloque `async`. Los tipos concretos (concrete types) son las estructuras de 
+datos individuales que
+el compilador genera para los bloques async. No se pueden colocar dos 
+estructuras diferentes escritas a mano dentro de un `Vec`, y lo mismo ocurre con
+las diferentes estructuras generadas por el compilador.
 
-Para solucionar esto, necesitamos usar *trait objects*, al igual que hicimos en la sección [“Refactorizando
-para mejorar la modularidad y el manejo de errores”][dyn] en el Capítulo 12. (Cubriremos los trait objects
-en detalle en el Capítulo 18.) Usar objetos de trait nos permite tratar cada
-uno de los futures anónimos producidos por estos tipos como si fueran del mismo tipo,
-ya que todos implementan el trait `Future`.
+Para solucionar esto, necesitamos usar *trait objects*, al igual que hicimos en 
+la sección [“Refactorizando para mejorar la modularidad y el manejo de errores”][dyn] 
+en el Capítulo 12. (Cubriremos los trait objects en detalle en el Capítulo 18.) 
+Usar objetos de trait nos permite tratar cada uno de los futures anónimos 
+producidos por estos tipos como si fueran del mismo tipo, ya que todos 
+implementan el trait `Future`.
 
-> Nota: En el capitulo 8, discutimos otra forma de incluir múltiples tipos en un
+> Nota: En el capitulo 8, discutimos como 
+> [Usar un `enum` para almacenar múltiples tipos][enum-alt]<!-- ignore -->, otra 
+> forma de incluir múltiples tipos en un
 > `Vec`: usar un enum para representar cada uno de los diferentes tipos que pueden
 > aparecer en el vector. Sin embargo, en este caso no podemos hacer eso. Pues,
 > no tenemos forma de nombrar los diferentes tipos, ya que son anónimos. Además,
@@ -109,7 +116,8 @@ de `Unpin` en un momento. Primero, solucionemos los errores de tipo en las llama
 
 </Listing>
 
-El tipo que tuvimos que escribir aquí es un poco complejo, así que desglosémoslo paso a paso:
+El tipo que tuvimos que escribir aquí es un poco complejo, así que desglosémoslo
+paso a paso:
 
 * El tipo más interno es el futuro en sí. Indicamos explícitamente que su valor de salida
  es el tipo unitario `()` escribiendo `Future<Output = ()>`.
@@ -342,6 +350,14 @@ sucede dentro de los bloques async.
 
 </Listing>
 
+Each future prints a message when it starts running, pauses for some amount of
+time by calling and awaiting `sleep`, and then prints another message when it
+finishes. Then we pass both `slow` and `fast` to `trpl::race` and wait for one
+of them to finish. (The outcome here isn’t too surprising: `fast` wins.) Unlike
+when we used `race` back in [“Our First Async Program”][async-program]<!--
+ignore -->, we just ignore the `Either` instance it returns here, because all of
+the interesting behavior happens in the body of the async blocks.
+
 Observa que si inviertes el orden de los argumentos en `race`, el orden de los mensajes
 “started” cambia, aunque el futuro `fast` siempre se completa
 primero. Esto se debe que la implementación de la función `race` en particular
@@ -371,6 +387,10 @@ se relacionen entre sí.
 
 Pero ¿cómo *podrías* devolver el control al runtime en esos casos?
 
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="yielding"></a>
+
 ### Cediendo el Control
 
 Simulemos una operación de larga duración. En el Listado 17-22 se introduce la función `slow`.
@@ -386,6 +406,11 @@ como bloqueante.
 ```
 
 </Listing>
+
+This code uses `std::thread::sleep` instead of `trpl::sleep` so that calling
+`slow` will block the current thread for some number of milliseconds. We can use
+`slow` to stand in for real-world operations that are both long-running and
+blocking.
 
 En el Listado 17-23, usamos `slow` para emular ese tipo de trabajo con la CPU limitada trabajando en
 un par de futuros. Para empezar, cada futuro en este código solo devuelve el control del runtime
@@ -504,6 +529,11 @@ ejecutamos 1,000 iteraciones y comparamos cuánto tiempo toma el futuro que usa
 
 </Listing>
 
+Here, we skip all the status printing, pass a one-nanosecond `Duration` to
+`trpl::sleep`, and let each future run by itself, with no switching between the
+futures. Then we run for 1,000 iterations and see how long the future using
+`trpl::sleep` takes compared to the future using `trpl::yield_now`.
+
 Esta versión con `yield_now` es *mucho* más rápido!
 
 Esto significa que async puede ser útil incluso para tareas que consumen
@@ -595,8 +625,14 @@ con `_` y devolvemos `Err(max_time)`.
 
 </Listing>
 
-Con eso, tenemos un `timeout` que funciona, construido a partir de otros dos ayudantes asíncronos (async helpers). Si
-ejecutamos nuestro código, imprimirá el modo de fallo después del tiempo de espera:
+Si el `future_to_try` tiene éxito y obtenemos un `Left(output)`, devolvemos 
+`Ok(output)`. Si en su lugar transcurre el temporizador de espera y obtenemos un 
+`Right(())`, ignoramos el `()` con un `_` y devolvemos `Err(max_time)` en su 
+lugar.
+
+Con eso, tenemos un `timeout` que funciona, construido a partir de otros dos 
+ayudantes asíncronos (async helpers). Si ejecutamos nuestro código, imprimirá el 
+modo de fallo después del tiempo de espera:
 
 ```text
 Failed after 2 seconds
@@ -626,6 +662,7 @@ cosas que podrías considerar:
   de que provenga de la parte de `stream` del crate; funciona perfectamente
   con cualquier colección de futuros).
 
-[collections]: ch08-01-vectors.html#using-an-enum-to-store-multiple-types
 [dyn]: ch12-03-improving-error-handling-and-modularity.html
+[enum-alt]: ch08-01-vectors.html#enum-for-multiple-types
 [async-program]: ch17-01-futures-and-syntax.html#our-first-async-program
+[iterator-trait]: ch13-02-iterators.html#the-iterator-trait-and-the-next-method

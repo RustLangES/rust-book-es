@@ -1,4 +1,8 @@
-## Concurrencia con Async
+## Aplicando Concurrencia con Async
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="concurrency-with-async"></a>
 
 En esta sección, aplicaremos async a algunos de los mismos desafíos
 de concurrencia que abordamos con threads en el capítulo 16. Hemos explorado muchas de
@@ -11,11 +15,17 @@ bastante diferentes. Incluso cuando las APIs parecen similares entre threads y a
 a menudo presentan comportamientos distintos y casi siempre tienen diferentes
 características de rendimiento.
 
-### Conteo
 
-La primera tarea que abordamos en el capítulo 16 fue contar en dos threads separados.
-Hagamos lo mismo usando async. El crate `trpl`  proporciona una función `spawn_task`,
-que se comporta de forma muy similar a la API de `thread::spawn`, y una función `sleep`,
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="counting"></a>
+
+### Crear una nueva tarea con `spawn_task`
+
+La primera tarea que abordamos en [Crear un nuevo hilo con Spawn][thread-spawn]<!-- ignore --> 
+fue contar en dos threads separados. Hagamos lo mismo usando async. El
+crate `trpl`  proporciona una función `spawn_task`, que se comporta de forma muy 
+similar a la API de `thread::spawn`, y una función `sleep`,
 que es una versión async de `thread::sleep`. Podemos usarlas juntas para implementar
 el mismo ejemplo de conteo que con threads, como se muestra en el Listado 17-6.
 
@@ -108,7 +118,8 @@ los bloques async se compilan en futures anónimos, podemos colocar cada bucle d
 bloque async y dejar que el runtime los ejecute hasta su finalización usando la
 función `trpl::join`.
 
-En el capítulo 16, mostramos cómo usar el método `join` en el tipo `JoinHandle`
+En la sección [Esperando a que todos los hilos terminen usando `join` handles][join-handles]<!-- ignore -->, 
+mostramos cómo usar el método `join` en el tipo `JoinHandle`
 que se obtiene al llamar `std::thread::spawn`. La función `trpl::join` es
 similar, pero para futures. Cuando le pasas dos futures, genera un nuevo
 future cuyo resultado es una tupla con los valores de salida de los futures originales,
@@ -174,10 +185,11 @@ cada caso *antes* de ejecutar el código.
 
 Compartir datos entre futures también te resultará familiar: volveremos a usar el paso de
 mensajes, pero esta vez con versiones async de los tipos y funciones. Seguiremos un
-enfoque ligeramente diferente al del capítulo 16 para destacar algunas diferencias clave
-entre la concurrencia basada en threads y la basada en futures. En el Listado 17-9,
-comenzaremos con un solo bloque async, sin generar una tarea
-separada como lo hicimos al crear un thread independiente.
+enfoque ligeramente diferente al del hecho en [Usando el Pasaje de Mensajes para Transferir Datos entre Hilos][message-passing-threads] 
+para destacar algunas diferencias clave entre la concurrencia basada en threads 
+y la basada en futures. En el Listado 17-9, comenzaremos con un solo bloque 
+async, sin generar una tarea separada como lo hicimos al crear un thread 
+independiente.
 
 <Listing number="17-9" caption="Creando un canal async y asignando las dos mitades a `tx` y `rx`" file-name="src/main.rs">
 
@@ -228,26 +240,28 @@ muestra en el Listado 17-10:
 
 </Listing>
 
-Además de enviar los mensajes, también necesitamos recibirlos. En este caso, podríamos
-hacerlo manualmente llamando a `rx.recv().await` cuatro veces, ya que sabemos cuántos
-mensajes llegarán. Sin embargo, en la práctica, normalmente estaremos
-esperando una cantidad *desconocida* de mensajes, por lo que
+Además de enviar los mensajes, también necesitamos recibirlos. En este caso, 
+podríamos hacerlo manualmente llamando a `rx.recv().await` cuatro veces, ya que 
+sabemos cuántos mensajes llegarán. Sin embargo, en la práctica, normalmente 
+estaremos esperando una cantidad *desconocida* de mensajes, por lo que
 necesitamos seguir esperando hasta asegurarnos de que no quedan más.
 
-En el Listado 16-10, usamos un bucle `for` para procesar todos los elementos recibidos de
-un canal síncrono. Sin embargo, en Rust  aún no tiene una forma de escribir un bucle `for`
-sobre una serie de elementos *asíncronos*. En su lugar, debemos usar un tipo de bucle que
-aún no hemos visto: el bucle condicional `while let`. Este `while let` es la versión en bucle
-de la construcción  `if let` que vimos en el capítulo 6. El bucle continuará
-ejecutándose mientras el patrón que especifica coincida con
-el valor recibido.
+En el Listado 16-10, usamos un bucle `for` para procesar todos los elementos 
+recibidos de un canal síncrono. Sin embargo, en Rust  aún no tiene una forma de 
+escribir un bucle `for` sobre una serie de elementos *asíncronos*. En su lugar, 
+debemos usar un tipo de bucle que aún no hemos visto: el bucle condicional 
+`while let`. Este `while let` es la versión en bucle de la construcción  
+`if let` que vimos en la sección 
+[Flujo de Control Conciso con `if let` y `let else`][if-let]. El bucle 
+continuará ejecutándose mientras el patrón que especifica coincida con el valor 
+recibido.
 
-La llamada `rx.recv` produce un `Future`, que debemos esperar con `await`. El runtime pausará la ejecución
-del `Future` hasta que esté listo. Cuando llegue un mensaje, el future se resolverá
-en `Some(message)`, tantas veces como lleguen mensajes. Cuando el canal se cierre,
-sin importar si llegaron mensajes o no, el future se resolverá en
-en `None`, lo que indica que no hay más valores y debemos dejar de esperar
-(es decir, dejar de hacer await).
+La llamada `rx.recv` produce un `Future`, que debemos esperar con `await`. El 
+runtime pausará la ejecución del `Future` hasta que esté listo. Cuando llegue un
+mensaje, el future se resolverá en `Some(message)`, tantas veces como lleguen 
+mensajes. Cuando el canal se cierre, sin importar si llegaron mensajes o no, el 
+future se resolverá en en `None`, lo que indica que no hay más valores y debemos 
+dejar de esperar (es decir, dejar de hacer await).
 
 El bucle `while let` combina todo esto. Si el resultado de
 `rx.recv().await` es `Some(message)`, obtenemos acceso al mensaje y podemos usarlo dentro
@@ -317,17 +331,20 @@ mucho sentido. Detenernos después de manejar un número arbitrario de mensajes
 haría que el programa se cerrara, pero podríamos perder mensajes. Necesitamos otra forma de
 asegurarnos de que `tx` se elimine (drop) *antes* del final de la función.
 
-En este momento, el bloque async donde enviamos los mensajes solo toma prestado `tx`
-porque enviar un mensaje no requiere propiedad, pero si pudiéramos mover `tx` dentro
-de ese bloque async, se eliminaría cuando el bloque terminara. En el capítulo 13,
-aprendimos a usar la palabra clave `move` con closures, y en el capítulo 16, vimos
-que a menudo necesitamos mover datos dentro de closures cuando trabajamos con hilos. La
-misma lógica se aplica a los bloques async, por lo que `move`
+En este momento, el bloque async donde enviamos los mensajes solo toma prestado 
+`tx` porque enviar un mensaje no requiere propiedad, pero si pudiéramos mover 
+`tx` dentro de ese bloque async, se eliminaría cuando el bloque terminara. En el 
+capítulo 13 sección [Capturando referencias o moviendo el ownership][capture-or-move],
+aprendimos a usar la palabra clave `move` con closures, y en el capítulo 16 
+sección [Usando `move` Closures con Threads][move-threads]<!-- ignore-->, vimos
+que a menudo necesitamos mover datos dentro de closures cuando trabajamos con 
+hilos. La misma lógica se aplica a los bloques async, por lo que `move`
 funciona con ellos de la misma manera que con las closures.
 
-En el Listado 17-12, cambiamos el bloque async que envía los mensajes de un simple bloque
-`async` a un bloque `async move`. Cuando ejecutamos *esta* versión del código, el
-programa se cierra correctamente después de que se envían y reciben todos los mensajes.
+En el Listado 17-12, cambiamos el bloque async que envía los mensajes de un 
+simple bloque `async` a un bloque `async move`. Cuando ejecutamos *esta* versión 
+del código, el programa se cierra correctamente después de que se envían y 
+reciben todos los mensajes.
 
 <Listing number="17-12" caption="Un ejemplo funcional de envío y recepción de mensajes entre futuros que se cierra correctamente cuando se completa" file-name="src/main.rs">
 
@@ -337,17 +354,19 @@ programa se cierra correctamente después de que se envían y reciben todos los 
 
 </Listing>
 
-Este canal asíncrono también admite multiple-producer, por lo que podemos llamar a  `clone`
-en `tx` si queremos enviar mensajes desde varios futures. En el Listado 17-13,
-clonamos `tx`, creando `tx1` fuera del primer bloque async. Luego movemos `tx1` dentro
-de ese bloque, tal como hicimos antes con `tx`. Más adelante, movemos el
-`tx` original a un *nuevo* bloque async, donde enviamos más mensajes con un pequeño retraso
-adicional. Colocamos este nuevo bloque async después del bloque de recepción de mensajes,
-pero podría ir antes sin problema. Lo importante no es el orden en que los futures se crean,
-sino el orden en que los esperamos (await).
+Este canal asíncrono también admite multiple-producer, por lo que podemos llamar 
+a  `clone` en `tx` si queremos enviar mensajes desde varios futures. En el 
+Listado 17-13, clonamos `tx`, creando `tx1` fuera del primer bloque async. Luego 
+movemos `tx1` dentro de ese bloque, tal como hicimos antes con `tx`. Más 
+adelante, movemos el `tx` original a un *nuevo* bloque async, donde enviamos más 
+mensajes con un pequeño retraso adicional. Colocamos este nuevo bloque async 
+después del bloque de recepción de mensajes, pero podría ir antes sin problema. 
+Lo importante no es el orden en que los futures se crean, sino el orden en que 
+los esperamos (await).
 
 Ambos bloques async para enviar mensajes deben ser `async move`,
-de modo que tanto `tx` y `tx1` se eliminen (drop) cuando esos bloques terminen. De lo contrario,
+de modo que tanto `tx` y `tx1` se eliminen (drop) cuando esos bloques terminen. 
+De lo contrario,
 volveríamos al mismo bucle infinito del principio. Finalmente, cambiamos de
 `trpl::join` a `trpl::join3` para manejar el future adicional.
 
@@ -381,4 +400,9 @@ received 'you'
 Este es un buen comienzo, pero nos limita a solo unos pocos futures: dos con `join`
 o tres con `join3` . Veamos cómo podemos manejar una cantidad mayor de futures.
 
+[thread-spawn]: ch16-01-threads.html#creando-un-nuevo-hilo-con-spawn
+[join-handles]: ch16-01-threads.html#esperando-a-que-todos-los-hilos-terminen-usando-join-handles
+[message-passing-threads]: ch16-02-message-passing.html
+[if-let]: ch06-03-if-let.html
+[capture-or-move]: ch13-01-closures.html#capturando-referencias-o-moviendo-el-ownership
 [streams]: ch17-05-streams.html

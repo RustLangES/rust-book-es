@@ -17,10 +17,13 @@ para entender el problema que los slices resolverán:
 fn first_word(s: &String) -> ?
 ```
 
-La función `first_word` tiene un `&String` como parámetro. No queremos el
-ownership, así que esto está bien. Pero ¿Que deberíamos retornar? Realmente no
-tenemos una forma de hablar sobre "una _porción_ de un string". Sin embargo,
-podríamos retornar el índice del final de la palabra, indicado por un espacio.
+La función `first_word` tiene un `&String` como parámetro. No necesitamos el
+ownership, así que esto está bien. (En Rust idiomático, las funciones no toman 
+posesión de sus argumentos a menos que realmente lo necesiten, ¡y las razones de 
+esto se volverán claras a medida que avancemos!) Pero ¿Que deberíamos retornar? 
+Realmente no tenemos una forma de hablar sobre "una _porción_ de un string". Sin 
+embargo, podríamos retornar el índice del final de la palabra, indicado por un 
+espacio.
 Probemos eso, como se muestra en Listing 4-7.
 
 <Listing number="4-7" file-name="src/main.rs" caption="La función `first_word` retorna un valor de índice en bytes dentro de un parámetro `String`">

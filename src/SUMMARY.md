@@ -37,7 +37,7 @@
 - [Enums y Pattern Matching](ch06-00-enums.md)
   - [Definiendo un Enum](ch06-01-defining-an-enum.md)
   - [El operador de control de flujo `match`](ch06-02-match.md)
-  - [Flujo de Control Conciso con `if let`](ch06-03-if-let.md)
+  - [Flujo de Control Conciso con `if let` y `let else`](ch06-03-if-let.md)
 
 ## Conocimientos básicos de Rust
 
@@ -114,9 +114,9 @@
   - [Concurrencia con Estado Compartido](ch16-03-shared-state.md)
   - [Concurrencia Extensible con los Traits `Sync` y `Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
-- [Async y Await](ch17-00-async-await.md)
+- [Fundamentos de la Programación Asíncrona: Async, Await, Futures y Streams](ch17-00-async-await.md)
     - [Futures y la sintaxis Async](ch17-01-futures-and-syntax.md)
-    - [Concurrencia Con Async](ch17-02-concurrency-with-async.md)
+    - [Aplicando Concurrencia Con Async](ch17-02-concurrency-with-async.md)
     - [Trabajar con cualquier número de futuros](ch17-03-more-futures.md)
     - [Streams](ch17-04-streams.md)
     - [Profundizando en los Traits para Async](ch17-05-traits-for-async.md)

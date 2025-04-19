@@ -742,7 +742,7 @@ final del bloque asociado. En el Listado 21-21, el bloqueo permanece retenido
 durante la duración de la llamada a `job()`, lo que significa que otros
 trabajadores no pueden recibir trabajos.
 
-[creating-type-synonyms-with-type-aliases]: ch20-04-advanced-types.html#creando-type-synonyms-con-type-aliases
+[creating-type-synonyms-with-type-aliases]: ch20-03-advanced-types.html#creando-type-synonyms-con-type-aliases
 [integer-types]: ch03-02-data-types.html#tipos-de-enteros
 [fn-traits]: ch13-01-closures.html#moving-captured-values-out-of-the-closure-and-the-fn-traits
 [builder]: https://doc.rust-lang.org/std/thread/struct.Builder.html

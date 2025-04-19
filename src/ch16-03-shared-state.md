@@ -33,8 +33,8 @@ datos que contiene a través del sistema de bloqueo.
 Los Mutexes tienen la reputación de ser difíciles de usar porque debes
 recordar dos reglas:
 
-* Debes intentar adquirir el bloqueo antes de utilizar los datos.
-* Cuando hayas terminado con los datos que protege el mutex, debes desbloquear
+1. Debes intentar adquirir el bloqueo antes de utilizar los datos.
+2. Cuando hayas terminado con los datos que protege el mutex, debes desbloquear
   los datos para que otros hilos puedan adquirir el bloqueo.
 
 Para una metáfora del mundo real para un mutex, imagina un panel de discusión
