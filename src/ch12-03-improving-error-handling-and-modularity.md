@@ -369,7 +369,7 @@ El Listado 12-11 muestra la función `run` extraída. Por ahora, solo estamos
 haciendo la pequeña mejora incremental de extraer la función. Todavía estamos
 definiendo la función en _src/main.rs_.
 
-<Listing number="12-11" file-name="src/main.rs" caption="Extrayendo una función `run` conteniendo el resto de la logica del programa">
+<Listing number="12-11" file-name="src/main.rs" caption="Extrayendo una función `run` conteniendo el resto de la lógica del programa">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-11/src/main.rs:here}}

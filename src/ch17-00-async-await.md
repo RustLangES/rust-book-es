@@ -72,12 +72,12 @@ println!("{data}");
 
 Eso es exactamente lo que la abstracción de Rust nos ofrece. Antes de ver como 
 funciona esto en la práctica, debemos hacer una breve pausa para entender la 
-diferencia entre paralisimos y concurrencia.
+diferencia entre paralelismos y concurrencia.
 
 ### Paralelismo y Concurrencia
 
 En el capitulo anterior, tratamos la concurrencia y el paralelismo como 
-conceptos mayormente intercambiales. Ahora necesitamos distinguirlos con más 
+conceptos mayormente intercambiables. Ahora necesitamos distinguirlos con más 
 precisión porque la diferencia se hará más evidente a medida que comencemos a 
 trabajar.
 
@@ -133,7 +133,7 @@ podría ocurrir en serie, una cosa tras otra, como en la Figura 17-3.
 Así mismo, puedes darte cuenta de que una de tus propias tareas depende de otra
 de tus tareas. Ahora tu trabajo concurrente también se ha vuelto serial.
 
-El paralelismo y la concurrencia también pueden intersectarse entre sí. Si
+El paralelismo y la concurrencia también pueden interceptarse entre sí. Si
 descubres que un colega está atascado hasta que termines una de tus tareas,
 probablemente centrarás todos tus esfuerzos en esa tarea para “desbloquear” a tu
 colega. Tú y tu compañero de trabajo ya no pueden trabajar en paralelo, y tú

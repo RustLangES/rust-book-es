@@ -179,7 +179,7 @@ Para ver más claramente el aspecto de coincidencia de patrones de `let`,
 considera el Listado 19-4, que usa un pattern con `let` para destruir una
 tupla.
 
-<Listing number="19-4" caption="Using a pattern to destructure a tuple and create three variables at once">
+<Listing number="19-4" caption="Usando un pattern para desestructurar una tupla y crear tres variables a la vez">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-04/src/main.rs:here}}

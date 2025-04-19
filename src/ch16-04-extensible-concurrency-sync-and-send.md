@@ -67,7 +67,7 @@ mantenerlas.
 ## Resumen
 
 No es la última vez que verás la concurrencia en este libro: todo el siguiente 
-capitulo esta enfocado en programación asincrona, y el proyecto del Capítulo 21 
+capitulo esta enfocado en programación asíncrona, y el proyecto del Capítulo 21 
 usará los conceptos de este capítulo en una situación más realista que los 
 ejemplos más pequeños que se discuten aquí.
 

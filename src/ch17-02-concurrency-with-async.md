@@ -206,7 +206,7 @@ ya que el canal al que estamos enviando los mensajes es ilimitado.
 > Nota: Todo este código async se ejecuta dentro de un bloque async dentro de una llamada a `trpl::run`,
 > lo que permite evitar bloqueos dentro de él. Sin embargo, el código *fuera* de
 > este bloque sí se bloqueará hasta que `run` termine. Esa es precisamente la función de
-> `trpl::run`: te permite *eligir* en qué parte del código async quieres bloquear la ejecución,
+> `trpl::run`: te permite *elegir* en qué parte del código async quieres bloquear la ejecución,
 > definiendo así la transición entre código síncrono y asíncrono. En la mayoría de
 > runtimes async, la función `run` suele llamarse `block_on` por esta misma razón.
 

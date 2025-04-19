@@ -136,7 +136,7 @@ toma el ownership del iterador en el que lo llamamos.
 consumen el iterator. En cambio, producen diferentes iterators cambiando algún
 aspecto del iterador original.
 
-El Listado 13-14 muestra un ejemplo de llamar al método adaptader de iterator
+El Listado 13-14 muestra un ejemplo de llamar al método adapter de iterator
 `map` que toma un closure para llamar en cada item y produce un nuevo iterator.
 El método `map` retorna un nuevo iterador que ejecuta el closure que le
 pasamos en cada item y produce los items resultantes. El closure aquí crea un
