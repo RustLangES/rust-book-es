@@ -1,28 +1,31 @@
 ## Streams
 
-So far in this chapter, we have mostly stuck to individual futures. The one big
-exception was the async channel we used. Recall how we used the receiver for our
-async channel in the [“Message Passing”][17-02-messages] earlier in the chapter.
-The async `recv` method produces a sequence of items over time. This is an
-instance of a much more general pattern, often called a *stream*.
+Hasta ahora en este capítulo, hemos estado trabajando principalmente con futuros
+individuales. La única gran excepción fue el receiver de canal asíncrono que
+utilizamos. Recuerda cómo usamos el receiver para nuestro canal asíncrono en el
+[“Paso de Mensajes”][17-02-messages] al principio del capítulo. El método
+`recv` asíncrono produce una secuencia de elementos a lo largo del tiempo. Esta
+es una instancia de un patrón mucho más general, a menudo llamado *stream*.
 
-A sequence of items is something we’ve seen before, when we looked at the
-`Iterator` trait in Chapter 13. There are two differences between iterators and
-the async channel receiver, though. The first is the element of time: iterators
-are synchronous, while the channel receiver is asynchronous. The second is the
-API. When working directly with an `Iterator`, we call its synchronous `next`
-method. With the `trpl::Receiver` stream in particular, we called an
-asynchronous `recv` method instead. These APIs otherwise feel very similar.
+Una secuencia de elementos es algo que ya hemos visto antes, cuando miramos el
+trait `Iterator` en el capítulo 13. Sin embargo, hay dos diferencias entre los
+iteradores y el receptor de canal asíncrono. La primera es el elemento del
+tiempo: los iteradores son sincrónicos, mientras que el receptor de canal es
+asíncrono. La segunda es la API. Cuando trabajamos directamente con un
+`Iterator`, llamamos a su método sincrónico `next`. Con el stream
+`trpl::Receiver`, en particular, llamamos a un método asíncrono `recv`
+en su lugar. Estas APIs, de otro modo, se sienten muy similares.
 
-That similarity isn’t a coincidence. A stream is similar to an asynchronous
-form of iteration. Whereas the `trpl::Receiver` specifically waits to receive
-messages, though, the general-purpose stream API is much more general: it
-provides the next item the way `Iterator` does, but asynchronously. The
-similarity between iterators and streams in Rust means we can actually create a
-stream from any iterator. As with an iterator, we can work with a stream by
-calling its `next` method and then awaiting the output, as in Listing 17-30.
+Un stream es similar a una forma asíncrona de iteración. Mientras que el
+`trpl::Receiver` espera específicamente recibir mensajes, la API de stream
+general es mucho más general: proporciona el siguiente elemento de la misma
+manera que `Iterator`, pero de forma asíncrona. La similitud entre los
+iteradores y los streams en Rust significa que en realidad podemos crear un
+stream a partir de cualquier iterador. Al igual que con un iterador, podemos
+trabajar con un stream llamando a su método `next` y luego esperando la
+salida, como en el listado 17-30.
 
-<Listing number="17-30" caption="Creating a stream from an iterator and printing its values" file-name="src/main.rs">
+<Listing number="17-30" caption="Creando un stream a partir de un iterador y mostrando sus valores" file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-30/src/main.rs:stream}}
@@ -30,13 +33,15 @@ calling its `next` method and then awaiting the output, as in Listing 17-30.
 
 </Listing>
 
-We start with an array of numbers, which we convert to an iterator and then call
-`map` on to double all the values. Then we convert the iterator into a stream
-using the `trpl::stream_from_iter` function. Then we loop over the items in the
-stream as they arrive with the `while let` loop.
+Comenzamos con un array de números, que convertimos en un iterador y luego
+llamamos a `map` para duplicar todos los valores. Luego convertimos el
+iterador en un stream usando la función `trpl::stream_from_iter`. Luego
+recorremos los elementos en el stream a medida que llegan con el bucle `while
+let`.
 
-Unfortunately, when we try to run the code, it doesn’t compile. Instead, as we
-can see in the output, it reports that there is no `next` method available.
+Desafortunadamente, cuando intentamos ejecutar el código, no compila. En su
+lugar, como podemos ver en la salida, informa que no hay un método `next`
+disponible.
 
 <!-- manual-regeneration
 cd listings/ch17-async-await/listing-17-30
@@ -70,25 +75,27 @@ help: there is a method `try_next` with a similar name
    |                                        ~~~~~~~~
 ```
 
-As the output suggests, the reason for the compiler error is that we need the
-right trait in scope to be able to use the `next` method. Given our discussion
-so far, you might reasonably expect that to be `Stream`, but the trait we need
-here is actually `StreamExt`. The `Ext` there is for “extension”: this is a
-common pattern in the Rust community for extending one trait with another.
+Como sugiere la salida, la razón del error del compilador es que necesitamos el
+método correcto en el ámbito para poder usar el método `next`. Dada nuestra
+discusión hasta ahora, podrías esperar razonablemente que sea `Stream`, pero el
+trait que necesitamos aquí es en realidad `StreamExt`. El `Ext` allí es por
+“extensión”: este es un patrón común en la comunidad de Rust para extender un
+trait con otro.
 
-Why do we need `StreamExt` instead of `Stream`, and what does the `Stream` trait
-itself do? Briefly, the answer is that throughout the Rust ecosystem, the
-`Stream` trait defines a low-level interface which effectively combines the
-`Iterator` and `Future` traits. The `StreamExt` trait supplies a higher-level
-set of APIs on top of `Stream`, including the `next` method as well as other
-utility methods similar to those provided by the `Iterator` trait. We’ll return
-to the `Stream` and `StreamExt` traits in a bit more detail at the end of the
-chapter. For now, this is enough to let us keep moving.
+¿Por qué necesitamos `StreamExt` en lugar de `Stream`, y qué hace el trait
+`Stream` en sí? Brevemente, la respuesta es que en todo el ecosistema de Rust,
+el trait `Stream` define una interfaz de bajo nivel que combina
+efectivamente los traits `Iterator` y `Future`. El trait `StreamExt`
+suministra un conjunto de APIs de nivel superior sobre `Stream`, incluyendo
+el método `next` así como otros métodos de utilidad similares a los
+proporcionados por el trait `Iterator`. Volveremos a los traits
+`Stream` y `StreamExt` con un poco más de detalle al final del capítulo.
+Por ahora, esto es suficiente para dejarnos seguir avanzando.
 
-The fix to the compiler error is to add a `use` statement for `trpl::StreamExt`,
-as in Listing 17-31.
+La solución al error del compilador es agregar una declaración `use` para
+`trpl::StreamExt`, como en el listado 17-31.
 
-<Listing number="17-31" caption="Successfully using an iterator as the basis for a stream" file-name="src/main.rs">
+<Listing number="17-31" caption="Usando exitosamente un iterador como base para un stream" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-31/src/main.rs:all}}
@@ -96,12 +103,13 @@ as in Listing 17-31.
 
 </Listing>
 
-With all those pieces put together, this code works the way we want! What’s
-more, now that we have `StreamExt` in scope, we can use all of its utility
-methods, just as with iterators. For example, in Listing 17-32, we use the
-`filter` method to filter out everything but multiples of three and five.
+Con todas esas piezas juntas, este código funciona como queremos. ¡Lo que es
+más, ahora que tenemos `StreamExt` en el ámbito, podemos usar todos sus
+métodos de utilidad, al igual que con los iteradores! Por ejemplo, en el
+listado 17-32, usamos el método `filter` para filtrar todo menos los
+múltiplos de tres y cinco.
 
-<Listing number="17-32" caption="Filtering a `Stream` with the `StreamExt::filter` method" file-name="src/main.rs">
+<Listing number="17-32" caption="Filtrando un `Stream` con el método `StreamExt::filter`" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-32/src/main.rs:all}}
@@ -109,33 +117,37 @@ methods, just as with iterators. For example, in Listing 17-32, we use the
 
 </Listing>
 
-Of course, this isn’t very interesting. We could do that with normal iterators
-and without any async at all. So let’s look at some of the other things we can
-do which are unique to streams.
+Por supuesto, esto no es muy interesante. Podríamos hacer eso con
+iteradores normales y sin nada asíncrono. Así que veamos algunas de las
+otras cosas que podemos hacer que son únicas para los streams.
 
-### Composing Streams
+### Componiendo Streams
 
-Many concepts are naturally represented as streams: items becoming available in
-a queue, or working with more data than can fit in a computer’s memory by only
-pulling chunks of it from the file system at a time, or data arriving over the
-network over time. Because streams are futures, we can use them with any other
-kind of future, too, and we can combine them in interesting ways. For example,
-we can batch up events to avoid triggering too many network calls, set timeouts
-on sequences of long-running operations, or throttle user interface events to
-avoid doing needless work.
+Muchos conceptos se representan naturalmente como streams: elementos que
+se vuelven disponibles en una cola, o trabajar con más datos de los que
+pueden caber en la memoria de una computadora al extraer (pull) solo 
+fragmentos (chunks) de ellos del sistema de archivos a la vez, o datos que 
+llegan a través de la red a lo largo del tiempo. Debido a que los streams son 
+futuros, también podemos usarlos con cualquier otro tipo de futuro, y podemos
+combinarlos de maneras interesantes. Por ejemplo, podemos agrupar
+eventos para evitar activar demasiadas llamadas de red, establecer
+tiempos de espera en secuencias de operaciones de larga duración, o
+restringir eventos de la interfaz de usuario para evitar hacer
+trabajo innecesario.
 
-Let’s start by building a little stream of messages, as a stand-in for a stream
-of data we might see from a WebSocket or another real-time communication
-protocol. In Listing 17-33, we create a function `get_messages` which returns
-`impl Stream<Item = String>`. For its implementation, we create an async
-channel, loop over the first ten letters of the English alphabet, and send them
-across the channel.
+Empecemos creando un pequeño stream de mensajes, como un sustituto
+para un stream de datos que podríamos ver desde un WebSocket u otro
+protocolo de comunicación en tiempo real. En el listado 17-33, creamos
+una función `get_messages` que devuelve `impl Stream<Item = String>`. Para
+su implementación, creamos un canal asíncrono, recorremos las primeras
+diez letras del alfabeto inglés y las enviamos a través del canal.
 
-We also use a new type: `ReceiverStream`, which converts the `rx` receiver from
-the `trpl::channel` into a `Stream` with a `next` method. Back in `main`, we use
-a `while let` loop to print all the messages from the stream.
+Nosotros también usamos un nuevo tipo: `ReceiverStream`, que convierte
+el receptor `rx` del `trpl::channel` en un `Stream` con un método `next`.
+De vuelta en `main`, usamos un bucle `while let` para imprimir todos los
+mensajes del stream.
 
-<Listing number="17-33" caption="Using the `rx` receiver as a `ReceiverStream`" file-name="src/main.rs">
+<Listing number="17-33" caption="Usando el receptor `rx` como un `ReceiverStream`" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-33/src/main.rs:all}}
@@ -143,7 +155,8 @@ a `while let` loop to print all the messages from the stream.
 
 </Listing>
 
-When we run this code, we get exactly the results we would expect:
+Cuando ejecutamos este código, obtenemos exactamente los resultados que
+esperábamos:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -162,21 +175,24 @@ Message: 'i'
 Message: 'j'
 ```
 
-We could do this with the regular `Receiver` API, or even the regular `Iterator`
-API, though. Let’s add something that requires streams: adding a timeout
-which applies to every item in the stream, and a delay on the items we emit.
+Podríamos hacer esto con la API `Receiver` regular, o incluso la API
+`Iterator` regular, sin embargo. Agreguemos algo que requiera streams:
+agregando un tiempo de espera que se aplique a cada elemento en el stream, y
+una demora en los elementos que emitimos.
 
-In Listing 17-34, we start by adding a timeout to the stream with the `timeout`
-method, which comes from the `StreamExt` trait. Then we update the body of the
-`while let` loop, because the stream now returns a `Result`. The `Ok` variant
-indicates a message arrived in time; the `Err` variant indicates that the
-timeout elapsed before any message arrived. We `match` on that result and either
-print the message when we receive it successfully, or print a notice about the
-timeout. Finally, notice that we pin the messages after applying the timeout to
-them, because the timeout helper produces a stream which needs to be pinned to
-be polled.
+En el listado 17-34, comenzamos agregando un tiempo de espera al stream
+con el método `timeout`, que proviene del trait `StreamExt`. Luego
+actualizamos el cuerpo del bucle `while let`, porque el stream ahora
+devuelve un `Result`. La variante `Ok` indica que un mensaje llegó a
+tiempo; la variante `Err` indica que el tiempo de espera se agotó
+antes de que llegara algún mensaje. Hacemos un `match` en ese
+resultado y ya sea imprimimos el mensaje cuando lo recibimos
+exitosamente, o imprimimos un aviso sobre el tiempo de espera. Finalmente,
+ten en cuenta que fijamos los mensajes después de aplicar el tiempo
+de espera a ellos, porque el helper de tiempo de espera produce un
+stream que necesita ser fijado para ser sondeado.
 
-<Listing number="17-34" caption="Using the `StreamExt::timeout` method to set a time limit on the items in a stream" file-name="src/main.rs">
+<Listing number="17-34" caption="Usando el método `StreamExt::timeout` para establecer un límite de tiempo en los elementos de un stream" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-34/src/main.rs:timeout}}
@@ -184,16 +200,19 @@ be polled.
 
 </Listing>
 
-However, because there are no delays between messages, this timeout does not
-change the behavior of the program. Let’s add a variable delay to the messages
-we send. In `get_messages`, we use the `enumerate` iterator method with the
-`messages` array so that we can get the index of each item we are sending along
-with the item itself. Then we apply a 100 millisecond delay to even-index items
-and a 300 millisecond delay to odd-index items, to simulate the different delays
-we might see from a stream of messages in the real world. Because our timeout is
-for 200 milliseconds, this should affect half of the messages.
+Sin embargo, como no hay demoras entre los mensajes, este tiempo de espera
+no cambia el comportamiento del programa. Agreguemos una demora variable
+a los mensajes que enviamos. En `get_messages`, usamos el método
+`enumerate` del iterador con el array `messages` para que podamos
+obtener el índice de cada elemento que estamos enviando junto con el
+elemento en sí. Luego aplicamos una demora de 100 milisegundos
+a los elementos de índice par y una demora de 300 milisegundos a los
+elementos de índice impar, para simular las diferentes demoras que
+podríamos ver de un stream de mensajes en el mundo real. Debido a que
+nuestro tiempo de espera es de 200 milisegundos, esto debería afectar
+la mitad de los mensajes.
 
-<Listing number="17-35" caption="Sending messages through `tx` with an async delay without making `get_messages` an async function" file-name="src/main.rs">
+<Listing number="17-35" caption="Enviando mensajes a través de `tx` con una demora asíncrona sin hacer de `get_messages` una función asíncrona" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-35/src/main.rs:messages}}
@@ -201,30 +220,34 @@ for 200 milliseconds, this should affect half of the messages.
 
 </Listing>
 
-To sleep between messages in the `get_messages` function without blocking, we
-need to use async. However, we can’t make `get_messages` itself into an async
-function, because then we’d return a `Future<Output = Stream<Item = String>>`
-instead of a `Stream<Item = String>>`. The caller would have to await
-`get_messages` itself to get access to the stream. But remember: everything in a
-given future happens linearly; concurrency happens *between* futures. Awaiting
-`get_messages` would require it to send all the messages, including sleeping
-between sending each message, before returning the receiver stream. As a result,
-the timeout would end up useless. There would be no delays in the stream itself:
-the delays would all happen before the stream was even available.
+Para usar sleep entre mensajes en la función `get_messages` sin bloquear, 
+necesitamos usar async. Sin embargo, no podemos hacer de `get_messages` una 
+función asíncrona, porque entonces devolveríamos un `Future<Output = Stream<Item = String>>`
+en lugar de un `Stream<Item = String>>`. El llamador tendría que esperar a 
+`get_messages` para obtener acceso al stream. Pero recuerda:
+todo en un futuro dado sucede de manera lineal; la concurrencia ocurre
+*entre* futuros. Esperar a `get_messages` requeriría que enviara todos
+los mensajes, incluyendo las esperas (sleep) entre el envío de
+cada mensaje, antes de devolver el stream receptor. Como resultado,
+el tiempo de espera terminaría siendo inútil. No habría demoras
+en el stream en sí: todas las demoras ocurrirían antes de que el
+stream estuviera disponible.
 
-Instead, we leave `get_messages` as a regular function which returns a stream,
-and spawn a task to handle the async `sleep` calls.
+En su lugar, dejamos `get_messages` como una función regular que devuelve un
+stream, y generamos una tarea para manejar las llamadas asíncronas
+`sleep`.
 
-> Note: calling `spawn_task` in this way works because we already set up our
-> runtime. Calling this particular implementation of `spawn_task` *without*
-> first setting up a runtime will cause a panic. Other implementations choose
-> different tradeoffs: they might spawn a new runtime and so avoid the panic but
-> end up with a bit of extra overhead, or simply not provide a standalone way to
-> spawn tasks without reference to a runtime. You should make sure you know what
-> tradeoff your runtime has chosen and write your code accordingly!
+> Nota: llamar a `spawn_task` de esta manera funciona porque ya configuramos
+> nuestro runtime. Llamar a esta implementación particular de `spawn_task`
+> *sin* configurar primero un runtime causará un pánico. Otras
+> implementaciones eligen diferentes compensaciones: pueden generar un nuevo
+> runtime y así evitar el pánico, pero terminar con un poco de sobrecarga
+> adicional, o simplemente no proporcionar una forma independiente de generar
+> tareas sin referencia a un runtime. Debes asegurarte de saber qué
+> compensación ha elegido tu runtime y escribir tu código en consecuencia.
 
-Now our code has a much more interesting result! Between every other pair of
-messages, we see an error reported: `Problem: Elapsed(())`.
+Ahora nuestro código tiene un resultado mucho más interesante. Entre
+cada par de mensajes, vemos un error reportado: `Problem: Elapsed(())`.
 
 <!-- manual-regeneration
 cd listings/ch17-async-await/listing-17-35
@@ -250,36 +273,41 @@ Problem: Elapsed(())
 Message: 'j'
 ```
 
-The timeout doesn’t prevent the messages from arriving in the end—we still get
-all of the original messages. This is because our channel is unbounded: it can
-hold as many messages as we can fit in memory. If the message doesn’t arrive
-before the timeout, our stream handler will account for that, but when it polls
-the stream again, the message may now have arrived.
+El tiempo de espera no previene que los mensajes lleguen al final: aún
+obtenemos todos los mensajes originales. Esto se debe a que nuestro
+canal es ilimitado: puede contener tantos mensajes como podamos
+ajustar en memoria. Si el mensaje no llega antes de que se agote el
+tiempo, nuestro manejador de stream lo tendrá en cuenta, pero cuando
+vuelva a sondear el stream, el mensaje puede haber llegado
+ahora.
 
-You can get different behavior if needed by using other kinds of channels, or
-other kinds of streams more generally. Let’s see one of those in practice in our
-final example for this section, by combining a stream of time intervals with
-this stream of messages.
+Puedes obtener un comportamiento diferente si es necesario usando
+otros tipos de canales, o otros tipos de streams más
+generalmente. Veamos uno de esos en la práctica en nuestro
+ejemplo final para esta sección, combinando un stream de intervalos
+de tiempo con este stream de mensajes.
 
-### Merging Streams
+### Combinando Streams
 
-First, let’s create another stream, which will emit an item every millisecond if
-we let it run directly. For simplicity, we can use the `sleep` function to send
-a message on a delay, and combine it with the same approach of creating a stream
-from a channel we used in `get_messages`. The difference is that this time,
-we’re going to send back the count of intervals which has elapsed, so the return
-type will be `impl Stream<Item = u32>`, and we can call the function
-`get_intervals`.
+Primero, creemos otro stream, que emitirá un elemento cada milisegundo si
+lo dejamos ejecutarse directamente. Para simplificar, podemos usar la
+función `sleep` para enviar un mensaje con un retraso, y combinarlo
+con el mismo enfoque de crear un stream a partir de un canal que
+usamos en `get_messages`. La diferencia es que esta vez, vamos a
+enviar de vuelta el conteo de intervalos que ha transcurrido, así
+que el tipo de retorno será `impl Stream<Item = u32>`, y podemos
+llamar a la función `get_intervals`.
 
-In Listing 17-36, we start by defining a `count` in the task. (We could define
-it outside the task, too, but it is clearer to limit the scope of any given
-variable.) Then we create an infinite loop. Each iteration of the loop
-asynchronously sleeps for one millisecond, increments the count, and then sends
-it over the channel. Because this is all wrapped in the task created by
-`spawn_task`, all of it will get cleaned up along with the runtime, including
-the infinite loop.
+En el listado 17-36, comenzamos definiendo un `count` en la tarea. (También
+podríamos definirlo fuera de la tarea, pero es más claro limitar el
+alcance de cualquier variable dada). Luego creamos un bucle
+infinito. Cada iteración del bucle duerme (sleep) de forma
+asíncrona durante un milisegundo, incrementa el conteo y luego lo
+envía a través del canal. Debido a que todo esto está envuelto
+en la tarea creada por `spawn_task`, todo se limpiará junto con
+el runtime, incluyendo el bucle infinito.
 
-<Listing number="17-36" caption="Creating a stream with a counter that will be emitted once every millisecond" file-name="src/main.rs">
+<Listing number="17-36" caption="Creando un stream con un contador que se emitirá una vez cada milisegundo" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-36/src/main.rs:intervals}}
@@ -287,19 +315,21 @@ the infinite loop.
 
 </Listing>
 
-This kind of infinite loop, which only ends when the whole runtime gets torn
-down, is fairly common in async Rust: many programs need to keep running
-indefinitely. With async, this doesn’t block anything else, as long as there is
-at least one await point in each iteration through the loop.
+Este tipo de bucle infinito, que solo termina cuando todo el runtime se
+desmonta, es bastante común en Rust asíncrono: muchos programas
+necesitan seguir ejecutándose indefinidamente. Con async, esto no bloquea nada
+más, siempre que haya al menos un punto de espera (await) en cad
+a iteración a través del bucle.
 
-Back in our main function’s async block, we start by calling `get_intervals`.
-Then we merge the `messages` and `intervals` streams with the `merge` method,
-which combines multiple streams into one stream that produces items from any of
-the source streams as soon as the items are available, without imposing any
-particular ordering. Finally, we loop over that combined stream instead of over
-`messages` (Listing 17-37).
+En el bloque async de la función principal, comenzamos llamando a
+`get_intervals`. Luego combinamos los streams `messages` e
+`intervals` con el método `merge`, que combina múltiples streams
+en un solo stream que produce elementos de cualquiera de los
+streams de origen tan pronto como los elementos están disponibles,
+sin imponer ningún orden particular. Finalmente, recorremos
+ese stream combinado en lugar de sobre `messages` (listado 17-37).
 
-<Listing number="17-37" caption="Attempting to merge streams of messages and intervals" file-name="src/main.rs">
+<Listing number="17-37" caption="Intentando combinar streams de mensajes e intervalos" file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-37/src/main.rs:main}}
@@ -307,29 +337,33 @@ particular ordering. Finally, we loop over that combined stream instead of over
 
 </Listing>
 
-At this point, neither `messages` nor `intervals` needs to be pinned or mutable,
-because both will be combined into the single `merged` stream. However, this
-call to `merge` does not compile! (Neither does the `next` call in the `while
-let` loop, but we’ll come back to that after fixing this.) The two streams
-have different types. The `messages` stream has the type `Timeout<impl
-Stream<Item = String>>`, where `Timeout` is the type which implements `Stream`
-for a `timeout` call. Meanwhile, the `intervals` stream has the type `impl
-Stream<Item = u32>`. To merge these two streams, we need to transform one of
-them to match the other.
+En este punto, ni `messages` ni `intervals` necesitan ser fijados o
+mutables, porque ambos se combinarán en el único stream `merged`.
+Sin embargo, esta llamada a `merge` no compila. (Tampoco lo hace la
+llamada `next` en el bucle `while let`, pero volveremos a eso después de
+arreglar esto). Los dos streams tienen diferentes tipos. El stream
+`messages` tiene el tipo `Timeout<impl Stream<Item = String>>`,
+donde `Timeout` es el tipo que implementa `Stream` para una
+llamada a `timeout`. Mientras tanto, el stream `intervals`
+tiene el tipo `impl Stream<Item = u32>`. Para combinar estos
+dos streams, necesitamos transformar uno de ellos para que
+coincida con el otro.
 
-In Listing 17-38, we rework the `intervals` stream, because `messages` is
-already in the basic format we want and has to handle timeout errors. First, we
-can use the `map` helper method to transform the `intervals` into a string.
-Second, we need to match the `Timeout` from `messages`. Because we don’t
-actually *want* a timeout for `intervals`, though, we can just create a timeout
-which is longer than the other durations we are using. Here, we create a
-10-second timeout with `Duration::from_secs(10)`. Finally, we need to make
-`stream` mutable, so that the `while let` loop’s `next` calls can iterate
-through the stream, and pin it so that it’s safe to do so.
+En el listado 17-38, volvemos a trabajar el stream `intervals`, porque 
+`messages` ya está en el formato básico que queremos y tiene que manejar errores 
+de tiempo de espera. Primero, podemos usar el método auxiliar `map` para 
+transformar los `intervals` en una cadena. En segundo lugar, necesitamos hacer 
+coincidir el `Timeout` de `messages`. Sin embargo, como en realidad no
+*queremos* un tiempo de espera para `intervals`, podemos simplemente crear un 
+tiempo de espera que sea más largo que los otros tiempos de 
+espera que estamos usando. Aquí, creamos un tiempo de espera de 10 segundos con 
+`Duration::from_secs(10)`. Finalmente, necesitamos hacer `stream` mutable, para 
+que las llamadas `next` del bucle `while let` puedan iterar a través del stream, 
+y fijarlo para que sea seguro hacerlo.
 
 <!-- We cannot directly test this one, because it never stops. -->
 
-<Listing number="17-38" caption="Aligning the types of the the `intervals` stream with the type of the `messages` stream" file-name="src/main.rs">
+<Listing number="17-38" caption="Alineando los tipos del stream `intervals` con el tipo del stream `messages`" file-name="src/main.rs">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-38/src/main.rs:main}}
@@ -337,11 +371,11 @@ through the stream, and pin it so that it’s safe to do so.
 
 </Listing>
 
-That gets us *almost* to where we need to be. Everything type checks. If you run
-this, though, there will be two problems. First, it will never stop! You’ll
-need to stop it with <span class="keystroke">ctrl-c</span>. Second, the
-messages from the English alphabet will be buried in the midst of all the
-interval counter messages:
+Esto nos lleva *casi* a donde necesitamos estar. Todo se verifica
+el tipo. Sin embargo, si ejecutas esto, habrá dos problemas. Primero,
+nunca se detendrá. ¡Tendrás que detenerlo con <span class="keystroke">ctrl-c</span>!
+En segundo lugar, los mensajes del alfabeto inglés estarán enterrados en
+medio de todos los mensajes del contador de intervalos:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the tasks running differently rather than
@@ -359,18 +393,19 @@ Interval: 43
 --snip--
 ```
 
-Listing 17-39 shows one way to solve these last two problems. First, we use the
-`throttle` method on the `intervals` stream, so that it doesn’t overwhelm the
-`messages` stream. Throttling is a way of limiting the rate at which a function
-will be called—or, in this case, how often the stream will be polled. Once every
-hundred milliseconds should do, because that is in the same ballpark as how
-often our messages arrive.
+En el listado 17-39 se muestra una forma de resolver estos últimos dos
+problemas. Primero, usamos el método `throttle` en el stream `intervals`, para 
+que no abrume al stream `messages`. La limitación (throttling) es una forma de 
+limitar la tasa a la que una función será llamada—o, en este caso, con qué 
+frecuencia se sondeará el stream. Una vez cada cien milisegundos debería 
+bastante, porque eso está en el mismo rango de tiempo que la frecuencia con la 
+que llegan nuestros mensajes.
 
-To limit the number of items we will accept from a stream, we can use the `take`
-method. We apply it to the *merged* stream, because we want to limit the final
-output, not just one stream or the other.
+Para limitar el número de elementos que aceptaremos de un stream, podemos
+usar el método `take`. Lo aplicamos al *stream combinado*, porque
+queremos limitar la salida final, no solo un stream u otro.
 
-<Listing number="17-39" caption="Using `throttle` and `take` to manage the merged streams" file-name="src/main.rs">
+<Listing number="17-39" caption="Usando `throttle` y `take` para gestionar los streams combinados" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-39/src/main.rs:throttle}}
@@ -378,17 +413,19 @@ output, not just one stream or the other.
 
 </Listing>
 
-Now when we run the program, it stops after pulling twenty items from the
-stream, and the intervals don’t overwhelm the messages. We also don’t get
-`Interval: 100` or `Interval: 200` or so on, but instead get `Interval: 1`,
-`Interval: 2`, and so on—even though we have a source stream which *can*
-produce an event every millisecond. That’s because the `throttle` call
-produces a new stream, wrapping the original stream, so that the original
-stream only gets polled at the throttle rate, not its own “native” rate. We
-don’t have a bunch of unhandled interval messages we’re choosing to
-ignore. Instead, we never produce those interval messages in the first place!
-This is the inherent “laziness” of Rust’s futures at work again, allowing us to
-choose our performance characteristics.
+Ahora, cuando ejecutamos el programa, se detiene después de extraer veinte 
+elementos del stream, y los intervalos no abruman a los mensajes. También
+no obtenemos `Interval: 100` o `Interval: 200` o así, sino que
+en su lugar obtenemos `Interval: 1`, `Interval: 2`, y así sucesivamente — 
+¡incluso cuando tenemos un stream de origen que *puede* producir un evento
+cada milisegundo! Eso se debe a que la llamada `throttle` produce un nuevo
+stream, envolviendo el stream original, de modo que el stream original
+solo se sondea a la tasa de limitación, no a su propia tasa “nativa”.
+No tenemos un montón de mensajes de intervalo no manejados que
+estamos eligiendo ignorar. En su lugar, ¡nunca producimos esos mensajes de
+intervalo en primer lugar! Esta es la “pereza” inherente de los futuros
+de Rust en acción nuevamente, lo que nos permite elegir nuestras
+características de rendimiento.
 
 <!-- manual-regeneration
 cd listings/ch17-async-await/listing-17-39
@@ -419,17 +456,19 @@ Problem: Elapsed(())
 Interval: 12
 ```
 
-There’s one last thing we need to handle: errors! With both of these
-channel-based streams, the `send` calls could fail when the other side of the
-channel closes—and that’s just a matter of how the runtime executes the futures
-which make up the stream. Up until now we have ignored this by calling `unwrap`,
-but in a well-behaved app, we should explicitly handle the error, at minimum by
-ending the loop so we don’t try to send any more messages!  Listing 17-40 shows
-a simple error strategy: print the issue and then `break` from the loops. As
-usual, the correct way to handle a message send error will vary—just make sure
-you have a strategy.
+Hay una última cosa que necesitamos manejar: ¡errores! Con ambos
+streams basados en canales, las llamadas `send` podrían fallar
+cuando el otro lado del canal se cierra—y eso es solo una cuestión de
+cómo el runtime ejecuta los futuros que componen el stream. Hasta
+ahora hemos ignorado esto llamando a `unwrap`, pero en una
+aplicación bien comportada, deberíamos manejar explícitamente el
+error, al mínimo terminando el bucle para que no intentemos enviar
+más mensajes. El listado 17-40 muestra una estrategia de error
+simple: imprime el problema y luego `break` de los bucles. Como
+siempre, la forma correcta de manejar un error de envío de
+mensaje variará—¡solo asegúrate de tener una estrategia!
 
-<Listing number="17-40" caption="Handling errors and shutting down the loops">
+<Listing number="17-40" caption="Manejando errores y cerrando los bucles">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-40/src/main.rs:errors}}
@@ -437,8 +476,9 @@ you have a strategy.
 
 </Listing>
 
-Now that we’ve seen a bunch of async in practice, let’s take a step back and
-dig into a few of the details of how `Future`, `Stream`, and the other key
-traits which Rust uses to make async work.
+Ahora que hemos visto un montón de async en la práctica, echemos un
+paso atrás y profundicemos en algunos de los detalles de cómo
+`Future`, `Stream`, y los otros traits clave que Rust usa para
+hacer que async funcione.
 
-[17-02-messages]: ch17-02-concurrency-with-async.html#message-passing
+[17-02-messages]: ch17-02-concurrency-with-async.html#paso-de-mensajes
