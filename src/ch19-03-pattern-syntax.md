@@ -29,7 +29,7 @@ variable `y` con el valor `10`. Luego creamos una expresión `match` en el valor
 `x`. Mira los patterns en las opciones `match` y `println!` al final, e intenta
 averiguar qué imprimirá el código antes de ejecutar este código o leer más.
 
-<Listing number="19-11" file-name="src/main.rs" caption="Una expresión `match` con una opción que introduce una variable sombreada (shadowing)">
+<Listing number="19-11" file-name="src/main.rs" caption="Una expresión `match` con una opción que introduce una nueva variable sombreada (shadowing)">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-11/src/main.rs:here}}
@@ -62,7 +62,7 @@ scope del `y` interno. El último `println!` produce `at the end: x = Some(5), y
 = 10`.
 
 Para crear una expresión `match` que compare los valores del `x` e `y` externos
-en lugar de introducir una variable sombreada, necesitaríamos usar una
+en lugar de introducir una nueva variable sombreada, necesitaríamos usar una
 condición de guardia de `match`. Hablaremos de las guardias de `match` más
 adelante en la sección [“Condicionales adicionales con `match` guards”](#condicionales-adicionales-con-match-guards)<!-- ignore -->
 

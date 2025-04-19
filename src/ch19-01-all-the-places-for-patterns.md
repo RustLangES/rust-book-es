@@ -84,13 +84,13 @@ Una estructura condicional nos permite cumplir con requisitos complejos.
 Con los valores codificados que tenemos aquí, este ejemplo imprimirá `Using
 purple as the background color`.
 
-Puedes ver que `if let` también puede introducir variables con shadowing de la
-misma manera que lo hacen las opciones `match`: la línea `if let Ok(age) =
-age` introduce una nueva variable `age` que contiene el valor dentro de la
-variante `Ok`. Esto significa que necesitamos colocar la condición `if age > 30`
-dentro de ese bloque: no podemos combinar estas dos condiciones en `if let Ok
-(age) = age && age > 30`. El `age` sombreado que queremos comparar con 30 no es
-válido hasta que comience el nuevo alcance con la llave de apertura.
+Puedes ver que `if let` también puede introducir nuevas variables con shadowing 
+de la misma manera que lo hacen las opciones `match`: la línea 
+`if let Ok(age) = age` introduce una nueva variable `age` que contiene el valor 
+dentro de la variante `Ok`. Esto significa que necesitamos colocar la condición 
+`if age > 30` dentro de ese bloque: no podemos combinar estas dos condiciones en 
+`if let Ok(age) = age && age > 30`. El `age` sombreado que queremos comparar con 
+30 no es válido hasta que comience el nuevo alcance con la llave de apertura.
 
 La desventaja de usar expresiones `if let` es que el compilador no verifica la
 exhaustividad, mientras que con las expresiones `match` sí lo hace. Si
