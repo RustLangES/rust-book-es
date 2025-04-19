@@ -399,7 +399,7 @@ disponible, terminamos actualizando nuestra salida de `println!` para indicar
 tanto qué URL terminó primero como cuál fue el `<title>` de la página web en
 esa URL, si lo hay.
 
-¡Has construido un pequeño scrapper web funcional ahora! Elige un par de URLs y
+¡Has construido un pequeño scraper web funcional ahora! Elige un par de URLs y
 ejecuta la herramienta de línea de comandos. Puedes descubrir que algunos sitios
 son confiablemente más rápidos que otros, mientras que en otros casos qué sitio
 “gana” varía de una ejecución a otra. Más importante aún, has aprendido los
