@@ -68,7 +68,7 @@ código del Listado 1-2.
 [package]
 name = "hello_cargo"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 ```

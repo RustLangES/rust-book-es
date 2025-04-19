@@ -171,7 +171,7 @@ una función no asíncrona definida de la siguiente manera:
 use std::future::Future;
 use trpl::Html;
 
-fn page_title(url: &str) -> impl Future<Output = Option<String>> + '_ {
+fn page_title(url: &str) -> impl Future<Output = Option<String>> {
     async move {
         let text = trpl::get(url).await.text().await;
         Html::parse(&text)

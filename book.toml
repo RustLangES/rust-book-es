@@ -50,7 +50,7 @@ assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
 output-mode = "default"
 
 [rust]
-edition = "2021"
+edition = "2024"
 
 # Original book - Last commit:
 # d9e9af10d92e32ea02c19cb3cf607aec05aca65b

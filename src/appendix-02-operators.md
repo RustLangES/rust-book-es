@@ -38,7 +38,9 @@ sobrecargar ese operador.
 | `-` | `expr - expr` | Aritmético de sustracción  | `Sub` |
 | `-=` | `var -= expr` | Aritmético de sustracción y asignación | `SubAssign` |
 | `->` | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Tipo de retorno en funciones y clausuras | |
-| `.` | `expr.ident` | Acceso a miembro | |
+| `.` | `expr.ident` | Acceso a atributo | |
+| `.` | `expr.ident(expr, ...)` | Llamada a método | |
+| `.` | `expr.0`, `expr.1`, etc. | Indexación de tuplas | |
 | `..` | `..`, `expr..`, `..expr`, `expr..expr` | Rango exclusivo a la derecha | `PartialOrd` |
 | `..=` | `..=expr`, `expr..=expr` | Rango inclusivo a la derecha | `PartialOrd` |
 | `..` | `..expr` | Sintaxis de actualización de estructuras | |
@@ -169,9 +171,9 @@ Tabla B-7 muestra los símbolos que crean comentarios.
 | `/*!...*/` | Comentario de bloque de documentación interna |
 | `/**...*/` | Comentario de bloque de documentación externa |
 
-Tabla B-8 muestra los símbolos que aparecen en el contexto de usar tuplas.
+Tabla B-8 muestra el contexto en los que paréntesis son usados.
 
-<span class="caption">Tabla B-8: Tuplas</span>
+<span class="caption">Table B-8: Paréntesis</span>
 
 | Símbolos | Explicación |
 |--------|-------------|

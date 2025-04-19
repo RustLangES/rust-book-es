@@ -183,7 +183,7 @@ ejemplo, este código se compilará porque el último uso de las referencias
 inmutables, el `println!`, ocurre antes de que se introduzca la referencia
 mutable:
 
-```rust,edition2021
+```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-13-reference-scope-ends/src/main.rs:here}}
 ```
 

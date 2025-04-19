@@ -92,18 +92,18 @@ Compilan al mismo código, así que usa el estilo que sea más claro para ti.
 
 ### Retornando Closures
 
-Los closures se representan mediante traits, lo que significa que no puedes
-devolver closures directamente. En la mayoría de los casos en los que podrías
-querer devolver un trait, puedes usar en su lugar el tipo concreto que
-implementa el trait como el valor de retorno de la función. Sin embargo, no
-puedes hacer eso con los closures porque no tienen un tipo concreto que se
-pueda devolver; no se te permite usar el puntero a función `fn` como un tipo
-de retorno, por ejemplo.
+Closures are represented by traits, which means you can’t return closures
+directly. In most cases where you might want to return a trait, you can instead
+use the concrete type that implements the trait as the return value of the
+function. However, you can’t do that with closures because they don’t have a
+concrete type that is returnable; you’re not allowed to use the function
+pointer `fn` as a return type, for example.
 
-El siguiente código intenta devolver un closure directamente, pero no
-compilará:
+Instead, you will normally use the `impl Trait` syntax we learned about in
+Chapter 10. You can return any function type, using `Fn`, `FnOnce` and `FnMut`.
+For example, this code will work just fine:
 
-```rust,ignore,does_not_compile
+```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/no-listing-18-returns-closure/src/lib.rs}}
 ```
 
