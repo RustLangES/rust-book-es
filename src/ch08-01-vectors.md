@@ -200,6 +200,8 @@ error del compilador similar al que obtuvimos con el código en el listado 8-6.
 La referencia al vector que el ciclo `for` contiene evita la modificación
 simultánea de todo el vector.
 
+<a id="enum-for-multiple-types"></a>
+
 ### Usar un `enum` para almacenar múltiples tipos
 
 Los vectores solo pueden almacenar valores del mismo tipo. Esto puede ser
