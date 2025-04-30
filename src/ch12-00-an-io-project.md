@@ -3,8 +3,8 @@
 Este capítulo es un resumen de las muchas habilidades que has aprendido hasta
 ahora y una exploración de algunas características más de la biblioteca estándar.
 Construiremos una herramienta de línea de comandos que interactúa con la entrada
-y salida de archivos y de línea de comandos para practicar algunos de los
-conceptos de Rust que ahora tienes bajo el cinturón.
+y salida de archivos para practicar algunos de los conceptos de Rust que ahora 
+tienes bajo el cinturón.
 
 La velocidad, la seguridad, la salida binaria única y el soporte multiplataforma
 de Rust hacen que sea un lenguaje ideal para crear herramientas de línea de
