@@ -161,7 +161,7 @@ es un intercambio válido.
 > tener un programa que funcione un poco ineficiente que intentar
 > hiperoptimizar el código en tu primer paso. A medida que adquieras más
 > experiencia con Rust, será más fácil comenzar con la solución más eficiente,
-> , pero por ahora, es perfectamente aceptable llamar a `clone`.
+>  pero por ahora, es perfectamente aceptable llamar a `clone`.
 
 Hemos actualizado `main` para que coloque la instancia de `Config` devuelta por
 `parse_config` en una variable llamada `config`, y hemos actualizado el código
