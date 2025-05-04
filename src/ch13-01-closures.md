@@ -57,15 +57,9 @@ centrarnos en los closures, nos hemos adherido a los conceptos que ya has
 aprendido, excepto por el cuerpo del método `giveaway` que usa un closure. En el
 método `giveaway`, obtenemos la preferencia del usuario como un parámetro de
 tipo `Option<ShirtColor>` y llamamos al método `unwrap_or_else` en
-`user_preference`. El método [`unwrap_or_else` en `Option<T>`][unwrap-or-else]
+`user_preference`. El método [`unwrap_or_else` en `Option<T>`][unwrap-or-else] está definido por la biblioteca estándar.
 
-<!-- ignore --> está definido por la biblioteca estándar. Toma un argumento: un
-
-Closure sin ningún argumento que devuelve un valor `T` (el mismo tipo almacenado
-en la variante `Some` de la `Option<T>`, en este caso `ShirtColor`). Si la
-`Option<T>` es la variante `Some`, `unwrap_or_else` devuelve el valor de dentro
-de `Some`. Si la `Option<T>` es la variante `None`, `unwrap_or_else` llama al
-closure y devuelve el valor devuelto por el closure.
+Toma un argumento: un Closure sin ningún argumento que devuelve un valor `T` (el mismo tipo almacenado en la variante `Some` de la `Option<T>`, en este caso `ShirtColor`). Si la `Option<T>` es la variante `Some`, `unwrap_or_else` devuelve el valor de dentro de `Some`. Si la `Option<T>` es la variante `None`, `unwrap_or_else` llama al closure y devuelve el valor devuelto por el closure.
 
 Especificamos el closure `|| self.most_stocked()` como argumento a
 `unwrap_or_else`. Este es un closure que no toma parámetros en sí mismo (si el
