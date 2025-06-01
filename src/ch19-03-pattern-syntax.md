@@ -22,7 +22,7 @@ Las variables nombradas son patterns irrefutables que coinciden con cualquier
 valor, y las hemos usado muchas veces en el libro. Sin embargo, hay una
 complicación cuando usas variables nombradas en expresiones `match`, `if let`, 
 o `while let` . Debido a que cada una de estas expresiones inicia un nuevo 
-bloque de código, las variables declaradas como parte de un pattern dentro de la 
+scope, las variables declaradas como parte de un pattern dentro de la 
 expresión ocultarán aquellas con el mismo nombre fuera de la expresión, como es 
 el caso de todas las variables. En el Listado 19-11, declaramos una variable 
 llamada `x` con el valor `Some(5)` y una variable `y` con el valor `10`. Luego 
@@ -130,7 +130,7 @@ podemos desestructurar usando un pattern con una declaración `let`.
 
 </Listing>
 
-Este código crear las variables `a` y `b` que coinciden con los valores de los
+Este código crea las variables `a` y `b` que coinciden con los valores de los
 campos `x` e `y` del struct `p`. Este ejemplo muestra que los nombres de las
 variables en el pattern no tienen que coincidir con los nombres de los campos
 del struct. Sin embargo, es común que los nombres de las variables coincidan
@@ -546,7 +546,7 @@ También puedes usar el operador _or_ `|` en un match guard para especificar
 múltiples patterns; la condición del match guard se aplicará a todos los
 patterns. El Listado 19-28 muestra la precedencia al combinar un pattern que
 usa `|` con un match guard. La parte importante de este ejemplo es que el
-match guard `if y` se aplica a `4`, `5` y _6_, aunque podría parecer que `if y`
+match guard `if y` se aplica a `4`, `5` y `6`, aunque podría parecer que `if y`
 solo se aplica a `6`.
 
 <Listing number="19-28" caption="Combinando múltiples patterns con un match guard">
@@ -612,8 +612,8 @@ el valor del campo `id` porque no hemos guardado el valor `id` en una variable.
 
 En la última opción, donde hemos especificado una variable sin un rango, sí
 tenemos el valor disponible para usar en el código de la opción en una variable
-llamada `id`. La razón es que hemos usado la sintaxis de campo de struct
-shorthand. Pero no hemos aplicado ninguna prueba al valor en el campo `id` en
+llamada `id`. La razón es que hemos usado la sintaxis abreviada del campo del 
+struct. Pero no hemos aplicado ninguna prueba al valor en el campo `id` en
 esta opción, como hicimos con las dos primeras opciones: cualquier valor
 coincidiría con este pattern.
 

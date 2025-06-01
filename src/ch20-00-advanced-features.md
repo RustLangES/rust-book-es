@@ -5,8 +5,8 @@ programación Rust. Antes de hacer otro proyecto en el Capítulo 21, veremos
 algunos aspectos del lenguaje que podrías encontrar de vez en cuando, pero
 que no usarás todos los días. Puede usar este capítulo como referencia para
 cuando encuentre algo desconocido. Las características cubiertas aquí son
-útiles en situaciones muy específicas. Aunque es posible que no alcances
-a menudo, queremos asegurarnos de que tengas un dominio de todas las
+útiles en situaciones muy específicas. Aunque es posible que no las utilices con
+frecuencia, queremos asegurarnos de que tengas un dominio de todas las
 características que Rust tiene para ofrecer.
 
 En este capítulo, cubriremos:
@@ -23,5 +23,5 @@ En este capítulo, cubriremos:
 - Macros: formas de definir código que define más código en tiempo de
   compilación
 
-¡Es una panoplia de características de Rust con algo para todos! ¡Vamos a
+¡Es una variedad de características de Rust con algo para todos! ¡Vamos a
 sumergirnos!

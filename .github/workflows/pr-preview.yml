@@ -13,7 +13,7 @@
 #
 #################### 🚧 WARNING: READ THIS BEFORE USING THIS FILE 🚧 ####################
 
-name: Docs - Preview Deployment
+name: Preview Deployment
 on:
   pull_request_target:
     types:
@@ -39,11 +39,9 @@ jobs:
       BRANCH_NAME: preview-${{ github.head_ref }}
       ACTION_RUN: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: "recursive"
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Declare some variables
         shell: bash
         run: |
@@ -59,7 +57,7 @@ jobs:
             ## ⚡ Cloudflare Pages Deployment
             | Name | Status | Preview |
             | :--- | :----- | :------ |
-            | ${{env.BRANCH_NAME}}     |  🔨 Building ([Logs](${env.ACTION_RUN}))  | waiting... |
+            | ${{env.BRANCH_NAME}}     |  🔨 Building ([Logs](${{ env.ACTION_RUN }}))  | waiting... |
 
       # Build Rust Page
       - name: Install mdbook
@@ -68,8 +66,13 @@ jobs:
           curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.7/mdbook-v0.4.36-localization-v0.7-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
           curl -sSL https://github.com/catppuccin/mdBook/releases/download/v0.1.1/mdbook-catppuccin-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
           echo "$(pwd)/bin" >> ${GITHUB_PATH}
+      - name: Install mdbook-epub backend
+        run: |
+          cargo install mdbook-epub --root .
       - name: Build with mdBook
         run: mdbook build
+      - name: Build with mdBook-epub
+        run:  mdbook-epub --standalone .
 
       # Deploy
       - name: Deploy
@@ -78,7 +81,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./book --project-name=rust-book --branch="${ env.BRANCH_NAME }"
+          command: pages deploy ./book --project-name=rust-book --branch="${{ env.BRANCH_NAME }}"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v4
@@ -113,7 +116,7 @@ jobs:
   #       with:
   #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
   #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-  #         command: pages --project-name=homepage --branch="${ env.BRANCH_NAME }"
+  #         command: pages --project-name=homepage --branch="${{ env.BRANCH_NAME }}"
 
   #     - name: Create comment
   #       uses: peter-evans/create-or-update-comment@v4

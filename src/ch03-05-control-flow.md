@@ -312,7 +312,7 @@ Esta expresion elimina mucho anidamiento que sería necesario si usara `loop`,
 
 #### Bucle a traves de una colección con `for`
 
-Tu puedes también puedes usar el `while` para recorrer los elementos de una 
+Tú también puedes usar el bucle `while` para recorrer los elementos de una 
 colección, justo como un arreglo. Por ejemplo, el bucle en el Listado 3-4
 muestra cada elemento en el arreglo `a`.
 

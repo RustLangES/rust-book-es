@@ -100,7 +100,7 @@ que hacer una llamada a `panic!`. Los ejemplos incluyen un analizador que
 recibe datos con formato incorrecto o una solicitud HTTP que devuelve un estado
 que indica que has alcanzado un límite de velocidad. En estos casos, devolver
 un `Result` indica que el fallo es una posibilidad esperada que el código
-llamado decidida cómo manejarlo.
+llamado decidirá cómo manejarlo.
 
 Cuando tu código realiza una operación que podría poner a un usuario en riesgo
 si se llama con valores no válidos, tu código debe verificar primero que los

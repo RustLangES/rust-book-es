@@ -6,7 +6,6 @@ title = "El Lenguaje de Programación Rust"
 authors = ["Steve Klabnik", "Carol Nichols", "Chris Krycho", "Contributions from the Rust Community"]
 description = "El libro oficial para aprender el lenguaje de programación Rust, con tutoriales y guías."
 src = "src"
-multilingual = false
 language = "es"
 
 [output.html]

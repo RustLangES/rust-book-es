@@ -182,7 +182,7 @@ excluir. Ahora cuando ejecutamos nuestros tests, `it_works` se ejecuta, pero
 ```
 
 Esta función `expensive_test` está listada como `ignored`. Si queremos ejecutar
-solo los tests ignorados, podemos usar `cargo test -- -- ignored`:
+solo los tests ignorados, podemos usar `cargo test -- --ignored`:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/output-only-04-running-ignored/output.txt}}

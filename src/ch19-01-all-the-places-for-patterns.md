@@ -93,7 +93,8 @@ de la misma manera que lo hacen las opciones `match`: la línea
 dentro de la variante `Ok`. Esto significa que necesitamos colocar la condición 
 `if age > 30` dentro de ese bloque: no podemos combinar estas dos condiciones en 
 `if let Ok(age) = age && age > 30`. El `age` sombreado que queremos comparar con 
-30 no es válido hasta que comience el nuevo alcance con la llave de apertura.
+30 no es válido hasta que comience el nuevo scope (ámbito) con la llave de 
+apertura.
 
 La desventaja de usar expresiones `if let` es que el compilador no verifica la
 exhaustividad, mientras que con las expresiones `match` sí lo hace. Si

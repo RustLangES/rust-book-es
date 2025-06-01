@@ -231,7 +231,7 @@ Estas relaciones son lo que queremos que Rust use al analizar este código.
 
 Recuerda, cuando especificamos los parámetros de los lifetimes en la firma de
 esta función, no estamos cambiando los lifetimes de ninguna de las referencias
-que se pasan en o se devuelven. En cambio, estamos especificando que el
+que se pasan o se devuelven. En cambio, estamos especificando que el
 _borrow checker_ debería rechazar cualquier valor que no cumpla con estas
 restricciones. Ten en cuenta que la función `longest` no necesita saber
 exactamente cuánto tiempo vivirán `x` e `y`, solo que algún scope puede

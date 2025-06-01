@@ -69,7 +69,7 @@ algo que probar
 Por ahora, ignoremos las dos primeras líneas y nos enfoquemos solamente en la 
 función `it_works()`.
 Nota la anotación `#[test]`: este atributo indica que esta es una función de
-test, así que el test runner sabe que tratar esta función como un test. También
+test, así que el test runner sabe que debe tratar esta función como un test. También
 podríamos tener funciones no-test en el módulo `tests` para ayudar a configurar
 escenarios comunes o realizar operaciones comunes, así que siempre necesitamos
 indicar qué funciones son tests.
@@ -268,7 +268,7 @@ resultado, nuestro test pasará si `can_hold` devuelve `false`:
 
 ¡Dos tests que pasan! Ahora veamos qué sucede con nuestros resultados de test
 cuando introducimos un bug en nuestro código. Cambiaremos la implementación del
-método `can_hold` reemplazando el signo mayor que con un signo menor que cuando
+método `can_hold` reemplazando el signo 'mayor que' por un signo 'menor que' cuando
 compara los anchos:
 
 ```rust,not_desired_behavior,noplayground
