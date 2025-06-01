@@ -77,7 +77,7 @@ jobs:
         curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.7/mdbook-v0.4.36-localization-v0.7-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         echo "$(pwd)/bin" >> ${GITHUB_PATH}
     - name: Install mdbook-epub backend
-      run: cargo install --git https://github.com/blandger/mdbook-epub/ --branch add_links_preprocessing --force --root .
+      run: cargo install --git https://github.com/blandger/mdbook-epub/ --branch add_links_preprocessing --force
     - name: Install mdbook-trpl binaries
       run: cargo install --path packages/mdbook-trpl
     - name: Install aspell
@@ -106,7 +106,6 @@ jobs:
       run: bash ci/validate.sh
     - name: Check for broken links
       run: |
-        curl -sSLo linkcheck.sh \
-          https://raw.githubusercontent.com/rust-lang/rust/master/src/tools/linkchecker/linkcheck.sh
+        # curl -sSLo linkcheck.sh https://raw.githubusercontent.com/rust-lang/rust/master/src/tools/linkchecker/linkcheck.sh
         # Cannot use --all here because of the generated redirect pages aren't available.
-        sh linkcheck.sh book
+        sh ./tools/linkcheck.sh book
