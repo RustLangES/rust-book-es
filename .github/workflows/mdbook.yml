@@ -38,7 +38,7 @@ jobs:
           echo "$(pwd)/bin" >> ${GITHUB_PATH}
       - name: Install mdbook-epub backend
         run: |
-          cargo install mdbook-epub --root .
+          cargo install --git https://github.com/blandger/mdbook-epub/ --branch add_links_preprocessing --force --root .
       - name: Build with mdBook
         run: mdbook build
       - name: Build with mdBook-epub
