@@ -304,36 +304,38 @@ sucede dentro de los bloques async.
 
 </Listing>
 
-Each future prints a message when it starts running, pauses for some amount of
-time by calling and awaiting `sleep`, and then prints another message when it
-finishes. Then we pass both `slow` and `fast` to `trpl::race` and wait for one
-of them to finish. (The outcome here isn’t too surprising: `fast` wins.) Unlike
-when we used `race` back in [“Our First Async Program”][async-program]<!--
-ignore -->, we just ignore the `Either` instance it returns here, because all of
-the interesting behavior happens in the body of the async blocks.
+Cada future imprime un mensaje cuando comienza a ejecutarse, se pausa por un 
+tiempo llamando y esperando a `sleep`, y luego imprime otro mensaje cuando 
+termina. Después, pasamos tanto `slow` como `fast` a `trpl::race` y esperamos a 
+que uno de ellos termine. (El resultado aquí no es muy sorprendente: gana 
+`fast`.) A diferencia de cuando usamos `race` en 
+[“Nuestro primer programa async”][async-program]<!-- ignore -->, aquí 
+simplemente ignoramos la instancia `Either` que retorna, porque todo el 
+comportamiento interesante ocurre en el cuerpo de los bloques async.
 
-Observa que si inviertes el orden de los argumentos en `race`, el orden de los mensajes
-“started” cambia, aunque el futuro `fast` siempre se completa
+Observa que si inviertes el orden de los argumentos en `race`, el orden de los 
+mensajes “started” cambia, aunque el futuro `fast` siempre se completa
 primero. Esto se debe que la implementación de la función `race` en particular
 no es justa. Siempre ejecuta los futuros en el orden en que se pasan como
 argumentos. Otras implementaciones *sí* son justas y eligen aleatoriamente qué
-futuro evaluar primero. De todas maneras, independientemente de si la implementación de
-`race` que estamos usando es justa o no, *uno* de los futuros se ejecutará hasta el primer
-`await` antes de que otra tarea pueda comenzar.
+futuro evaluar primero. De todas maneras, independientemente de si la 
+implementación de `race` que estamos usando es justa o no, *uno* de los futuros 
+se ejecutará hasta el primer `await` antes de que otra tarea pueda comenzar.
 
-Repasemos sobre [Futures y la sintaxis async][async-program] donde en cada `await`,
-Rust le da la oportunidad al runtime de pausar la tarea y cambiar a otra si el futuro
-que se está esperando aún no está listo. Lo contrario también es cierto: Rust *solo* pausa
-los bloques asíncronos y devuelve el control al runtime en un punto de await. Todo lo que
-ocurre entre puntos de *await* es síncrono.
+Repasemos sobre [Futures y la sintaxis async][async-program] donde en cada 
+`await`, Rust le da la oportunidad al runtime de pausar la tarea y cambiar a 
+otra si el futuro que se está esperando aún no está listo. Lo contrario también 
+es cierto: Rust *solo* pausa los bloques asíncronos y devuelve el control al 
+runtime en un punto de await. Todo lo que ocurre entre puntos de *await* es 
+síncrono.
 
-Esto significa que si realizas una gran cantidad de trabajo dentro de un bloque asíncrono
-sin un await, ese futuro bloqueará el progreso de otros futuros. A veces, esto se
-conoce como un futuro dejando sin recursos a otros futuros. En algunos casos, esto puede
-no ser un gran problema. Sin embargo, si estás realizando una configuración costosa o
-una tarea de larga duración, o si tienes un futuro que seguirá ejecutando una
-tarea indefinidamente, necesitarás pensar en cuándo
-y dónde devolver el control al runtime.
+Esto significa que si realizas una gran cantidad de trabajo dentro de un bloque 
+asíncrono sin un await, ese futuro bloqueará el progreso de otros futuros. A 
+veces, esto se conoce como un futuro dejando sin recursos a otros futuros. En 
+algunos casos, esto puede no ser un gran problema. Sin embargo, si estás 
+realizando una configuración costosa o una tarea de larga duración, o si tienes 
+un futuro que seguirá ejecutando una tarea indefinidamente, necesitarás pensar 
+en cuándo y dónde devolver el control al runtime.
 
 Del mismo modo, si tienes operaciones bloqueantes de larga duración, async
 puede ser una herramienta útil para permitir que diferentes partes del programa
@@ -361,10 +363,10 @@ como bloqueante.
 
 </Listing>
 
-This code uses `std::thread::sleep` instead of `trpl::sleep` so that calling
-`slow` will block the current thread for some number of milliseconds. We can use
-`slow` to stand in for real-world operations that are both long-running and
-blocking.
+Este código utiliza `std::thread::sleep` en lugar de `trpl::sleep`, por lo que 
+al llamar a `slow`, se bloqueará el hilo actual durante cierta cantidad de 
+milisegundos. Podemos usar `slow` como representación de operaciones del mundo 
+real que son tanto de larga duración como bloqueantes.
 
 En el Listado 17-23, usamos `slow` para emular ese tipo de trabajo con la CPU limitada trabajando en
 un par de futuros. Para empezar, cada futuro en este código solo devuelve el control del runtime
@@ -483,10 +485,11 @@ ejecutamos 1,000 iteraciones y comparamos cuánto tiempo toma el futuro que usa
 
 </Listing>
 
-Here, we skip all the status printing, pass a one-nanosecond `Duration` to
-`trpl::sleep`, and let each future run by itself, with no switching between the
-futures. Then we run for 1,000 iterations and see how long the future using
-`trpl::sleep` takes compared to the future using `trpl::yield_now`.
+Aquí, omitimos toda la impresión de estado, pasamos una `Duration` de un 
+nanosegundo a `trpl::sleep` y dejamos que cada future se ejecute por sí mismo, 
+sin alternar entre los futures. Luego ejecutamos 1,000 iteraciones y vemos 
+cuánto tiempo tarda el future que usa `trpl::sleep` en comparación con el future 
+que usa `trpl::yield_now`.
 
 Esta versión con `yield_now` es *mucho* más rápido!
 

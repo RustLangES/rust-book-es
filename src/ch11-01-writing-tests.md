@@ -63,8 +63,8 @@ cd ../../..
 
 </Listing>
 
-The file starts with an example `add` function, so that we have something
-to test.
+El archivo comienza con una función de ejemplo llamada `add`, para que tengamos 
+algo que probar
 
 Por ahora, ignoremos las dos primeras líneas y nos enfoquemos solamente en la 
 función `it_works()`.

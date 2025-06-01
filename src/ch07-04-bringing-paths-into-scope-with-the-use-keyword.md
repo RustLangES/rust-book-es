@@ -23,15 +23,15 @@ de la función `eat_at_restaurant` para que solo tengamos que especificar
 
 Agregar `use` y una ruta en un ámbito es similar a crear un enlace simbólico
 en el sistema de archivos. Al agregar `use crate::front_of_house::hosting` en
-la raíz del crate, hace que `hosting` sea ahora un nombre válido en ese ámbito, como si
-el módulo `hosting` hubiera sido definido en la raíz del crate. Las rutas
-traídas al ámbito con `use` también verifican la privacidad, como cualquier
-otra ruta.
+la raíz del crate, hace que `hosting` sea ahora un nombre válido en ese ámbito, 
+como si el módulo `hosting` hubiera sido definido en la raíz del crate. Las 
+rutas traídas al ámbito con `use` también verifican la privacidad, como 
+cualquier otra ruta.
 
 Ten en cuenta que `use` solo crea el atajo para el ámbito particular en el que
 ocurre él `use`. El Listado 7-12 mueve la función `eat_at_restaurant` a un
-nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente al de la sentencia `use`,
-por lo que el cuerpo de la función no compilará.
+nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente al de 
+la sentencia `use`, por lo que el cuerpo de la función no compilará.
 
 <Listing number="7-12" file-name="src/lib.rs" caption="La sentencia `use` solo aplica en el ámbito donde se encuentra declarado">
 
@@ -95,8 +95,8 @@ No hay una razón fuerte detrás de este idioma: es solo la convención que ha
 surgido, y la gente se ha acostumbrado a leer y escribir código Rust de esta
 manera.
 
-La excepción a este idioma es si estamos trayendo dos elementos con el mismo nombre
-al ámbito con declaraciones `use`, porque Rust no lo permite. El Listado
+La excepción a este idioma es si estamos trayendo dos elementos con el mismo 
+nombre al ámbito con declaraciones `use`, porque Rust no lo permite. El Listado
 7-15 muestra cómo traer dos tipos `Result` al ámbito que tienen el mismo nombre
 pero módulos padres diferentes, y cómo referirse a ellos.
 
@@ -138,7 +138,7 @@ consideran idiomáticos, ¡así que la elección depende de ti!
 
 Cuando traemos un nombre al ámbito con la keyword `use`, el nombre es privado 
 para el ámbito en el que lo importamos. Si queremos que el nombre esté
-disponible para que el código que llama a nuestro código lo use, podemoss
+disponible para que el código que llama a nuestro código lo use, podemos
 combinar `pub` y `use`. Esta técnica se llama _re-exporting_ porque estamos
 trayendo un elemento al ámbito, pero también haciendo que ese elemento esté 
 disponible para que otros lo traigan a su ámbito.
@@ -241,9 +241,10 @@ el juego de adivinanzas en el Listado 2-4 traen items de `std` al ámbito:
 
 </Listing>
 
-En su lugar, podemos utilizar rutas anidadas para incluir los mismos elementos en una sola línea.
-Hacemos esto especificando la parte común de la ruta, seguida de
-dos puntos y luego entre llaves los elementos, como se muestra en el Listado 7-18.
+En su lugar, podemos utilizar rutas anidadas para incluir los mismos elementos 
+en una sola línea. Hacemos esto especificando la parte común de la ruta, seguida 
+de dos puntos y luego entre llaves los elementos, como se muestra en el 
+Listado 7-18.
 
 <Listing number="7-18" file-name="src/main.rs" caption="Especificación de una ruta anidada para incluir en el ámbito varios elementos con el mismo prefijo">
 
@@ -257,9 +258,9 @@ En programas más grandes, traer muchos items al ámbito desde el mismo crate o
 módulo usando rutas anidadas puede reducir la cantidad de declaraciones `use`
 necesarias en gran medida.
 
-Podemos usar una ruta anidada en cualquier nivel de una ruta, lo que es útil cuando
-combinamos dos sentencias `use` que comparten una sub-ruta. Por ejemplo, el Listado
-7-19 muestra dos sentencias use: una que trae `std::io` al ámbito y
+Podemos usar una ruta anidada en cualquier nivel de una ruta, lo que es útil 
+cuando combinamos dos sentencias `use` que comparten una sub-ruta. Por ejemplo, 
+el Listado 7-19 muestra dos sentencias use: una que trae `std::io` al ámbito y
 otra que trae `std::io::Write` al ámbito.
 
 <Listing number="7-19" file-name="src/lib.rs" caption="Dos sentencias `use` donde una es una sub-ruta de la otra">
@@ -286,16 +287,25 @@ Esta línea trae `std::io` y `std::io::Write` al ámbito.
 
 ### El Operador Asterisco (Glob)
 
-Si queremos incluir al ámbito _todos_ los elementos públicos definidos en una ruta,
-podemos especificar esa ruta seguido del operador glob `*`:
+Si queremos incluir al ámbito _todos_ los elementos públicos definidos en una 
+ruta, podemos especificar esa ruta seguido del operador glob `*`:
 
 ```rust
 use std::collections::*;
 ```
 
-Esta sentencia `use` trae todos los elementos públicos definidos en `std::collections` al ámbito actual. Tenga cuidado al utilizar el operador `glob`. El operador `glob` puede hacer más difícil saber qué elementos están en el ámbito y dónde se definió un elemento que este siendo utilizado en su programa.
+Esta sentencia `use` trae todos los elementos públicos definidos en 
+`std::collections` al ámbito actual. Tenga cuidado al utilizar el operador 
+`glob`. El operador `glob` puede hacer más difícil saber qué elementos están en 
+el ámbito y dónde se definió un elemento que este siendo utilizado en su 
+programa.
 
-El operador glob se utiliza a menudo cuando se realizan pruebas para llevar todo lo que se está probando al módulo de `pruebas`; hablaremos de ello en la sección ["Cómo escribir pruebas"][writing-tests]<!-- ignore --> del capítulo 11. El operador glob también se utiliza a veces como parte del patrón prelude: consulte [la documentación de la biblioteca estándar](../std/prelude/index.html#other-preludes)<!-- ignore --> para obtener más información sobre ese patrón.
+El operador glob se utiliza a menudo cuando se realizan pruebas para llevar todo 
+lo que se está probando al módulo de `pruebas`; hablaremos de ello en la sección 
+["Cómo escribir pruebas"][writing-tests]<!-- ignore --> del capítulo 11. El 
+operador glob también se utiliza a veces como parte del patrón prelude: consulte 
+[la documentación de la biblioteca estándar](../std/prelude/index.html#other-preludes)<!-- ignore --> 
+para obtener más información sobre ese patrón.
 
 [ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exportando-una-api-publica-conveniente-con-pub-use
 [rand]: ch02-00-guessing-game-tutorial.html#generar-un-numero-aleatorio

@@ -587,7 +587,7 @@ Cada vez que escribas código inseguro, puedes usar Miri para ayudarte a tener
 más confianza en que el código que has escrito respeta las reglas de Rust.
 
 Para una exploración mucho más profunda sobre cómo trabajar de manera efectiva 
-con Rust inseguro, podés leer la guía oficial de Rust sobre el tema: el 
+con Rust inseguro, puedes leer la guía oficial de Rust sobre el tema: el 
 [Rustonomicon][nomicon].
 
 [referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes

@@ -1,4 +1,3 @@
-## Appendix B: Operators and Symbols
 ## Apéndice B: Operadores y símbolos
 
 Este apéndice contiene una lista de los operadores y símbolos que aparecen en

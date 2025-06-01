@@ -242,7 +242,7 @@ Tenemos un trait y su función. En este punto, nuestro usuario de crate podría
 implementar el trait para lograr la funcionalidad deseada, así como en el 
 Listado 20-39:
 
-<Listing number="20-39" file-name="src/main.rs" caption="How it would look if users wrote a manual implementation of the `HelloMacro` trait">
+<Listing number="20-39" file-name="src/main.rs" caption="Cómo se vería si los usuarios escribieran una implementación manual del trait `HelloMacro`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-39/pancakes/src/main.rs}}

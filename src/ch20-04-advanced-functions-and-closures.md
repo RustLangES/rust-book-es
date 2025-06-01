@@ -66,7 +66,7 @@ Listado 20-29:
 O podríamos nombrar una función como argumento para `map` en lugar del
 closure. El Listado 20-30 muestra cómo se vería.
 
-<Listing number="20-30" caption="Usando el metodo `String::to_string` para convertir numeros a strings">
+<Listing number="20-30" caption="Usando el metodo `String::to_string` para convertir números a strings">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-30/src/main.rs:here}}
@@ -106,18 +106,19 @@ Compilan al mismo código, así que usa el estilo que sea más claro para ti.
 
 ### Retornando Closures
 
-Closures are represented by traits, which means you can’t return closures
-directly. In most cases where you might want to return a trait, you can instead
-use the concrete type that implements the trait as the return value of the
-function. However, you can’t do that with closures because they don’t have a
-concrete type that is returnable; you’re not allowed to use the function
-pointer `fn` as a return type, for example.
+Las closures están representadas por traits, lo que significa que no puedes 
+retornar closures directamente. En la mayoría de los casos en los que podrías 
+querer devolver un trait, en su lugar puedes usar el tipo concreto que 
+implementa el trait como valor de retorno de la función. Sin embargo, no puedes 
+hacer eso con closures porque no tienen un tipo concreto que sea retornable; por 
+ejemplo, no está permitido usar el puntero a función `fn` como tipo de retorno.
 
-Instead, you will normally use the `impl Trait` syntax we learned about in
-Chapter 10. You can return any function type, using `Fn`, `FnOnce` and `FnMut`.
-For example, the code in Listing 20-32 will work just fine.
+En su lugar, normalmente usarás la sintaxis `impl Trait` que aprendimos en el 
+Capítulo 10. Puedes devolver cualquier tipo de función, usando `Fn`, `FnOnce` y 
+`FnMut`. Por ejemplo, el código en el Listado 20-32 funcionará perfectamente.
 
-<Listing number="20-32" caption="Returning a closure from a function using the `impl Trait` syntax">
+\<Listado número="20-32" título="Devolviendo una closure desde una función usando la sintaxis `impl Trait`">
+
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-32/src/lib.rs}}

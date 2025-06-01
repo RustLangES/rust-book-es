@@ -257,7 +257,7 @@ son detalles bastante complicados).
 
 <figure>
 
-<img alt="A single-column, three-row table representing a future, fut1, which has data values 0 and 1 in the first two rows and an arrow pointing from the third row back to the second row, representing an internal reference within the future." src="img/trpl17-04.svg" class="center" />
+<img alt="Una tabla de una columna y tres filas que representa un futuro, fut1, que tiene los valores de datos 0 y 1 en las dos primeras filas y una flecha que apunta desde la tercera fila de regreso a la segunda fila, representando una referencia interna dentro del futuro" src="img/trpl17-04.svg" class="center" />
 
 <figcaption>Figura 17-4: Un tipo de datos auto-referencial.</figcaption>
 
@@ -275,7 +275,7 @@ tarde.
 
 <figure>
 
-<img alt="Two tables, depicting two futures, fut1 and fut2, each of which has one column and three rows, representing the result of having moved a future out of fut1 into fut2. The first, fut1, is grayed out, with a question mark in each index, representing unknown memory. The second, fut2, has 0 and 1 in the first and second rows and an arrow pointing from its third row back to the second row of fut1, representing a pointer that is referencing the old location in memory of the future before it was moved." src="img/trpl17-05.svg" class="center" />
+<img alt="Dos tablas, que representan dos futuros, fut1 y fut2, cada una con una columna y tres filas, mostrando el resultado de haber movido un futuro desde fut1 a fut2. La primera, fut1, está grisada, con un signo de interrogación en cada índice, representando memoria desconocida. La segunda, fut2, tiene 0 y 1 en la primera y segunda fila, y una flecha que apunta desde su tercera fila hacia la segunda fila de fut1, representando un puntero que referencia la antigua ubicación en memoria del futuro antes de ser movido." src="img/trpl17-05.svg" class="center" />
 
 <figcaption>Figura 17-5: El resultado inseguro de mover un tipo de datos auto-referencial.</figcaption>
 
@@ -297,7 +297,7 @@ el valor `SomeType`, *no* el puntero `Box`. La Figura 17-6 ilustra esto:
 
 <figure>
 
-<img alt="Three boxes laid out side by side. The first is labeled “Pin”, the second “b1”, and the third “pinned”. Within “pinned” is a table labeled “fut”, with a single column; it represents a future with cells for each part of the data structure. Its first cell has the value “0”, its second cell has an arrow coming out of it and pointing to the fourth and final cell, which has the value “1” in it, and the third cell has dashed lines and an ellipsis to indicate there may be other parts to the data structure. All together, the “fut” table represents a future which is self-referential. An arrow leaves the box labeled “Pin”, goes through the box labeled “b1” and has terminates inside the “pinned” box at the “fut” table." src="img/trpl17-06.svg" class="center" />
+<img alt="Tres cajas dispuestas una al lado de la otra. La primera está etiquetada como “Pin”, la segunda como “b1” y la tercera como “pinned”. Dentro de “pinned” hay una tabla etiquetada como “fut”, con una sola columna; representa un futuro con celdas para cada parte de la estructura de datos. Su primera celda tiene el valor “0”, la segunda celda tiene una flecha que sale de ella y apunta a la cuarta y última celda, que tiene el valor “1”, y la tercera celda tiene líneas punteadas y puntos suspensivos para indicar que puede haber otras partes en la estructura de datos. En conjunto, la tabla “fut” representa un futuro autorreferencial. Una flecha sale de la caja etiquetada “Pin”, pasa a través de la caja etiquetada “b1” y termina dentro de la caja “pinned” en la tabla “fut”." src="img/trpl17-06.svg" class="center" />
 
 <figcaption>Figura 17-6: Pineando un `Box` que apunta a un tipo de futuro auto-referencial.</figcaption>
 
@@ -315,7 +315,7 @@ auto-referencial en sí no puede moverse, porque todavía está pineado.
 
 <figure>
 
-<img alt="Four boxes laid out in three rough columns, identical to the previous diagram with a change to the second column. Now there are two boxes in the second column, labeled “b1” and “b2”, “b1” is grayed out, and the arrow from “Pin” goes through “b2” instead of “b1”, indicating that the pointer has moved from “b1” to “b2”, but the data in “pinned” has not moved." src="img/trpl17-07.svg" class="center" />
+<img alt="Cuatro cajas dispuestas en tres columnas aproximadas, idénticas al diagrama anterior con un cambio en la segunda columna. Ahora hay dos cajas en la segunda columna, etiquetadas como “b1” y “b2”; “b1” está en gris, y la flecha desde “Pin” pasa a través de “b2” en lugar de “b1”, indicando que el puntero se ha movido de “b1” a “b2”, pero los datos en “pinned” no se han movido." src="img/trpl17-07.svg" class="center" />
 
 <figcaption>Figura 17-7: Moviendo un `Box` que apunta a un tipo de futuro auto-referencial.</figcaption>
 

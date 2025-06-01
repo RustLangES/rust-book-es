@@ -6,10 +6,11 @@ válidos.
 
 ### `match` Arms
 
-As discussed in Chapter 6, we use patterns in the arms of `match` expressions.
-Formally, `match` expressions are defined as the keyword `match`, a value to
-match on, and one or more match arms that consist of a pattern and an
-expression to run if the value matches that arm’s pattern, like this:
+Como se discutió en el Capítulo 6, usamos patrones en la expresiones `match`. 
+Formalmente, las expresiones `match` se definen como la palabra clave `match`, 
+un valor para hacer coincidir y una o más opciones de coincidencia que consisten 
+en un patrón y una expresión para ejecutar si el valor coincide con el patrón de 
+esa opción, así:
 
 <!--
   Manually formatted rather than using Markdown intentionally: Markdown does not

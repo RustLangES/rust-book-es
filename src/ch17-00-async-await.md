@@ -107,7 +107,7 @@ Cada persona en el equipo puede avanzar al mismo tiempo.
 
 <figure>
 
-<img src="img/trpl17-02.svg" class="center" alt="A diagram with boxes labeled Task A and Task B, with diamonds in them representing subtasks. There are arrows pointing from A1 to A2, A2 to A3, A3 to A4, B1 to B2, and B2 to B3. No arrows cross between the boxes for Task A and Task B." />
+<img src="img/trpl17-02.svg" class="center" alt="Un diagrama con cajas etiquetadas como Tarea A y Tarea B, con rombos dentro que representan subtareas. Hay flechas que apuntan de A1 a A2, de A2 a A3, de A3 a A4, de B1 a B2 y de B2 a B3. No hay flechas que crucen entre las cajas de Tarea A y Tarea B." />
 
 <img alt="Flujo de trabajo paralelo" src="img/trpl17-02.svg" class="center" />
 
@@ -124,7 +124,8 @@ podría ocurrir en serie, una cosa tras otra, como en la Figura 17-3.
 
 <figure>
 
-<img src="img/trpl17-03.svg" class="center" alt="A diagram with boxes labeled Task A and Task B, with diamonds in them representing subtasks. There are arrows pointing from A1 to A2, A2 to a pair of thick vertical lines like a “pause” symbol, from that symbol to A3, B1 to B2, B2 to B3, which is below that symbol, B3 to A3, and B3 to B4." />
+<img src="img/trpl17-03.svg" class="center" alt="Un diagrama con cajas etiquetadas como Tarea A y Tarea B, con rombos dentro que representan subtareas. Hay flechas que van de A1 a A2, de A2 a un par de líneas verticales gruesas como un símbolo de “pausa”, de ese símbolo a A3, de B1 a B2, de B2 a B3 (que está debajo de ese símbolo), de B3 a A3 y de B3 a B4.
+" />
 
 <figcaption>Figura 17-3: Un flujo de trabajo parcialmente paralelo, donde el trabajo se realiza en la Tarea A y la Tarea B de forma independiente hasta que la tarea A3 está bloqueada en los resultados de la tarea B3.</figcaption>
 

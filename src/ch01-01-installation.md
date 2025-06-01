@@ -162,13 +162,14 @@ entornos de desarrollo integrados (IDEs) tienen soporte integrado para Rust.
 Siempre puedes encontrar una lista bastante actualizada de muchos editores e 
 IDEs en [la página de herramientas][tools] del sitio web de Rust.
 
-### Working Offline with This Book
+### Trabajando sin conexión con este libro
 
-In several examples, we will use Rust packages beyond the standard library. To
-work through those examples, you will either need to have an internet connection
-or to have downloaded those dependencies ahead of time. To download the
-dependencies ahead of time, you can run the following commands. (We’ll explain
-what `cargo` is and what each of these commands does in detail later.)
+En varios ejemplos, usaremos paquetes de Rust más allá de la biblioteca 
+estándar. Para trabajar con esos ejemplos, necesitarás tener conexión a internet 
+o haber descargado esas dependencias previamente. Para descargar las 
+dependencias con anticipación, puedes ejecutar los siguientes comandos. (Más 
+adelante explicaremos qué es `cargo` y qué hace cada uno de estos comandos en 
+detalle).
 
 ```console
 $ cargo new get-dependencies
@@ -176,11 +177,12 @@ $ cd get-dependencies
 $ cargo add rand@0.8.5 trpl@0.2.0
 ```
 
-This will cache the downloads for these packages so you will not need to
-download them later. Once you have run this command, you do not need to keep the
-`get-dependencies` folder. If you have run this command, you can use the
-`--offline` flag with all `cargo` commands in the rest of the book to use these
-cached versions instead of attempting to use the network. 
+Esto almacenará en caché las descargas de estos paquetes para que no necesites 
+descargarlos más tarde. Una vez que hayas ejecutado este comando, no necesitas 
+conservar la carpeta `get-dependencies`. Si has ejecutado este comando, puedes 
+usar la opción `--offline` con todos los comandos `cargo` en el resto del libro 
+para usar estas versiones almacenadas en caché en lugar de intentar conectarte 
+a la red.
 
 [otherinstall]: https://forge.rust-lang.org/infra/other-installation-methods.html
 [install]: https://www.rust-lang.org/tools/install

@@ -204,15 +204,15 @@ stream que necesita ser fijado para ser sondeado.
 
 </Listing>
 
-We start by adding a timeout to the stream with the `timeout` method, which
-comes from the `StreamExt` trait. Then we update the body of the `while let`
-loop, because the stream now returns a `Result`. The `Ok` variant indicates a
-message arrived in time; the `Err` variant indicates that the timeout elapsed
-before any message arrived. We `match` on that result and either print the
-message when we receive it successfully or print a notice about the timeout.
-Finally, notice that we pin the messages after applying the timeout to them,
-because the timeout helper produces a stream that needs to be pinned to be
-polled.
+Comenzamos agregando un tiempo de espera al stream con el método `timeout`, que 
+proviene del trait `StreamExt`. Luego actualizamos el cuerpo del ciclo 
+`while let`, porque ahora el stream devuelve un `Result`. La variante `Ok` 
+indica que llegó un mensaje a tiempo; la variante `Err` indica que el tiempo de 
+espera se agotó antes de que llegara algún mensaje. Hacemos un `match` sobre ese 
+resultado y o bien imprimimos el mensaje cuando lo recibimos con éxito o 
+mostramos un aviso sobre el tiempo de espera. Finalmente, observa que fijamos 
+(pin) los mensajes después de aplicarles el timeout, porque el helper de timeout 
+produce un stream que debe ser fijado para poder ser polleado.
 
 Sin embargo, como no hay demoras entre los mensajes, este tiempo de espera
 no cambia el comportamiento del programa. Agreguemos una demora variable
@@ -234,12 +234,13 @@ la mitad de los mensajes.
 
 </Listing>
 
-In `get_messages`, we use the `enumerate` iterator method with the `messages`
-array so that we can get the index of each item we’re sending along with the
-item itself. Then we apply a 100-millisecond delay to even-index items and a
-300-millisecond delay to odd-index items to simulate the different delays we
-might see from a stream of messages in the real world. Because our timeout is
-for 200 milliseconds, this should affect half of the messages.
+En `get_messages`, usamos el método iterador `enumerate` con el arreglo 
+`messages` para poder obtener el índice de cada elemento que enviamos junto con 
+el elemento en sí. Luego aplicamos un retraso de 100 milisegundos a los 
+elementos con índice par y un retraso de 300 milisegundos a los elementos con 
+índice impar para simular los diferentes retrasos que podríamos ver en una 
+secuencia de mensajes en el mundo real. Como nuestro tiempo de espera es de 200 
+milisegundos, esto debería afectar a la mitad de los mensajes.
 
 Para usar sleep entre mensajes en la función `get_messages` sin bloquear, 
 necesitamos usar async. Sin embargo, no podemos hacer de `get_messages` una 
@@ -356,11 +357,11 @@ ese stream combinado en lugar de sobre `messages` (listado 17-37).
 
 </Listing>
 
-We start by calling `get_intervals`. Then we merge the `messages` and
-`intervals` streams with the `merge` method, which combines multiple streams
-into one stream that produces items from any of the source streams as soon as
-the items are available, without imposing any particular ordering. Finally, we
-loop over that combined stream instead of over `messages`.
+Comenzamos llamando a `get_intervals`. Luego combinamos los streams `messages` e 
+`intervals` con el método `merge`, que une múltiples streams en un solo stream 
+que produce elementos de cualquiera de los streams de origen tan pronto como los 
+elementos estén disponibles, sin imponer un orden particular. Finalmente, 
+iteramos sobre ese stream combinado en lugar de hacerlo sobre `messages`.
 
 En este punto, ni `messages` ni `intervals` necesitan ser fijados o
 mutables, porque ambos se combinarán en el único stream `merged`.

@@ -15,7 +15,7 @@ Las instalaciones de Rust incluyen `rustfmt` por defecto, así que ya deberías
 tener los programas `rustfmt` y `cargo-fmt` en tu sistema. Estos dos comandos 
 son análogos a `rustc` y `cargo` en el sentido de que `rustfmt` permite un 
 control más detallado, mientras que `cargo-fmt` entiende las convenciones de un 
-proyecto que usa Cargo. Para formatear cualquier proyecto de Cargo, ingresá lo 
+proyecto que usa Cargo. Para formatear cualquier proyecto de Cargo, ingresa lo 
 siguiente:
 
 ```console
