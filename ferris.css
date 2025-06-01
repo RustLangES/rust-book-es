@@ -94,4 +94,5 @@ pre:hover > .buttons button {
   position: fixed;
   z-index: 1;
   background: var(--quote-bg);
+  padding: 10px 0;
 }
