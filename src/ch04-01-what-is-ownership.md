@@ -74,16 +74,17 @@ datos muy común: las cadenas de caracteres.
 > grande para contener los datos y luego realizar tareas administrativas para
 > prepararse para la siguiente asignación.
 >
-> Acceder a los datos en el heap es más lento que acceder a los datos en el
-> stack porque debe seguir un puntero para llegar allí. Los procesadores
-> contemporáneos son más rápidos si saltan menos en la memoria. Continuando con
-> la analogía, considere un servidor en un restaurante que toma pedidos de
-> muchas mesas. Es más eficiente obtener todos los pedidos de una mesa antes de
-> pasar a la siguiente mesa. Tomar un pedido de la mesa A, luego un pedido de la
-> mesa B, luego uno de la A nuevamente y luego uno de la B nuevamente sería un
-> proceso mucho más lento. Del mismo modo, un procesador puede hacer su trabajo
-> mejor si trabaja con datos que están cerca de otros datos (como lo están en
-> el stack) en lugar de más lejos (como pueden estar en el heap).
+> Acceder a los datos en el heap es generalmente más lento que acceder a los 
+> datos en el stack porque debe seguir un puntero para llegar allí. Los 
+> procesadores contemporáneos son más rápidos si saltan menos en la memoria. 
+> Continuando con la analogía, considere un servidor en un restaurante que toma 
+> pedidos de muchas mesas. Es más eficiente obtener todos los pedidos de una 
+> mesa antes de pasar a la siguiente mesa. Tomar un pedido de la mesa A, luego 
+> un pedido de la mesa B, luego uno de la A nuevamente y luego uno de la B 
+> nuevamente sería un proceso mucho más lento. Del mismo modo, un procesador 
+> usualmente puede hacer su trabajo mejor si trabaja con datos que están cerca 
+> de otros datos (como lo están en el stack) en lugar de más lejos (como pueden 
+> estar en el heap).
 >
 > Cuando su código llama a una función, los valores que se pasan a la función
 > (incluidos, posiblemente, punteros a datos en el heap) y las variables locales

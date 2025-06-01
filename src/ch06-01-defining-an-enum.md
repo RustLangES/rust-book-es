@@ -159,10 +159,10 @@ variedad de tipos incrustados en sus variantes.
 
 Este `enum` tiene cuatro variantes con diferentes tipos:
 
-- `Quit` no tiene ningún dato asociado.
-- `Move` tiene campos nombrados, como lo haría un struct.
-- `Write` incluye un solo `String`.
-- `ChangeColor` incluye tres valores `i32`.
+- `Quit`: No tiene ningún dato asociado.
+- `Move`: Tiene campos nombrados, como lo haría un struct.
+- `Write`: Incluye un solo `String`.
+- `ChangeColor`: Incluye tres valores `i32`.
 
 Definiendo un `enum` con variantes como las del Listing 6-2 es similar a
 definir diferentes tipos de definiciones de struct, excepto que el `enum` no

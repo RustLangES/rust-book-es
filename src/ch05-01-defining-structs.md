@@ -195,7 +195,8 @@ similares a las tuplas en que puede descomponerlas en sus piezas individuales,
 y puede usar un `.` seguido por el índice para acceder a un valor individual.
 A diferencia de las tuplas, las estructuras de tuplas requieren que nombre del 
 tipo de estructura cuando las desestructuras. Por ejemplo, escribiríamos 
-`let Punto(x, y, z) = punto`.
+`let Punto(x, y, z) = punto` para desestructurar los valores de `origin` en 
+variables llamadas x, y y z.
 
 ### Structs de Unidad sin Campos
 

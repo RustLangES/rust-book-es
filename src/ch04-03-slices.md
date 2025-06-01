@@ -1,14 +1,21 @@
 ## El Tipo Slice
 
 Los _Slices_ te permiten referenciar a una secuencia contigua de elementos
-en una [colección](ch08-00-common-collections.md) en lugar de la colección completa. Un slice es una especie de
-referencia, por lo que no tiene ownership.
+en una [colección](ch08-00-common-collections.md)<!-- ignore --> en lugar de la 
+colección completa. Un slice es una especie de referencia, por lo que no tiene 
+ownership.
 
 Aquí hay un pequeño problema de programación: escribe una función que tome un
 string de palabras separadas por espacios y retorne la primera palabra que
 encuentre en ese string.
 Si la función no encuentra ningún espacio en el string, todo el string debe ser
 una sola palabra, por lo que se debe retornar todo el string.
+
+> Nota: Para los fines de introducir los slices de cadena, en esta sección 
+> asumimos solo ASCII; una discusión más completa sobre el manejo de UTF-8 se 
+> encuentra en la sección 
+> [“Almacenar texto codificado en UTF-8 con cadenas”][strings]<!-- ignore --> 
+> del Capítulo 8.
 
 Trabajemos en cómo escribiríamos la firma de esta función sin usar slices,
 para entender el problema que los slices resolverán:
@@ -111,8 +118,8 @@ Afortunadamente, Rust tiene una solución a este problema: los string slices.
 
 ### String Slices
 
-Un _string slice_ es una referencia de parte de un `String`, y se ve algo como
-esto:
+Un _string slice_ es una referencia a una secuencia contigua de elementos, y se 
+ve como esto:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-17-slice/src/main.rs:here}}
