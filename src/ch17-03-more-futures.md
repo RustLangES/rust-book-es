@@ -1,5 +1,7 @@
 ## Trabajando con cualquier número de futures
 
+<a id="working-with-any-number-of-futures"></a>
+
 En la sección anterior, cuando pasamos de usar dos futures a tres, tuvimos que cambiar
 `join` por `join3`. Tener que usar una función diferente cada vez que cambiamos la
 cantidad de futures que queremos combinar sería poco práctico. Afortunadamente, existe

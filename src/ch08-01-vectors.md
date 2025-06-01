@@ -200,7 +200,9 @@ error del compilador similar al que obtuvimos con el código en el listado 8-6.
 La referencia al vector que el ciclo `for` contiene evita la modificación
 simultánea de todo el vector.
 
+<!-- Old headings. Do not remove or links may break. -->
 <a id="enum-for-multiple-types"></a>
+<a id="using-an-enum-to-store-multiple-types"></a>
 
 ### Usar un `enum` para almacenar múltiples tipos
 

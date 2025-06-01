@@ -200,7 +200,10 @@ Este código imprime `1 new tweet: (Read more from @horse_ebooks...)`.
 Ten en cuenta que no es posible llamar a la implementación predeterminada desde
 una implementación primordial de ese mismo método.
 
-### Traits como parametros
+<a id="traits-as-parameters"></a>
+<a id="traits-como-parametros"></a>
+
+### Traits como parámetros
 
 Ahora que sabes cómo definir e implementar traits, podemos explorar cómo usar
 traits para definir funciones que aceptan muchos tipos diferentes. Usaremos el

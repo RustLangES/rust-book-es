@@ -50,6 +50,9 @@ usar la misma lógica con muchos tipos diferentes de secuencias, no solo
 estructuras de datos en las que puedes indexar, como los vectores. Examinemos
 cómo los iterators hacen eso.
 
+<!-- Old headings. Do not remove or links may break. -->
+<a id="the-iterator-trait-and-the-next-method"></a>
+
 ### El trait `Iterator` y el método `next`
 
 Todos los iterators implementan un trait llamado `Iterator` que está definido

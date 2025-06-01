@@ -18,8 +18,9 @@ permiten la reutilización de código y la personalización del comportamiento.
 <a id="creating-an-abstraction-of-behavior-with-closures"></a>
 <a id="refactoring-using-functions"></a>
 <a id="refactoring-with-closures-to-store-code"></a>
+<a id="capturing-the-environment-with-closures"></a>
 
-### Capturando el entorno con Closures
+### Capturando el Entorno con Closures
 
 Primero examinaremos cómo podemos usar closures para capturar valores del
 entorno en el que están definidos para su uso posterior. Aquí está el escenario:
@@ -89,6 +90,8 @@ definimos, o la lógica que queremos usar en este escenario. El closure captura
 una referencia inmutable a la instancia `self` `Inventory` y la pasa con el
 código que especificamos al método `unwrap_or_else`. Las funciones, por otro
 lado, no pueden capturar su entorno de esta manera.
+
+<a id="closure-type-inference-and-annotation"></a>
 
 ### Inferencia de tipo de Closure y anotación
 

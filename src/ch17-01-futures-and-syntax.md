@@ -42,6 +42,9 @@ de aquel que termine primero. Este ejemplo tendrá un poco de nueva sintaxis,
 pero no te preocupes. Explicaremos todo lo que necesitas saber a medida que
 avanzamos.
 
+<!-- Old headings. Do not remove or links may break. -->
+<a id="our-first-async-program"></a>
+
 ### Nuestro primer programa asíncrono
 
 Para mantener este capítulo centrado en aprender lo asíncrono, en lugar de

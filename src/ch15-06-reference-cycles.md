@@ -90,7 +90,7 @@ complejo asignara mucha memoria en un ciclo y la mantuviera durante mucho
 tiempo, el programa usaría más memoria de la que necesitaba y podría
 abrumar el sistema, causando que se quede sin memoria disponible.
 
-Crear ciclos de referencia no es algo fácil de hacer, pero tampoco es imposible.
+Crear   referencia no es algo fácil de hacer, pero tampoco es imposible.
 Si tienes valores `RefCell<T>` que contienen valores `Rc<T>` o combinaciones
 similares de tipos con mutabilidad interior y recuento de referencias anidados,
 debes asegurarte de no crear ciclos; no puedes confiar en Rust para atraparlos.
@@ -113,7 +113,7 @@ referencia.
 
 <a id="preventing-reference-cycles-turning-an-rct-into-a-weakt"></a>
 
-### Previniendo ciclos de referencia: Usando `Weak<T>`
+### Previniendo Referencias Circulares: Usando `Weak<T>`
 
 Hasta ahora, hemos demostrado que llamar a `Rc::clone` aumenta el `strong_count`
 de una instancia `Rc<T>`, y una instancia `Rc<T>` solo se limpia si su
