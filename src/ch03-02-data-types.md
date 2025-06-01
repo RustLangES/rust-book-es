@@ -52,7 +52,7 @@ estas variantes para declarar el tipo de un valor entero.
 | 32-bit  | `i32`   | `u32`    |
 | 64-bit  | `i64`   | `u64`    |
 | 128-bit | `i128`  | `u128`   |
-| architecture dependent | `isize` | `usize`  |
+| Dependiente de la arquitectura | `isize` | `usize`  |
 
 Cada variante puede ser *signed* (con signo) o *unsigned* (sin signo) y tiene
 un tamaño explícito. *Signed* y *unsigned* se refieren a si es posible que el
