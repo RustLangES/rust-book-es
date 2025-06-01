@@ -405,4 +405,5 @@ o tres con `join3` . Veamos cómo podemos manejar una cantidad mayor de futures.
 [message-passing-threads]: ch16-02-message-passing.html
 [if-let]: ch06-03-if-let.html
 [capture-or-move]: ch13-01-closures.html#capturando-referencias-o-moviendo-el-ownership
-[streams]: ch17-05-streams.html
+[streams]: ch17-04-streams.html
+[move-threads]: ch16-01-threads.html#usando-move-closures-con-threads

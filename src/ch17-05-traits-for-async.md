@@ -509,6 +509,8 @@ Eso es todo lo que vamos a cubrir para los detalles de nivel inferior sobre
 estos traits. Para terminar, ¡consideremos cómo encajan los futuros (incluidos
 los streams), las tareas y los hilos!
 
+[futures-syntax]: ch17-01-futures-and-syntax.html
+[counting]: ch17-02-concurrency-with-async.html
 [ch-18]: ch18-00-oop.html
 [async-book]: https://rust-lang.github.io/async-book/
 [under-the-hood]: https://rust-lang.github.io/async-book/02_execution/01_chapter.html

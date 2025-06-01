@@ -184,4 +184,5 @@ en el Capítulo 18.
 [valores-enum]: ch06-01-defining-an-enum.html#valores-enum
 [closure-types]: ch13-01-closures.html#closure-type-inference-and-annotation
 [any-number-of-futures]: ch17-03-more-futures.html
-[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[using-trait-objects-that-allow-for-values-of-different-types]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+
