@@ -18,7 +18,6 @@ jobs:
       run: |
         mkdir bin
         curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.7/mdbook-v0.4.36-localization-v0.7-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
-        curl -sSL https://github.com/catppuccin/mdBook/releases/download/v0.1.1/mdbook-catppuccin-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         echo "$(pwd)/bin" >> ${GITHUB_PATH}
     - name: Install mdbook-epub backend
       run: cargo install --git https://github.com/blandger/mdbook-epub/ --branch add_links_preprocessing --force --root .
@@ -76,7 +75,6 @@ jobs:
       run: |
         mkdir bin
         curl -sSL https://github.com/RustLangES/mdBook/releases/download/v0.4.36-localization-v0.7/mdbook-v0.4.36-localization-v0.7-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
-        curl -sSL https://github.com/catppuccin/mdBook/releases/download/v0.1.1/mdbook-catppuccin-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
         echo "$(pwd)/bin" >> ${GITHUB_PATH}
     - name: Install mdbook-epub backend
       run: cargo install --git https://github.com/blandger/mdbook-epub/ --branch add_links_preprocessing --force --root .

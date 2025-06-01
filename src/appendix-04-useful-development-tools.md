@@ -116,6 +116,8 @@ fn main() {
 }
 ```
 
+</Listing>
+
 Ejecutando `cargo clippy` en este proyecto resulta en este error:
 
 ```text
@@ -144,6 +146,8 @@ fn main() {
     println!("the area of the circle is {}", x * r * r);
 }
 ```
+
+</Listing>
 
 Para obtener más información sobre Clippy, consulte [su documentación][clippy].
 

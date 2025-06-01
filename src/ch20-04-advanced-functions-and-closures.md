@@ -117,7 +117,7 @@ En su lugar, normalmente usarás la sintaxis `impl Trait` que aprendimos en el
 Capítulo 10. Puedes devolver cualquier tipo de función, usando `Fn`, `FnOnce` y 
 `FnMut`. Por ejemplo, el código en el Listado 20-32 funcionará perfectamente.
 
-\<Listado número="20-32" título="Devolviendo una closure desde una función usando la sintaxis `impl Trait`">
+<Listing number="20-32" caption="Devolviendo una closure desde una función usando la sintaxis `impl Trait`">
 
 
 ```rust

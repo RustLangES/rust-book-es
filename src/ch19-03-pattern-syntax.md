@@ -422,8 +422,7 @@ En el Listado 19-23, tenemos un struct `Point` que contiene una coordenada en
 el espacio tridimensional. En la expresión `match`, queremos operar solo en la
 coordenada `x` e ignorar los valores en los campos `y` y `z`.
 
-<Listing number="19-23" caption="Ignorando todos los campos de un `Point`
-excepto `x` mediante el uso de `..`">
+<Listing number="19-23" caption="Ignorando todos los campos de un `Point` excepto `x` mediante el uso de `..`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-23/src/main.rs:here}}

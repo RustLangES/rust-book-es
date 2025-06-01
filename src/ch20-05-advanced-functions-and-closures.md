@@ -67,9 +67,8 @@ closure, como este:
 ```
 
 Ten en cuenta que debemos utilizar la sintaxis completamente calificada que
-mencionamos anteriormente en la sección [“Traits avanzados”][advanced-traits]
-
-<!-- ignore --> porque hay múltiples funciones disponibles llamadas `to_string`.
+mencionamos anteriormente en la sección [“Traits avanzados”][advanced-traits]<!-- ignore --> 
+porque hay múltiples funciones disponibles llamadas `to_string`.
 
 Aquí, estamos usando la función `to_string` definida en el trait `ToString`,
 que la biblioteca estándar ha implementado para cualquier tipo que implemente

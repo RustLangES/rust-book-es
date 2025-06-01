@@ -66,7 +66,7 @@ manera:
 <Listing file-name="src/lib.rs">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch21-web-server/no-listing-04-update-worker-definition/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-04-update-drop-definition/src/lib.rs:here}}
 ```
 
 </Listing>
@@ -75,7 +75,7 @@ Ahora usemos el compilador para encontrar los otros lugares que necesitan
 cambiar. Al verificar este código, obtenemos dos errores:
 
 ```console
-{{#include ../listings/ch21-web-server/no-listing-04-update-worker-definition/output.txt}}
+{{#include ../listings/ch21-web-server/no-listing-04-update-drop-definition/output.txt}}
 ```
 
 Abordemos el segundo error, que apunta al código al final de `Worker::new`;

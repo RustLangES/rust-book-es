@@ -13,11 +13,6 @@ additional-css = ["ferris.css", "theme/2018-edition.css", "./theme/catppuccin.cs
 additional-js = ["ferris.js"]
 git-repository-url = "https://github.com/RustLangES/rust-book-es"
 
-[preprocessor]
-
-[preprocessor.catppuccin]
-assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
-
 [output.html.redirect]
 "ch17-00-oop.html" = "ch18-00-oop.html"
 "ch17-01-what-is-oo.html" = "ch18-01-what-is-oo.html"
