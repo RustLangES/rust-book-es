@@ -11,14 +11,12 @@ de la comunidad. Muchos proyectos colaborativos usan `rustfmt` para evitar
 discusiones sobre qué estilo usar al escribir Rust: todos formatean su código
 usando la herramienta.
 
-Para instalar `rustfmt`, ingrese lo siguiente:
-
-```console
-$ rustup component add rustfmt
-```
-
-Este comando le da `rustfmt` y `cargo-fmt`, similar a cómo Rust le da `rustc` y
-`cargo`. Para formatear cualquier proyecto de carga útil, ingrese lo siguiente:
+Las instalaciones de Rust incluyen `rustfmt` por defecto, así que ya deberías 
+tener los programas `rustfmt` y `cargo-fmt` en tu sistema. Estos dos comandos 
+son análogos a `rustc` y `cargo` en el sentido de que `rustfmt` permite un 
+control más detallado, mientras que `cargo-fmt` entiende las convenciones de un 
+proyecto que usa Cargo. Para formatear cualquier proyecto de Cargo, ingresá lo 
+siguiente:
 
 ```console
 $ cargo fmt
@@ -95,13 +93,8 @@ ediciones de Rust. Las ediciones se tratan en el [Apéndice E][editions].
 ### Más lints con Clippy
 
 La herramienta `clippy` es una colección de lints para analizar su código para
-que pueda detectar errores comunes y mejorar su código Rust.
-
-Para instalar `clippy`, ingrese lo siguiente:
-
-```console
-$ rustup component add clippy
-```
+que pueda detectar errores comunes y mejorar su código Rust. Clippy está 
+incluido en las instalaciones estándar de Rust.
 
 Para ejecutar los lints de Clippy en cualquier proyecto de carga útil, ingrese
 lo siguiente:
@@ -113,7 +106,7 @@ $ cargo clippy
 Por ejemplo, digamos que escribe un programa que usa una aproximación de una
 constante matemática, como pi, como lo hace este programa:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 fn main() {
@@ -142,7 +135,7 @@ y que su programa sería más correcto si usara la constante en su lugar. Luego
 cambiaría su código para usar la constante `PI`. El siguiente código no
 produce ningún error ni advertencia de Clippy:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 fn main() {

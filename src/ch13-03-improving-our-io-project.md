@@ -11,7 +11,7 @@ En el Listado 12-6, agregamos código que tomó un slice de valores `String` y
 creó una instancia del struct `Config` indexando en el slice y clonando
 los valores, permitiendo que el struct `Config` posea esos valores. En el
 Listado 13-17, hemos reproducido la implementación de la función `Config::build`
-tal como estaba en el Listado 12-23:
+tal como estaba en el Listado 12-23.
 
 <Listing number="13-17" file-name="src/lib.rs" caption="Reproducción de la función `Config::build` del Listing 12-23">
 
@@ -103,7 +103,7 @@ parámetro `args` para hacerlo mutable.
 
 Luego, necesitamos actualizar el cuerpo de `Config::build` para usar los
 métodos del trait `Iterator` en lugar de indexar en el slice. En el Listado
-13-20 hemos actualizado el código del Listado 12-23 para usar el método `next`:
+13-20 hemos actualizado el código del Listado 12-23 para usar el método `next`.
 
 <Listing number="13-20" file-name="src/lib.rs" caption="Cambiando el cuerpo de `Config::build` para usar métodos de iterator">
 

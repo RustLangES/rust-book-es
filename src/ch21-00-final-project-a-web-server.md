@@ -20,9 +20,9 @@ Aquí está nuestro plan para construir el web server:
 4. Crear una respuesta HTTP adecuada.
 5. Mejorar el rendimiento de nuestro servidor con un *thread pool*.
 
-Antes de comenzar, debemos mencionar un detalle: 
+Antes de comenzar, debemos mencionar dos detalles: 
 
-Antes que nada, el método que usaremos no será la mejor manera de construir un 
+Primero, el método que usaremos no será la mejor manera de construir un 
 servidor web con Rust. Los miembros de la comunidad han publicado una serie de 
 *crates* listos para producción disponibles en [crates.io](https://crates.io/) 
 que proporcionan servidores web y *thread pools* más completos que los que 

@@ -139,7 +139,7 @@ estás esperando, no antes. Es decir, es una *palabra clave posfija*. Esto puede
 ser diferente de lo que estás acostumbrado si has usado asíncrono en otros
 lenguajes. Rust eligió esto porque hace que las cadenas de métodos sean mucho
 más agradables de trabajar. Como resultado, podemos cambiar el cuerpo de
-`page_url_for` para encadenar las llamadas a las funciones `trpl::get` y `text`
+`page_title` para encadenar las llamadas a las funciones `trpl::get` y `text`
 juntas con `await` entre ellas, como se muestra en el Listado 17-2:
 
 <Listing number="17-2" file-name="src/main.rs" caption="Encadenando con la palabra clave `await`">
@@ -342,7 +342,7 @@ runtime y ejecuta el futuro devuelto por el bloque `async` hasta que devuelva
 > Nota: algunos runtimes proporcionan macros para que *puedas* escribir una
 > función `main` asíncrona. Esos macros reescriben `async fn main() { ... }`
 > para ser un `fn main` normal que hace lo mismo que hicimos a mano en el
-> Listado 17-5: llamar a una función que ejecuta un futuro hasta su finalización
+> Listado 17-4: llamar a una función que ejecuta un futuro hasta su finalización
 > de la misma manera que `trpl::run` hace.
 
 Pongamos estas piezas juntas y veamos cómo podemos escribir código concurrente,
@@ -386,11 +386,10 @@ enum Either<A, B> {
 }
 ```
 
-La función `race` devuelve `Left` si el primer argumento termina primero, con la
-salida de ese futuro, y `Right` con la salida del segundo argumento futuro si
-*ese* termina primero. Esto coincide con el orden en que aparecen los argumentos
-cuando se llama a la función: el primer argumento está a la izquierda del
-segundo argumento.
+La función `race` devuelve `Left` con el resultado del primer futuro que 
+finalice, o `Right` con el resultado del segundo futuro si ese finaliza primero. 
+Esto coincide con el orden en que aparecen los argumentos al llamar a la 
+función: el primer argumento está a la izquierda del segundo.
 
 También actualizamos `page_title` para devolver la misma URL pasada. De esa
 manera, si la página que se devuelve primero no tiene un `<title>` que podamos

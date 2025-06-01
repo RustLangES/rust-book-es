@@ -1,5 +1,9 @@
 ## Tratando los Smart Pointers como Referencias Regulares con el Trait `Deref`
 
+<!-- Old link, do not remove -->
+
+<a id="treating-smart-pointers-like-regular-references-with-the-deref-trait"></a>
+
 Implementar el trait `Deref` te permite personalizar el comportamiento del
 _operador de desreferencia_ `*` (no confundir con el operador de multiplicación
 o el operador de glob). Al implementar `Deref` de tal manera que un smart
@@ -30,7 +34,7 @@ y cómo nos permite trabajar con referencias o smart pointers.
 Una referencia regular es un tipo de puntero, y una forma de pensar en un
 puntero es como una flecha a un valor almacenado en otro lugar. En el Listado
 15-6, creamos una referencia a un valor `i32` y luego usamos el operador de
-desreferencia para seguir la referencia al valor:
+desreferencia para seguir la referencia al valor.
 
 <Listing number="15-6" file-name="src/main.rs" caption="Utilizando el operador de dereferencia para seguir una referencia a un valor `i32`">
 
@@ -101,7 +105,7 @@ definida en `Box<T>`.
 
 </Listing>
 
-Definimos un struct llamado `MyBox` y declaramos un parámetro generic `T`,
+Definimos un struct llamado `MyBox` y declaramos un parámetro generic `T`
 porque queremos que nuestro tipo contenga valores de cualquier tipo. El tipo
 `MyBox` es una tupla struct con un elemento de tipo `T`. La función `MyBox::new`
 toma un parámetro de tipo `T` y devuelve una instancia de `MyBox` que contiene
@@ -142,7 +146,7 @@ implementar un trait, necesitamos proporcionar implementaciones para los método
 requeridos del trait. El trait `Deref`, proporcionado por la biblioteca
 estándar, requiere que implementemos un método llamado `deref` que tome `self`
 y devuelva una referencia al dato interno. El Listado 15-10 contiene una
-implementación de `Deref` para agregar a la definición de `MyBox`:
+implementación de `Deref` para agregar a la definición de `MyBox`.
 
 <Listing number="15-10" file-name="src/main.rs" caption="Implementando `Deref` en `MyBox<T>`">
 
@@ -217,7 +221,7 @@ smart pointers.
 Para ver la coerción Deref en acción, usemos el tipo `MyBox<T>` que definimos
 en el Listado 15-8 y la implementación de `Deref` que agregamos en el Listado
 15-10. El Listado 15-11 muestra la definición de una función que tiene un
-parámetro de tipo string slice:
+parámetro de tipo string slice.
 
 <Listing number="15-11" file-name="src/main.rs" caption="Una función `hello` que tiene el parámetro `name` de tipo `&str`">
 
@@ -228,9 +232,9 @@ parámetro de tipo string slice:
 </Listing>
 
 Llamamos a la función `hello` con un string slice como un argumento, como
-`hello("Rust");` por ejemplo. La coerción Deref hace posible llamar a `hello`
+`hello("Rust");`, por ejemplo. La coerción Deref hace posible llamar a `hello`
 con una referencia a un valor de tipo `MyBox<String>`, como se muestra en el
-Listado 15-12:
+Listado 15-12.
 
 <Listing number="15-12" file-name="src/main.rs" caption="Llamando a `hello` con una referencia a un valor `MyBox<String>`, lo cual funciona debido a la coerción deref">
 

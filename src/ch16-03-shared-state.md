@@ -54,7 +54,7 @@ desbloquear incorrectamente.
 #### La API de `Mutex<T>`
 
 Como un ejemplo de como usar un mutex, comencemos usando un mutex en un
-contexto de un solo hilo, como se muestra en el Listado 16-12:
+contexto de un solo hilo, como se muestra en el Listado 16-12.
 
 <Listing number="16-12" file-name="src/main.rs" caption="Explorando la API de `Mutex<T>` en un contexto de un solo hilo para simplificar">
 

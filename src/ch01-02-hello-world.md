@@ -73,11 +73,11 @@ $ ./main
 ¡Hola, mundo!
 ```
 
-En Windows, escribe el comando `.\main.exe` en lugar de `./main`:
+En Windows, escribe el comando `.\main` en lugar de `./main`:
 
 ```powershell
 > rustc main.rs
-> .\main.exe
+> .\main
 ¡Hola, mundo!
 ```
 
@@ -204,3 +204,4 @@ Cargo, que te ayudará a escribir programas de Rust reales.
 
 [troubleshooting]: ch01-01-installation.html#solucion-de-problemas
 [devtools]: appendix-04-useful-development-tools.html
+[ch20-macros]: ch20-05-macros.html

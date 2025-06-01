@@ -346,7 +346,7 @@ las funciones de aserción de igualdad se llaman `expected` y `actual`, y el
 orden en que especificamos los argumentos importa. Sin embargo, en Rust, se
 llaman `left` y `right`, y el orden en que especificamos el valor que esperamos
 y el valor que el código produce no importa. Podríamos escribir la aserción en
-este test como `assert_eq!(4, result)`, lo que resultaría en el mismo
+este test como `assert_eq!(add_two(2), result)`, lo que resultaría en el mismo
 mensaje de error que muestra `` assertion failed: `(left == right)` ``.
 
 La macro `assert_ne!` pasará si los dos valores que le proporcionamos no son

@@ -276,6 +276,10 @@ el pattern `_` dentro de otro pattern, usando un nombre que comienza con un
 guion bajo y usando `..` para ignorar las partes restantes de un valor.
 Exploraremos cómo y por qué usar cada uno de estos patterns.
 
+<!-- Old link, do not remove -->
+
+<a id="ignoring-an-entire-value-with-_"></a>
+
 #### Ignorando un Valor Completo con `_`
 
 Hemos utilizado el guion bajo como un pattern comodín que coincide con
@@ -303,6 +307,8 @@ una firma de tipo específico, pero el cuerpo de la función en tu implementaci�
 no necesita uno de los parámetros. Luego evitas obtener una advertencia del
 compilador sobre parámetros de función no utilizados, como lo harías si
 utilizaras un nombre en su lugar.
+
+<a id="ignoring-parts-of-a-value-with-a-nested-_"></a>
 
 #### Ignorando partes de un valor con un `_` anidado
 
@@ -346,8 +352,12 @@ de ignorar el segundo y cuarto valores en una tupla de cinco elementos.
 
 </Listing>
 
-Este código imprimirá `Some numbers: 2, 8, 32`, y los valores 4 y 16 serán
+Este código imprimirá `Some numbers: 2, 8, 32`, y los valores `4` y `16` serán
 ignorados.
+
+<!-- Old link, do not remove -->
+
+<a id="ignoring-an-unused-variable-by-starting-its-name-with-_"></a>
 
 #### Ignorando una variable no utilizada comenzando su nombre con `_`
 
@@ -399,6 +409,8 @@ mueve a `_`.
 </Listing>
 
 Este código funciona bien porque nunca vinculamos `s` a nada; no se mueve.
+
+<a id="ignoring-remaining-parts-of-a-value-with-"></a>
 
 ### Ignorando partes restantes de un valor con `..`
 

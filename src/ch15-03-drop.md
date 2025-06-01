@@ -68,6 +68,10 @@ necesita correr en lugar de un mensaje de impresión.
 
 ### Droppeando un valor temprano con `std::mem::drop`
 
+<!-- Old link, do not remove -->
+
+<a id="dropping-a-value-early-with-std-mem-drop"></a>
+
 Desafortunadamente, no es sencillo deshabilitar la funcionalidad automática de
 `drop`. Deshabilitar `drop` usualmente no es necesario; el punto entero del
 trait `Drop` es que se encarga automáticamente. Ocasionalmente, sin embargo,
@@ -81,7 +85,7 @@ scope.
 
 Si intentamos llamar manualmente al método `drop` del trait `Drop` modificando 
 la función `main` del Listado 15-14, como se muestra en el Listado 15-15, 
-obtendremos un error del compilador:
+obtendremos un error del compilador.
 
 <Listing number="15-15" file-name="src/main.rs" caption="Intento de llamar manualmente al método `drop` del trait `Drop` para limpiar de forma anticipada">
 
@@ -100,7 +104,7 @@ Cuando nosotros intentemos compilar este código, obtendremos el siguiente error
 Este mensaje de error indica que no se nos permite llamar a `drop` 
 explícitamente. El mensaje de error usa el término *destructor*, que es el 
 término general de programación para una función que limpia una instancia. 
-Un *destructor* es análogo a un *constructor*, que crea una instancia. 
+Un *_destructor_* es análogo a un *constructor*, que crea una instancia. 
 La función `drop` en Rust es un destructor particular.
 
 Rust no nos deja llamar a `drop` explícitamente porque Rust llamaría
@@ -115,7 +119,7 @@ necesitamos forzar a un valor a ser limpiado temprano, usamos la función
 La función `std::mem::drop` es diferente del método `drop` en el trait `Drop`.
 La llamamos pasando como argumento el valor que queremos forzar a dropear. La
 función está en el prelude, así que podemos modificar `main` en el Listado
-15-15 para llamar a la función `drop`, como se muestra en el Listado 15-16:
+15-15 para llamar a la función `drop`, como se muestra en el Listado 15-16.
 
 <Listing number="15-16" file-name="src/main.rs" caption="Llamando a `std::mem::drop` para eliminar explícitamente un valor antes de que salga del scope">
 

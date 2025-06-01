@@ -180,16 +180,18 @@ confianza. El Listado 9-13 muestra una forma de definir un tipo `Guess` que
 solo creará una instancia de `Guess` si la función `new` recibe un valor entre
 1 y 100.
 
-<Listing number="9-13" caption="Un tipo `Guess` que solo continuará con valores entre 1 y 100">
+<Listing number="9-13" caption="Un tipo `Guess` que solo continuará con valores entre 1 y 100" file-name="src/guessing_game.rs">
 
 ```rust
-{{#rustdoc_include ../listings/ch09-error-handling/listing-09-13/src/lib.rs}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-13/src/guessing_game.rs}}
 ```
 
 </Listing>
 
-Primero, definimos un struct llamado `Guess` que tiene un campo llamado `value`
-que contiene un `i32`. Aquí es donde se almacenará el número.
+Primero, creamos un nuevo modulo llamado `guessing_game`. Luego definimos un 
+struct en este modulo llamado `Guess` que tiene un campo llamado `value` que 
+contiene un `i32`. 
+Aquí es donde se almacenará el número.
 
 Luego implementamos una función asociada llamada `new` en `Guess` que crea
 instancias de valores `Guess`. La función `new` está definida para tener un
@@ -212,10 +214,10 @@ llama a veces _getter_, porque su propósito es obtener algunos datos de sus
 campos y devolverlos. Este método público es necesario porque el campo `value`
 del struct `Guess` es privado. Es importante que el campo `value` sea privado
 para que el código que usa el struct `Guess` no pueda establecer `value`
-directamente: el código fuera del módulo _debe_ usar la función `Guess::new`
-para crear una instancia de `Guess`, lo que garantiza que no hay forma de que
-un `Guess` tenga un `value` que no haya sido verificado por las condiciones en
-la función `Guess::new`.
+directamente: el código fuera del módulo `guessing_game` _debe_ usar la función 
+`Guess::new` para crear una instancia de `Guess`, lo que garantiza que no hay 
+forma de que un `Guess` tenga un `value` que no haya sido verificado por las 
+condiciones en la función `Guess::new`.
 
 Una función que tiene un parámetro o devuelve solo números entre 1 y 100 podría
 entonces declarar en su firma que toma o devuelve un `Guess` en lugar de un

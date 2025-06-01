@@ -93,13 +93,13 @@ podemos garantizar que el hilo creado se ejecute en absoluto!
 
 Podemos solucionar el problema de que el hilo creado no se ejecute o termine
 prematuramente guardando el valor de retorno de `thread::spawn` en una variable.
-El tipo de retorno de `thread::spawn` es `JoinHandle`. Un `JoinHandle` es un
-valor de propiedad que, cuando llamamos al método `join` en él, esperará a que
-su hilo termine. El Listado 16-2 muestra cómo usar el `JoinHandle` del hilo que
-creamos en el Listado 16-1 y llamar a `join` para asegurarnos de que el hilo
-creado termine antes de que `main` salga:
+El tipo de retorno de `thread::spawn` es `JoinHandle<T>`. Un `JoinHandle<T>` es 
+un valor de propiedad que, cuando llamamos al método `join` en él, esperará a 
+que su hilo termine. El Listado 16-2 muestra cómo usar el `JoinHandle<T>` del 
+hilo que creamos en el Listado 16-1 y llamar a `join` para asegurarnos de que el 
+hilo creado termine antes de que `main` salga:
 
-<Listing number="16-2" file-name="src/main.rs" caption="Guardando un `JoinHandle` devuelto por `thread::spawn` para garantizar que el hilo se ejecute hasta completarse">
+<Listing number="16-2" file-name="src/main.rs" caption="Guardando un `JoinHandle<T>` devuelto por `thread::spawn` para garantizar que el hilo se ejecute hasta completarse">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-02/src/main.rs}}
@@ -179,7 +179,7 @@ ejecutan al mismo tiempo.
 A menudo usamos la keyword `move` con closures pasadas a `thread::spawn` porque
 el closure tomará posesión de los valores que usa del entorno, transfiriendo así
 el ownership de esos valores de un hilo a otro. En la sección ["Capturando
-referencias o moviendo la propiedad"][capture]<!-- ignore --> del Capítulo 13,
+el Entorno con Closures"][capture]<!-- ignore --> del Capítulo 13,
 discutimos `move` en el contexto de las closures. Ahora, nos concentraremos más
 en la interacción entre `move` y `thread::spawn`.
 
@@ -188,7 +188,7 @@ argumentos: no estamos usando ningún dato del hilo principal en el código del
 hilo creado. Para usar datos del hilo principal en el hilo creado, el closure
 del hilo creado debe capturar los valores que necesita. El Listado 16-3 muestra
 un intento de crear un vector en el hilo principal y usarlo en el hilo creado.
-Sin embargo, esto aún no funcionará, como verás en un momento.
+Sin embargo, esto aún no funcionará aún, como verás en un momento.
 
 <Listing number="16-3" file-name="src/main.rs" caption="Intentando usar un vector creado por el hilo principal en otro hilo">
 
@@ -247,7 +247,7 @@ help: to force the closure to take ownership of `v` (and any other referenced va
 Al agregar la keyword `move` antes del closure, forzamos al closure a tomar
 ownership de los valores que está usando en lugar de permitir que Rust infiera
 que debería pedir prestado los valores. La modificación al Listado 16-3 que se
-muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos:
+muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos.
 
 <Listing number="16-5" file-name="src/main.rs" caption="Usando la keyword `move` para forzar a un closure a tomar ownership de los valores que utiliza">
 
@@ -283,4 +283,4 @@ pedir prestado; no nos permite violar las reglas de ownership.
 Con una comprensión básica de los hilos y la API de hilos, veamos qué podemos
 _hacer_ con los hilos.
 
-[capture]: ch13-01-closures.html#capturando-referencias-o-moviendo-el-ownership
+[capture]: ch13-01-closures.html#capturing-the-environment-with-closures

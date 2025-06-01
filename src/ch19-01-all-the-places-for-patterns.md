@@ -4,21 +4,23 @@ Los Patterns aparecen en varios lugares en Rust, ¡y los has estado usando mucho
 sin darte cuenta! Esta sección discute todos los lugares donde los Patterns son
 válidos.
 
-### Opciones de `match`
+### `match` Arms
 
-Como se discutió en el Capítulo 6, usamos Patterns en las opciones de las
-expresiones `match`. Formalmente, las expresiones `match` se definen como la
-palabra clave `match`, un valor para hacer coincidir y una o más opciones de
-coincidencia que consisten en un patrón y una expresión para ejecutar si el
-valor coincide con el patrón de esa opción, así:
+As discussed in Chapter 6, we use patterns in the arms of `match` expressions.
+Formally, `match` expressions are defined as the keyword `match`, a value to
+match on, and one or more match arms that consist of a pattern and an
+expression to run if the value matches that arm’s pattern, like this:
 
-```text
-match VALUE {
-    PATTERN => EXPRESSION,
-    PATTERN => EXPRESSION,
-    PATTERN => EXPRESSION,
-}
-```
+<!--
+  Manually formatted rather than using Markdown intentionally: Markdown does not
+  support italicizing code in the body of a block like this!
+-->
+
+<pre><code>match <em>VALUE</em> {
+    <em>PATTERN</em> => <em>EXPRESSION</em>,
+    <em>PATTERN</em> => <em>EXPRESSION</em>,
+    <em>PATTERN</em> => <em>EXPRESSION</em>,
+}</code></pre>
 
 Por ejemplo, aquí está la expresión `match` del Listado 6-5 que coincide con un
 valor `Option<i32>` en la variable `x`:

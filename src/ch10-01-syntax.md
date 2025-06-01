@@ -84,9 +84,10 @@ que podría ser `T`. Debido a que queremos comparar valores de tipo `T` en el
 cuerpo, solo podemos usar tipos cuyos valores se pueden ordenar. Para habilitar
 las comparaciones, la biblioteca estándar tiene el trait `std::cmp::PartialOrd`
 que puede implementar en tipos (consulte el Apéndice C para obtener más
-información sobre este trait). Siguiendo la sugerencia del texto de ayuda,
-restringimos los tipos válidos para `T` solo a aquellos que implementan
-`PartialOrd` y este ejemplo se compilará, porque la biblioteca estándar
+información sobre este trait). Para corregir el código de ejemplo anterior, 
+necesitaríamos seguir las sugerencia del texto de ayuda,
+restringir los tipos válidos para `T` solo a aquellos que implementan
+`PartialOrd`. El ejemplo entonces compilara, porque la biblioteca estándar
 implementa `PartialOrd` tanto en `i32` como en `char`.
 
 ### Definiciones En Struct

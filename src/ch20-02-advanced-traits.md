@@ -5,7 +5,12 @@ Behavior"][traits-definiendo-comportamiento-compartido]<!-- ignore --> del Capí
 no discutimos los detalles más avanzados. Ahora que conoces más Rust, podemos
 entrar en los detalles más minuciosos.
 
-### Especificando Tipos de Marcador en Definiciones de Traits con Tipos Asociados
+<!-- Old link, do not remove -->
+
+<a id="specifying-placeholder-types-in-trait-definitions-with-associated-types"></a>
+
+
+### Tipos Asociados
 
 Los _tipos asociados_ conectan un marcador de tipo con un trait de modo que los
 métodos de definición de trait puedan usar estos marcadores de tipo en sus
@@ -105,7 +110,7 @@ arbitrarios. Pero puedes sobrecargar las operaciones y los traits
 correspondientes enumerados en `std::ops` implementando los traits asociados
 con el operador. Por ejemplo, en el Listado 20-15 sobrecargamos el operador `+`
 para agregar dos instancias de `Point` juntas. Hacemos esto implementando el
-trait `Add` en un struct `Point`:
+trait `Add` en un struct `Point`.
 
 <Listing number="20-15" file-name="src/main.rs" caption="Implementando el trait `Add` para sobrecargar el operador `+` para instancias `Point`">
 
@@ -184,7 +189,11 @@ parámetro de tipo a un trait existente, puedes darle un valor predeterminado
 para permitir la extensión de la funcionalidad del trait sin romper el código
 de implementación existente.
 
-### Sintaxis Completamente Calificada para la Desambiguación: Llamando Métodos con el Mismo Nombre
+<!-- Old link, do not remove -->
+
+<a id="fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name"></a>
+
+### Desambiguando Entre Métodos con el Mismo Nombre
 
 Nada en Rust impide que un trait tenga un método con el mismo nombre que el
 método de otro trait, ni Rust te impide implementar ambos traits en un solo
@@ -197,7 +206,7 @@ traits, `Pilot` y `Wizard`, que ambos tienen un método llamado `fly`. Luego
 implementamos ambos traits en un tipo `Human` que ya tiene un método llamado
 `fly` implementado en él. Cada método `fly` hace algo diferente.
 
-<Listing number="20-17" file-name="src/main.rs" caption="Se definen dos traits para tener un método `fly` y se implementan en el tipo `Human`, además se implementa directamente un método `fly` en `Human`">
+<Listing number="20-17" file-name="src/main.rs" caption="Se definen dos traits para tener un método `fly` y se implementan en el tipo `Human`, además se implementa directamente un método `fly` en `Human`.">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-17/src/main.rs:here}}
@@ -342,7 +351,11 @@ sintaxis más verbosa en casos en los que haya múltiples implementaciones que
 usen el mismo nombre y Rust necesite ayuda para identificar qué implementación
 quieres llamar.
 
-### Usando supertraits para requerir la funcionalidad de un trait dentro de otro trait
+<!-- Old link, do not remove -->
+
+<a id="using-supertraits-to-require-one-traits-functionality-within-another-trait"></a>
+
+### Usando Supertraits
 
 A veces, es posible que desees escribir una definición de trait que dependa de
 otro trait: para que un tipo implemente el primer trait, quieres exigir que
@@ -418,7 +431,7 @@ restricción que requiere `OutlinePrint`, de la siguiente manera:
 
 </Listing>
 
-Entonces, al implementar el trait `OutlinePrint` en `Point`, se compilará
+Entonces, al, implementar el trait `OutlinePrint` en `Point`, se compilará
 exitosamente, y podemos llamar a `outline_print` en una instancia de `Point`
 para mostrarla dentro de un contorno de asteriscos.
 
@@ -463,10 +476,10 @@ que no tiene los métodos del valor que contiene. Tendríamos que implementar
 todos los métodos de `Vec<T>` directamente en `Wrapper` de tal manera que los
 métodos deleguen a `self.0`, lo que nos permitiría tratar a `Wrapper`
 exactamente como un `Vec<T>`. Si quisiéramos que el nuevo tipo tenga todos los
-métodos del tipo interno, implementar el trait `Deref` (discutido en el
-capítulo 15 en la sección [“Tratando a los smart pointers como referencias
-regulares con el trait `Deref`”][smart-pointer-deref]<!-- ignore -->) en
-`Wrapper` para devolver el tipo interno sería una solución. Si no queremos que
+métodos del tipo interno, implementar el trait `Deref` en `Wrapper` para 
+devolver el tipo interno sería una solución(discutido en el capítulo 15 en la 
+sección [“Tratando a los smart pointers como referencias regulares con el trait 
+`Deref`”][smart-pointer-deref]<!-- ignore -->). Si no queremos que
 el tipo `Wrapper` tenga todos los métodos del tipo interno, por ejemplo, para
 restringir el comportamiento del tipo `Wrapper`, tendríamos que implementar
 manualmente solo los métodos que queremos.

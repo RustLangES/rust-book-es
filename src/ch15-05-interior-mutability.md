@@ -25,7 +25,7 @@ de un tipo como `Box<T>`? Recuerda las reglas de borrowing que aprendiste en el
 Capítulo 4:
 
 - En cualquier momento dado, puedes tener _o bien_ una referencia mutable _o
-  bien_ cualquier número de referencias inmutables.
+  bien_ cualquier número de referencias inmutables (pero no ambas).
 - Las referencias siempre deben ser válidas.
 
 Con referencias y `Box<T>`, las invariantes de las reglas de borrowing se hacen
@@ -191,8 +191,8 @@ En el test, estamos testeando qué sucede cuando el `LimitTracker` se le dice qu
 establezca `value` en algo que es más del 75 por ciento del valor `max`. En
 primer lugar, creamos un nuevo `MockMessenger`, que comenzará con una lista
 vacía de mensajes. Luego creamos un nuevo `LimitTracker` y le damos una
-referencia al nuevo `MockMessenger` y un valor `max` de 100. Llamamos al método
-`set_value` en el `LimitTracker` con un valor de 80, que es más del 75 por
+referencia al nuevo `MockMessenger` y un valor `max` de `100`. Llamamos al método
+`set_value` en el `LimitTracker` con un valor de `80`, que es más del 75 por
 ciento de 100. Luego afirmamos que la lista de mensajes que el `MockMessenger`
 está realizando un seguimiento debería tener ahora un mensaje en ella.
 
@@ -298,6 +298,10 @@ seguimiento de los mensajes que ha visto mientras lo estás usando en un
 contexto donde solo se permiten valores inmutables. Puedes usar `RefCell<T>`
 a pesar de sus compensaciones para obtener más funcionalidad de la que
 proporcionan las referencias regulares.
+
+<!-- Old link, do not remove -->
+
+<a id="having-multiple-owners-of-mutable-data-by-combining-rc-t-and-ref-cell-t"></a>
 
 ### Teniendo múltiples propietarios de datos mutables combinando `Rc<T>` y `RefCell<T>`
 

@@ -161,7 +161,8 @@ habilitan su funcionalidad.
 En el capítulo 16, recorreremos diferentes modelos de programación concurrente
 y hablaremos sobre cómo Rust te ayuda a programar en múltiples hilos sin
 temor. En el capítulo 17 nos basaremos en eso, explorando la sintaxis async y 
-await de Rust y el modelo de concurrencia ligero que admiten.
+await de Rust, junto con tareas, *futures* y *streams*, y el modelo de 
+concurrencia ligero que admiten.
 
 El capítulo 18 examina cómo los modismos de Rust se comparan con los
 principios de programación orientada a objetos con los que podrías estar

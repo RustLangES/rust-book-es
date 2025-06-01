@@ -115,7 +115,17 @@ varias veces porque el servidor no está respondiendo con ningún dato. Cuando
 `stream` sale del scope y se descarta al final del bucle, la conexión se cierra
 como parte de la implementación de `drop`. Los navegadores a veces tratan con
 conexiones cerradas volviendo a intentar, porque el problema podría ser
-temporal. ¡El factor importante es que hemos obtenido con éxito un controlador
+temporal. 
+
+Los navegadores también a veces abren múltiples conexiones al servidor sin 
+enviar ninguna solicitud, de modo que si *luego* envían solicitudes, estas 
+puedan realizarse más rápidamente. Cuando esto sucede, nuestro servidor verá 
+cada conexión, independientemente de si se ha enviado alguna solicitud a través 
+de ella. Muchas versiones de navegadores basados en Chrome hacen esto, por 
+ejemplo; puedes desactivar esa optimización usando el modo de navegación privada
+o utilizando un navegador diferente.
+
+¡El factor importante es que hemos obtenido con éxito un controlador
 para una conexión TCP!
 
 Recuerda detener el programa presionando <kbd>ctrl</kbd>-<kbd>c</kbd>

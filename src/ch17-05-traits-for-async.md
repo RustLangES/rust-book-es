@@ -323,9 +323,9 @@ auto-referencial en sí no puede moverse, porque todavía está pineado.
 
 Sin embargo, la mayoría de los tipos son perfectamente seguros de mover, incluso
 si resulta que están detrás de un puntero `Pin`. Solo necesitamos pensar en
-pinear cuando los elementos tienen referencias internas. Valores primitivos como
-números y booleanos no tienen referencias internas, por lo que obviamente son
-seguros. Tampoco la mayoría de los tipos con los que normalmente trabajas en
+pinear cuando los elementos tienen referencias internas. Los valores primitivos 
+como los números y los booleanos son seguros porque, no contienen referencias 
+internas. Tampoco la mayoría de los tipos con los que normalmente trabajas en
 Rust. Un `Vec`, por ejemplo, no tiene referencias internas que necesite mantener
 actualizadas de esta manera, por lo que puedes moverlo sin preocuparte. Si 
 tienes un `Pin<Vec<String>>`, tendrías que hacer todo a través de las API

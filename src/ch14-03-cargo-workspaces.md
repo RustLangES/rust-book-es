@@ -30,7 +30,7 @@ configurará todo el *workspace*. Este archivo no tendrá una sección `[package
 En su lugar, comenzará con una sección `[workspace]` que nos permitirá agregar
 miembros al *workspace*. También nos esforzamos en utilizar las últimas y mejores
 versión del algoritmo de resolución de Cargo en nuestro workspace configurando el
-`resolver` en `"2"`. Especificando la ruta al paquete con nuestro *crate*
+`resolver` en `"3"`. Especificando la ruta al paquete con nuestro *crate*
 binario; en este caso, esa ruta es *adder*:
 
 <span class="filename">Filename: Cargo.toml</span>
@@ -92,16 +92,7 @@ innecesaria.
 ### Creando el Segundo Paquete en el Workspace
 
 A continuación crearemos otro paquete miembro en el *workspace* y lo llamaremos
-`add_one`. Cambie el *Cargo.toml* de nivel superior para especificar la ruta
-*add_one* en la lista de `members`:
-
-<span class="filename">Filename: Cargo.toml</span>
-
-```toml
-{{#include ../listings/ch14-more-about-cargo/no-listing-02-workspace-with-two-crates/add/Cargo.toml}}
-```
-
-Luego generaremos un nuevo *crate* de biblioteca llamado `add_one`:
+`add_one`. Luego generaremos un nuevo *crate* de biblioteca llamado `add_one`:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-02-add-one/add
@@ -115,6 +106,16 @@ copy output below
 $ cargo new add_one --lib
     Creating library `add_one` package
       Adding `add_one` as member of workspace at `file:///projects/add`
+```
+
+
+Cambie el *Cargo.toml* de nivel superior para especificar la ruta
+*add_one* en la lista de `members`:
+
+<span class="filename">Filename: Cargo.toml</span>
+
+```toml
+{{#include ../listings/ch14-more-about-cargo/no-listing-02-workspace-with-two-crates/add/Cargo.toml}}
 ```
 
 Tu directorio *add* debería tener estos directorios y archivos:

@@ -1,5 +1,9 @@
 # Rust como un Lenguaje de Programación Orientado a Objetos
 
+<!-- Old link, do not remove -->
+
+<a id="object-oriented-programming-features-of-rust"></a>
+
 La programación orientada a objetos (POO) es una forma de modelar programas. Los
 objetos como concepto programático fueron introducidos en el lenguaje de
 programación Simula en la década de 1960. Esos objetos influyeron en la

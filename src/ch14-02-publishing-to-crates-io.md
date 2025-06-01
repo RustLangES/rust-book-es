@@ -104,8 +104,8 @@ test src/lib.rs - add_one (line 5) ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
 ```
 
-¡Ahora si cambiamos la función o el ejemplo para que el `assert_eq!` en el
-ejemplo entre en pánico y ejecutamos `cargo test` nuevamente, veremos que los
+Ahora, si cambiamos la función o el ejemplo para que el `assert_eq!` en el
+ejemplo entre en pánico y ejecutamos `cargo test` nuevamente, ¡veremos que los
 doc tests capturan que el ejemplo y el código están fuera de sincronización
 entre sí!
 
@@ -138,7 +138,7 @@ que es el crate root. Estos comentarios describen todo el crate.
 
 Cuando ejecutamos `cargo doc --open` ahora, veremos la documentación para el
 crate `my_crate` en lugar de la documentación para la función `add_one`, como
-se muestra en la Figura 14-2:
+se muestra en la Figura 14-2.
 
 <img alt="Documentación HTML renderizada con un comentario para el crate como un todo" src="img/trpl14-02.png" class="center" />
 
@@ -170,8 +170,8 @@ podrían estar molestos por tener que ingresar `use`
 Las buenas noticias son que si la estructura _no_ es conveniente para que otros
 la usen desde otra biblioteca, no tienes que reorganizar tu organización
 interna: en su lugar, puedes reexportar items para hacer una estructura pública
-que sea diferente de tu estructura privada usando `pub use`. Reexportar toma un
-item público en una ubicación y lo hace público en otra ubicación, como si se
+que sea diferente de tu estructura privada usando `pub use`. *Reexportando* toma 
+un item público en una ubicación y lo hace público en otra ubicación, como si se
 definiera en la otra ubicación en su lugar.
 
 Por ejemplo, supongamos que creamos una biblioteca llamada `art` para modelar

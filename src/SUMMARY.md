@@ -99,20 +99,18 @@
   - [Extendiendo Cargo con Comandos Personalizados](ch14-05-extending-cargo.md)
 
 - [Smart Pointers](ch15-00-smart-pointers.md)
+  - [Using `Box<T>` to Point to Data on the Heap](ch15-01-box.md)
+  - [Treating Smart Pointers Like Regular References with `Deref`](ch15-02-deref.md)
+  - [Running Code on Cleanup with the `Drop` Trait](ch15-03-drop.md)
+  - [`Rc<T>`, the Reference Counted Smart Pointer](ch15-04-rc.md)
+  - [`RefCell<T>` and the Interior Mutability Pattern](ch15-05-interior-mutability.md)
+  - [Reference Cycles Can Leak Memory](ch15-06-reference-cycles.md)
 
-  - [Usando `Box<T>` para Apuntar a Datos en el Heap](ch15-01-box.md)
-  - [Tratando los Smart Pointers como Referencias Regulares con el Trait `Deref`](ch15-02-deref.md)
-  - [Ejecutando Código al Limpiar con el Trait `Drop`](ch15-03-drop.md)
-  - [`Rc<T>`, el Smart Pointer de Conteo de Referencias](ch15-04-rc.md)
-  - [`RefCell<T>` y el Patrón de Mutabilidad Interior](ch15-05-interior-mutability.md)
-  - [Referencias Circulares Pueden Fugar Memoria](ch15-06-reference-cycles.md)
-
-- [Concurrencia Sin Miedo](ch16-00-concurrency.md)
-
-  - [Usando Threads para Ejecutar Código Simultáneamente](ch16-01-threads.md)
-  - [Usando el Pasaje de Mensajes para Transferir Datos entre Hilos](ch16-02-message-passing.md)
-  - [Concurrencia con Estado Compartido](ch16-03-shared-state.md)
-  - [Concurrencia Extensible con los Traits `Sync` y `Send`](ch16-04-extensible-concurrency-sync-and-send.md)
+- [Fearless Concurrency](ch16-00-concurrency.md)
+  - [Using Threads to Run Code Simultaneously](ch16-01-threads.md)
+  - [Using Message Passing to Transfer Data Between Threads](ch16-02-message-passing.md)
+  - [Shared-State Concurrency](ch16-03-shared-state.md)
+  - [Extensible Concurrency with the `Send` and `Sync` Traits](ch16-04-extensible-concurrency-sync-and-send.md)
 
 - [Fundamentos de la Programación Asíncrona: Async, Await, Futures y Streams](ch17-00-async-await.md)
     - [Futures y la sintaxis Async](ch17-01-futures-and-syntax.md)

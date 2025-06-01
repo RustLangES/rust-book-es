@@ -335,10 +335,11 @@ lenguaje de programación diferente (extranjero) llame a esas funciones.
 
 El Listado 20-8 demuestra cómo configurar una integración con la función `abs`
 de la biblioteca estándar de C. Las funciones declaradas dentro de bloques
-`extern` usualmente son inseguras de llamar desde el código Rust, por lo que 
-deben también ser marcadas como `unsafe`. La razón es que otros lenguajes no 
-hacen cumplir las reglas y garantías de Rust, y Rust no puede verificarlas, por 
-lo que la responsabilidad recae en el programador para garantizar la seguridad.
+`extern` usualmente son inseguras de llamar desde el código Rust, por lo que los
+bloques `extern` deben también ser marcadas como `unsafe`. La razón es que otros 
+lenguajes no hacen cumplir las reglas y garantías de Rust, y Rust no puede 
+verificarlas, por lo que la responsabilidad recae en el programador para 
+garantizar la seguridad.
 
 <Listing number="20-8" file-name="src/main.rs" caption="Declarando y llamando a una función `extern` definida en otro lenguaje">
 
@@ -353,14 +354,17 @@ las funciones externas de otro lenguaje que queremos llamar. La parte `"C"`
 define qué *interfaz binaria de aplicación (ABI, por sus siglas en inglés)* usa 
 la función externa: el ABI determina cómo llamar a la función a nivel de 
 ensamblador. El ABI `"C"` es el más común y sigue el ABI del lenguaje de 
-programación C.
+programación C. La información sobre todas las ABI que Rust admite está 
+disponible en [la Referencia de Rust][ABI].
 
-Sin embargo, esta función en particular no tiene consideraciones de seguridad de 
-memoria. De hecho, sabemos que cualquier llamada a `abs` será siempre segura 
-para cualquier valor de tipo `i32`, por lo que podemos usar la palabra clave 
-`safe` para indicar que esta función específica es segura de llamar, incluso si 
-está en un bloque `unsafe extern`. Una vez que hacemos este cambio, llamarla ya 
-no requiere un bloque `unsafe`, como se muestra en el Listado 20-9.
+Cada elemento declarado dentro de un bloque `unsafe extern` es implícitamente 
+`unsafe`. Sin embargo, algunas funciones FFI *sí* son seguras de llamar. Por 
+ejemplo, la función `abs` de la biblioteca estándar de C no presenta problemas 
+de seguridad en cuanto a la memoria y sabemos que se puede invocar con cualquier 
+`i32`. En casos como este, podemos usar la palabra clave `safe` para indicar que 
+esta función específica es segura de llamar, incluso aunque se encuentre dentro 
+de un bloque `unsafe extern`. Una vez hecho ese cambio, ya no se necesita un 
+bloque `unsafe` para llamarla, como se muestra en el Listado 20-9.
 
 <Listing number="20-9" file-name="src/main.rs" caption="Marcar explícitamente una función como `safe` dentro de un bloque `unsafe extern` y llamarla de forma segura">
 
@@ -390,7 +394,7 @@ responsabilidad asegurarte de que esa promesa se cumpla.
 > deshabilitar el mangling del compilador de Rust. Esto es **inseguro** porque 
 > podrían ocurrir colisiones de nombres entre bibliotecas al no usar el mangling 
 > integrado. Por lo tanto, es nuestra responsabilidad asegurarnos de que el 
-> nombre que hemos exportado sea seguro para exportar sin mangling.
+> nombre que hemos escogido sea seguro para exportar sin mangling.
 >
 > En el siguiente ejemplo, hacemos que la función `call_from_c` sea accesible
 > desde el código C, después de que se compile a una biblioteca compartida y
@@ -403,7 +407,8 @@ responsabilidad asegurarte de que esa promesa se cumpla.
 > }
 > ```
 >
-> Este uso de `extern` no requiere `unsafe`.
+> Este uso de `extern` requiere `unsafe` solo en el atributo, no en el bloque 
+> `extern`.
 
 ### Acceder o modificar una variable estática mutable
 
@@ -492,7 +497,7 @@ como `unsafe` también, como se muestra en el Listado 20-12.
 <Listing number="20-12" caption="Definiendo e implementando un trait inseguro">
 
 ```rust
-{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-12/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-12/src/main.rs:here}}
 ```
 
 </Listing>
@@ -504,12 +509,13 @@ Como ejemplo, recordemos los marcadores de traits `Sync` y `Send` que
 discutimos en la sección ["Concurrencia extensible con los traits `Sync` y
 `Send`"][concurrencia-extensible-con-los-traits-sync-y-send] en el Capítulo
 16: el compilador implementa estos traits automáticamente si nuestros tipos se
-componen únicamente de tipos `Send` y `Sync`. Si implementamos un tipo que
-contiene un tipo que no es `Send` o `Sync`, como punteros crudos, y queremos
-marcar ese tipo como `Send` o `Sync`, debemos usar `unsafe`. Rust no puede
-verificar que nuestro tipo cumpla con las garantías de que se puede enviar
-seguramente a través de hilos o acceder desde múltiples hilos; por lo tanto,
-debemos hacer esas comprobaciones manualmente e indicarlo con `unsafe`.
+componen únicamente de otros tipos que implementan `Send` y `Sync`. Si 
+implementamos un tipo que contiene un tipo que no es `Send` o `Sync`, como 
+punteros crudos, y queremos marcar ese tipo como `Send` o `Sync`, debemos usar 
+`unsafe`. Rust no puede verificar que nuestro tipo cumpla con las garantías de 
+que se puede enviar seguramente a través de hilos o acceder desde múltiples 
+hilos; por lo tanto, debemos hacer esas comprobaciones manualmente e indicarlo 
+con `unsafe`.
 
 ### Acceder a los campos de una union
 
@@ -519,7 +525,7 @@ campo declarado se usa en una instancia particular en un momento dado. Las
 unions se usan principalmente para interactuar con unions en código C. Acceder
 a los campos de la union es inseguro porque Rust no puede garantizar el tipo de
 los datos que se almacenan actualmente en la instancia de la union. Puedes
-aprender más sobre las uniones en [la Referencia de Rust][reference].
+aprender más sobre las uniones en [la Referencia de Rust][unions].
 
 ### Usar Miri para verificar código inseguro
 
@@ -547,22 +553,27 @@ el Listado 20-11:
 {{#include ../listings/ch20-advanced-features/listing-20-11/output.txt}}
 ```
 
-Miri detecta de manera útil y correcta que tenemos referencias compartidas a 
-datos mutables y nos advierte al respecto. En este caso, no nos dice cómo 
-solucionar el problema, pero nos permite saber que existe un posible 
-inconveniente, lo que nos da la oportunidad de pensar cómo garantizar su 
-seguridad. En otros casos, Miri puede incluso decirnos que cierto código está 
-*seguramente* mal y hacer recomendaciones sobre cómo corregirlo.
+Miri nos advierte correctamente que tenemos referencias compartidas a datos 
+mutables. En este caso, Miri solo emite una advertencia porque no está 
+garantizado que sea comportamiento indefinido, y no nos indica cómo solucionar 
+el problema. Pero al menos sabemos que existe un riesgo de comportamiento 
+indefinido y podemos pensar en cómo hacer que el código sea seguro. En algunos 
+casos, Miri también puede detectar errores evidentes —patrones de código que con 
+certeza están mal— y hacer recomendaciones sobre cómo solucionarlos.
 
-Sin embargo, Miri no detecta *todo* lo que podrías hacer mal al escribir código 
-inseguro. Por un lado, como es una verificación dinámica, solo detecta problemas 
-en el código que realmente se ejecuta. Esto significa que necesitarás usarlo en 
-conjunto con buenas técnicas de prueba para aumentar tu confianza en el código 
-inseguro que hayas escrito. Por otro lado, no cubre todas las posibles formas 
-en que tu código puede ser inseguro. Si Miri *detecta* un problema, sabes que 
-hay un error, pero que Miri *no detecte* un error no significa que no exista. 
-Aun así, Miri puede detectar muchas cosas. ¡Intenta ejecutarlo en los otros 
-ejemplos de código inseguro de este capítulo y observa qué te dice!
+Miri no detecta todos los posibles errores que podrías cometer al escribir 
+código `unsafe`. Miri es una herramienta de análisis dinámico, por lo que solo 
+detecta problemas en el código que realmente se ejecuta. Esto significa que 
+deberás usarla junto con buenas prácticas de pruebas para aumentar tu confianza 
+en el código `unsafe` que hayas escrito. Además, Miri no cubre todas las formas 
+posibles en las que tu código puede ser inseguro.
+
+Dicho de otro modo: si Miri *detecta* un problema, sabes que hay un error; pero 
+que Miri *no* detecte un error no significa que no haya un problema. Aun así, 
+puede detectar muchas cosas. ¡Prueba ejecutarla con los otros ejemplos de código 
+`unsafe` de este capítulo y mira qué te dice!
+
+Puedes aprender más sobre Miri en \[su repositorio de GitHub]\[miri].
 
 ### Cuándo usar código inseguro
 
@@ -580,10 +591,11 @@ con Rust inseguro, podés leer la guía oficial de Rust sobre el tema: el
 [Rustonomicon][nomicon].
 
 [referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes
+[ABI]: ../reference/items/external-blocks.html#abi
 [differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constantes
 [concurrencia-extensible-con-los-traits-sync-y-send]: ch16-04-extensible-concurrency-sync-and-send.html#concurrencia-extensible-con-los-traits-sync-y-send
 [el-tipo-slice]: ch04-03-slices.html#el-tipo-slice
-[reference]: https://doc.rust-lang.org/reference/items/unions.html
+[unions]: https://doc.rust-lang.org/reference/items/unions.html
 [miri]: https://github.com/rust-lang/miri
 [editions]: appendix-05-editions.html
 [nightly]: appendix-07-nightly-rust.html

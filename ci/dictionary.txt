@@ -1399,6 +1399,7 @@ Rustaceans
 abcabcabc
 abcd
 abcdefghijklmnopqrstuvwxyz
+ABIs
 AddAssign
 Addr
 adfb
@@ -2090,6 +2091,7 @@ reformats
 refutability
 reimplement
 RemAssign
+repost
 repr
 representable
 requests
@@ -2135,6 +2137,7 @@ sizeof
 SliceIndex
 Smalltalk
 snuck
+SocialPost
 someproject
 SomeType
 someusername

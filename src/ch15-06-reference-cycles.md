@@ -13,7 +13,7 @@ ciclo nunca alcanzará 0, y los valores nunca serán descartados.
 
 Vamos a ver cómo podría ocurrir una referencia circular y cómo prevenirla, 
 comenzando con la definición del enum `List` y un método `tail` en el Listado
-15-25:
+15-25.
 
 <Listing number="15-25" file-name="src/main.rs" caption="Una definición de lista enlazada que contiene un `RefCell<T>` para poder modificar a que se refiere una variante `Cons`">
 
@@ -48,7 +48,7 @@ puntos de este proceso.
 
 Creamos una instancia `Rc<List>` que contiene un valor `List` en la variable
 `a` con una lista inicial de `5, Nil`. Luego creamos una instancia `Rc<List>`
-que contiene otro valor `List` en la variable `b` que contiene el valor 10 y
+que contiene otro valor `List` en la variable `b` que contiene el valor `10` y
 apunta a la lista en `a`.
 
 Modificamos `a` para que apunte a `b` en lugar de `Nil`, creando un ciclo. 
@@ -109,7 +109,11 @@ usando gráficos compuestos por nodos padres y nodos hijos para ver cuándo las
 relaciones de no ownership son una forma apropiada de evitar ciclos de
 referencia.
 
-### Previniendo ciclos de referencia: convirtiendo un `Rc<T>` en un `Weak<T>`
+<!-- Old link, do not remove -->
+
+<a id="preventing-reference-cycles-turning-an-rct-into-a-weakt"></a>
+
+### Previniendo ciclos de referencia: Usando `Weak<T>`
 
 Hasta ahora, hemos demostrado que llamar a `Rc::clone` aumenta el `strong_count`
 de una instancia `Rc<T>`, y una instancia `Rc<T>` solo se limpia si su
@@ -162,9 +166,9 @@ otro nodo, por lo que tenemos un `RefCell<T>` en `children` alrededor del
 `Vec<Rc<Node>>`.
 
 A continuación, usaremos la definición de nuestro struct y crearemos una
-instancia `Node` llamada `leaf` con el valor 3 y sin hijos, y otra instancia
-llamada `branch` con el valor 5 y `leaf` como uno de sus hijos, como se muestra
-en el Listado 15-26:
+instancia `Node` llamada `leaf` con el valor `3` y sin hijos, y otra instancia
+llamada `branch` con el valor `5` y `leaf` como uno de sus hijos, como se muestra
+en el Listado 15-26.
 
 <Listing number="15-27" file-name="src/main.rs" caption="Creando un nodo `leaf` sin hijos y un nodo `branch` con `leaf` como uno de sus hijos">
 
@@ -208,7 +212,7 @@ Entonces en lugar de `Rc<T>`, usaremos `Weak<T>` como tipo de dato para `parent`
 
 Un nodo podrá referirse a su nodo padre, pero no será propietario de él. En
 el Listado 15-28, actualizamos `main` para usar esta nueva definición, por lo
-que el nodo `leaf` tendrá una forma de referirse a su nodo padre, `branch`:
+que el nodo `leaf` tendrá una forma de referirse a su nodo padre, `branch`.
 
 <Listing number="15-28" file-name="src/main.rs" caption="Un nodo `leaf` con una referencia débil a su nodo padre `branch`">
 
@@ -262,7 +266,7 @@ Veamos cómo cambian los valores `strong_count` y `weak_count` de las instancias
 que usamos para crear `branch` en un nuevo scope interno y examinar los valores
 de referencia `strong_count` y `weak_count`. Al hacerlo, podemos ver qué
 sucede cuando se crea `branch` y luego se elimina cuando sale del scope. Las
-modificaciones se muestran en el Listado 15-29:
+modificaciones se muestran en el Listado 15-29.
 
 <Listing number="15-29" file-name="src/main.rs" caption="Creando `branch` en un scope interno y examinando los recuentos de referencias fuertes y débiles">
 

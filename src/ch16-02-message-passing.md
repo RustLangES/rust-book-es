@@ -35,14 +35,13 @@ Primero, en el Listado 16-6, crearemos un canal pero no haremos nada con él.
 Tenga en cuenta que esto aún no se compilará porque Rust no puede determinar qué
 tipo de valores queremos enviar por el canal.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-6" file-name="src/main.rs" caption="Creando un canal y asignando las dos mitades a `tx` y `rx`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-06/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-6: Creando un canal y asignando las dos mitades
-a `tx` y `rx`</span>
+</Listing>
 
 Creamos un nuevo canal usando la función `mpsc::channel`; `mpsc` significa
 *multiple producer, single consumer* (múltiples productores, un solo
@@ -69,7 +68,7 @@ para que el hilo generado se comunique con el hilo principal, como se muestra
 en el Listado 16-7. Esto es como poner un patito de goma en el río aguas arriba
 o enviar un mensaje de chat de un hilo a otro.
 
-<Listing number="16-7" file-name="src/main.rs" caption="Moviendo `tx` a un hilo generado y enviar “hi”">
+<Listing number="16-7" file-name="src/main.rs" caption='Moviendo `tx` a un hilo generado y enviar `"hi"`'>
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-07/src/main.rs}}
@@ -92,7 +91,7 @@ En el Listado 16-8, recibiremos el valor enviado en el hilo principal. Esto es
 como recibir el patito de goma en el río aguas abajo o recibir un mensaje de
 chat.
 
-<Listing number="16-8" file-name="src/main.rs" caption="Recibiendo el valor “hi” en el hilo thread e imprimiéndolo">
+<Listing number="16-8" file-name="src/main.rs" caption='Recibiendo el valor `"hi"` en el hilo thread e imprimiéndolo'>
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-08/src/main.rs}}
@@ -219,7 +218,7 @@ Anteriormente mencionamos que `mpsc` era un acrónimo de *multiple producer,
 single consumer* (múltiples productores, un solo consumidor). Pongamos `mpsc`
 en uso y expandamos el código en el Listado 16-10 para crear múltiples hilos
 que envíen valores al mismo receptor. Podemos hacerlo clonando el transmisor,
-como se muestra en el Listado 16-11:
+como se muestra en el Listado 16-11.
 
 <Listing number="16-11" file-name="src/main.rs" caption="Envío de múltiples mensajes de múltiples productores">
 

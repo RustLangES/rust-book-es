@@ -81,10 +81,10 @@ conoceríamos el número o el tipo de valores.
 El Listado 20-29 muestra una definición ligeramente simplificada de la macro
 `vec!`.
 
-<Listing number="20-29" file-name="src/lib.rs" caption="Una versión simplificada de la definición de la macro `vec!`">
+<Listing number="20-35" file-name="src/lib.rs" caption="Una versión simplificada de la definición de la macro `vec!`">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-29/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-35/src/lib.rs}}
 ```
 
 </Listing>
@@ -175,7 +175,7 @@ que esperamos eliminar en el futuro. En el Listado 20-30 se muestra cómo se
 define una macro procedural, donde `some_attribute` es un marcador de posición
 para usar un tipo específico de macro.
 
-<Listing number="20-30" file-name="src/lib.rs" caption="Un ejemplo de definición de una macro procedural">
+<Listing number="20-36" file-name="src/lib.rs" caption="Un ejemplo de definición de una macro procedural">
 
 ```rust,ignore
 use proc_macro;
@@ -210,13 +210,13 @@ anotar sus tipos con `#[derive(HelloMacro)]` para obtener una implementación
 predeterminada de la función `hello_macro`. La implementación predeterminada
 imprimirá `Hello, Macro! My name is TypeName!`, donde `TypeName` es el nombre
 del tipo en el que se ha definido este trait. En otras palabras, escribiremos
-un crate que permita a otro programador escribir código como el Listado 20-31
+un crate que permita a otro programador escribir código como el Listado 20-37
 usando nuestro crate.
 
-<Listing number="20-31" file-name="src/main.rs" caption="El código que un usuario de nuestro crate podrá escribir cunado se use nuestra macro procedural">
+<Listing number="20-37" file-name="src/main.rs" caption="El código que un usuario de nuestro crate podrá escribir cunado se use nuestra macro procedural">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-31/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-37/src/main.rs}}
 ```
 
 </Listing>
@@ -230,20 +230,25 @@ $ cargo new hello_macro --lib
 
 A continuación, definiremos el trait `HelloMacro` y su función asociada:
 
-<Listing file-name="src/lib.rs">
+<Listing file-name="src/lib.rs" number="20-38" caption="A simple trait that we will use with the `derive` macro">
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-20-impl-hellomacro-for-pancakes/hello_macro/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-38/hello_macro/src/lib.rs}}
 ```
 
 </Listing>
 
 Tenemos un trait y su función. En este punto, nuestro usuario de crate podría
-implementar el trait para lograr la funcionalidad deseada, así:
+implementar el trait para lograr la funcionalidad deseada, así como en el 
+Listado 20-39:
+
+<Listing number="20-39" file-name="src/main.rs" caption="How it would look if users wrote a manual implementation of the `HelloMacro` trait">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch20-advanced-features/no-listing-20-impl-hellomacro-for-pancakes/pancakes/src/main.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-39/pancakes/src/main.rs}}
 ```
+
+</Listing>
 
 Sin embargo, tendrían que escribir el bloque de implementación para cada tipo
 que quisieran usar con `hello_macro`; queremos evitar que tengan que hacer este
@@ -286,20 +291,20 @@ Agrega lo siguiente al archivo _Cargo.toml_ para `hello_macro_derive`:
 <Listing file-name="hello_macro_derive/Cargo.toml">
 
 ```toml
-{{#include ../listings/ch20-advanced-features/listing-20-32/hello_macro/hello_macro_derive/Cargo.toml:6:12}}
+{{#include ../listings/ch20-advanced-features/listing-20-40/hello_macro/hello_macro_derive/Cargo.toml:6:12}}
 ```
 
 </Listing>
 
-Para comenzar a definir la macro procedural, coloca el código del Listado 20-32
+Para comenzar a definir la macro procedural, coloca el código del Listado 20-40
 en tu archivo _src/lib.rs_ para el crate `hello_macro_derive`. Ten en cuenta que
 este código no se compilará hasta que agreguemos una definición para la función
 `impl_hello_macro`.
 
-<Listing number="20-32" file-name="hello_macro_derive/src/lib.rs" caption="Código que la mayoría de los crates de macros procedurales requerirán para procesar código Rust">
+<Listing number="20-40" file-name="hello_macro_derive/src/lib.rs" caption="Código que la mayoría de los crates de macros procedurales requerirán para procesar código Rust">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-32/hello_macro/hello_macro_derive/src/lib.rs}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-40/hello_macro/hello_macro_derive/src/lib.rs}}
 ```
 
 </Listing>
@@ -335,10 +340,10 @@ La función `hello_macro_derive` convierte primero el `input` de un
 `TokenStream` a una estructura de datos que podemos interpretar y realizar
 operaciones. Aquí es donde entra en juego `syn`. La función `parse` en `syn`
 toma un `TokenStream` y devuelve un struct `DeriveInput` que representa el
-código Rust analizado. El Listado 20-33 muestra las partes relevantes del
-struct `DeriveInput` que obtenemos al analizar el string `struct Pancakes;`:
+código Rust analizado. El Listado 20-41 muestra las partes relevantes del
+struct `DeriveInput` que obtenemos al analizar el string `struct Pancakes;`.
 
-<Listing number="20-33" caption="La instancia `DeriveInput` que obtenemos al analizar el código que tiene el atributo de la macro en el Listado 20-31">
+<Listing number="20-41" caption="La instancia `DeriveInput` que obtenemos al analizar el código que tiene el atributo de la macro en el Listado 20-37">
 
 ```rust,ignore
 DeriveInput {
@@ -386,12 +391,12 @@ salió mal usando `panic!` o `expect`.
 
 Ahora que tenemos el código para convertir el código de Rust anotado de un
 `TokenStream` a una instancia `DeriveInput`, generemos el código que implementa
-el trait `HelloMacro` en el tipo anotado, como se muestra en el Listado 20-34.
+el trait `HelloMacro` en el tipo anotado, como se muestra en el Listado 20-42.
 
-<Listing number="20-34" file-name="hello_macro_derive/src/lib.rs" caption="Implementando el trait `HelloMacro` usando el código Rust analizado">
+<Listing number="20-42" file-name="hello_macro_derive/src/lib.rs" caption="Implementando el trait `HelloMacro` usando el código Rust analizado">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-34/hello_macro/hello_macro_derive/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch20-advanced-features/listing-20-42/hello_macro/hello_macro_derive/src/lib.rs:here}}
 ```
 
 </Listing>
@@ -445,14 +450,14 @@ siguiente manera:
 {{#include ../listings/ch20-advanced-features/no-listing-21-pancakes/pancakes/Cargo.toml:7:9}}
 ```
 
-Coloca el código del Listado 20-31 en _src/main.rs_ y ejecuta `cargo run`:
+Coloca el código del Listado 20-37 en _src/main.rs_ y ejecuta `cargo run`:
 debería imprimir `Hello, Macro! My name is Pancakes!` La implementación del
 trait `HelloMacro` de la macro procedural se incluyó sin que el crate `pancakes`
 tuviera que implementarlo; la macro `#[derive(HelloMacro)]` agregó la
 implementación del trait.
 
 A continuación, vamos a explorar cómo los otros tipos de macros procedurales
-difieren de las macros derive personalizadas.
+difieren de las macros `derive` personalizadas.
 
 ### Macros similares a atributos
 

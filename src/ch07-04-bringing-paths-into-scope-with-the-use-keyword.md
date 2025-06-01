@@ -136,9 +136,9 @@ consideran idiomáticos, ¡así que la elección depende de ti!
 
 ### Re-exportando nombres con `pub use`
 
-Cuando traemos un nombre al ámbito con la keyword `use`, el nombre está
-disponible en ese ámbito de forma privada. Si queremos que el nombre esté
-disponible para que el código que llama a nuestro código lo use, podemos
+Cuando traemos un nombre al ámbito con la keyword `use`, el nombre es privado 
+para el ámbito en el que lo importamos. Si queremos que el nombre esté
+disponible para que el código que llama a nuestro código lo use, podemoss
 combinar `pub` y `use`. Esta técnica se llama _re-exporting_ porque estamos
 trayendo un elemento al ámbito, pero también haciendo que ese elemento esté 
 disponible para que otros lo traigan a su ámbito.

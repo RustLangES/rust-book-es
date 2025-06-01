@@ -72,7 +72,7 @@ general como los objetos en otros lenguajes: su propósito específico es
 permitir la abstracción a través del comportamiento común.
 
 El Listado 18-3 muestra cómo definir un trait llamado `Draw` con un método
-llamado `draw`:
+llamado `draw`.
 
 <Listing number="18-3" file-name="src/lib.rs" caption="Definición del trait `Draw`">
 
@@ -99,7 +99,7 @@ trait `Draw`.
 
 En el struct `Screen` hemos definido un método llamado `run` que llamará al
 método `draw` en cada uno de sus `components`, como se muestra en el Listado
-18-5:
+18-5.
 
 <Listing number="18-5" file-name="src/lib.rs" caption="Un método `run` en `Screen` que llama al método `draw` en cada componente">
 

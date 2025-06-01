@@ -167,7 +167,7 @@ colección.
 
 En el Listado 13-15, recolectamos los resultados de iterar sobre el iterator
 que es retornado de la llamada a `map` en un vector. Este vector terminará
-conteniendo cada item del vector original incrementado en 1.
+conteniendo cada item del vector original, incrementado en 1.
 
 <Listing number="13-15" file-name="src/main.rs" caption="Llamando al método `map` para crear un nuevo iterador y luego llamando al método `collect` para consumir el nuevo iterador y crear un vector">
 

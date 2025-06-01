@@ -64,14 +64,14 @@ minúscula cuando verifiquemos si la línea contiene la consulta.
 </Listing>
 
 Primero, convertimos el string `query` a minúsculas y lo almacenamos en una
-nueva variable sombreada con el mismo nombre. Llamar a `to_lowercase` en la 
-consulta es necesario para que no importe si la consulta del usuario es `"rust"`,
-`"RUST"`, `"Rust"` o `"rUsT"`, trataremos la consulta como si fuera `"rust"` y
-y seremos insensibles a la mayúscula o minúscula. Mientras que `to_lowercase`
-manejará Unicode básico, no será 100% preciso. Si estuviéramos escribiendo una
-aplicación real, querríamos hacer un poco más de trabajo aquí, pero esta
-sección trata sobre variables de entorno, no Unicode, así que lo dejaremos así
-aquí.
+nueva variable sombreada con el mismo nombre, `query`. Ejecutaremos 
+`to_lowercase` sobre `query`, es necesario para que no importe si la consulta 
+del usuario es `"rust"`, `"RUST"`, `"Rust"` o `"rUsT"`, trataremos la consulta 
+como si fuera `"rust"` y seremos insensibles a la mayúscula o minúscula. 
+Mientras que `to_lowercase` manejará Unicode básico, no será 100% preciso. Si 
+estuviéramos escribiendo una aplicación real, querríamos hacer un poco más de 
+trabajo aquí, pero esta sección trata sobre variables de entorno, no Unicode, 
+así que lo dejaremos así aquí.
 
 Nota que `query` ahora es un `String` en lugar de un string slice, porque
 llamar a `to_lowercase` crea nuevos datos en lugar de referenciar datos

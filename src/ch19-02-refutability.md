@@ -58,7 +58,7 @@ código simplemente omitirá el código entre llaves, dándole una forma de
 continuar válidamente. El Listado 19-9 muestra cómo solucionar el código del 
 Listado 19-8.
 
-<Listing number="19-9" caption="Usando `if let` y un bloque con patterns refutables en lugar de `let`">
+<Listing number="19-9" caption="Usando `let-else` y un bloque con patterns refutables en lugar de `let`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-09/src/main.rs:here}}

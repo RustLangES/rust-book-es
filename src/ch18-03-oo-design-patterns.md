@@ -6,7 +6,7 @@ internamente. Los estados están representados por un conjunto de _state
 objects_, y el comportamiento del valor cambia según su estado. Vamos a
 trabajar a través de un ejemplo de un struct de publicación de blog que
 tiene un campo para mantener su estado, que será un state object del conjunto
-"borrador", "revisión" o "publicado".
+“borrador”, “revisión” o “publicado”.
 
 Los state objects comparten funcionalidad: en Rust, por supuesto, usamos
 structs y traits en lugar de objetos y herencia. Cada state object es
@@ -162,6 +162,10 @@ vacío. El Listado 18-14 muestra esta implementación de marcador de posición:
 Con este método `content` añadido, todo en el Listado 18-11 hasta la línea 7
 funciona como se pretendía.
 
+<!-- Old link, do not remove -->
+
+<a id="requesting-a-review-of-the-post-changes-its-state"></a>
+
 ### Solicitar una revisión de los cambios de publicación de su estado
 
 A continuación, necesitamos agregar funcionalidad para solicitar una revisión
@@ -314,7 +318,7 @@ Hemos implementado el patrón de estado con las reglas del flujo de trabajo de
 la publicación de blog. La lógica relacionada con las reglas vive en los
 objetos de estado en lugar de estar dispersa en `Post`.
 
-> #### ¿Por qué no un enum?
+> ### ¿Por qué no un enum?
 >
 > Puede que te hayas preguntado por qué no usamos un `enum` con los diferentes
 > estados posibles de la publicación como variantes. Esa es ciertamente una
@@ -368,21 +372,21 @@ tendríamos que cambiar el código en `PendingReview` para hacer la transición 
 cambiar con la adición de un nuevo estado, pero eso significaría cambiar a
 otro patrón de diseño.
 
-Otro inconveniente es que hemos duplicado algo de lógica. Para eliminar parte
-de la duplicación, podríamos intentar hacer implementaciones predeterminadas
-para los métodos `request_review` y `approve` en el trait `State` que devuelvan
-`self`; sin embargo no es compatible con dyn, esto violaría la seguridad del 
-objeto, porque el trait no sabe exactamente cuál será el `self` concreto. 
-Queremos poder usar `State` como un objeto de trait, por lo que sus métodos 
-deben ser seguros para el objeto.
+Otra desventaja es que hemos duplicado algo de lógica. Para eliminar parte de 
+esa duplicación, podríamos intentar crear implementaciones por defecto para los 
+métodos `request_review` y `approve` en el trait `State` que simplemente 
+devuelvan `self`; sin embargo, esto no funcionaría: al usar `State` como un 
+trait objeto, el trait no sabe exactamente qué tipo concreto tendrá `self`, por 
+lo que el tipo de retorno no se conoce en tiempo de compilación. (Esta es una de 
+las reglas de compatibilidad con `dyn` mencionadas anteriormente).
 
-Otra duplicación incluye las implementaciones similares de los métodos
-`request_review` y `approve` en `Post`. Ambos métodos delegan a la
-implementación del mismo método en el valor del campo `state` de `Option` y
-establecen el nuevo valor del campo `state` en el resultado. Si tuviéramos
-muchos métodos en `Post` que siguieran este patrón, podríamos considerar
-definir un macro para eliminar la repetición (ver la sección [“Macros”][macros]
-en el Capítulo 20).
+Otra duplicación incluye las implementaciones similares de los métodos 
+`request_review` y `approve` en `Post`. Ambos métodos usan `Option::take` sobre 
+el campo `state` de `Post` y, si `state` es `Some`, delegan en la implementación 
+del mismo método del valor contenido, asignando el nuevo valor de `state` al 
+resultado. Si tuviéramos muchos métodos en `Post` que siguieran este patrón, 
+podríamos considerar definir una macro para eliminar esta repetición (ver 
+[“Macros”][macros]<!-- ignore --> en el Capítulo 20).
 
 Al implementar el State Pattern exactamente como se define en lenguajes
 orientados a objetos, no estamos aprovechando al máximo las fortalezas de Rust.
@@ -456,9 +460,9 @@ la regla de que una publicación en borrador debe ser revisada y aprobada antes
 de que pueda publicarse. Una publicación en el estado de revisión pendiente
 todavía no debe mostrar ningún contenido. Implementemos estas restricciones
 agregando otro struct, `PendingReviewPost`, definiendo el método `request_review`
-en `DraftPost` para devolver un `PendingReviewPost`, y definiendo un método
+en `DraftPost` para devolver un `PendingReviewPost` y definiendo un método
 `approve` en `PendingReviewPost` para devolver un `Post`, como se muestra en
-el Listado 18-20:
+el Listado 18-20.
 
 <Listing number="18-20" file-name="src/lib.rs" caption="Un `PendingReviewPost` que se crea llamando a `request_review` en `DraftPost` y un método `approve` que convierte un `PendingReviewPost` en un `Post` publicado">
 
@@ -488,7 +492,7 @@ sombreado `let post =` para guardar las instancias devueltas. Tampoco podemos
 tener las afirmaciones sobre el contenido de las publicaciones en borrador y
 revisión pendiente sean strings vacíos, ni los necesitamos: ya no podemos
 compilar el código que intenta usar el contenido de las publicaciones en esos
-estados. El código actualizado en `main` se muestra en el Listado 18-21:
+estados. El código actualizado en `main` se muestra en el Listado 18-21.
 
 <Listing number="18-21" file-name="src/main.rs" caption="Modificaciones a `main` para usar la nueva implementación del flujo de publicaciones de blog">
 
