@@ -72,20 +72,24 @@ backyard
 
 El crate raíz es _src/main.rs_, y contiene:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,noplayground,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/quick-reference-example/src/main.rs}}
 ```
 
+</Listing>
+
 La línea `mod garden;` le dice al compilador que incluya el código que encuentra
 en _src/garden.rs_, que es:
 
-<span class="filename">Filename: src/garden.rs</span>
+<Listing file-name="src/garden.rs">
 
 ```rust,noplayground,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/quick-reference-example/src/garden.rs}}
 ```
+
+</Listing>
 
 Aquí, `pub mod vegetables;` significa que el código en _src/garden/vegetables.rs_
 también se incluye. Ese código es:
@@ -124,14 +128,13 @@ ejecutando `cargo new restaurant --lib`. Luego ingresa el código en el
 Listado 7-1 para definir algunos módulos y firmas de funciones. Aquí está la
 sección _front of house_:
 
-<span class="filename">Nombre de archivo: src/lib.rs</span>
+<Listing number="7-1" file-name="src/lib.rs" caption="Un módulo `front_of_house` que contiene otros módulos que luego contienen funciones">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-01/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-1: Un módulo `front_of_house` que contiene otros
-módulos que luego contienen funciones</span>
+</Listing>
 
 Definimos un módulo con la palabra clave `mod` seguida del nombre del módulo
 (en este caso, `front_of_house`). El cuerpo del módulo va dentro de llaves.
@@ -154,6 +157,8 @@ del crate, conocida como el _árbol de módulos_.
 
 El Listado 7-2 muestra el árbol de módulos para la estructura en el listado 7-1
 
+<Listing number="7-2" caption="El árbol de módulos para el código del listado 7-1">
+
 ```text
 crate
  └── front_of_house
@@ -166,8 +171,7 @@ crate
          └── take_payment
 ```
 
-<span class="caption">Listado 7-2: El árbol de módulos para el código del
-listado 7-1</span>
+</Listing>
 
 Este árbol muestra como algunos de los módulos se anidan dentro de otros módulos; 
 por ejemplo, `hosting` se anida dentro de `front_of_house`. El árbol también 

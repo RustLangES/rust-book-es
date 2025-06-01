@@ -118,16 +118,17 @@ Hemos usado realmente sentencias y expresiones. Crear una variable y asignarle
 un valor con la palabra clave `let` es una sentencia. En el Listado 3-1,
 `let y = 6;` es una sentencia.
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="3-1" file-name="src/main.rs" caption="Una declaración de la función `main` que contiene una sentencia">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-01/src/main.rs}}
 ```
 
-<span class="caption">Listado 3-1: Una declaración de la función `main` que contiene una sentencia</span>
+</Listing>
 
 Las definiciones de las funciones también son sentencias; todo el ejemplo
-anterior es una sentencia en sí misma.
+anterior es una sentencia en sí misma. (Como veremos a continuación, *ejecutar* 
+una función no es una sentencia.)
 
 Las sentencias no devuelven valores. Por lo tanto, no puedes asignar una
 sentencia `let` a otra variable, como intenta hacer el siguiente código;

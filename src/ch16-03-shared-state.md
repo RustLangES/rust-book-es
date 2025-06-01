@@ -33,8 +33,8 @@ datos que contiene a través del sistema de bloqueo.
 Los Mutexes tienen la reputación de ser difíciles de usar porque debes
 recordar dos reglas:
 
-* Debes intentar adquirir el bloqueo antes de utilizar los datos.
-* Cuando hayas terminado con los datos que protege el mutex, debes desbloquear
+1. Debes intentar adquirir el bloqueo antes de utilizar los datos.
+2. Cuando hayas terminado con los datos que protege el mutex, debes desbloquear
   los datos para que otros hilos puedan adquirir el bloqueo.
 
 Para una metáfora del mundo real para un mutex, imagina un panel de discusión
@@ -54,16 +54,15 @@ desbloquear incorrectamente.
 #### La API de `Mutex<T>`
 
 Como un ejemplo de como usar un mutex, comencemos usando un mutex en un
-contexto de un solo hilo, como se muestra en el Listado 16-12:
+contexto de un solo hilo, como se muestra en el Listado 16-12.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-12" file-name="src/main.rs" caption="Explorando la API de `Mutex<T>` en un contexto de un solo hilo para simplificar">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-12/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-12: Explorando la API de `Mutex<T>` en un
-contexto de un solo hilo para simplificar</span>
+</Listing>
 
 Como con muchos tipos, creamos un `Mutex<T>` usando la función asociada `new`.
 Para acceder a los datos dentro del mutex, usamos el método `lock` para
@@ -103,14 +102,13 @@ Activaremos 10 hilos y haremos que cada uno incremente un valor de contador en
 16-13 tendrá un error del compilador, y usaremos ese error para aprender más
 sobre el uso de `Mutex<T>` y cómo Rust nos ayuda a usarlo correctamente.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-13" file-name="src/main.rs" caption="Diez hilos cada uno incrementa un contador custodiado por un `Mutex<T>`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-13/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-13: Diez hilos cada uno incrementa un contador
-custodiado por un `Mutex<T>`</span>
+</Listing>
 
 Creamos una variable `counter` para contener un `i32` dentro de un `Mutex<T>`,
 como hicimos en el Listado 16-12. A continuación, creamos 10 hilos iterando
@@ -144,14 +142,13 @@ Hagamos lo mismo aquí y veamos qué sucede. Envolveremos el `Mutex<T>` en
 `Rc<T>` en el Listado 16-14 y clonaremos el `Rc<T>` antes de mover el
 ownership al hilo.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-14" file-name="src/main.rs" caption="Intentando usar `Rc<T>` para permitir múltiples hilos para poseer `Mutex<T>`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-14/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-14: Intentando usar `Rc<T>` para permitir
-múltiples hilos para poseer `Mutex<T>`</span>
+</Listing>
 
 Una vez más, compilamos y obtenemos... ¡diferentes errores! El compilador nos
 está enseñando mucho.
@@ -201,14 +198,13 @@ arreglamos nuestro programa cambiando la línea `use`, la llamada a `new` y la
 llamada a `clone`. El código en el Listado 16-15 finalmente se compilará y
 ejecutará:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-15" file-name="src/main.rs" caption="Usando un `Arc<T>` para envolver `Mutex<T>` para poder compartir el ownership a través de múltiples hilos">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-15/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-15: Usando un `Arc<T>` para envolver `Mutex<T>`
-para poder compartir el ownership a través de múltiples hilos</span>
+</Listing>
 
 Este código imprimirá lo siguiente:
 

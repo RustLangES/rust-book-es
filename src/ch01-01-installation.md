@@ -154,8 +154,39 @@ En cualquier momento en que se proporcione un tipo o una función de la bibliote
 estándar y no estés seguro de lo que hace o cómo usarlo, usa la documentación de
 la interfaz de programación de aplicaciones (API) para averiguarlo.
 
+### Editores de Texto y Entornos de Desarrollo Integrados
+
+Este libro no asume qué herramientas usas para escribir código en Rust. ¡Casi 
+cualquier editor de texto servirá! Sin embargo, muchos editores de texto y 
+entornos de desarrollo integrados (IDEs) tienen soporte integrado para Rust. 
+Siempre puedes encontrar una lista bastante actualizada de muchos editores e 
+IDEs en [la página de herramientas][tools] del sitio web de Rust.
+
+### Trabajando sin conexión con este libro
+
+En varios ejemplos, usaremos paquetes de Rust más allá de la biblioteca 
+estándar. Para trabajar con esos ejemplos, necesitarás tener conexión a internet 
+o haber descargado esas dependencias previamente. Para descargar las 
+dependencias con anticipación, puedes ejecutar los siguientes comandos. (Más 
+adelante explicaremos qué es `cargo` y qué hace cada uno de estos comandos en 
+detalle).
+
+```console
+$ cargo new get-dependencies
+$ cd get-dependencies
+$ cargo add rand@0.8.5 trpl@0.2.0
+```
+
+Esto almacenará en caché las descargas de estos paquetes para que no necesites 
+descargarlos más tarde. Una vez que hayas ejecutado este comando, no necesitas 
+conservar la carpeta `get-dependencies`. Si has ejecutado este comando, puedes 
+usar la opción `--offline` con todos los comandos `cargo` en el resto del libro 
+para usar estas versiones almacenadas en caché en lugar de intentar conectarte 
+a la red.
+
 [otherinstall]: https://forge.rust-lang.org/infra/other-installation-methods.html
 [install]: https://www.rust-lang.org/tools/install
 [msvc]: https://rust-lang.github.io/rustup/installation/windows-msvc.html
 [community]: https://www.rust-lang.org/community
 [visualstudio]: https://visualstudio.microsoft.com/downloads/
+[tools]: https://www.rust-lang.org/tools

@@ -1,5 +1,9 @@
 ## Concurrencia extensible con los traits `Sync` y `Send`
 
+<!-- Old link, do not remove -->
+
+<a id="extensible-concurrency-with-the-sync-and-send-traits"></a>
+
 Curiosamente, el lenguaje Rust tiene _muy_ pocas características de
 concurrencia. Casi todas las características de concurrencia de las que hemos
 hablado hasta ahora en este capítulo han sido parte de la biblioteca estándar,
@@ -28,7 +32,7 @@ error `the trait Send is not implemented for Rc<Mutex<i32>>`. Cuando cambiamos a
 
 Cualquier tipo compuesto enteramente de tipos `Send` se marca automáticamente
 como `Send` también. Casi todos los tipos primitivos son `Send`, aparte de los
-punteros sin procesar, que discutiremos en el Capítulo 19.
+punteros sin procesar, que discutiremos en el Capítulo 20.
 
 ### Permitiendo el acceso desde múltiples hilos con `Sync`
 
@@ -39,25 +43,25 @@ la referencia se puede enviar de forma segura a otro hilo. De manera similar a
 `Send`, los tipos primitivos son `Sync`, y los tipos compuestos enteramente de
 tipos que son `Sync` también son `Sync`.
 
-El smart pointer `Rc<T>` tampoco es `Sync` por las mismas razones por las que
-no es `Send`. El tipo `RefCell<T>` (del que hablamos en el Capítulo 15) y la
-familia de tipos relacionados `Cell<T>` no son `Sync`. La implementación de la
-comprobación de préstamos que hace `RefCell<T>` en tiempo de ejecución no es
-segura para subprocesos. El smart pointer `Mutex<T>` es `Sync` y se puede usar
-para compartir el acceso con múltiples hilos como viste en la sección [“Compartir
-un `Mutex<T>` entre múltiples
+El smart pointer `Rc<T>` tampoco implementa `Sync` por las mismas razones por 
+las que no implementa `Send`. El tipo `RefCell<T>` (del que hablamos en el 
+Capítulo 15) y la familia relacionada de tipos `Cell<T>` no implementan `Sync`. 
+La verificación de préstamos que `RefCell<T>` realiza en tiempo de ejecución no 
+es segura para hilos. El puntero inteligente `Mutex<T>` sí implementa `Sync` y 
+puede usarse para compartir acceso entre múltiples hilos, como viste en la 
+sección [“Compartir un `Mutex<T>` entre múltiples
 hilos”][compartir-un-mutext-entre-varios-hilos]<!-- ignore -->.
 
 ### Implementar `Send` y `Sync` manualmente es inseguro
 
-Debido a que los tipos que están compuestos de los traits `Send` y `Sync` se
-automatizan también `Send` y `Sync`, no tenemos que implementar esos traits
-manualmente. Como marcadores de traits, ni siquiera tienen ningún método para
-implementar. Son útiles para hacer cumplir invariantes relacionados con la
-concurrencia.
+Como los tipos compuestos completamente por otros tipos que implementan los 
+traits `Send` y `Sync` también implementan automáticamente `Send` y `Sync`, no 
+tenemos que implementar esos traits manualmente. Al ser traits marcadores, ni 
+siquiera tienen métodos que implementar. Simplemente son útiles para hacer 
+cumplir invariantes relacionadas con la concurrencia.
 
 Implementar manualmente estos traits implica implementar código inseguro de
-Rust. Hablaremos sobre el uso de código inseguro de Rust en el Capítulo 19; por
+Rust. Hablaremos sobre el uso de código inseguro de Rust en el Capítulo 20; por
 ahora, la información importante es que la construcción de nuevos tipos
 concurrentes que no están compuestos de partes `Send` y `Sync` requiere un
 pensamiento cuidadoso para mantener las garantías de seguridad. [“The
@@ -66,9 +70,10 @@ mantenerlas.
 
 ## Resumen
 
-No es la última vez que verás la concurrencia en este libro: el proyecto del
-Capítulo 20 usará los conceptos de este capítulo en una situación más realista
-que los ejemplos más pequeños que se discuten aquí.
+No es la última vez que verás la concurrencia en este libro: todo el siguiente 
+capitulo esta enfocado en programación asíncrona, y el proyecto del Capítulo 21 
+usará los conceptos de este capítulo en una situación más realista que los 
+ejemplos más pequeños que se discuten aquí.
 
 Como se mencionó anteriormente, debido a que muy poco de cómo Rust maneja la
 concurrencia es parte del lenguaje, muchas soluciones de concurrencia se

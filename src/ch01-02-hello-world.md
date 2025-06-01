@@ -73,11 +73,11 @@ $ ./main
 ¡Hola, mundo!
 ```
 
-En Windows, escribe el comando `.\main.exe` en lugar de `./main`:
+En Windows, escribe el comando `.\main` en lugar de `./main`:
 
 ```powershell
 > rustc main.rs
-> .\main.exe
+> .\main
 ¡Hola, mundo!
 ```
 
@@ -125,20 +125,18 @@ El cuerpo de la función `main` contiene el siguiente código:
 ```
 
 Esta línea hace todo el trabajo en este pequeño programa: imprime texto en la
-pantalla. Hay cuatro detalles importantes que hay que notar aquí.
+pantalla. Hay tres detalles importantes que hay que notar aquí.
 
-Primero, el estilo de Rust es indentar con cuatro espacios, no con una tabulación.
-
-Segundo, `println!` llamamos a una macro de Rust. Si hubiéramos llamado a una
+Primero, `println!` llamamos a una macro de Rust. Si hubiéramos llamado a una
 función en su lugar, habríamos ingresado `println` (sin el `!`). Discutiremos las
-macros de Rust en más detalle en el Capítulo 19. Por ahora, solo necesitas saber
+macros de Rust en más detalle en el Capítulo 20. Por ahora, solo necesitas saber
 que usar un `!` significa que estamos llamando a una macro en lugar de una función
 normal y que las macros no siempre siguen las mismas reglas que las funciones.
 
-Tercero, ve la cadena `"¡Hola, mundo!"`. Pasamos esta cadena como argumento a
+Segundo, ve la cadena `"¡Hola, mundo!"`. Pasamos esta cadena como argumento a
 `println!`, y la cadena se imprime en la pantalla.
 
-Cuarto, terminamos la línea con un punto y coma (`;`), lo que indica que esta
+Tercero, terminamos la línea con un punto y coma (`;`), lo que indica que esta
 expresión ha terminado y la siguiente está lista para comenzar. La mayoría de
 las líneas de código de Rust terminan con un punto y coma.
 
@@ -206,3 +204,4 @@ Cargo, que te ayudará a escribir programas de Rust reales.
 
 [troubleshooting]: ch01-01-installation.html#solucion-de-problemas
 [devtools]: appendix-04-useful-development-tools.html
+[ch20-macros]: ch20-05-macros.html

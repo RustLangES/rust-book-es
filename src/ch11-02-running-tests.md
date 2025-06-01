@@ -14,7 +14,11 @@ de test resultante. Para separar estos dos tipos de argumentos, debes listar los
 argumentos que van a `cargo test` seguidos del separador `--` y luego los que
 van al binario de test. Ejecutar `cargo test --help` muestra las opciones que
 puedes usar con `cargo test`, y ejecutar `cargo test -- --help` muestra las
-opciones que puedes usar después del separador.
+opciones que puedes usar después del separador. Esas opciones también están 
+documentadas en la [sección "Tests"][tests] del [libro de rustc][rustc].
+
+[tests]: https://doc.rust-lang.org/rustc/tests/index.html
+[rustc]: https://doc.rust-lang.org/rustc/index.html
 
 ### Ejecutando tests en paralelo o consecutivamente
 
@@ -62,14 +66,13 @@ falla.
 Como ejemplo, el Listado 11-10 tiene una función tonta que imprime el valor de
 su parámetro y retorna 10, así como un test que pasa y un test que falla.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="11-10" file-name="src/lib.rs" caption="Tests para una función que llama a `println!`">
 
 ```rust,panics,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-10/src/lib.rs}}
 ```
 
-<span class="caption">Listing 11-10: Tests para una función que llama a
-`println!`</span>
+</Listing>
 
 Cuando ejecutamos estos tests con `cargo test`, vemos el siguiente output:
 
@@ -108,14 +111,13 @@ Para demostrar cómo ejecutar un subset de tests, primero crearemos tres tests
 para nuestra función `add_two`, como se muestra en el Listado 11-11, y
 elegiremos cuáles ejecutar.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="11-11" file-name="src/lib.rs" caption="Tres tests con tres nombres diferentes">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-11/src/lib.rs}}
 ```
 
-<span class="caption">Listing 11-11: Tres tests con tres nombres
-diferentes</span>
+</Listing>
 
 Si ejecutamos los tests sin pasar ningún argumento, como vimos anteriormente,
 todos los tests se ejecutarán en paralelo:
@@ -168,7 +170,7 @@ ejecutar, puedes anotar los tests que consumen mucho tiempo usando el atributo
 <span class="filename">Filename: src/lib.rs</span>
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/src/lib.rs}}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/src/lib.rs:here}}
 ```
 
 Después de `#[test]` agregamos la línea `#[ignore]` al test que queremos
@@ -187,8 +189,8 @@ solo los tests ignorados, podemos usar `cargo test -- --ignored`:
 ```
 
 Controlando que tests se ejecutan, puedes asegurarte de que los resultados de
-`cargo test` serán rápidos. Cuando estés en un punto en el que tenga sentido
-verificar los resultados de los tests ignorados y tengas tiempo para esperar
-los resultados, puedes ejecutar `cargo test -- --ignored` en su lugar. Si
-quieres ejecutar todos los tests, ignorados o no, puedes ejecutar `cargo test
--- --include-ignored`.
+`cargo test` serán retornados rápidamente. Cuando estés en un punto en el que 
+tenga sentido verificar los resultados de los tests ignorados y tengas tiempo 
+para esperar los resultados, puedes ejecutar `cargo test -- --ignored` en su 
+lugar. Si quieres ejecutar todos los tests, ignorados o no, puedes ejecutar 
+`cargo test -- --include-ignored`.

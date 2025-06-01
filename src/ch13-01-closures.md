@@ -1,5 +1,6 @@
 <!-- Old heading. Do not remove or links may break. -->
 
+
 <a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
 
 ## Closures: Funciones anónimas que capturan su entorno
@@ -13,11 +14,13 @@ permiten la reutilización de código y la personalización del comportamiento.
 
 <!-- Old headings. Do not remove or links may break. -->
 
+
 <a id="creating-an-abstraction-of-behavior-with-closures"></a>
 <a id="refactoring-using-functions"></a>
 <a id="refactoring-with-closures-to-store-code"></a>
+<a id="capturing-the-environment-with-closures"></a>
 
-### Capturando el entorno con Closures
+### Capturando el Entorno con Closures
 
 Primero examinaremos cómo podemos usar closures para capturar valores del
 entorno en el que están definidos para su uso posterior. Aquí está el escenario:
@@ -39,15 +42,15 @@ preferencia opcional de color de camiseta del ganador de la camiseta gratis, y
 devuelve el color de camiseta que la persona obtendrá. Esta configuración se
 muestra en el Listado 13-1:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-1" file-name="src/main.rs" caption="Situación de giveaway">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-1: Situación de giveaway</span>
+</Listing>
 
-El `almacén` definido en `main` tiene dos camisetas azules y una camiseta roja
+La `store` definida en `main` tiene dos camisetas azules y una camiseta roja
 restante para distribuir para esta promoción de edición limitada. Llamamos al
 método `giveaway` para un usuario con preferencia por una camiseta roja y un
 usuario sin ninguna preferencia.
@@ -88,6 +91,8 @@ una referencia inmutable a la instancia `self` `Inventory` y la pasa con el
 código que especificamos al método `unwrap_or_else`. Las funciones, por otro
 lado, no pueden capturar su entorno de esta manera.
 
+<a id="closure-type-inference-and-annotation"></a>
+
 ### Inferencia de tipo de Closure y anotación
 
 Existen más diferencias entre funciones y closures. Los closures no suelen
@@ -115,14 +120,13 @@ definiendo un closure y almacenándolo en una variable en lugar de definir el
 closure en el lugar donde lo pasamos como argumento como lo hicimos en el
 Listado 13-1.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-2" file-name="src/main.rs" caption="Agregando anotaciones de tipo opcionales para los tipos de parámetros y valor de retorno en el closure">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-2: Agregando anotaciones de tipo opcionales
-para los tipos de parámetros y valor de retorno en el closure</span>
+</Listing>
 
 Con la anotación de tipo agregada, la sintaxis de los closures se parece más a
 la sintaxis de las funciones. Aquí definimos una función que agrega 1 a su
@@ -160,14 +164,13 @@ closure con cualquier tipo, lo que hemos hecho aquí con `String` la primera
 vez. Si luego intentamos llamar a `example_closure` con un entero, obtendremos
 un error.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-3" file-name="src/main.rs" caption="Intentando llamar a un closure cuyos tipos se infieren con dos tipos diferentes">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-3: Intentando llamar a un closure cuyos tipos
-se infieren con dos tipos diferentes</span>
+</Listing>
 
 El compilador nos da este error:
 
@@ -193,14 +196,13 @@ En el Listado 13-4, definimos un closure que captura una referencia inmutable al
 vector `list` ya que solo necesita una referencia inmutable para imprimir el
 valor:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-4" file-name="src/main.rs" caption="Definiendo y llamando a un closure que captura una referencia inmutable">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-4: Definiendo y llamando a un closure que
-captura una referencia inmutable</span>
+</Listing>
 
 Este ejemplo también ilustra que una variable puede vincularse a una definición
 de closure, y luego podemos llamar al closure usando el nombre de la variable y
@@ -219,14 +221,13 @@ ejecuta e imprime:
 Luego, en el Listado 13-5, cambiamos el cuerpo del closure para que agregue un
 elemento al vector `list`. El closure ahora captura una referencia mutable:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-5" file-name="src/main.rs" caption="Definiendo y llamando a un closure que captura una referencia mutable">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-5: Definiendo y llamando a un closure que
-captura una referencia mutable</span>
+</Listing>
 
 Este código compila, se ejecuta e imprime:
 
@@ -254,14 +255,13 @@ nuevo hilo usando un closure que necesita la palabra clave `move`. El Listado
 13-6 muestra el Listado 13-4 modificado para imprimir el vector en un nuevo
 hilo en lugar de en el hilo principal:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-6" file-name="src/main.rs" caption="Usando `move` para forzar que el closure del thread tome el ownership de `list`">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-06/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-6: Usando `move` para forzar que el closure del
-thread tome el ownership de `list`</span>
+</Listing>
 
 Iniciamos un nuevo hilo, dando al hilo un closure para ejecutar como argumento.
 El cuerpo del closure imprime la lista. En el Listado 13-4, el closure solo
@@ -279,6 +279,7 @@ eliminar la palabra clave `move` o usar `list` en el hilo principal después de
 que se defina el closure para ver qué errores del compilador obtiene!
 
 <!-- Old headings. Do not remove or links may break. -->
+
 
 <a id="storing-closures-using-generic-parameters-and-the-fn-traits"></a>
 <a id="limitations-of-the-cacher-implementation"></a>
@@ -355,7 +356,9 @@ closures y es tan flexible como puede ser.
 > entorno, podemos usar el nombre de una función en lugar de un closure donde
 > necesitamos algo que implemente uno de los traits `Fn`. Por ejemplo, en un
 > valor `Option<Vec<T>>`, podríamos llamar a `unwrap_or_else(Vec::new)` para
-> obtener un nuevo vector vacío si el valor es `None`.
+> obtener un nuevo vector vacío si el valor es `None`. El compilador implementa 
+> automáticamente el trait Fn (o el que sea aplicable) para las definiciones de 
+> funciones.
 
 Ahora veamos el método de la biblioteca estándar `sort_by_key` definido en
 slices, para ver cómo difiere de `unwrap_or_else` y por qué `sort_by_key`
@@ -367,14 +370,13 @@ cada elemento. En el Listado 13-7, tenemos una lista de instancias de
 `Rectangle` y usamos `sort_by_key` para ordenarlas por su atributo `width`
 de menor a mayor:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-7" file-name="src/main.rs" caption="Usando `sort_by_key` para ordenar rectángulos por ancho">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-07/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-7: Usando `sort_by_key` para ordenar
-rectángulos por ancho</span>
+</Listing>
 
 Este código imprime:
 
@@ -391,14 +393,13 @@ En contraste, El Listado 13-8 muestra un ejemplo de un closure que implementa
 solo el trait `FnOnce`, porque mueve un valor fuera del entorno. El
 compilador no nos permitirá usar este closure con `sort_by_key`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-8" file-name="src/main.rs" caption="Intentando usar un closure `FnOnce` con `sort_by_key`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-08/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-8: Intentando usar un closure `FnOnce` con
-`sort_by_key`</span>
+</Listing>
 
 Esto es un ejemplo artificial y complicado (que no funciona) para tratar de
 contar la cantidad de veces que se llama a `sort_by_key` llama a la closure al 
@@ -426,14 +427,13 @@ closure en el Listado 13-9 funciona con `sort_by_key` porque solo está
 capturando una referencia mutable al contador `num_sort_operations` y, por lo
 tanto, puede ser llamado más de una vez:
 
-<span class="filename">Nombre de archivo: src/main.rs</span>
+<Listing number="13-9" file-name="src/main.rs" caption="Usando un closure `FnMut` con `sort_by_key` está permitido">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-09/src/main.rs}}
 ```
 
-<span class="caption">Listing 13-9: Usando un closure `FnMut` con `sort_by_key`
-está permitido</span>
+</Listing>
 
 Los `Fn` traits son importantes al definir o usar funciones o tipos que
 hacen uso de closures. En la siguiente sección, discutiremos los iteradores.

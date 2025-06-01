@@ -5,3 +5,10 @@ book/
 target
 tmp
 
+.nova
+.vscode
+.zed
+
+bin
+linkcheck
+linkchecker

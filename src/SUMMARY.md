@@ -37,7 +37,7 @@
 - [Enums y Pattern Matching](ch06-00-enums.md)
   - [Definiendo un Enum](ch06-01-defining-an-enum.md)
   - [El operador de control de flujo `match`](ch06-02-match.md)
-  - [Flujo de Control Conciso con `if let`](ch06-03-if-let.md)
+  - [Flujo de Control Conciso con `if let` y `let else`](ch06-03-if-let.md)
 
 ## Conocimientos básicos de Rust
 
@@ -99,7 +99,6 @@
   - [Extendiendo Cargo con Comandos Personalizados](ch14-05-extending-cargo.md)
 
 - [Smart Pointers](ch15-00-smart-pointers.md)
-
   - [Usando `Box<T>` para Apuntar a Datos en el Heap](ch15-01-box.md)
   - [Tratando los Smart Pointers como Referencias Regulares con el Trait `Deref`](ch15-02-deref.md)
   - [Ejecutando Código al Limpiar con el Trait `Drop`](ch15-03-drop.md)
@@ -107,45 +106,52 @@
   - [`RefCell<T>` y el Patrón de Mutabilidad Interior](ch15-05-interior-mutability.md)
   - [Referencias Circulares Pueden Fugar Memoria](ch15-06-reference-cycles.md)
 
-- [Concurrencia Sin Miedo](ch16-00-concurrency.md)
-
+- [Concurrencia sin miedo](ch16-00-concurrency.md)
   - [Usando Threads para Ejecutar Código Simultáneamente](ch16-01-threads.md)
   - [Usando el Pasaje de Mensajes para Transferir Datos entre Hilos](ch16-02-message-passing.md)
   - [Concurrencia con Estado Compartido](ch16-03-shared-state.md)
-  - [Concurrencia Extensible con los Traits `Sync` y `Send`](ch16-04-extensible-concurrency-sync-and-send.md)
+  - [Concurrencia extensible con los traits `Sync` y `Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
-- [Rust como un Lenguaje de Programación Orientado a Objetos](ch17-00-oop.md)
-  - [Características de Lenguajes Orientados a Objetos](ch17-01-what-is-oo.md)
-  - [Usando Trait Objects que Permiten Valores de Diferentes Tipos](ch17-02-trait-objects.md)
-  - [Implementando un Patrón de Diseño Orientado a Objetos](ch17-03-oo-design-patterns.md)
+- [Fundamentos de la Programación Asíncrona: Async, Await, Futures y Streams](ch17-00-async-await.md)
+  - [Futures y la sintaxis Async](ch17-01-futures-and-syntax.md)
+  - [Aplicando Concurrencia Con Async](ch17-02-concurrency-with-async.md)
+  - [Trabajar con cualquier número de futuros](ch17-03-more-futures.md)
+  - [Streams](ch17-04-streams.md)
+  - [Profundizando en los Traits para Async](ch17-05-traits-for-async.md)
+  - [Futuros, tareas e hilos](ch17-06-futures-tasks-threads.md)
+
+- [Rust como un Lenguaje de Programación Orientado a Objetos](ch18-00-oop.md)
+  - [Características de Lenguajes Orientados a Objetos](ch18-01-what-is-oo.md)
+  - [Usando Trait Objects que Permiten Valores de Diferentes Tipos](ch18-02-trait-objects.md)
+  - [Implementando un Patrón de Diseño Orientado a Objetos](ch18-03-oo-design-patterns.md)
 
 ## Temas Avanzados
 
-- [Patterns and Matching](ch18-00-patterns.md)
+- [Patterns and Matching](ch19-00-patterns.md)
 
-  - [Todos los lugares donde se pueden usar Patterns](ch18-01-all-the-places-for-patterns.md)
-  - [Refutabilidad: Si un Pattern Puede Fallar al Hacer Match](ch18-02-refutability.md)
-  - [Sintaxis de los Patterns](ch18-03-pattern-syntax.md)
+  - [Todos los lugares donde se pueden usar Patterns](ch19-01-all-the-places-for-patterns.md)
+  - [Refutabilidad: Si un Pattern Puede Fallar al Hacer Match](ch19-02-refutability.md)
+  - [Sintaxis de los Patterns](ch19-03-pattern-syntax.md)
 
-- [Características Avanzadas](ch19-00-advanced-features.md)
+- [Características Avanzadas](ch20-00-advanced-features.md)
 
-  - [Rust Inseguro](ch19-01-unsafe-rust.md)
-  - [Advanced Traits](ch19-03-advanced-traits.md)
-  - [Advanced Types](ch19-04-advanced-types.md)
-  - [Advanced Functions and Closures](ch19-05-advanced-functions-and-closures.md)
-  - [Macros](ch19-06-macros.md)
+  - [Rust Inseguro](ch20-01-unsafe-rust.md)
+  - [Traits Avanzados](ch20-02-advanced-traits.md)
+  - [Tipos Avanzados](ch20-03-advanced-types.md)
+  - [Funciones y Closures Avanzados](ch20-04-advanced-functions-and-closures.md)
+  - [Macros](ch20-05-macros.md)
 
-- [Final Project: Building a Multithreaded Web Server](ch20-00-final-project-a-web-server.md)
+- [Proyecto Final: Construyendo un Servidor Web Multithread](ch21-00-final-project-a-web-server.md)
 
-  - [Building a Single-Threaded Web Server](ch20-01-single-threaded.md)
-  - [Turning Our Single-Threaded Server into a Multithreaded Server](ch20-02-multithreaded.md)
-  - [Graceful Shutdown and Cleanup](ch20-03-graceful-shutdown-and-cleanup.md)
+  - [Construyendo un Servidor Web de un Solo Hilo](ch21-01-single-threaded.md)
+  - [Convirtiendo Nuestro Servidor de un solo Hilo en un Servidor Multihilo](ch21-02-multithreaded.md)
+  - [Apagado y limpieza eficientes](ch21-03-graceful-shutdown-and-cleanup.md)
 
 - [Apéndice](appendix-00.md)
   - [A - Palabras claves](appendix-01-keywords.md)
   - [B - Operadores y Símbolos](appendix-02-operators.md)
-  - [C - Derivable Traits](appendix-03-derivable-traits.md)
-  - [D - Useful Development Tools](appendix-04-useful-development-tools.md)
-  - [E - Editions](appendix-05-editions.md)
-  - [F - Translations of the Book](appendix-06-translation.md)
+  - [C - Traits derivables](appendix-03-derivable-traits.md)
+  - [D - Herramientas de desarrollo útiles](appendix-04-useful-development-tools.md)
+  - [E - Ediciones](appendix-05-editions.md)
+  - [F - Traducciones del libro](appendix-06-translation.md)
   - [G - Cómo se hace Rust y “Rust Nightly”](appendix-07-nightly-rust.md)

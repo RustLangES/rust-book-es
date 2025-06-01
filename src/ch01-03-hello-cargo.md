@@ -68,9 +68,7 @@ código del Listado 1-2.
 [package]
 name = "hello_cargo"
 version = "0.1.0"
-edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2024"
 
 [dependencies]
 ```
@@ -120,7 +118,8 @@ tus proyectos. Hay un lugar para todo, y todo está en su lugar.
 Si comenzaste un proyecto que no usa Cargo, como hicimos con el proyecto
 “¡Hola, mundo!”, puedes convertirlo en un proyecto que sí use Cargo. Mueve el
 código del proyecto al directorio *src* y crea un archivo *Cargo.toml*
-adecuado.
+adecuado. Una forma sencilla de obtener el archivo *Cargo.toml* es ejecutar 
+`cargo init`, el cual lo creara automáticamente.
 
 ### Construir y ejecutar un proyecto de Cargo
 

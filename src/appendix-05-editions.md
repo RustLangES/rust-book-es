@@ -27,9 +27,9 @@ Las ediciones sirven para diferentes propósitos para diferentes personas:
 * Para aquellos que desarrollan Rust, una nueva edición proporciona un punto de
   reunión para todo el proyecto.
 
-En el momento de escribir esto, hay tres ediciones de Rust disponibles: Rust
-2015, Rust 2018 y Rust 2021. Este libro está escrito utilizando los
-modismos de la edición Rust 2021.
+En el momento de escribir esto, hay cuatro ediciones de Rust disponibles: Rust
+2015, Rust 2018, Rust 2021 y Rust 2024. Este libro está escrito utilizando los
+modismos de la edición Rust 2024.
 
 La clave `edition` en *Cargo.toml* indica qué edición debe usar el compilador
 para su código. Si la clave no existe, Rust usa `2015` como el valor de la

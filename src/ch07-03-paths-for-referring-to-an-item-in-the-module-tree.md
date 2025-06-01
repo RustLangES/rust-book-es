@@ -30,14 +30,13 @@ librería, así que la marcamos con la palabra clave `pub`. En la sección
 [“Exponiendo Rutas con la palabra clave `pub`”][pub]<!-- ignore -->, iremos en
 más detalle sobre `pub`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-3" file-name="src/lib.rs" caption="Llamando a la función `add_to_waitlist` usando rutas absolutas y relativas">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-03/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-3: Llamando a la función `add_to_waitlist` usando
-rutas absolutas y relativas</span>
+</Listing>
 
 La primera vez que llamamos a la función `add_to_waitlist` en `eat_at_restaurant`,
 usamos una ruta absoluta. La función `add_to_waitlist` está definida en el mismo
@@ -73,12 +72,13 @@ independientemente.
 ¡Intentemos compilar el listado 7-3 y averigüemos por qué aún no compila! Los
 errores que obtenemos se muestran en el listado 7-4.
 
+<Listing number="7-4" caption="Errores de compilación al hacer building del código del listado 7-3">
+
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-03/output.txt}}
 ```
 
-<span class="caption">Listado 7-4: Errores de compilación al hacer building del
-código del listado 7-3</span>
+</Listing>
 
 El mensaje de error dice que el módulo `hosting` es privado. En otras palabras,
 tenemos las rutas correctas para el módulo `hosting` y la función
@@ -110,24 +110,24 @@ privado, queremos que la función `eat_at_restaurant` en el módulo padre tenga
 acceso a la función `add_to_waitlist` en el módulo hijo, así que marcamos el
 módulo `hosting` con la palabra clave `pub`, como se muestra en el listado 7-5.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-5" file-name="src/lib.rs" caption="Declarando el módulo `hosting` como `pub` para usarlo desde `eat_at_restaurant`">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 7-5: Declarando el módulo `hosting` como `pub`
-para usarlo desde `eat_at_restaurant`</span>
+</Listing>
 
 Desafortunadamente, el código en el listado 7-5 aún resulta en errores de 
 compilador, como se muestra en el listado 7-6.
+
+<Listing number="7-6" caption="Errores de compilación al hacer building del código del listado 7-5">
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-05/output.txt}}
 ```
 
-<span class="caption">Listado 7-6: Errores de compilación al hacer building del
-código del listado 7-5</span>
+</Listing>
 
 ¿Qué pasó? Agregar la palabra clave `pub` al frente del módulo `hosting` hace
 que el módulo sea público. Con este cambio, si podemos acceder a
@@ -146,15 +146,13 @@ como a módulos.
 Para hacer que la función `add_to_waitlist` sea pública, necesitamos agregar la
 palabra clave `pub` antes de su definición, como se muestra en el listado 7-7.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-7" file-name="src/lib.rs" caption="Agregar la keyword `pub` a `mod hosting` y `fn add_to_waitlist` nos permite llamar a la función desde `eat_at_restaurant`">
 
 ```rust,noplayground,test_harness
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs:here}}
 ```
 
-<span class="caption">Listado 7-7: Agregar la keyword `pub` a `mod hosting`
-y `fn add_to_waitlist` nos permite llamar a la función desde
-`eat_at_restaurant`</span>
+</Listing>
 
 ¡Ahora el código compilará! Para ver por qué agregar la palabra clave `pub` nos
 permite usar estas rutas en `eat_at_restaurant` con respecto a las reglas de
@@ -223,14 +221,13 @@ arregla un pedido incorrecto y lo trae personalmente al cliente. La función
 `deliver_order` definida en el módulo padre especificando la ruta a
 `deliver_order`, comenzando con `super`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-8" file-name="src/lib.rs" caption="Llamar a una función usando una ruta relativa que comienza con `super`">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-08/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-8: Llamar a una función usando una ruta relativa
-que comienza con `super`</span>
+</Listing>
 
 La función `fix_incorrect_order` está en el módulo `back_of_house`, por lo que
 podemos usar `super` para ir al módulo padre de `back_of_house`, que en este
@@ -255,14 +252,13 @@ decide qué fruta acompaña la comida según lo que está en temporada y en stoc
 La fruta disponible cambia rápidamente, por lo que los clientes no pueden
 elegir la fruta o incluso ver qué fruta obtendrán.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-9" file-name="src/lib.rs" caption="Un struct con algunos campos públicos y algunos campos privados">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-09/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-9: Un struct con algunos campos públicos y
-algunos campos privados</span>
+</Listing>
 
 Debido a que el campo `toast` es público, podemos cambiar el valor de `toast`
 en una instancia de `Breakfast` en la función `eat_at_restaurant` en el listado
@@ -282,14 +278,13 @@ Por el contrario, si hacemos un enum público, todos sus variantes son públicas
 Solo necesitamos el `pub` antes de la palabra clave `enum`, como se muestra en
 el listado 7-10.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-10" file-name="src/lib.rs" caption="Designar un enum como público hace que todas sus variantes sean públicas">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-10/src/lib.rs}}
 ```
 
-<span class="caption">Listado 7-10: Designar un enum como público hace que todas
-sus variantes sean públicas</span>
+</Listing>
 
 Debido a que hicimos el enum `Appetizer` público, podemos usar las variantes
 `Appetizer::Soup` y `Appetizer::Salad` en `eat_at_restaurant`.

@@ -50,17 +50,17 @@ duplicated code that can use generics.
 We’ll begin with the short program in Listing 10-1 that finds the largest
 number in a list.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn main() {
-  1 let number_list = vec![34, 50, 25, 100, 65];
+    let number_list = vec![34, 50, 25, 100, 65];
 
-  2 let mut largest = &number_list[0];
+    let mut largest = &number_list[0];
 
-  3 for number in &number_list {
-      4 if number > largest {
-          5 largest = number;
+    for number in &number_list {
+        if number > largest {
+            largest = number;
         }
     }
 
@@ -70,20 +70,20 @@ fn main() {
 
 Listing 10-1: Finding the largest number in a list of numbers
 
-We store a list of integers in the variable `number_list` [1] and place a
-reference to the first number in the list in a variable named `largest` [2]. We
-then iterate through all the numbers in the list [3], and if the current number
-is greater than the number stored in `largest` [4], we replace the reference in
-that variable [5]. However, if the current number is less than or equal to the
-largest number seen so far, the variable doesn’t change, and the code moves on
-to the next number in the list. After considering all the numbers in the list,
-`largest` should refer to the largest number, which in this case is 100.
+We store a list of integers in the variable `number_list` and place a reference
+to the first number in the list in a variable named `largest`. We then iterate
+through all the numbers in the list, and if the current number is greater than
+the number stored in `largest`, we replace the reference in that variable.
+However, if the current number is less than or equal to the largest number seen
+so far, the variable doesn’t change, and the code moves on to the next number
+in the list. After considering all the numbers in the list, `largest` should
+refer to the largest number, which in this case is 100.
 
 We’ve now been tasked with finding the largest number in two different lists of
 numbers. To do so, we can choose to duplicate the code in Listing 10-1 and use
 the same logic at two different places in the program, as shown in Listing 10-2.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn main() {
@@ -120,7 +120,7 @@ have to remember to update the code in multiple places when we want to change
 it.
 
 To eliminate this duplication, we’ll create an abstraction by defining a
-function that operates on any list of integers passed in a parameter. This
+function that operates on any list of integers passed in as a parameter. This
 solution makes our code clearer and lets us express the concept of finding the
 largest number in a list abstractly.
 
@@ -129,7 +129,7 @@ function named `largest`. Then we call the function to find the largest number
 in the two lists from Listing 10-2. We could also use the function on any other
 list of `i32` values we might have in the future.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn largest(list: &[i32]) -> &i32 {
@@ -161,14 +161,15 @@ Listing 10-3: Abstracted code to find the largest number in two lists
 
 The `largest` function has a parameter called `list`, which represents any
 concrete slice of `i32` values we might pass into the function. As a result,
-when we call the function, the code runs on the specific values that we pass in.
+when we call the function, the code runs on the specific values that we pass
+in.
 
 In summary, here are the steps we took to change the code from Listing 10-2 to
 Listing 10-3:
 
 1. Identify duplicate code.
 1. Extract the duplicate code into the body of the function, and specify the
-inputs and return values of that code in the function signature.
+   inputs and return values of that code in the function signature.
 1. Update the two instances of duplicated code to call the function instead.
 
 Next, we’ll use these same steps with generics to reduce code duplication. In
@@ -197,7 +198,7 @@ Continuing with our `largest` function, Listing 10-4 shows two functions that
 both find the largest value in a slice. We’ll then combine these into a single
 function that uses generics.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn largest_i32(list: &[i32]) -> &i32 {
@@ -237,8 +238,7 @@ fn main() {
 }
 ```
 
-Listing 10-4: Two functions that differ only in their names and in the types in
-their signatures
+Listing 10-4: Two functions that differ only in their names and in the types in their signatures
 
 The `largest_i32` function is the one we extracted in Listing 10-3 that finds
 the largest `i32` in a slice. The `largest_char` function finds the largest
@@ -249,8 +249,8 @@ To parameterize the types in a new single function, we need to name the type
 parameter, just as we do for the value parameters to a function. You can use
 any identifier as a type parameter name. But we’ll use `T` because, by
 convention, type parameter names in Rust are short, often just one letter, and
-Rust’s type-naming convention is CamelCase. Short for *type*, `T` is the
-default choice of most Rust programmers.
+Rust’s type-naming convention is CamelCase. Short for *type*, `T` is the default
+choice of most Rust programmers.
 
 When we use a parameter in the body of the function, we have to declare the
 parameter name in the signature so the compiler knows what that name means.
@@ -273,7 +273,7 @@ data type in its signature. The listing also shows how we can call the function
 with either a slice of `i32` values or `char` values. Note that this code won’t
 compile yet, but we’ll fix it later in this chapter.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn largest<T>(list: &[T]) -> &T {
@@ -301,12 +301,13 @@ fn main() {
 }
 ```
 
-Listing 10-5: The `largest` function using generic type parameters; this
-doesn’t compile yet
+Listing 10-5: The `largest` function using generic type parameters; this doesn’t compile yet
 
 If we compile this code right now, we’ll get this error:
 
 ```
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
 error[E0369]: binary operation `>` cannot be applied to type `&T`
  --> src/main.rs:5:17
   |
@@ -319,6 +320,9 @@ help: consider restricting type parameter `T`
   |
 1 | fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
   |             ++++++++++++++++++++++
+
+For more information about this error, try `rustc --explain E0369`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
 The help text mentions `std::cmp::PartialOrd`, which is a *trait*, and we’re
@@ -338,12 +342,12 @@ We can also define structs to use a generic type parameter in one or more
 fields using the `<>` syntax. Listing 10-6 defines a `Point<T>` struct to hold
 `x` and `y` coordinate values of any type.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
-1 struct Point<T> {
-  2 x: T,
-  3 y: T,
+struct Point<T> {
+    x: T,
+    y: T,
 }
 
 fn main() {
@@ -356,9 +360,9 @@ Listing 10-6: A `Point<T>` struct that holds `x` and `y` values of type `T`
 
 The syntax for using generics in struct definitions is similar to that used in
 function definitions. First we declare the name of the type parameter inside
-angle brackets just after the name of the struct [1]. Then we use the generic
+angle brackets just after the name of the struct. Then we use the generic
 type in the struct definition where we would otherwise specify concrete data
-types [23].
+types.
 
 Note that because we’ve used only one generic type to define `Point<T>`, this
 definition says that the `Point<T>` struct is generic over some type `T`, and
@@ -366,7 +370,7 @@ the fields `x` and `y` are *both* that same type, whatever that type may be. If
 we create an instance of a `Point<T>` that has values of different types, as in
 Listing 10-7, our code won’t compile.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 struct Point<T> {
@@ -379,8 +383,7 @@ fn main() {
 }
 ```
 
-Listing 10-7: The fields `x` and `y` must be the same type because both have
-the same generic data type `T`.
+Listing 10-7: The fields `x` and `y` must be the same type because both have the same generic data type `T`.
 
 In this example, when we assign the integer value `5` to `x`, we let the
 compiler know that the generic type `T` will be an integer for this instance of
@@ -388,12 +391,16 @@ compiler know that the generic type `T` will be an integer for this instance of
 same type as `x`, we’ll get a type mismatch error like this:
 
 ```
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
 error[E0308]: mismatched types
  --> src/main.rs:7:38
   |
 7 |     let wont_work = Point { x: 5, y: 4.0 };
-  |                                      ^^^ expected integer, found floating-
-point number
+  |                                      ^^^ expected integer, found floating-point number
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
 To define a `Point` struct where `x` and `y` are both generics but could have
@@ -401,7 +408,7 @@ different types, we can use multiple generic type parameters. For example, in
 Listing 10-8, we change the definition of `Point` to be generic over types `T`
 and `U` where `x` is of type `T` and `y` is of type `U`.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 struct Point<T, U> {
@@ -416,8 +423,7 @@ fn main() {
 }
 ```
 
-Listing 10-8: A `Point<T, U>` generic over two types so that `x` and `y` can be
-values of different types
+Listing 10-8: A `Point<T, U>` generic over two types so that `x` and `y` can be values of different types
 
 Now all the instances of `Point` shown are allowed! You can use as many generic
 type parameters in a definition as you want, but using more than a few makes
@@ -474,7 +480,7 @@ We can implement methods on structs and enums (as we did in Chapter 5) and use
 generic types in their definitions too. Listing 10-9 shows the `Point<T>`
 struct we defined in Listing 10-6 with a method named `x` implemented on it.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 struct Point<T> {
@@ -495,8 +501,7 @@ fn main() {
 }
 ```
 
-Listing 10-9: Implementing a method named `x` on the `Point<T>` struct that
-will return a reference to the `x` field of type `T`
+Listing 10-9: Implementing a method named `x` on the `Point<T>` struct that will return a reference to the `x` field of type `T`
 
 Here, we’ve defined a method named `x` on `Point<T>` that returns a reference
 to the data in the field `x`.
@@ -507,16 +512,16 @@ generic type after `impl`, Rust can identify that the type in the angle
 brackets in `Point` is a generic type rather than a concrete type. We could
 have chosen a different name for this generic parameter than the generic
 parameter declared in the struct definition, but using the same name is
-conventional. Methods written within an `impl` that declares the generic type
-will be defined on any instance of the type, no matter what concrete type ends
-up substituting for the generic type.
+conventional. If you write a method within an `impl` that declares a generic
+type, that method will be defined on any instance of the type, no matter what
+concrete type ends up substituting for the generic type.
 
 We can also specify constraints on generic types when defining methods on the
 type. We could, for example, implement methods only on `Point<f32>` instances
 rather than on `Point<T>` instances with any generic type. In Listing 10-10 we
 use the concrete type `f32`, meaning we don’t declare any types after `impl`.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 impl Point<f32> {
@@ -526,8 +531,7 @@ impl Point<f32> {
 }
 ```
 
-Listing 10-10: An `impl` block that only applies to a struct with a particular
-concrete type for the generic type parameter `T`
+Listing 10-10: An `impl` block that only applies to a struct with a particular concrete type for the generic type parameter `T`
 
 This code means the type `Point<f32>` will have a `distance_from_origin`
 method; other instances of `Point<T>` where `T` is not of type `f32` will not
@@ -542,7 +546,7 @@ signature to make the example clearer. The method creates a new `Point`
 instance with the `x` value from the `self` `Point` (of type `X1`) and the `y`
 value from the passed-in `Point` (of type `Y2`).
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 struct Point<X1, Y1> {
@@ -550,11 +554,8 @@ struct Point<X1, Y1> {
     y: Y1,
 }
 
-1 impl<X1, Y1> Point<X1, Y1> {
-  2 fn mixup<X2, Y2>(
-        self,
-        other: Point<X2, Y2>,
-    ) -> Point<X1, Y2> {
+impl<X1, Y1> Point<X1, Y1> {
+    fn mixup<X2, Y2>(self, other: Point<X2, Y2>) -> Point<X1, Y2> {
         Point {
             x: self.x,
             y: other.y,
@@ -563,32 +564,31 @@ struct Point<X1, Y1> {
 }
 
 fn main() {
-  3 let p1 = Point { x: 5, y: 10.4 };
-  4 let p2 = Point { x: "Hello", y: 'c' };
+    let p1 = Point { x: 5, y: 10.4 };
+    let p2 = Point { x: "Hello", y: 'c' };
 
-  5 let p3 = p1.mixup(p2);
+    let p3 = p1.mixup(p2);
 
-  6 println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
 }
 ```
 
-Listing 10-11: A method that uses generic types different from its struct’s
-definition
+Listing 10-11: A method that uses generic types different from its struct’s definition
 
 In `main`, we’ve defined a `Point` that has an `i32` for `x` (with value `5`)
-and an `f64` for `y` (with value `10.4` [3]). The `p2` variable is a `Point`
-struct that has a string slice for `x` (with value `"Hello"`) and a `char` for
-`y` (with value `c` [4]). Calling `mixup` on `p1` with the argument `p2` gives
-us `p3` [5], which will have an `i32` for `x` because `x` came from `p1`. The
-`p3` variable will have a `char` for `y` because `y` came from `p2`. The
-`println!` macro call [6] will print `p3.x = 5, p3.y = c`.
+and an `f64` for `y` (with value `10.4`). The `p2` variable is a `Point` struct
+that has a string slice for `x` (with value `"Hello"`) and a `char` for `y`
+(with value `c`). Calling `mixup` on `p1` with the argument `p2` gives us `p3`,
+which will have an `i32` for `x` because `x` came from `p1`. The `p3` variable
+will have a `char` for `y` because `y` came from `p2`. The `println!` macro
+call will print `p3.x = 5, p3.y = c`.
 
 The purpose of this example is to demonstrate a situation in which some generic
 parameters are declared with `impl` and some are declared with the method
 definition. Here, the generic parameters `X1` and `Y1` are declared after
-`impl` [1] because they go with the struct definition. The generic parameters
-`X2` and `Y2` are declared after `fn mixup` [2] because they’re only relevant
-to the method.
+`impl` because they go with the struct definition. The generic parameters `X2`
+and `Y2` are declared after `fn mixup` because they’re only relevant to the
+method.
 
 ### Performance of Code Using Generics
 
@@ -622,7 +622,7 @@ definition with the specific ones.
 The monomorphized version of the code looks similar to the following (the
 compiler uses different names than what we’re using here for illustration):
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 enum Option_i32 {
@@ -641,6 +641,8 @@ fn main() {
 }
 ```
 
+
+
 The generic `Option<T>` is replaced with the specific definitions created by
 the compiler. Because Rust compiles generic code into code that specifies the
 type in each instance, we pay no runtime cost for using generics. When the code
@@ -656,7 +658,7 @@ can use *trait bounds* to specify that a generic type can be any type that has
 certain behavior.
 
 > Note: Traits are similar to a feature often called *interfaces* in other
-languages, although with some differences.
+> languages, although with some differences.
 
 ### Defining a Trait
 
@@ -677,7 +679,7 @@ instance. To do this, we need a summary from each type, and we’ll request that
 summary by calling a `summarize` method on an instance. Listing 10-12 shows the
 definition of a public `Summary` trait that expresses this behavior.
 
-Filename: src/lib.rs
+src/lib.rs
 
 ```
 pub trait Summary {
@@ -685,8 +687,7 @@ pub trait Summary {
 }
 ```
 
-Listing 10-12: A `Summary` trait that consists of the behavior provided by a
-`summarize` method
+Listing 10-12: A `Summary` trait that consists of the behavior provided by a `summarize` method
 
 Here, we declare a trait using the `trait` keyword and then the trait’s name,
 which is `Summary` in this case. We also declare the trait as `pub` so that
@@ -714,7 +715,7 @@ the headline, the author, and the location to create the return value of
 followed by the entire text of the tweet, assuming that the tweet content is
 already limited to 280 characters.
 
-Filename: src/lib.rs
+src/lib.rs
 
 ```
 pub struct NewsArticle {
@@ -726,12 +727,7 @@ pub struct NewsArticle {
 
 impl Summary for NewsArticle {
     fn summarize(&self) -> String {
-        format!(
-            "{}, by {} ({})",
-            self.headline,
-            self.author,
-            self.location
-        )
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
 }
 
@@ -749,8 +745,7 @@ impl Summary for Tweet {
 }
 ```
 
-Listing 10-13: Implementing the `Summary` trait on the `NewsArticle` and
-`Tweet` types
+Listing 10-13: Implementing the `Summary` trait on the `NewsArticle` and `Tweet` types
 
 Implementing a trait on a type is similar to implementing regular methods. The
 difference is that after `impl`, we put the trait name we want to implement,
@@ -784,8 +779,7 @@ fn main() {
 }
 ```
 
-This code prints `1 new tweet: horse_ebooks: of course, as you probably already
-know, people`.
+This code prints `1 new tweet: horse_ebooks: of course, as you probably already know, people`.
 
 Other crates that depend on the `aggregator` crate can also bring the `Summary`
 trait into scope to implement `Summary` on their own types. One restriction to
@@ -818,7 +812,7 @@ In Listing 10-14, we specify a default string for the `summarize` method of the
 `Summary` trait instead of only defining the method signature, as we did in
 Listing 10-12.
 
-Filename: src/lib.rs
+src/lib.rs
 
 ```
 pub trait Summary {
@@ -828,8 +822,7 @@ pub trait Summary {
 }
 ```
 
-Listing 10-14: Defining a `Summary` trait with a default implementation of the
-`summarize` method
+Listing 10-14: Defining a `Summary` trait with a default implementation of the `summarize` method
 
 To use a default implementation to summarize instances of `NewsArticle`, we
 specify an empty `impl` block with `impl Summary for NewsArticle {}`.
@@ -840,19 +833,17 @@ directly, we’ve provided a default implementation and specified that
 the `summarize` method on an instance of `NewsArticle`, like this:
 
 ```
-let article = NewsArticle {
-    headline: String::from(
-        "Penguins win the Stanley Cup Championship!"
-    ),
-    location: String::from("Pittsburgh, PA, USA"),
-    author: String::from("Iceburgh"),
-    content: String::from(
-        "The Pittsburgh Penguins once again are the best \
-         hockey team in the NHL.",
-    ),
-};
+    let article = NewsArticle {
+        headline: String::from("Penguins win the Stanley Cup Championship!"),
+        location: String::from("Pittsburgh, PA, USA"),
+        author: String::from("Iceburgh"),
+        content: String::from(
+            "The Pittsburgh Penguins once again are the best \
+             hockey team in the NHL.",
+        ),
+    };
 
-println!("New article available! {}", article.summarize());
+    println!("New article available! {}", article.summarize());
 ```
 
 This code prints `New article available! (Read more...)`.
@@ -875,10 +866,7 @@ pub trait Summary {
     fn summarize_author(&self) -> String;
 
     fn summarize(&self) -> String {
-        format!(
-            "(Read more from {}...)",
-            self.summarize_author()
-        )
+        format!("(Read more from {}...)", self.summarize_author())
     }
 }
 ```
@@ -902,16 +890,16 @@ definition of `summarize_author` that we’ve provided. Because we’ve implemen
 that looks like:
 
 ```
-let tweet = Tweet {
-    username: String::from("horse_ebooks"),
-    content: String::from(
-        "of course, as you probably already know, people",
-    ),
-    reply: false,
-    retweet: false,
-};
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from(
+            "of course, as you probably already know, people",
+        ),
+        reply: false,
+        retweet: false,
+    };
 
-println!("1 new tweet: {}", tweet.summarize());
+    println!("1 new tweet: {}", tweet.summarize());
 ```
 
 This code prints `1 new tweet: (Read more from @horse_ebooks...)`.
@@ -941,6 +929,10 @@ that come from the `Summary` trait, such as `summarize`. We can call `notify`
 and pass in any instance of `NewsArticle` or `Tweet`. Code that calls the
 function with any other type, such as a `String` or an `i32`, won’t compile
 because those types don’t implement `Summary`.
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="fixing-the-largest-function-with-trait-bounds"></a>
 
 #### Trait Bound Syntax
 
@@ -1089,22 +1081,23 @@ fn returns_summarizable(switch: bool) -> impl Summary {
 
 Returning either a `NewsArticle` or a `Tweet` isn’t allowed due to restrictions
 around how the `impl Trait` syntax is implemented in the compiler. We’ll cover
-how to write a function with this behavior in “Using Trait Objects That Allow
-for Values of Different Types” on page XX.
+how to write a function with this behavior in the “Using Trait Objects That
+Allow for Values of Different
+Types” section of Chapter 18.
 
 ### Using Trait Bounds to Conditionally Implement Methods
 
 By using a trait bound with an `impl` block that uses generic type parameters,
 we can implement methods conditionally for types that implement the specified
 traits. For example, the type `Pair<T>` in Listing 10-15 always implements the
-`new` function to return a new instance of `Pair<T>` (recall from “Defining
-Methods” on page XX that `Self` is a type alias for the type of the `impl`
-block, which in this case is `Pair<T>`). But in the next `impl` block,
-`Pair<T>` only implements the `cmp_display` method if its inner type `T`
-implements the `PartialOrd` trait that enables comparison *and* the `Display`
-trait that enables printing.
+`new` function to return a new instance of `Pair<T>` (recall from the
+“Defining Methods” section of Chapter 5 that `Self`
+is a type alias for the type of the `impl` block, which in this case is
+`Pair<T>`). But in the next `impl` block, `Pair<T>` only implements the
+`cmp_display` method if its inner type `T` implements the `PartialOrd` trait
+that enables comparison *and* the `Display` trait that enables printing.
 
-Filename: src/lib.rs
+src/lib.rs
 
 ```
 use std::fmt::Display;
@@ -1131,8 +1124,7 @@ impl<T: Display + PartialOrd> Pair<T> {
 }
 ```
 
-Listing 10-15: Conditionally implementing methods on a generic type depending
-on trait bounds
+Listing 10-15: Conditionally implementing methods on a generic type depending on trait bounds
 
 We can also conditionally implement a trait for any type that implements
 another trait. Implementations of a trait on any type that satisfies the trait
@@ -1143,7 +1135,7 @@ block in the standard library looks similar to this code:
 
 ```
 impl<T: Display> ToString for T {
-    --snip--
+    // --snip--
 }
 ```
 
@@ -1177,12 +1169,13 @@ Lifetimes are another kind of generic that we’ve already been using. Rather
 than ensuring that a type has the behavior we want, lifetimes ensure that
 references are valid as long as we need them to be.
 
-One detail we didn’t discuss in “References and Borrowing” on page XX is that
-every reference in Rust has a *lifetime*, which is the scope for which that
-reference is valid. Most of the time, lifetimes are implicit and inferred, just
-like most of the time, types are inferred. We must annotate types only when
-multiple types are possible. In a similar way, we must annotate lifetimes when
-the lifetimes of references could be related in a few different ways. Rust
+One detail we didn’t discuss in the “References and
+Borrowing” section in Chapter 4 is
+that every reference in Rust has a *lifetime*, which is the scope for which
+that reference is valid. Most of the time, lifetimes are implicit and inferred,
+just like most of the time, types are inferred. We must annotate types only
+when multiple types are possible. In a similar way, we must annotate lifetimes
+when the lifetimes of references could be related in a few different ways. Rust
 requires us to annotate the relationships using generic lifetime parameters to
 ensure the actual references used at runtime will definitely be valid.
 
@@ -1198,46 +1191,54 @@ program to reference data other than the data it’s intended to reference.
 Consider the program in Listing 10-16, which has an outer scope and an inner
 scope.
 
+
 ```
 fn main() {
-  1 let r;
+    let r;
 
     {
-      2 let x = 5;
-      3 r = &x;
-  4 }
+        let x = 5;
+        r = &x;
+    }
 
-  5 println!("r: {r}");
+    println!("r: {r}");
 }
 ```
 
 Listing 10-16: An attempt to use a reference whose value has gone out of scope
 
-> Note: The examples in Listing 10-16, 10-17, and 10-23 declare variables
-without giving them an initial value, so the variable name exists in the outer
-scope. At first glance, this might appear to be in conflict with Rust’s having
-no null values. However, if we try to use a variable before giving it a value,
-we’ll get a compile-time error, which shows that Rust indeed does not allow
-null values.
+> Note: The examples in Listings 10-16, 10-17, and 10-23 declare variables
+> without giving them an initial value, so the variable name exists in the outer
+> scope. At first glance, this might appear to be in conflict with Rust’s having
+> no null values. However, if we try to use a variable before giving it a value,
+> we’ll get a compile-time error, which shows that Rust indeed does not allow
+> null values.
 
-The outer scope declares a variable named `r` with no initial value [1], and
-the inner scope declares a variable named `x` with the initial value of `5`
-[2]. Inside the inner scope, we attempt to set the value of `r` as a reference
-to `x` [3]. Then the inner scope ends [4], and we attempt to print the value in
-`r` [5]. This code won’t compile because the value that `r` is referring to has
-gone out of scope before we try to use it. Here is the error message:
+The outer scope declares a variable named `r` with no initial value, and the
+inner scope declares a variable named `x` with the initial value of `5`. Inside
+the inner scope, we attempt to set the value of `r` as a reference to `x`. Then
+the inner scope ends, and we attempt to print the value in `r`. This code won’t
+compile because the value that `r` is referring to has gone out of scope before
+we try to use it. Here is the error message:
 
 ```
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
 error[E0597]: `x` does not live long enough
  --> src/main.rs:6:13
   |
+5 |         let x = 5;
+  |             - binding `x` declared here
 6 |         r = &x;
   |             ^^ borrowed value does not live long enough
 7 |     }
   |     - `x` dropped here while still borrowed
 8 |
 9 |     println!("r: {r}");
-  |                   - borrow later used here
+  |                  --- borrow later used here
+
+For more information about this error, try `rustc --explain E0597`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
 The error message says that the variable `x` “does not live long enough.” The
@@ -1254,6 +1255,7 @@ The Rust compiler has a *borrow checker* that compares scopes to determine
 whether all borrows are valid. Listing 10-17 shows the same code as Listing
 10-16 but with annotations showing the lifetimes of the variables.
 
+
 ```
 fn main() {
     let r;                // ---------+-- 'a
@@ -1267,8 +1269,7 @@ fn main() {
 }                         // ---------+
 ```
 
-Listing 10-17: Annotations of the lifetimes of `r` and `x`, named `'a` and
-`'b`, respectively
+Listing 10-17: Annotations of the lifetimes of `r` and `x`, named `'a` and `'b`, respectively
 
 Here, we’ve annotated the lifetime of `r` with `'a` and the lifetime of `x`
 with `'b`. As you can see, the inner `'b` block is much smaller than the outer
@@ -1279,6 +1280,7 @@ with a lifetime of `'b`. The program is rejected because `'b` is shorter than
 
 Listing 10-18 fixes the code so it doesn’t have a dangling reference and it
 compiles without any errors.
+
 
 ```
 fn main() {
@@ -1291,8 +1293,7 @@ fn main() {
 }                         // ----------+
 ```
 
-Listing 10-18: A valid reference because the data has a longer lifetime than
-the reference
+Listing 10-18: A valid reference because the data has a longer lifetime than the reference
 
 Here, `x` has the lifetime `'b`, which in this case is larger than `'a`. This
 means `r` can reference `x` because Rust knows that the reference in `r` will
@@ -1309,7 +1310,7 @@ function will take two string slices and return a single string slice. After
 we’ve implemented the `longest` function, the code in Listing 10-19 should
 print `The longest string is abcd`.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn main() {
@@ -1321,19 +1322,19 @@ fn main() {
 }
 ```
 
-Listing 10-19: A `main` function that calls the `longest` function to find the
-longer of two string slices
+Listing 10-19: A `main` function that calls the `longest` function to find the longer of two string slices
 
 Note that we want the function to take string slices, which are references,
 rather than strings, because we don’t want the `longest` function to take
-ownership of its parameters. Refer to “String Slices as Parameters” on page XX
-for more discussion about why the parameters we use in Listing 10-19 are the
-ones we want.
+ownership of its parameters. Refer to “String Slices as
+Parameters” in Chapter 4 for more
+discussion about why the parameters we use in Listing 10-19 are the ones we
+want.
 
 If we try to implement the `longest` function as shown in Listing 10-20, it
 won’t compile.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn longest(x: &str, y: &str) -> &str {
@@ -1345,24 +1346,27 @@ fn longest(x: &str, y: &str) -> &str {
 }
 ```
 
-Listing 10-20: An implementation of the `longest` function that returns the
-longer of two string slices but does not yet compile
+Listing 10-20: An implementation of the `longest` function that returns the longer of two string slices but does not yet compile
 
 Instead, we get the following error that talks about lifetimes:
 
 ```
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
 error[E0106]: missing lifetime specifier
  --> src/main.rs:9:33
   |
 9 | fn longest(x: &str, y: &str) -> &str {
   |               ----     ----     ^ expected named lifetime parameter
   |
-  = help: this function's return type contains a borrowed value,
-but the signature does not say whether it is borrowed from `x` or `y`
+  = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `x` or `y`
 help: consider introducing a named lifetime parameter
   |
 9 | fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
   |           ++++     ++          ++          ++
+
+For more information about this error, try `rustc --explain E0106`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
 The help text reveals that the return type needs a generic lifetime parameter
@@ -1423,7 +1427,7 @@ relationship between lifetimes of the parameters and the return value. We’ll
 name the lifetime `'a` and then add it to each reference, as shown in Listing
 10-21.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
@@ -1435,8 +1439,7 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 ```
 
-Listing 10-21: The `longest` function definition specifying that all the
-references in the signature must have the same lifetime `'a`
+Listing 10-21: The `longest` function definition specifying that all the references in the signature must have the same lifetime `'a`
 
 This code should compile and produce the result we want when we use it with the
 `main` function in Listing 10-19.
@@ -1480,7 +1483,7 @@ Let’s look at how the lifetime annotations restrict the `longest` function by
 passing in references that have different concrete lifetimes. Listing 10-22 is
 a straightforward example.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn main() {
@@ -1494,14 +1497,12 @@ fn main() {
 }
 ```
 
-Listing 10-22: Using the `longest` function with references to `String` values
-that have different concrete lifetimes
+Listing 10-22: Using the `longest` function with references to `String` values that have different concrete lifetimes
 
 In this example, `string1` is valid until the end of the outer scope, `string2`
 is valid until the end of the inner scope, and `result` references something
 that is valid until the end of the inner scope. Run this code and you’ll see
-that the borrow checker approves; it will compile and print `The longest string
-is long string is long`.
+that the borrow checker approves; it will compile and print `The longest string is long string is long`.
 
 Next, let’s try an example that shows that the lifetime of the reference in
 `result` must be the smaller lifetime of the two arguments. We’ll move the
@@ -1511,7 +1512,7 @@ assignment of the value to the `result` variable inside the scope with
 inner scope, after the inner scope has ended. The code in Listing 10-23 will
 not compile.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn main() {
@@ -1530,16 +1531,22 @@ Listing 10-23: Attempting to use `result` after `string2` has gone out of scope
 When we try to compile this code, we get this error:
 
 ```
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
 error[E0597]: `string2` does not live long enough
  --> src/main.rs:6:44
   |
+5 |         let string2 = String::from("xyz");
+  |             ------- binding `string2` declared here
 6 |         result = longest(string1.as_str(), string2.as_str());
-  |                                            ^^^^^^^^^^^^^^^^ borrowed value
-does not live long enough
+  |                                            ^^^^^^^ borrowed value does not live long enough
 7 |     }
   |     - `string2` dropped here while still borrowed
 8 |     println!("The longest string is {result}");
-  |                                      ------ borrow later used here
+  |                                     -------- borrow later used here
+
+For more information about this error, try `rustc --explain E0597`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
 The error shows that for `result` to be valid for the `println!` statement,
@@ -1569,13 +1576,15 @@ function is doing. For example, if we changed the implementation of the
 string slice, we wouldn’t need to specify a lifetime on the `y` parameter. The
 following code will compile:
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn longest<'a>(x: &'a str, y: &str) -> &'a str {
     x
 }
 ```
+
+
 
 We’ve specified a lifetime parameter `'a` for the parameter `x` and the return
 type, but not for the parameter `y`, because the lifetime of `y` does not have
@@ -1589,7 +1598,7 @@ reference because the value will go out of scope at the end of the function.
 Consider this attempted implementation of the `longest` function that won’t
 compile:
 
-Filename: src/main.rs
+src/main.rs
 
 ```
 fn longest<'a>(x: &str, y: &str) -> &'a str {
@@ -1598,18 +1607,27 @@ fn longest<'a>(x: &str, y: &str) -> &'a str {
 }
 ```
 
+
+
 Here, even though we’ve specified a lifetime parameter `'a` for the return
 type, this implementation will fail to compile because the return value
 lifetime is not related to the lifetime of the parameters at all. Here is the
 error message we get:
 
 ```
-error[E0515]: cannot return reference to local variable `result`
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0515]: cannot return value referencing local variable `result`
   --> src/main.rs:11:5
    |
 11 |     result.as_str()
-   |     ^^^^^^^^^^^^^^^ returns a reference to data owned by the
-current function
+   |     ------^^^^^^^^^
+   |     |
+   |     returns a value referencing data owned by the current function
+   |     `result` is borrowed here
+
+For more information about this error, try `rustc --explain E0515`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
 ```
 
 The problem is that `result` goes out of scope and gets cleaned up at the end
@@ -1632,22 +1650,17 @@ to hold references, but in that case we would need to add a lifetime annotation
 on every reference in the struct’s definition. Listing 10-24 has a struct named
 `ImportantExcerpt` that holds a string slice.
 
-Filename: src/main.rs
+src/main.rs
 
 ```
-1 struct ImportantExcerpt<'a> {
-  2 part: &'a str,
+struct ImportantExcerpt<'a> {
+    part: &'a str,
 }
 
 fn main() {
-  3 let novel = String::from(
-        "Call me Ishmael. Some years ago..."
-    );
-  4 let first_sentence = novel
-        .split('.')
-        .next()
-        .expect("Could not find a '.'");
-  5 let i = ImportantExcerpt {
+    let novel = String::from("Call me Ishmael. Some years ago...");
+    let first_sentence = novel.split('.').next().unwrap();
+    let i = ImportantExcerpt {
         part: first_sentence,
     };
 }
@@ -1656,18 +1669,18 @@ fn main() {
 Listing 10-24: A struct that holds a reference, requiring a lifetime annotation
 
 This struct has the single field `part` that holds a string slice, which is a
-reference [2]. As with generic data types, we declare the name of the generic
+reference. As with generic data types, we declare the name of the generic
 lifetime parameter inside angle brackets after the name of the struct so we can
-use the lifetime parameter in the body of the struct definition [1]. This
+use the lifetime parameter in the body of the struct definition. This
 annotation means an instance of `ImportantExcerpt` can’t outlive the reference
 it holds in its `part` field.
 
 The `main` function here creates an instance of the `ImportantExcerpt` struct
-[5] that holds a reference to the first sentence of the `String` [4] owned by
-the variable `novel` [3]. The data in `novel` exists before the
-`ImportantExcerpt` instance is created. In addition, `novel` doesn’t go out of
-scope until after the `ImportantExcerpt` goes out of scope, so the reference in
-the `ImportantExcerpt` instance is valid.
+that holds a reference to the first sentence of the `String` owned by the
+variable `novel`. The data in `novel` exists before the `ImportantExcerpt`
+instance is created. In addition, `novel` doesn’t go out of scope until after
+the `ImportantExcerpt` goes out of scope, so the reference in the
+`ImportantExcerpt` instance is valid.
 
 ### Lifetime Elision
 
@@ -1676,7 +1689,7 @@ lifetime parameters for functions or structs that use references. However, we
 had a function in Listing 4-9, shown again in Listing 10-25, that compiled
 without lifetime annotations.
 
-Filename: src/lib.rs
+src/lib.rs
 
 ```
 fn first_word(s: &str) -> &str {
@@ -1692,8 +1705,7 @@ fn first_word(s: &str) -> &str {
 }
 ```
 
-Listing 10-25: A function we defined in Listing 4-9 that compiled without
-lifetime annotations, even though the parameter and return type are references
+Listing 10-25: A function we defined in Listing 4-9 that compiled without lifetime annotations, even though the parameter and return type are references
 
 The reason this function compiles without lifetime annotations is historical:
 in early versions (pre-1.0) of Rust, this code wouldn’t have compiled because
@@ -1720,11 +1732,11 @@ The patterns programmed into Rust’s analysis of references are called the
 a set of particular cases that the compiler will consider, and if your code
 fits these cases, you don’t need to write the lifetimes explicitly.
 
-The elision rules don’t provide full inference. If Rust deterministically
-applies the rules but there is still ambiguity as to what lifetimes the
-references have, the compiler won’t guess what the lifetime of the remaining
-references should be. Instead of guessing, the compiler will give you an error
-that you can resolve by adding the lifetime annotations.
+The elision rules don’t provide full inference. If there is still ambiguity as
+to what lifetimes the references have after Rust applies the rules, the
+compiler won’t guess what the lifetime of the remaining references should be.
+Instead of guessing, the compiler will give you an error that you can resolve
+by adding the lifetime annotations.
 
 Lifetimes on function or method parameters are called *input lifetimes*, and
 lifetimes on return values are called *output lifetimes*.
@@ -1739,12 +1751,10 @@ These rules apply to `fn` definitions as well as `impl` blocks.
 The first rule is that the compiler assigns a lifetime parameter to each
 parameter that’s a reference. In other words, a function with one parameter
 gets one lifetime parameter: `fn foo<'a>(x: &'a i32)`; a function with two
-parameters gets two separate lifetime parameters: `fn foo<'a, 'b>(x: &'a i32,
-y: &'b i32)`; and so on.
+parameters gets two separate lifetime parameters: `fn foo<'a, 'b>(x: &'a i32, y: &'b i32)`; and so on.
 
 The second rule is that, if there is exactly one input lifetime parameter, that
-lifetime is assigned to all output lifetime parameters: `fn foo<'a>(x: &'a i32)
--> &'a i32`.
+lifetime is assigned to all output lifetime parameters: `fn foo<'a>(x: &'a i32) -> &'a i32`.
 
 The third rule is that, if there are multiple input lifetime parameters, but
 one of them is `&self` or `&mut self` because this is a method, the lifetime of
@@ -1809,7 +1819,7 @@ annotate lifetimes in method signatures very often.
 ### Lifetime Annotations in Method Definitions
 
 When we implement methods on a struct with lifetimes, we use the same syntax as
-that of generic type parameters shown in Listing 10-11. Where we declare and
+that of generic type parameters, as shown in Listing 10-11. Where we declare and
 use the lifetime parameters depends on whether they’re related to the struct
 fields or the method parameters and return values.
 
@@ -1867,7 +1877,7 @@ let s: &'static str = "I have a static lifetime.";
 The text of this string is stored directly in the program’s binary, which is
 always available. Therefore, the lifetime of all string literals is `'static`.
 
-You might see suggestions to use the `'static` lifetime in error messages. But
+You might see suggestions in error messages to use the `'static` lifetime. But
 before specifying `'static` as the lifetime for a reference, think about
 whether the reference you have actually lives the entire lifetime of your
 program or not, and whether you want it to. Most of the time, an error message
@@ -1921,10 +1931,8 @@ that this flexible code won’t have any dangling references. And all of this
 analysis happens at compile time, which doesn’t affect runtime performance!
 
 Believe it or not, there is much more to learn on the topics we discussed in
-this chapter: Chapter 17 discusses trait objects, which are another way to use
+this chapter: Chapter 18 discusses trait objects, which are another way to use
 traits. There are also more complex scenarios involving lifetime annotations
 that you will only need in very advanced scenarios; for those, you should read
-the Rust Reference at *https://doc.rust-lang.org/reference/trait-bounds.html*.
-But next, you’ll learn how to write tests in Rust so you can make sure your
-code is working the way it should.
-
+the Rust Reference at *../reference/index.html*. But next, you’ll learn how to write tests in
+Rust so you can make sure your code is working the way it should.

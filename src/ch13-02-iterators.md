@@ -11,11 +11,13 @@ código en el Listado 13-10 crea un iterador sobre los elementos del vector `v1`
 llamando al método `iter` definido en `Vec<T>`. Este código por sí solo no hace
 nada útil.
 
+<Listing number="13-10" file-name="src/main.rs" caption="Creando un iterator">
+
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-10/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-10: Creando un iterator</span>
+</Listing>
 
 El iterador es almacenado en la variable `v1_iter`. Una vez que hemos creado un
 iterator, podemos usarlo de varias maneras. En el Listado 3-5 del Capítulo 3,
@@ -28,11 +30,13 @@ iterador en el bucle `for`. Cuando el bucle `for` es llamado usando el iterator
 en `v1_iter`, cada elemento en el iterador es usado en una iteración del bucle,
 lo que imprime cada valor.
 
+<Listing number="13-11" file-name="src/main.rs" caption="Usando un iterador en un bucle `for`">
+
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-11/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-11: Usando un iterador en un bucle `for`</span>
+</Listing>
 
 En lenguajes que no tienen iterators provistos por sus bibliotecas estándar,
 probablemente escribirías esta misma funcionalidad comenzando una variable en
@@ -45,6 +49,9 @@ que podrías potencialmente arruinar. Los iterators te dan más flexibilidad par
 usar la misma lógica con muchos tipos diferentes de secuencias, no solo
 estructuras de datos en las que puedes indexar, como los vectores. Examinemos
 cómo los iterators hacen eso.
+
+<!-- Old headings. Do not remove or links may break. -->
+<a id="the-iterator-trait-and-the-next-method"></a>
 
 ### El trait `Iterator` y el método `next`
 
@@ -63,7 +70,7 @@ pub trait Iterator {
 
 Observa que esta definición usa una nueva sintaxis: `type Item` y
 `Self::Item`, que definen un *associated type* con este trait. Hablaremos sobre
-los associated types en profundidad en el Capítulo 19. Por ahora, todo lo que
+los associated types en profundidad en el Capítulo 20. Por ahora, todo lo que
 necesitas saber es que este código dice que implementar el trait `Iterator`
 requiere que también definas un tipo `Item`, y este tipo `Item` es usado en el
 tipo de retorno del método `next`. En otras palabras, el tipo `Item` será el
@@ -77,14 +84,13 @@ Podemos llamar al método `next` en los iterators directamente; el Listado 13-12
 demuestra qué valores son retornados de llamadas repetidas a `next` en el
 iterador creado desde el vector.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-12" file-name="src/lib.rs" caption="Llamando al método `next` en un iterator">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-12/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 13-12: Llamando al método `next` en un
-iterator</span>
+</Listing>
 
 Nota que necesitamos hacer `v1_iter` mutable: llamar al método `next` en un
 iterador cambia el estado interno que el iterador usa para mantenerse al tanto
@@ -109,45 +115,43 @@ para el trait `Iterator`. Algunos de estos métodos llaman al método `next` en 
 definición, por lo que se requiere que implementes el método `next` al
 implementar el trait `Iterator`.
 
-Los métodos que llaman a `next` se llaman *consuming adaptors*, porque
+Los métodos que llaman a `next` se llaman *consuming adapters*, porque
 consumen el iterador llamando a `next`. Un ejemplo es el método `sum`, que
 toma posesión del iterador y lo itera a través de los items llamando a `next`,
 así consumiendo el iterator. A medida que itera a través de ellos, agrega cada
 item a un total en ejecución y retorna el total cuando la iteración está
 completa. El Listado 13-13 tiene una prueba que ilustra el uso del método `sum`:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-13" file-name="src/lib.rs" caption="Llamando al método `sum` para obtener el total de todos los items en el iterator">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-13/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 13-13: Llamando al método `sum` para obtener el 
-total de todos los items en el iterator</span>
+</Listing>
 
 No se nos permite usar `v1_iter` después de la llamada a `sum` porque `sum`
 toma el ownership del iterador en el que lo llamamos.
 
 ### Métodos que producen otros iterators
 
-*Iterator adaptors* son métodos definidos en el trait `Iterator` que no
+*Iterator adapters* son métodos definidos en el trait `Iterator` que no
 consumen el iterator. En cambio, producen diferentes iterators cambiando algún
 aspecto del iterador original.
 
-El Listado 13-14 muestra un ejemplo de llamar al método adaptador de iterator
+El Listado 13-14 muestra un ejemplo de llamar al método adapter de iterator
 `map` que toma un closure para llamar en cada item y produce un nuevo iterator.
 El método `map` retorna un nuevo iterador que ejecuta el closure que le
 pasamos en cada item y produce los items resultantes. El closure aquí crea un
 nuevo iterador en el que cada item del vector será incrementado en 1:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-14" file-name="src/main.rs" caption="Llamando al iterador adaptor `map` para crear un nuevo iterator">
 
 ```rust,not_desired_behavior
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-14/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-14: Llamando al iterador adaptor `map` para
-crear un nuevo iterator</span>
+</Listing>
 
 Como siempre, este código producirá un warning:
 
@@ -156,7 +160,7 @@ Como siempre, este código producirá un warning:
 ```
 
 El código del Listado 13-14 no hace nada; el closure que hemos especificado
-nunca es llamado. El warning nos recuerda por qué: los iterador adaptors son
+nunca es llamado. El warning nos recuerda por qué: los iterador adapters son
 perezosos, y necesitamos consumir el iterador aquí.
 
 Para solucionar este warning y consumir el iterator, usaremos el método
@@ -166,17 +170,15 @@ colección.
 
 En el Listado 13-15, recolectamos los resultados de iterar sobre el iterator
 que es retornado de la llamada a `map` en un vector. Este vector terminará
-conteniendo cada item del vector original incrementado en 1.
+conteniendo cada item del vector original, incrementado en 1.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-15" file-name="src/main.rs" caption="Llamando al método `map` para crear un nuevo iterador y luego llamando al método `collect` para consumir el nuevo iterador y crear un vector">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-15/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-15: Llamando al método `map` para crear un 
-nuevo iterador y luego llamando al método `collect` para consumir el nuevo 
-iterador y crear un vector</span>
+</Listing>
 
 Debido a que `map` toma un closure, podemos especificar cualquier operación que
 queramos realizar en cada item. Este es un gran ejemplo de cómo los closures te
@@ -203,14 +205,13 @@ En el Listado 13-16, usamos `filter` con un closure que captura la variable
 `shoe_size` de su entorno para iterar sobre una colección de instancias de la
 estructura `Shoe`. Retornará solo los zapatos que sean del tamaño especificado.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-16" file-name="src/lib.rs" caption="Usando el método `filter` con un closure que captura `shoe_size`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-16/src/lib.rs}}
 ```
 
-<span class="caption">Listing 13-16: Usando el método `filter` con un closure
-que captura `shoe_size`</span>
+</Listing>
 
 La función `shoes_in_size` toma ownership de un vector de zapatos y un tamaño de
 zapato como parámetros. Retorna un vector que contiene solo zapatos del tamaño

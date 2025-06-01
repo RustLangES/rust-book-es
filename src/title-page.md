@@ -1,9 +1,12 @@
 # El Lenguaje de Programación Rust
 
-*por Steve Klabnik y Carol Nichols, con contribuciones de la Comunidad Rust*
+_por Steve Klabnik, Carol Nichols y Chris Krycho, con contribuciones de la 
+Comunidad Rust_
 
-Esta versión del texto asume que estás usando Rust 1.78.0 (lanzado 2024-05-02)
-o posterior. Vea la [sección “Instalación” del Capítulo 1][install]<!-- ignore -->
+Esta versión del texto asume que estás usando Rust 1.85.0 (lanzado 2025-02-17)
+o posterior con `edition = "2024"` en el archivo `Cargo.toml` de todos los 
+proyectos para configurarlos y que usen las convenciones de la edición 2024 de 
+Rust. Vea la [sección “Instalación” del Capítulo 1][install]<!-- ignore -->
 para instalar o actualizar Rust.
 
 El formato HTML está disponible en línea en
@@ -17,7 +20,6 @@ Este texto está disponible en [formato de libro impreso y ebook de No Starch
 Press][nsprust].
 
 [install]: ch01-01-installation.html
-[editions]: appendix-05-editions.html
 [nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
 [traducciones]: appendix-06-translation.html
 

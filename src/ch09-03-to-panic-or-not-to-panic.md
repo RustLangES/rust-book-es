@@ -84,7 +84,7 @@ faltantes a tu código, más uno o más de los siguientes:
 - No hay una buena manera de codificar esta información en los tipos que
   usas. Trabajaremos a través de un ejemplo de lo que queremos decir en la
   sección [“Codificación de estados y comportamientos como tipos”][encoding]
-  <!-- ignore --> del Capítulo 17.
+  <!-- ignore --> del Capítulo 18.
 
 Si alguien llama a tu código y pasa valores que no tienen sentido, es mejor
 devolver un error si puedes para que el usuario de la biblioteca pueda decidir
@@ -153,9 +153,13 @@ Una forma de hacer esto sería analizar la suposición como un `i32` en lugar de
 solo un `u32` para permitir números potencialmente negativos, y luego agregar
 una verificación de que el número esté en el rango, de esta manera:
 
+<Listing file-name="src/main.rs">
+
 ```rust,ignore
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-09-guess-out-of-range/src/main.rs:here}}
 ```
+
+</Listing>
 
 La expresión `if` verifica si nuestro valor está fuera del rango, le dice al
 usuario sobre el problema y llama a `continue` para iniciar la siguiente
@@ -176,20 +180,18 @@ confianza. El Listado 9-13 muestra una forma de definir un tipo `Guess` que
 solo creará una instancia de `Guess` si la función `new` recibe un valor entre
 1 y 100.
 
-<!-- Deliberately not using rustdoc_include here; the `main` function in the
-file requires the `rand` crate. We do want to include it for reader
-experimentation purposes, but don't want to include it for rustdoc testing
-purposes. -->
+<Listing number="9-13" caption="Un tipo `Guess` que solo continuará con valores entre 1 y 100" file-name="src/guessing_game.rs">
 
 ```rust
-{{#include ../listings/ch09-error-handling/listing-09-13/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-13/src/guessing_game.rs}}
 ```
 
-<span class="caption">Listing 9-13: Un tipo `Guess` que solo continuará con
-valores entre 1 y 100</span>
+</Listing>
 
-Primero, definimos un struct llamado `Guess` que tiene un campo llamado `value`
-que contiene un `i32`. Aquí es donde se almacenará el número.
+Primero, creamos un nuevo modulo llamado `guessing_game`. Luego definimos un 
+struct en este modulo llamado `Guess` que tiene un campo llamado `value` que 
+contiene un `i32`. 
+Aquí es donde se almacenará el número.
 
 Luego implementamos una función asociada llamada `new` en `Guess` que crea
 instancias de valores `Guess`. La función `new` está definida para tener un
@@ -212,10 +214,10 @@ llama a veces _getter_, porque su propósito es obtener algunos datos de sus
 campos y devolverlos. Este método público es necesario porque el campo `value`
 del struct `Guess` es privado. Es importante que el campo `value` sea privado
 para que el código que usa el struct `Guess` no pueda establecer `value`
-directamente: el código fuera del módulo _debe_ usar la función `Guess::new`
-para crear una instancia de `Guess`, lo que garantiza que no hay forma de que
-un `Guess` tenga un `value` que no haya sido verificado por las condiciones en
-la función `Guess::new`.
+directamente: el código fuera del módulo `guessing_game` _debe_ usar la función 
+`Guess::new` para crear una instancia de `Guess`, lo que garantiza que no hay 
+forma de que un `Guess` tenga un `value` que no haya sido verificado por las 
+condiciones en la función `Guess::new`.
 
 Una función que tiene un parámetro o devuelve solo números entre 1 y 100 podría
 entonces declarar en su firma que toma o devuelve un `Guess` en lugar de un
@@ -238,4 +240,4 @@ Ahora que has visto formas útiles en que la biblioteca estándar usa generics
 con los enums `Option` y `Result`, hablaremos sobre cómo funcionan los
 generics y cómo puedes usarlos en tu código.
 
-[encoding]: ch17-03-oo-design-patterns.html#codificando-estados-y-comportamiento-como-tipos
+[encoding]: ch18-03-oo-design-patterns.html#codificando-estados-y-comportamiento-como-tipos

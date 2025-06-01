@@ -31,7 +31,9 @@ muchos sistemas operativos proporcionan una API que el lenguaje puede llamar
 para crear nuevos hilos. La biblioteca estándar de Rust utiliza un modelo _1:1_
 de implementación de hilos, mediante el cual un programa utiliza un hilo del
 sistema operativo por un hilo de lenguaje. Hay crates que implementan otros
-modelos de enhebrado que hacen diferentes compensaciones al modelo 1:1.
+modelos de enhebrado que hacen diferentes compensaciones al modelo 1:1. 
+(El sistema async de Rust, que veremos en el próximo capítulo, también 
+proporciona otro enfoque para la concurrencia).
 
 ### Creando un Nuevo Hilo con `spawn`
 
@@ -40,14 +42,13 @@ closure (hablamos sobre closures en el Capítulo 13) que contiene el código que
 queremos ejecutar en el nuevo hilo. El ejemplo en el Listado 16-1 imprime
 algunos textos desde un hilo principal y otros textos desde un nuevo hilo:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-1" file-name="src/main.rs" caption="Creando un nuevo hilo para imprimir una cosa mientras el hilo principal imprime algo más">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-01/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-1: Creando un nuevo hilo para imprimir una cosa
-mientras el hilo principal imprime algo más</span>
+</Listing>
 
 Nota que cuando el hilo principal de un programa Rust se completa, todos los
 hilos creados se apagan, independientemente de si han terminado de ejecutarse o
@@ -76,7 +77,8 @@ probablemente se turnarán, pero eso no está garantizado: depende de cómo su
 sistema operativo programe los hilos. En esta ejecución, el hilo principal
 imprimió primero, a pesar de que la instrucción de impresión del hilo creado
 aparece primero en el código. Y aunque le dijimos al hilo creado que imprimiera
-hasta que `i` sea 9, solo llegó a 5 antes de que el hilo principal se apagara.
+hasta que `i` sea `9`, solo llegó a `5` antes de que el hilo principal se 
+apagara.
 
 Si ejecutas este código y solo ves el output del hilo principal, o no ves
 ninguna superposición, intenta aumentar los números en los rangos para crear
@@ -91,20 +93,19 @@ podemos garantizar que el hilo creado se ejecute en absoluto!
 
 Podemos solucionar el problema de que el hilo creado no se ejecute o termine
 prematuramente guardando el valor de retorno de `thread::spawn` en una variable.
-El tipo de retorno de `thread::spawn` es `JoinHandle`. Un `JoinHandle` es un
-valor de propiedad que, cuando llamamos al método `join` en él, esperará a que
-su hilo termine. El Listado 16-2 muestra cómo usar el `JoinHandle` del hilo que
-creamos en el Listado 16-1 y llamar a `join` para asegurarnos de que el hilo
-creado termine antes de que `main` salga:
+El tipo de retorno de `thread::spawn` es `JoinHandle<T>`. Un `JoinHandle<T>` es 
+un valor de propiedad que, cuando llamamos al método `join` en él, esperará a 
+que su hilo termine. El Listado 16-2 muestra cómo usar el `JoinHandle<T>` del 
+hilo que creamos en el Listado 16-1 y llamar a `join` para asegurarnos de que el 
+hilo creado termine antes de que `main` salga:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-2" file-name="src/main.rs" caption="Guardando un `JoinHandle<T>` devuelto por `thread::spawn` para garantizar que el hilo se ejecute hasta completarse">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-02/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-2: Guardando un `JoinHandle` devuelto por
-`thread::spawn` para garantizar que el hilo se ejecute hasta completarse</span>
+</Listing>
 
 Llamar a `join` en el handle bloquea el hilo que está actualmente en ejecución
 hasta que el hilo representado por el handle termine. Bloquear un hilo significa
@@ -138,11 +139,13 @@ llamada a `handle.join()` y no termina hasta que el hilo creado haya terminado.
 Pero veamos que sucede cuando movemos la llamada a `handle.join()` antes del
 bucle `for` en `main`, como esto:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/no-listing-01-join-too-early/src/main.rs}}
 ```
+
+</Listing>
 
 El hilo principal ahora espera a que el hilo creado termine antes de comenzar su
 bucle `for`, para que el output no se intercale más. La salida ahora se verá
@@ -176,7 +179,7 @@ ejecutan al mismo tiempo.
 A menudo usamos la keyword `move` con closures pasadas a `thread::spawn` porque
 el closure tomará posesión de los valores que usa del entorno, transfiriendo así
 el ownership de esos valores de un hilo a otro. En la sección ["Capturando
-referencias o moviendo la propiedad"][capture]<!-- ignore --> del Capítulo 13,
+el Entorno con Closures"][capture]<!-- ignore --> del Capítulo 13,
 discutimos `move` en el contexto de las closures. Ahora, nos concentraremos más
 en la interacción entre `move` y `thread::spawn`.
 
@@ -185,16 +188,15 @@ argumentos: no estamos usando ningún dato del hilo principal en el código del
 hilo creado. Para usar datos del hilo principal en el hilo creado, el closure
 del hilo creado debe capturar los valores que necesita. El Listado 16-3 muestra
 un intento de crear un vector en el hilo principal y usarlo en el hilo creado.
-Sin embargo, esto aún no funcionará, como verás en un momento.
+Sin embargo, esto aún no funcionará aún, como verás en un momento.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-3" file-name="src/main.rs" caption="Intentando usar un vector creado por el hilo principal en otro hilo">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-03/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-3: Intentando usar un vector creado por el hilo
-principal en otro hilo</span>
+</Listing>
 
 El closure usa `v`, por lo que capturará `v` y lo hará parte del entorno del
 closure. Debido a que `thread::spawn` ejecuta este closure en un nuevo hilo,
@@ -213,14 +215,13 @@ que no sabe si la referencia a `v` siempre será válida.
 El Listado 16-4 proporciona un escenario que es más probable que tenga una
 referencia a `v` que no sea válida:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-4" file-name="src/main.rs" caption="Un hilo con un closure que intenta capturar una referencia a `v` desde un hilo principal que deja de tener `v`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-04/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-4: Un hilo con un closure que intenta capturar
-una referencia a `v` desde un hilo principal que deja de tener `v`</span>
+</Listing>
 
 Si Rust nos permitiera ejecutar este código, existe la posibilidad de que el
 hilo creado se ponga inmediatamente en segundo plano sin ejecutarse en absoluto.
@@ -246,16 +247,16 @@ help: to force the closure to take ownership of `v` (and any other referenced va
 Al agregar la keyword `move` antes del closure, forzamos al closure a tomar
 ownership de los valores que está usando en lugar de permitir que Rust infiera
 que debería pedir prestado los valores. La modificación al Listado 16-3 que se
-muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos:
+muestra en el Listado 16-5 se compilará y ejecutará como lo pretendemos.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-5" file-name="src/main.rs" caption="Usando la keyword `move` para forzar a un closure a tomar ownership de los valores que utiliza">
+
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}
 ```
 
-<span class="caption">Listing 16-5: Usando la keyword `move` para forzar a un
-closure a tomar ownership de los valores que utiliza</span>
+</Listing>
 
 Podríamos sentir la tentación de intentar lo mismo para arreglar el código en el
 Listado 16-4 donde el hilo principal llamó a `drop` usando un closure `move`.
@@ -282,4 +283,4 @@ pedir prestado; no nos permite violar las reglas de ownership.
 Con una comprensión básica de los hilos y la API de hilos, veamos qué podemos
 _hacer_ con los hilos.
 
-[capture]: ch13-01-closures.html#capturando-referencias-o-moviendo-el-ownership
+[capture]: ch13-01-closures.html#capturing-the-environment-with-closures

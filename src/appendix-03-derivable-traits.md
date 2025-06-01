@@ -36,7 +36,7 @@ La lista de traits derivables proporcionada en este apéndice no es
 exhaustiva: las bibliotecas pueden implementar `derive` para sus propios
 traits, lo que hace que la lista de traits que puede usar `derive` sea
 realmente abierta. Implementar `derive` implica usar una macro procedural, que
-se cubre en la sección [“Macros”][macros]<!-- ignore --> del Capítulo 19.
+se cubre en la sección [“Macros”][macros]<!-- ignore --> del Capítulo 20.
 
 ### `Debug` para el Output del programador
 
@@ -192,4 +192,4 @@ el tipo `T` almacenado en el `Option<T>`.
 [creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update]: ch05-01-defining-structs.html#creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update
 [solo-datos-del-stack-copiar]: ch04-01-what-is-ownership.html#solo-datos-del-stack-copiar
 [ways-variables-and-data-interact-clone]: ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
-[macros]: ch19-06-macros.html#macros
+[macros]: ch20-05-macros.html#macros

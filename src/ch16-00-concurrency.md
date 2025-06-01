@@ -26,10 +26,10 @@ permite escribir código que no tiene errores sutiles y es fácil de refactoriza
 sin introducir nuevos bugs.
 
 > Nota: Para simplificar, nos referiremos a muchos de los problemas como
-> *concurrentes* en lugar de ser más precisos al decir *concurrentes y/o
-> paralelos*. Si este libro tratara sobre concurrencia y/o paralelismo, seríamos
-> más específicos. Para este capítulo, por favor sustituya mentalmente
-> *concurrente y/o paralelo* cada vez que usemos *concurrente*.
+> *concurrentes* en lugar de ser más precisos y decir *concurrentes y/o
+> paralelos*. Para este capítulo, por favor sustituye mentalmente concurrentes 
+> y/o paralelos cada vez que usemos concurrentes. En el próximo capítulo, donde 
+> la distinción es más importante, seremos más específicos.
 
 Muchos lenguajes son dogmáticos sobre las soluciones que ofrecen para manejar
 problemas concurrentes. Por ejemplo, Erlang tiene una funcionalidad elegante

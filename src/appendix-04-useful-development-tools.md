@@ -11,14 +11,12 @@ de la comunidad. Muchos proyectos colaborativos usan `rustfmt` para evitar
 discusiones sobre qué estilo usar al escribir Rust: todos formatean su código
 usando la herramienta.
 
-Para instalar `rustfmt`, ingrese lo siguiente:
-
-```console
-$ rustup component add rustfmt
-```
-
-Este comando le da `rustfmt` y `cargo-fmt`, similar a cómo Rust le da `rustc` y
-`cargo`. Para formatear cualquier proyecto de carga útil, ingrese lo siguiente:
+Las instalaciones de Rust incluyen `rustfmt` por defecto, así que ya deberías 
+tener los programas `rustfmt` y `cargo-fmt` en tu sistema. Estos dos comandos 
+son análogos a `rustc` y `cargo` en el sentido de que `rustfmt` permite un 
+control más detallado, mientras que `cargo-fmt` entiende las convenciones de un 
+proyecto que usa Cargo. Para formatear cualquier proyecto de Cargo, ingresa lo 
+siguiente:
 
 ```console
 $ cargo fmt
@@ -40,36 +38,33 @@ haya visto advertencias del compilador antes. Por ejemplo, considere este códig
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
-fn do_something() {}
-
 fn main() {
-    for i in 0..100 {
-        do_something();
-    }
+    let mut x = 42;
+    println!("{x}");
 }
 ```
 
-Aquí, estamos llamando a la función `do_something` 100 veces, pero nunca usamos
-la variable `i` en el cuerpo del bucle `for`. Rust nos advierte sobre eso:
+Aquí estamos definiendo la variable `x` como mutable, pero en realidad nunca la 
+modificamos.  
+Rust nos advierte sobre eso:
 
 ```console
 $ cargo build
    Compiling myprogram v0.1.0 (file:///projects/myprogram)
-warning: unused variable: `i`
- --> src/main.rs:4:9
+warning: variable does not need to be mutable
+ --> src/main.rs:2:9
   |
-4 |     for i in 0..100 {
-  |         ^ help: consider using `_i` instead
+2 |     let mut x = 0;
+  |         ----^
+  |         |
+  |         help: remove this `mut`
   |
-  = note: #[warn(unused_variables)] on by default
-
-    Finished dev [unoptimized + debuginfo] target(s) in 0.50s
+  = note: `#[warn(unused_mut)]` on by default
 ```
 
-Esta advertencia sugiere que usemos `_i` como nombre en su lugar: el guión bajo
-indica que pretendemos que esta variable no se use. Podemos aplicar
-automáticamente esa sugerencia usando la herramienta `rustfix` ejecutando el
-comando `cargo fix`:
+Esta advertencia sugiere que eliminemos la palabra clave `mut`.
+Podemos aplicar automáticamente esa sugerencia usando la herramienta `rustfix` 
+ejecutando el comando `cargo fix`:
 
 ```console
 $ cargo fix
@@ -84,16 +79,13 @@ código:
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
-fn do_something() {}
-
 fn main() {
-    for _i in 0..100 {
-        do_something();
-    }
+    let x = 42;
+    println!("{x}");
 }
 ```
 
-La variable del bucle `for` ahora se llama `_i`, y la advertencia ya no aparece.
+La variable `x` ahora es inmutable, y la advertencia ya no aparece.
 
 También puede usar `cargo fix` para transformar su código entre diferentes
 ediciones de Rust. Las ediciones se tratan en el [Apéndice E][editions].
@@ -101,13 +93,8 @@ ediciones de Rust. Las ediciones se tratan en el [Apéndice E][editions].
 ### Más lints con Clippy
 
 La herramienta `clippy` es una colección de lints para analizar su código para
-que pueda detectar errores comunes y mejorar su código Rust.
-
-Para instalar `clippy`, ingrese lo siguiente:
-
-```console
-$ rustup component add clippy
-```
+que pueda detectar errores comunes y mejorar su código Rust. Clippy está 
+incluido en las instalaciones estándar de Rust.
 
 Para ejecutar los lints de Clippy en cualquier proyecto de carga útil, ingrese
 lo siguiente:
@@ -119,7 +106,7 @@ $ cargo clippy
 Por ejemplo, digamos que escribe un programa que usa una aproximación de una
 constante matemática, como pi, como lo hace este programa:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 fn main() {
@@ -128,6 +115,8 @@ fn main() {
     println!("the area of the circle is {}", x * r * r);
 }
 ```
+
+</Listing>
 
 Ejecutando `cargo clippy` en este proyecto resulta en este error:
 
@@ -148,7 +137,7 @@ y que su programa sería más correcto si usara la constante en su lugar. Luego
 cambiaría su código para usar la constante `PI`. El siguiente código no
 produce ningún error ni advertencia de Clippy:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 fn main() {
@@ -157,6 +146,8 @@ fn main() {
     println!("the area of the circle is {}", x * r * r);
 }
 ```
+
+</Listing>
 
 Para obtener más información sobre Clippy, consulte [su documentación][clippy].
 

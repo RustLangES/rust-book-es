@@ -15,13 +15,13 @@ Entonces, entre llaves, definimos los nombres y tipos de datos, que llamaremos
 _campos_. Por ejemplo, en el Listing 5-1 mostramos una definición de un struct
 que almacena información sobre una cuenta de usuario.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-1" file-name="src/main.rs" caption="Una definición de struct `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-01/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-1: Una definición de struct `User`</span>
+</Listing>
 
 Para usar un struct después de haberlo definido, creamos una _instancia_ de ese
 struct especificando valores concretos para cada uno de los campos. Creamos una
@@ -34,14 +34,13 @@ el tipo, y las instancias llenan esa plantilla con datos particulares para
 crear valores del tipo. Por ejemplo, podemos declarar un usuario en particular
 como se muestra en el Listing 5-2.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-2" file-name="src/main.rs" caption="Creando una instancia del struct `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-2: Creando una instancia del struct `User`
-</span>
+</Listing>
 
 Para acceder a un valor específico de un struct, usamos la notación de punto.
 Por ejemplo, para acceder a la dirección de correo electrónico de este usuario,
@@ -49,14 +48,13 @@ usamos `user1.email`. Si la instancia es mutable, podemos cambiar un valor
 asignando en un campo particular. El Listing 5-3 muestra cómo cambiar el valor
 en el campo `email` de una instancia mutable de `User`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-3" file-name="src/main.rs" caption="Cambiando el valor en el campo `email` de una instancia `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-3: Cambiando el valor en el campo `email` de una
-instancia `User`</span>
+</Listing>
 
 Nota que toda la instancia debe ser mutable; Rust no nos permite marcar solo
 ciertos campos como mutables. Como cualquier expresión, podemos construir una
@@ -68,14 +66,13 @@ Listing 5-4 muestra una función `build_user` que devuelve una instancia de
 `active` obtiene el valor de `true`, y el campo `sign_in_count` obtiene el
 valor de `1`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-4" file-name="src/main.rs" caption="Una función `build_user` que toma un email y username y devuelve una instancia `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-04/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-4: Una función `build_user` que toma un email
-y username y devuelve una instancia `User`</span>
+</Listing>
 
 Tiene sentido nombrar los parámetros de la función con el mismo nombre que los
 campos del struct, pero tener que repetir los nombres de los campos y
@@ -84,6 +81,7 @@ campos, repetir cada nombre sería aún más molesto. Afortunadamente, hay una
 conveniente forma abreviada.
 
 <!-- Old heading. Do not remove or links may break. -->
+
 
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
@@ -95,15 +93,13 @@ Field Init_ para reescribir `build_user` para que se comporte exactamente igual
 pero no tenga la repetición de `username` y `email`, como se muestra en el
 Listing 5-5.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-5" file-name="src/main.rs" caption="Una función `build_user` que usa field init abreviado porque los parámetros `username` e `email` tienen el mismo nombre que los campos del struct">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-05/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-5: Una función `build_user` que usa field init
-abreviado porque los parámetros `username` e `email` tienen el mismo nombre que
-los campos del struct</span>
+</Listing>
 
 Aquí, estamos creando una nueva instancia del struct `User`, que tiene un
 campo llamado `email`. Queremos establecer el valor del campo `email` en el
@@ -122,21 +118,20 @@ regularmente, sin la sintaxis de actualización. Establecemos un nuevo valor par
 `email`, pero de lo contrario usamos los mismos valores de `user1` que creamos
 en el Listing 5-2.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-6" file-name="src/main.rs" caption="Creando una nueva instancia `User` usando uno de los valores de `user1`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-06/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-6: Creando una nueva instancia `User` usando uno
-de los valores de `user1`</span>
+</Listing>
 
 Usando la sintaxis de struct update, podemos lograr el mismo efecto con menos
 código, como se muestra en el Listing 5-7. La sintaxis `..` especifica que los
 campos restantes que no se establecen explícitamente deben tener el mismo valor
 que los campos en la instancia dada.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="5-7" file-name="src/main.rs" caption="Usando una sintaxis de struct update para introducir un nuevo valor `email` para una instancia `User` pero para usar el resto de los valores de `user1`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-07/src/main.rs:here}}
@@ -145,6 +140,7 @@ que los campos en la instancia dada.
 <span class="caption">Listing 5-7: Usando una sintaxis de struct update para
 introducir un nuevo valor `email` para una instancia `User` pero para usar el
 resto de los valores de `user1`</span>
+</Listing>
 
 El código en el Listing 5-7 también crea una instancia en `user2` que tiene un
 valor diferente para `email` pero tiene los mismos valores para los campos
@@ -164,7 +160,8 @@ los valores de `active` y `sign_in_count` de `user1`, entonces `user1` todavía
 sería válido después de crear `user2`. Tanto `active` como `sign_in_count` son
 tipos que implementan la trait `Copy`, por lo que el comportamiento que
 discutimos en la sección [“Datos de pila: Copy”][copy]<!-- ignore --> se
-aplicaría.
+aplicaría. Nosotros podemos aún usar `user1.email` en este ejemplo, debido a que 
+el *valor no es movido*.
 
 ### Usando Structs de Tuplas sin Campos Nombrados para Crear Diferentes Tipos
 
@@ -180,11 +177,13 @@ Para definir un struct de tupla, comience con la palabra clave `struct` y el
 nombre del struct seguido por los tipos en la tupla. Por ejemplo, aquí
 definimos y usamos dos structs de tupla llamados `Color` y `Point`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-01-tuple-structs/src/main.rs}}
 ```
+
+</Listing>
 
 Nota que los valores `black` y `origin` son diferentes tipos porque son
 instancias de diferentes structs de tupla. Cada struct que defina es su propio
@@ -194,6 +193,9 @@ ejemplo, una función que toma un parámetro de tipo `Color` no puede tomar un
 valores `i32`. De lo contrario, las instancias de structs de tupla son
 similares a las tuplas en que puede descomponerlas en sus piezas individuales,
 y puede usar un `.` seguido por el índice para acceder a un valor individual.
+A diferencia de las tuplas, las estructuras de tuplas requieren que nombre del 
+tipo de estructura cuando las desestructuras. Por ejemplo, escribiríamos 
+`let Punto(x, y, z) = punto`.
 
 ### Structs de Unidad sin Campos
 
@@ -205,11 +207,13 @@ trait en algún tipo, pero no tiene datos que desea almacenar en el tipo
 propio. Discutiremos los traits en el Capítulo 10. Aquí hay un ejemplo de
 declarar e instanciar un struct de unidad llamado `AlwaysEqual`:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-04-unit-like-structs/src/main.rs}}
 ```
+
+</Listing>
 
 Para definir `AlwaysEqual`, usamos la palabra clave `struct`, el nombre que
 queremos y luego un punto y coma. ¡No se necesitan llaves ni paréntesis! Luego
@@ -238,7 +242,7 @@ tipo, incluidos los structs de unidad.
 > referencia en un struct sin especificar lifetimes, como el siguiente; esto
 > no funcionará:
 >
-> <span class="filename">Filename: src/main.rs</span>
+> <Listing file-name="src/main.rs">
 >
 > <!-- CAN'T EXTRACT SEE https://github.com/rust-lang/mdBook/issues/1127 -->
 >
@@ -259,6 +263,8 @@ tipo, incluidos los structs de unidad.
 >     };
 > }
 > ```
+>
+> </Listing>
 >
 > El compilador se quejará de que necesita especificadores de lifetime:
 >

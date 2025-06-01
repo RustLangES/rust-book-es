@@ -26,12 +26,13 @@ Una forma de crear un hash map vacío es usar `new` y agregar elementos con
 puntuaciones de dos equipos cuyos nombres son _Blue_ y _Yellow_. El equipo
 Blue comienza con 10 puntos y el equipo Yellow comienza con 50.
 
+<Listing number="8-20" caption="Creando un nuevo hash map e insertando algunas claves y valores">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-20/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-20: Creando un nuevo hash map e insertando
-algunas claves y valores</span>
+</Listing>
 
 Ten en cuenta que es importante importar primero el módulo `HashMap` de la
 biblioteca estándar de colecciones. De nuestras tres colecciones comunes,
@@ -50,12 +51,13 @@ tipo entre sí y todos los valores deben tener el mismo tipo.
 Podemos obtener un valor de un hash map proporcionando su clave al método `get`
 como se muestra en el listado 8-21.
 
+<Listing number="8-21" caption="Acceso al puntaje para el equipo Blue almacenado en el hash map">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-21/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-21: Acceso al puntaje para el equipo Blue
-almacenado en el hash map</span>
+</Listing>
 
 Aquí, `score` tendrá el valor que está asociado con el equipo Blue, y el
 resultado será `10`. El método `get` devuelve un `Option<&V>`; si no hay un
@@ -85,12 +87,13 @@ copian en el hash map. Para valores de propiedad como `String`, los valores se
 moverán y el hash map será el propietario de esos valores, como se demuestra
 en el listado 8-22.
 
+<Listing number="8-22" caption="Mostrando que claves y valores son propiedad del hash map una vez que se insertan">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-22/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-22: Mostrando que claves y valores son propiedad
-del hash map una vez que se insertan</span>
+</Listing>
 
 No podemos usar `field_name` y `field_value` después de que se hayan movido al
 hash map con la llamada a `insert`.
@@ -124,17 +127,19 @@ Aunque el código en el listado 8-23 llama a `insert` dos veces, el hash map
 solo contendrá un par clave-valor porque estamos insertando el valor para la clave
 del equipo Blue dos veces.
 
+<Listing number="8-23" caption="Reemplazando un valor almacenado con una clave en particular">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-23/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-23: Reemplazando un valor almacenado con una
-clave en particular</span>
+</Listing>
 
 Este código imprimirá `{"Blue": 25}`. El valor original de `10` ha sido
 sobrescrito.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 
 <a id="only-inserting-a-value-if-the-key-has-no-value"></a>
 
@@ -152,12 +157,13 @@ que queremos verificar si la clave para el equipo Yellow tiene un valor
 asociado. Si no lo tiene, queremos insertar el valor `50`, y lo mismo para el
 equipo Blue. Usando la API `entry`, el código se ve como el listado 8-24.
 
+<Listing number="8-24" caption="Usando el método `entry` para insertar solo si la clave aún no tiene un valor">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-24/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-24: Usando el método `entry` para insertar solo
-si la clave aún no tiene un valor</span>
+</Listing>
 
 El método `or_insert` en `Entry` está definido para devolver una referencia
 mutable al valor correspondiente a la clave `Entry` si esa clave existe, y si no,
@@ -180,12 +186,13 @@ Usamos un hash map con las palabras como claves y aumentamos el valor para
 mantener un recuento de cuántas veces hemos visto esa palabra. Si es la primera
 vez que vemos una palabra, primero insertaremos el valor `0`.
 
+<Listing number="8-25" caption="Contando ocurrencias de palabras usando un hash map que almacena palabras y cuenta">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-25/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 8-25: Contando ocurrencias de palabras usando un
-hash map que almacena palabras y cuenta</span>
+</Listing>
 
 Este código imprimirá `{"world": 2, "hello": 1, "wonderful": 1}`. Es posible
 que veas los mismos pares clave-valor en un orden diferente: recuerda la sección

@@ -10,11 +10,11 @@ Borrowing"][references-and-borrowing]<!-- ignore --> en el Capítulo 4 es que
 cada referencia en Rust tiene un _lifetime_, que es el scope para el que esa
 referencia es válida. La mayoría de las veces, los lifetimes son implícitos e
 inferidos, al igual que la mayoría de las veces, los tipos se infieren.
-Solo debemos anotar los tipos cuando son posibles varios tipos. De manera
-similar, debemos anotar los lifetimes cuando los lifetimes de las referencias
-podrían estar relacionados de algunas maneras diferentes. Rust nos obliga a
-anotar las relaciones usando parámetros genéricos de lifetime para garantizar
-que las referencias reales utilizadas en tiempo de ejecución sean
+Nosotros debemos anotar los tipos solo cuando son posibles varios tipos. De 
+manera similar, debemos anotar los lifetimes cuando los lifetimes de las 
+referencias podrían estar relacionados de algunas maneras diferentes. Rust nos 
+obliga a anotar las relaciones usando parámetros genéricos de lifetime para 
+garantizar que las referencias reales utilizadas en tiempo de ejecución sean
 definitivamente válidas.
 
 Anotar lifetimes no es ni siquiera un concepto que la mayoría de los otros
@@ -30,12 +30,13 @@ que hacen que un programa haga referencia a datos que no son los que se
 pretende referenciar. Considere el programa en el listado 10-16, que tiene un
 scope externo y un scope interno.
 
+<Listing number="10-16" caption="Un intento de usar una referencia cuyo valor ha quedado fuera del scope">
+
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-16: Un intento de usar una referencia cuyo
-valor ha quedado fuera del scope</span>
+</Listing>
 
 > Nota: Los ejemplos en los Listados 10-16, 10-17 y 10-23 declaran variables
 > sin darles un valor inicial, por lo que el nombre de la variable existe en el
@@ -45,7 +46,7 @@ valor ha quedado fuera del scope</span>
 > compilación, lo que muestra que Rust de hecho no permite valores nulos.
 
 El scope externo declara una variable llamada `r` sin valor inicial, y el scope
-interno declara una variable llamada `x` con el valor inicial de 5. Dentro del
+interno declara una variable llamada `x` con el valor inicial de `5`. Dentro del
 scope interno, intentamos establecer el valor de `r` como una referencia a `x`.
 Luego, el scope interno termina, e intentamos imprimir el valor en `r`. Este
 código no se compilará porque el valor al que se refiere `r` ha quedado fuera
@@ -55,13 +56,14 @@ del scope antes de que intentemos usarlo. Aquí está el mensaje de error:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/output.txt}}
 ```
 
-La variable `x` no “vive lo suficiente”. La razón es que `x` estará fuera del
-scope cuando el scope interno termine en la línea 7. Pero `r` todavía es
-válido para el scope externo; porque su scope es más grande, decimos que
-“vive más tiempo”. Si Rust permitiera que este código funcionara, `r` estaría
-referenciando memoria que se desasignó cuando `x` quedó fuera del scope, y
-cualquier cosa que intentemos hacer con `r` no funcionaría correctamente. ¿Cómo
-determina Rust que este código es inválido? Utiliza el _borrow checker_.
+El mensaje de error dice que la variable `x` no “vive lo suficiente”. La razón 
+es que `x` estará fuera del scope cuando el scope interno termine en la línea 7. 
+Pero `r` todavía es válido para el scope externo; porque su scope es más grande, 
+decimos que “vive más tiempo”. Si Rust permitiera que este código funcionara, 
+`r` estaría referenciando memoria que se desasignó cuando `x` quedó fuera del 
+scope, y cualquier cosa que intentemos hacer con `r` no funcionaría 
+correctamente. ¿Cómo determina Rust que este código es inválido? Utiliza el 
+_borrow checker_.
 
 ### El Borrow Checker
 
@@ -70,12 +72,13 @@ determinar si todos los _borrows_ son válidos. El listado 10-17 muestra el
 mismo código que el listado 10-16, pero con anotaciones que muestran los
 lifetimes de las variables.
 
+<Listing number="10-17" caption="Anotaciones de los lifetimes de `r` y `x`, denominados `'a` y `'b`, respectivamente">
+
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-17: Anotaciones de los lifetimes de `r` y
-`x`, denominados `'a` y `'b`, respectivamente</span>
+</Listing>
 
 Aquí, hemos anotado el lifetime de `r` con `'a` y el lifetime de `x` con `'b`.
 Como puede ver, el bloque interno `'b` es mucho más pequeño que el bloque
@@ -87,12 +90,13 @@ corto que `'a`: el sujeto de la referencia no vive tanto como la referencia.
 El listado 10-18 corrige el código para que no tenga una referencia pendiente y
 se compile sin errores.
 
+<Listing number="10-18" caption="Una referencia válida porque los datos tienen un lifetime más largo que la referencia">
+
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-18/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-18: Una referencia válida porque los datos
-tienen un lifetime más largo que la referencia</span>
+</Listing>
 
 Aquí, `x` tiene el lifetime `'b` que en este caso es más grande que `'a`. Esto
 significa que `r` puede hacer referencia a `x` porque Rust sabe que la
@@ -110,14 +114,13 @@ Esta función tomará dos _string slices_ y devolverá un solo _string slice_.
 Después de haber implementado la función `longest`, el código en el listado
 10-19 debería imprimir `The longest string is abcd`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-19" file-name="src/main.rs" caption="Una función `main` que llama a la función `longest` para encontrar el más largo de dos string slices">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-19/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-19: Una función `main` que llama a la
-función `longest` para encontrar el más largo de dos string slices</span>
+</Listing>
 
 Ten en cuenta que queremos que la función tome _string slices_, que son
 referencias, en lugar de _strings_, porque no queremos que la función `longest`
@@ -129,14 +132,13 @@ obtener más información sobre por qué los parámetros que usamos en el listad
 Si intentamos implementar la función `longest` como se muestra en el listado
 10-20, no se compilará.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-20" file-name="src/main.rs" caption="Una implementación de la función `longest` que devuelve el más largo de dos string slices pero aún no compila">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-20/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-20: Una implementación de la función `longest`
-que devuelve el más largo de dos string slices pero aún no compila</span>
+</Listing>
 
 En su lugar, obtenemos el siguiente error que habla sobre lifetimes:
 
@@ -207,15 +209,13 @@ entre los lifetimes de los parámetros y el valor de retorno. Nombraremos al
 lifetime `'a` y luego lo agregaremos a cada referencia, como se muestra en el
 listado 10-21.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-21" file-name="src/main.rs" caption="La definición de la función `longest` que especifica que todas las referencias en la firma deben tener el mismo lifetime `'a`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-21: La definición de la función `longest`
-que especifica que todas las referencias en la firma deben tener el mismo
-lifetime `'a`</span>
+</Listing>
 
 Este código debe compilar y producir el resultado que queremos cuando lo
 usamos con la función `main` en el listado 10-19.
@@ -261,14 +261,13 @@ Veamos cómo las anotaciones de los lifetimes restringen la función `longest`
 pasando referencias que tienen diferentes lifetimes concretos. El listado
 10-22 es un ejemplo sencillo.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-22" file-name="src/main.rs" caption="Usando la función `longest` con referencias a valores `String` que tienen diferentes lifetimes concretos">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-22/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-22: Usando la función `longest` con referencias
-a valores `String` que tienen diferentes lifetimes concretos</span>
+</Listing>
 
 En este ejemplo, `string1` es válida hasta el final del scope externo, `string2`
 es válida hasta el final del scope interno, y `result` referencia algo que es
@@ -284,14 +283,13 @@ moveremos la llamada a `println!` que usa `result` fuera del scope interno,
 después de que el scope interno haya terminado. El código del listado 10-23 no
 compilará.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-23" file-name="src/main.rs" caption="Intentando utilizar `result` después de que `string2` haya quedado fuera del scope">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-23: Intentando utilizar `result` después de que
-`string2` haya quedado fuera del scope</span>
+</Listing>
 
 Cuando intentamos compilar este código, obtenemos este error:
 
@@ -305,7 +303,7 @@ Rust sabe esto porque anotamos los lifetimes de los parámetros de la función y
 los valores de retorno usando el mismo parámetro de lifetime `'a`.
 
 Como humanos, podemos mirar este código y ver que `string1` es más larga que
-`string2` y por lo tanto `result` contendrá una referencia a `string1`. Debido a
+`string2`, y por lo tanto, `result` contendrá una referencia a `string1`. Debido a
 que `string1` aún no ha quedado fuera del scope, una referencia a `string1`
 todavía será válida para la instrucción `println!`. Sin embargo, el compilador
 no puede ver que la referencia sea válida en este caso. Le hemos dicho a Rust
@@ -327,11 +325,13 @@ de la función `longest` para que siempre devuelva el primer parámetro en lugar
 de la referencia a la cadena más larga, no necesitaríamos especificar un
 lifetime en el parámetro `y`. El siguiente código compilará:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-08-only-one-reference-with-lifetime/src/main.rs:here}}
 ```
+
+</Listing>
 
 Hemos especificado un parámetro de lifetime `'a` para el parámetro `x` y el tipo
 de retorno, pero no para el parámetro `y` porque el lifetime de `y` no tiene
@@ -345,11 +345,13 @@ una referencia colgante porque el valor quedará fuera del scope al final de la
 función. Considera esta implementación intentada de la función `longest` que no
 se compilará:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/src/main.rs:here}}
 ```
+
+</Listing>
 
 Aquí, aunque hemos especificado un parámetro de lifetime `'a` para el tipo de
 retorno, esta implementación no se compilará porque el lifetime del valor
@@ -382,14 +384,13 @@ agregar una anotación de lifetime en cada referencia en la definición del
 struct. El listado 10-24 tiene un struct llamado `ImportantExcerpt` que contiene
 una string slice.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="10-24" file-name="src/main.rs" caption="Un struct que contiene una referencia, lo que requiere una annotation de lifetime">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/src/main.rs}}
 ```
 
-<span class="caption">Listado 10-24: Un struct que contiene una referencia,
-lo que requiere una annotation de lifetime</span>
+</Listing>
 
 Este struct tiene el campo `part` que contiene un string slice, que es una
 referencia. Como con los tipos de datos generics, declaramos el nombre del
@@ -413,15 +414,13 @@ parámetros de lifetime para las funciones o structs que usan referencias. Sin
 embargo, en el Capítulo 4, tuvimos una función en el listado 4-9, que se muestra
 nuevamente en el listado 10-25, que se compiló sin anotaciones de lifetime.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="10-25" file-name="src/lib.rs" caption="Una función que definimos en el listado 4-9 que compiló sin anotaciones de lifetime, a pesar de que el parámetro y el tipo de retorno son referencias">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-25/src/main.rs:here}}
 ```
 
-<span class="caption">Listado 10-25: Una función que definimos en el listado 4-9
-que compiló sin anotaciones de lifetime, a pesar de que el parámetro y el tipo
-de retorno son referencias</span>
+</Listing>
 
 La razón por la que esta función se compila sin anotaciones de lifetime es
 histórica: en las primeras versiones (pre-1.0) de Rust, este código no se
@@ -637,7 +636,7 @@ flexible no tendrá referencias colgantes. ¡Y todo este análisis ocurre en tie
 de compilación, lo que no afecta el rendimiento en tiempo de ejecución!
 
 Aunque no lo creas, hay mucho más que aprender sobre los temas que discutimos en
-este capítulo: el Capítulo 17 discute los trait objects, que son otra forma de
+este capítulo: el Capítulo 18 discute los trait objects, que son otra forma de
 usar traits. También hay escenarios más complejos que involucran anotaciones de
 lifetime que solo necesitarás en escenarios muy avanzados; para esos, debes leer
 la [Referencia de Rust][reference]. Pero a continuación, aprenderás cómo

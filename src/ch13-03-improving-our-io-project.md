@@ -11,16 +11,15 @@ En el Listado 12-6, agregamos código que tomó un slice de valores `String` y
 creó una instancia del struct `Config` indexando en el slice y clonando
 los valores, permitiendo que el struct `Config` posea esos valores. En el
 Listado 13-17, hemos reproducido la implementación de la función `Config::build`
-tal como estaba en el Listado 12-23:
+tal como estaba en el Listado 12-23.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-17" file-name="src/lib.rs" caption="Reproducción de la función `Config::build` del Listing 12-23">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch13-functional-features/listing-12-23-reproduced/src/lib.rs:ch13}}
 ```
 
-<span class="caption">Listing 13-17: Reproducción de la función `Config::build`
-del Listing 12-23</span>
+</Listing>
 
 En ese momento, dijimos que no nos preocupáramos por las llamadas ineficientes
 a `clone` porque las eliminaríamos en el futuro. ¡Bueno, ese momento es ahora!
@@ -57,14 +56,13 @@ Primero cambiaremos el inicio de la función `main` que teníamos en el Listado
 12-24 al código del Listado 13-18, el cual esta vez usa un iterator. Esto no
 compilará hasta que actualicemos `Config::build` también.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="13-18" file-name="src/main.rs" caption="Pasando el valor de retorno de `env::args` a `Config::build`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-18/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 13-18: Pasando el valor de retorno de `env::args`
-a `Config::build`</span>
+</Listing>
 
 ¡La función `env::args` retorna un iterator! En lugar de recolectar los valores
 del iterator en un vector y luego pasar un slice a `Config::build`, ahora
@@ -76,14 +74,13 @@ _src/lib.rs_ de tu proyecto I/O, cambiemos la firma de `Config::build` para que
 se vea como el Listado 13-19. Esto aún no compilará porque necesitamos
 actualizar el cuerpo de la función.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-19" file-name="src/lib.rs" caption="Actualizando la firma de `Config::build` para esperar un iterator">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 13-19: Actualizando la firma de `Config::build`
-para esperar un iterator</span>
+</Listing>
 
 La documentación de la biblioteca estándar para la función `env::args` muestra
 que el tipo del iterator que retorna es `std::env::Args`, y que ese tipo
@@ -106,16 +103,15 @@ parámetro `args` para hacerlo mutable.
 
 Luego, necesitamos actualizar el cuerpo de `Config::build` para usar los
 métodos del trait `Iterator` en lugar de indexar en el slice. En el Listado
-13-20 hemos actualizado el código del Listado 12-23 para usar el método `next`:
+13-20 hemos actualizado el código del Listado 12-23 para usar el método `next`.
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-20" file-name="src/lib.rs" caption="Cambiando el cuerpo de `Config::build` para usar métodos de iterator">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 13-20: Cambiando el cuerpo de `Config::build` para
-usar métodos de iterators</span>
+</Listing>
 
 Recuerda que el primer valor en el valor de retorno de `env::args` es el nombre
 del programa. Queremos ignorar eso y llegar al siguiente valor, así que
@@ -126,20 +122,19 @@ valor. Si retorna `None`, significa que no se dieron suficientes argumentos y
 retornamos temprano con un valor `Err`. Hacemos lo mismo para el valor
 `file_path`.
 
-### Haciendo el código más claro con iterator adaptors
+### Haciendo el código más claro con iterator adapters
 
 También podemos aprovechar los iterators en la función `search` de nuestro
 proyecto I/O, el cual se reproduce aquí en el Listado 13-21 como estaba en el
 Listado 12-19:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-21" file-name="src/lib.rs" caption="La implementación de la función `search` del Listing 12-19">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-19/src/lib.rs:ch13}}
 ```
 
-<span class="caption">Listing 13-21: La implementación de la función `search`
-del Listing 12-19</span>
+</Listing>
 
 Podemos escribir este código de una manera más concisa usando los métodos
 adaptor del iterator. Hacerlo también nos permite evitar tener un vector
@@ -149,14 +144,13 @@ el estado mutable podría permitir una mejora futura para hacer que la búsqueda
 ocurra en paralelo, porque no tendríamos que manejar el acceso concurrente al
 vector `results`. El Listado 13-22 muestra este cambio:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="13-22" file-name="src/lib.rs" caption="Utilizando método iterator adaptor en la implementación de la función `search`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-22/src/lib.rs:here}}
 ```
 
-<span class="caption">Listing 13-22: Utilizando método iterator adaptor en la
-implementación de la función `search`</span>
+</Listing>
 
 Recuerda que el propósito de la función `search` es retornar todas las líneas
 en `contents` que contengan `query`. Similar al ejemplo de `filter` en el
