@@ -42,12 +42,12 @@ que son privados y los nombres que están en cada ámbito en tus programas. Esta
 características, a veces denominadas colectivamente _sistema de módulos_,
 incluyen:
 
-- **Paquetes:** Una característica de Cargo que te permite construir, probar y
+- **Paquetes**: Una característica de Cargo que te permite construir, probar y
   compartir _crates_
-- **Crates:** Un árbol de módulos que produce una biblioteca o ejecutable
-- **Módulos** y **use:** Te permiten controlar la organización, el ámbito y
+- **Crates**: Un árbol de módulos que produce una biblioteca o ejecutable
+- **Módulos y use**: Te permiten controlar la organización, el ámbito y
   la privacidad de las rutas
-- **Rutas:** Una forma de nombrar un elemento, como una estructura, función o
+- **Rutas**: Una forma de nombrar un elemento, como una estructura, función o
   módulo
 
 En este capítulo, cubriremos todas estas características, discutiremos cómo

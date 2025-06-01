@@ -1,15 +1,18 @@
 ## Rutas para referirse a un elemento en el árbol de módulos
 
 Para mostrarle a Rust dónde encontrar un item en el árbol de módulos, usamos una
-ruta de la misma manera que usamos una ruta cuando navegamos en un sistema de archivos.
-Para llamar a una función, necesitamos saber su ruta.
+ruta de la misma manera que usamos una ruta cuando navegamos en un sistema de 
+archivos. Para llamar a una función, necesitamos saber su ruta.
 
 Una ruta puede tomar dos formas:
 
-- Una _ruta absoluta_ es la ruta completa que comienza desde la raíz de un `crate`; para el código de un `crate` externo, la ruta absoluta comienza con el nombre del `crate`, y para el código del crate actual, comienza con el `crate` literal.
+- Una _ruta absoluta_ es la ruta completa que comienza desde la raíz de un 
+  `crate`; para el código de un `crate` externo, la ruta absoluta comienza con 
+  el nombre del `crate`, y para el código del crate actual, comienza con el 
+  `crate` literal.
 
-- Una _ruta relativa_ comienza desde el módulo actual y utiliza `self`, `super`, o un
-  identificador del módulo actual.
+- Una _ruta relativa_ comienza desde el módulo actual y utiliza `self`, `super`, 
+  o un identificador del módulo actual.
 
 Tanto las rutas absolutas como las relativas están seguidas por uno o más
 identificadores separados por dos puntos dobles (`::`).
@@ -207,13 +210,14 @@ Guidelines][api-guidelines].
 
 ### Comenzando rutas relativas con `super`
 
-Podemos construir rutas relativas que comiencen en el módulo padre, en lugar de en el módulo actual o en la raíz del `crate`,
-usando `super` al comienzo de la ruta. Esto es
-como comenzar una ruta del sistema de archivos con la sintaxis `..`. Usar `super`
-nos permite hacer referencia a un item que sabemos que está en el módulo padre,
-lo que puede facilitar la reorganización del árbol de módulos cuando el módulo
-está estrechamente relacionado con el padre, pero el padre podría moverse a
-otro lugar en el árbol de módulos algún día.
+Podemos construir rutas relativas que comiencen en el módulo padre, en lugar de 
+en el módulo actual o en la raíz del `crate`, usando `super` al comienzo de la 
+ruta. Esto es como comenzar una ruta del sistema de archivos con la sintaxis 
+`..`, eso significa ir al directorio padre. Usar `super` nos permite hacer 
+referencia a un item que sabemos que está en el módulo padre, lo que puede 
+facilitar la reorganización del árbol de módulos cuando el módulo está 
+estrechamente relacionado con el padre, pero el padre podría moverse a otro 
+lugar en el árbol de módulos algún día.
 
 Considere el código en el listado 7-8 que modela la situación en la que un chef
 arregla un pedido incorrecto y lo trae personalmente al cliente. La función

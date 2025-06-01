@@ -24,12 +24,14 @@ y cómo nos permite trabajar con referencias o smart pointers.
 > se almacenan los datos es menos importante que el comportamiento similar al
 > de un puntero.
 
-<!-- Old link, do not remove -->
+<!-- Old links, do not remove -->
 
 
 <a id="following-the-pointer-to-the-value-with-the-dereference-operator"></a>
+<a id="following-the-pointer-to-the-value"></a>
+<a id="siguiendo-el-puntero-al-valor"></a>
 
-### Siguiendo el puntero al valor
+### Siguiendo la Referencia al valor
 
 Una referencia regular es un tipo de puntero, y una forma de pensar en un
 puntero es como una flecha a un valor almacenado en otro lugar. En el Listado

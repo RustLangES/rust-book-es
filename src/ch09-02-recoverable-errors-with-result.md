@@ -315,7 +315,7 @@ arriba para que la maneje apropiadamente.
 Este patrón de propagación de errores es tan común en Rust que Rust proporciona
 el operador de interrogación `?` para hacer esto más fácil.
 
-#### Un atajo para propagar errores: el operador `?`
+#### Un atajo para propagar errores: El operador `?`
 
 El listado 9-7 muestra una implementación de `read_username_from_file` que tiene
 la misma funcionalidad que en el Listado 9-6, pero esta implementación utiliza

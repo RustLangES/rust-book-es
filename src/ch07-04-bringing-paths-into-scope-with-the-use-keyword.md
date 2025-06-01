@@ -298,7 +298,10 @@ Esta sentencia `use` trae todos los elementos públicos definidos en
 `std::collections` al ámbito actual. Tenga cuidado al utilizar el operador 
 `glob`. El operador `glob` puede hacer más difícil saber qué elementos están en 
 el ámbito y dónde se definió un elemento que este siendo utilizado en su 
-programa.
+programa. Además, si la dependencia cambia sus definiciones, lo que has 
+importado también cambia, lo que puede provocar errores de compilación cuando 
+actualices la dependencia, por ejemplo, si la dependencia añade una definición 
+con el mismo nombre que una definición tuya en el mismo ámbito.
 
 El operador glob se utiliza a menudo cuando se realizan pruebas para llevar todo 
 lo que se está probando al módulo de `pruebas`; hablaremos de ello en la sección 
