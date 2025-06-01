@@ -188,9 +188,10 @@ solo creará una instancia de `Guess` si la función `new` recibe un valor entre
 
 </Listing>
 
-Primero, creamos un nuevo modulo llamado `guessing_game`. Luego definimos un 
-struct en este modulo llamado `Guess` que tiene un campo llamado `value` que 
-contiene un `i32`. 
+Ten en cuenta que este código en *src/guessing_game.rs* depende de agregar una 
+declaración de modulo `mod guessing_game;` en *src/lib.rs*, la cual no hemos 
+mostrado aquí. Con este nuevo archivo de modulo, definimos un struct en el 
+modulo llamado `Guess` que tiene un campo llamado `value` que contiene un `i32`.
 Aquí es donde se almacenará el número.
 
 Luego implementamos una función asociada llamada `new` en `Guess` que crea

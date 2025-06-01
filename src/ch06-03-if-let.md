@@ -38,7 +38,8 @@ valor coincide con el patrón.
 
 Usar `if let` significa menos escritura, menos indentación y menos código 
 repetitivo. Sin embargo, pierdes la verificación exhaustiva que hace cumplir
-`match`. Elegir entre `match` e `if let` depende de lo que estés haciendo en tu
+`match`, la cual asegura que no estas olvidando manejar ningún caso. Elegir 
+entre `match` e `if let` depende de lo que estés haciendo en tu
 situación particular y de si ser más conciso a cambio de la verificación 
 exhaustiva es un intercambio adecuado.
 
@@ -125,6 +126,10 @@ diferente para dos ramas de la manera en que lo hizo el `if let`.
 ```
 
 </Listing>
+
+Observa que de esta manera se mantiene "en el camino feliz" en el cuerpo 
+principal de la función, sin tener un flujo de control significativamente 
+diferente para las dos ramas, como sí ocurría con el uso de `if let`.
 
 Si se encuentra en una situación en la cual tu programa tiene lógica que es
 demasiado verbosa para expresar usando un `match`, recuerda que `if let` y 

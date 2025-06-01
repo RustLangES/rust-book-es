@@ -190,8 +190,7 @@ código en el listado 8-8 agregará `50` a cada elemento en un vector.
 Para cambiar el valor al que se refiere la referencia mutable, tenemos que usar
 el operador de desreferencia `*` para llegar al valor en `i` antes de poder
 usar el operador `+=`. Hablaremos más sobre el operador de desreferencia en la
-sección [“Siguiendo el puntero al valor con el operador de
-desreferencia”][deref]<!-- ignore --> del Capítulo 15.
+sección [“Siguiendo la Referencia al valor”][deref]<!-- ignore --> del Capítulo 15.
 
 Iterando sobre un vector, ya sea inmutable o mutable, es seguro debido a las
 reglas del borrow checker. Si intentáramos insertar o eliminar elementos en los

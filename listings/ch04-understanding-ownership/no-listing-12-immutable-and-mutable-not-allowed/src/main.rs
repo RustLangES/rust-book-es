@@ -6,6 +6,6 @@ fn main() {
     let r2 = &s; // no hay problema
     let r3 = &mut s; // ¡ UN GRAN PROBLEMA !
 
-    println!("{}, {}, y {}", r1, r2, r3);
+    println!("{r1}, {r2}, y {r3}");
     // ANCHOR_END: here
 }

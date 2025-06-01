@@ -360,11 +360,15 @@ en el Listado 3-5.
 Cuando ejecutamos este código, veremos la misma salida que en el Listado 3-4.
 Lo más importante es que ahora hemos aumentado la seguridad del código y
 eliminado la posibilidad de errores que podrían deberse a ir más allá del final
-del arreglo o no ir lo suficientemente lejos y perder algunos elementos.
+del arreglo o no ir lo suficientemente lejos y perder algunos elementos. El 
+código máquina generado a partir de los bucles `for` también puede ser más 
+eficiente, porque no es necesario comparar el índice con la longitud del arreglo 
+en cada iteración.
+
 
 Usando el bucle `for`, no necesitaría recordar cambiar cualquier otro código si
-cambiara el número de valores en el arreglo, como lo haría con el método usado en
-el Listado 3-4.
+cambiara el número de valores en el arreglo, como lo haría con el método usado 
+en el Listado 3-4.
 
 La seguridad y concisión de los bucles `for` los convierten en la
 estructura de bucle más utilizada en Rust. Incluso en situaciones en las que

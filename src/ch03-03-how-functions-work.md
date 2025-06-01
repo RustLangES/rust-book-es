@@ -110,9 +110,11 @@ es una distinción importante de entender. Otros lenguajes no tienen las mismas
 distinciones, así que veamos qué son las sentencias y las expresiones y cómo
 sus diferencias afectan a los cuerpos de las funciones.
 
-- **Sentencias** son instrucciones que realizan alguna acción y no devuelven un
+- Sentencias son instrucciones que realizan alguna acción y no devuelven un
   valor.
-- **Expresiones** evalúan a un valor resultante. Veamos algunos ejemplos.
+- Expresiones evalúan a un valor resultante.
+
+Veamos algunos ejemplos.
 
 Hemos usado realmente sentencias y expresiones. Crear una variable y asignarle
 un valor con la palabra clave `let` es una sentencia. En el Listado 3-1,

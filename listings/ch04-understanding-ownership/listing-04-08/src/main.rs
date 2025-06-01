@@ -18,7 +18,8 @@ fn main() {
 
     s.clear(); // esto "vacía" el String, dejando s igual a ""
 
-    // word aún tiene el valor 5 aquí, pero ya no hay un string para que
-    // usar el valor 5 tenga sentido, ¡word es totalmente invalida!
+    // word aún tiene el valor 5 aquí, pero s no tiene ningún contenido que
+    // podamos usar de manera significativa con el valor 5 tenga sentido
+    // ¡así que word ahora es totalmente inválido!
 }
 // ANCHOR_END: here
