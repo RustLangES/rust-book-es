@@ -475,7 +475,7 @@ _src/lib.rs_:
 - La definición de `Config`
 - La función `Config::build`
 
-El contenido de _src/main.rs_ debería tener la firma que se muestra en el
+El contenido de _src/lib.rs_ debería tener la firma que se muestra en el
 Listado 12-13 (omitimos los cuerpos de las funciones por brevedad). Ten en
 cuenta que esto no se compilará hasta que modifiquemos _src/main.rs_ en el
 Listado 12-14.
