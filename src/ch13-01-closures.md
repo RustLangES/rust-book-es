@@ -186,11 +186,11 @@ mismo closure.
 
 ### Capturando referencias o moviendo el ownership
 
-Los closures pueden valores desde su entorno de tres maneras, que se mapean
-directamente a las tres formas en que una función puede tomar un parámetro:
-borrowing inmutable, borrowing mutable y tomando ownership. El closure decidirá
-cuál de estos usar en función de lo que haga el cuerpo de la función con los
-valores capturados.
+Los closures pueden capturar valores desde su entorno de tres maneras, que se 
+mapean directamente a las tres formas en que una función puede tomar un 
+parámetro: borrowing inmutable, borrowing mutable y tomando ownership. El 
+closure decidirá cuál de estos usar en función de lo que haga el cuerpo de la 
+función con los valores capturados.
 
 En el Listado 13-4, definimos un closure que captura una referencia inmutable al
 vector `list` ya que solo necesita una referencia inmutable para imprimir el
