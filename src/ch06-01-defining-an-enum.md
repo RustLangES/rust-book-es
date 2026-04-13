@@ -267,8 +267,8 @@ de usar valores `Option` para contener tipos de números y tipos de strings:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-06-option-examples/src/main.rs:here}}
 ```
 
-El tipo de `some_number` es `Option<i32>`. El tipo de `some_string` es
-`Option<String>`, que es un tipo diferente. Rust puede inferir estos tipos
+El tipo de `some_number` es `Option<i32>`. El tipo de `some_char` es
+`Option<char>`, que es un tipo diferente. Rust puede inferir estos tipos
 porque hemos especificado un valor dentro de la variante `Some`. Para
 `absent_number`, Rust requiere que anotemos el tipo general `Option`: el
 compilador no puede inferir el tipo que tendrá la variante `Some` correspondiente
