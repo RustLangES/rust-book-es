@@ -38,7 +38,7 @@ binario para la herramienta de línea de comandos que has estado usando para
 compilar tu código. El paquete Cargo también contiene un crate de biblioteca en
 el que el crate binario depende. Otros proyectos pueden depender del crate de
 biblioteca Cargo para usar la misma lógica que la herramienta de línea de
-comandos Cargo usa.
+comandos Cargo.
 
 Un paquete puede venir en dos formas: un paquete binario o un paquete libreria.
 Un paquete puede contener tantos crates binarios como desees, pero como máximo
