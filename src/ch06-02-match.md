@@ -97,13 +97,13 @@ en el Listing 6-4.
 Imaginemos que tenemos un amigo que está tratando de coleccionar todas las
 monedas de 50 estados. Mientras clasificamos nuestra moneda suelta por tipo de
 moneda, también llamaremos al nombre del estado asociado con cada moneda de
-50 centavos para que si es uno que no tiene, pueda agregarlo a su colección.
+25 centavos para que si es uno que no tiene, pueda agregarlo a su colección.
 
 En la expresión `match` en el Listado 6-4, podemos agregar `UsState::Alaska` a
 la variante `Coin::Quarter` para crear una nueva variante de `Coin`. Cuando
 hacemos esto, el estado de Alaska se adjunta a la moneda. Luego, cuando
 ejecutamos el código, podemos ver el valor del estado almacenado en la
-moneda de 50 centavos al imprimirlo. El código completo se muestra en el
+moneda de 25 centavos al imprimirlo. El código completo se muestra en el
 Listing 6-5.
 
 ```rust
