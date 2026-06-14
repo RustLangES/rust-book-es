@@ -8,10 +8,6 @@ lecciones anteriores.
 Para nuestro proyecto final, haremos un servidor web que diga "hola" y se vea
 como la Figura 21-1 en un navegador web.
 
-![hello from rust](img/trpl21-01.png)
-
-<span class="caption">Figure 21-1: Nuestro proyecto final compartido</span>
-
 Aquí está nuestro plan para construir el web server:
 
 1. Aprender un poco sobre TCP y HTTP.
@@ -19,6 +15,10 @@ Aquí está nuestro plan para construir el web server:
 3. Analizar un pequeño número de peticiones HTTP.
 4. Crear una respuesta HTTP adecuada.
 5. Mejorar el rendimiento de nuestro servidor con un *thread pool*.
+
+![hello from rust](img/trpl21-01.png)
+
+<span class="caption">Figure 21-1: Nuestro proyecto final compartido</span>
 
 Antes de comenzar, debemos mencionar dos detalles: 
 

@@ -4,7 +4,7 @@ El código del Listing 21-20 está respondiendo requests de forma asíncrona
 mediante el uso de un pool de threads, como pretendíamos, Recibimos 
 algunas advertencias sobre los campos `workers`, `id` y `thread` que no
 estamos usando de forma directa que nos recuerda que no estamos limpiando
-nada. Cuando usamos el método menos elegante <kbd>ctrl</kbd>-<kbd>c</kbd>
+nada. Cuando usamos el método menos elegante <kbd>ctrl</kbd>-<kbd>C</kbd>
 para detener el thread principal, todos los demás threads se detienen 
 inmediatamente también, incluso si están en medio de servir una request.
 
@@ -52,7 +52,7 @@ El error nos dice que no podemos llamar a `join` porque solo tenemos un
 mutable borrow de cada `worker` y `join` toma el ownership de su argumento. 
 Para solucionar este problema, necesitamos mover el thread fuera de la
 instancia de `Worker` que posee `thread` para que `join` pueda consumir el
-thread. Hicimos esto en el Listing 17-15: si `Worker` tiene un
+thread. Hicimos esto en el Listing 18-15: si `Worker` tiene un
 `Option<thread::JoinHandle<()>>` en su lugar, podemos llamar al método
 `take` en el `Option` para mover el valor fuera de la variante `Some` y
 dejar una variante `None` en su lugar. En otras palabras, un `Worker` que
@@ -60,27 +60,22 @@ se está ejecutando tendrá una variante `Some` en `thread`, y cuando
 queramos limpiar un `Worker`, reemplazaremos `Some` con `None` para que el
 `Worker` no tenga un thread para ejecutar.
 
-Entonces sabemos que queremos actualizar la definición de `Worker` de esta
-manera:
+Sin embargo, la _única_ ocasión en la que este problema aparecería sería al 
+destruir/liberar (*drop*) un `Worker`. A cambio, tendríamos que lidiar con un 
+`Option<thread::JoinHandle<()>>` en cualquier lugar donde accediéramos a 
+`worker.thread`. Rust idiomático utiliza `Option` con bastante frecuencia, pero 
+cuando te encuentras envolviendo algo que sabes que siempre estará presente 
+dentro de un `Option` como solución alternativa, es una buena idea buscar 
+enfoques diferentes para que el código sea más limpio y menos propenso a 
+errores.
 
-<Listing file-name="src/lib.rs">
+En este caso, existe una alternativa mejor: el método `Vec::drain`. Este método 
+acepta un parámetro de rango para especificar qué elementos deben eliminarse del 
+vector y devuelve un iterador sobre esos elementos. Si se le pasa la sintaxis 
+de rango `..`, eliminará *todos* los valores del vector.
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch21-web-server/no-listing-04-update-drop-definition/src/lib.rs:here}}
-```
-
-</Listing>
-
-Ahora usemos el compilador para encontrar los otros lugares que necesitan
-cambiar. Al verificar este código, obtenemos dos errores:
-
-```console
-{{#include ../listings/ch21-web-server/no-listing-04-update-drop-definition/output.txt}}
-```
-
-Abordemos el segundo error, que apunta al código al final de `Worker::new`;
-necesitamos envolver el valor `thread` en `Some` cuando creamos un nuevo
-`Worker`. Haga los siguientes cambios para corregir este error:
+Por lo tanto, necesitamos actualizar la implementación de `drop` para 
+`ThreadPool` de la siguiente manera:
 
 <Listing file-name="src/lib.rs">
 
@@ -90,23 +85,13 @@ necesitamos envolver el valor `thread` en `Some` cuando creamos un nuevo
 
 </Listing>
 
-El primer error está en nuestra implementación de `Drop`. Mencionamos
-anteriormente que pretendíamos llamar a `take` en el valor `Option` para mover
-`thread` fuera de `worker`. Los siguientes cambios lo harán:
-
-<Listing file-name="src/lib.rs">
-
-```rust,ignore,not_desired_behavior
-{{#rustdoc_include ../listings/ch21-web-server/no-listing-06-fix-threadpool-drop/src/lib.rs:here}}
-```
-
-</Listing>
-
-Como discutimos en el Capítulo 18, el método `take` en `Option` toma la variante
-`Some` y deja `None` en su lugar. Estamos usando `if let` para deconstruir el
-`Some` y obtener el thread; luego llamamos a `join` en el thread. Si el thread
-de un worker ya es `None`, sabemos que ese worker ya ha tenido su thread
-limpiado, por lo que en ese caso no sucede nada.
+Esto resuelve el error del compilador y no requiere ningún otro cambio en 
+nuestro código. Sin embargo, ten en cuenta que, dado que `drop` puede ser 
+llamado durante un panic, la llamada a `unwrap` también podría provocar un 
+panic y causar un doble panic, lo que hace que el programa se cierre 
+inmediatamente y detenga cualquier proceso de limpieza (*cleanup*) que estuviera 
+en curso. Esto es aceptable para un programa de ejemplo, pero no se recomienda 
+en código de producción.
 
 ### Señalando a los threads que dejen de escuchar por jobs
 

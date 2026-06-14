@@ -26,8 +26,6 @@ Ejecutando este comando reformatea todo el código Rust en la carga útil actual
 Esto solo debería cambiar el estilo de código, no la semántica del código. Para
 más información sobre `rustfmt`, vea [su documentación][rustfmt].
 
-[rustfmt]: https://github.com/rust-lang/rustfmt
-
 ### Corregir su código con `rustfix`
 
 La herramienta `rustfix` se incluye con las instalaciones de Rust y puede
@@ -151,8 +149,6 @@ fn main() {
 
 Para obtener más información sobre Clippy, consulte [su documentación][clippy].
 
-[clippy]: https://github.com/rust-lang/rust-clippy
-
 ### Integración de IDE con `rust-analyzer`
 
 Para ayudar a la integración del IDE, la comunidad Rust recomienda usar
@@ -171,5 +167,9 @@ para obtener instrucciones de instalación, luego instale el soporte del servido
 de lenguaje en su IDE en particular. Su IDE ganará habilidades como
 autocompletado, salto a la definición y errores en línea. 
 
-[rust-analyzer]: https://rust-analyzer.github.io
+[rustfmt]: https://github.com/rust-lang/rustfmt
 [editions]: appendix-05-editions.md
+[clippy]: https://github.com/rust-lang/rust-clippy
+[rust-analyzer]: https://rust-analyzer.github.io
+[lsp]: http://langserver.org/
+[vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer

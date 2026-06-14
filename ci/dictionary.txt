@@ -1761,6 +1761,7 @@ memoization
 metadata
 Metadata
 metaprogramming
+metavariable
 mibbit
 Mibbit
 microcontroller

@@ -9,6 +9,9 @@ tendrán que esperar hasta que la solicitud larga haya terminado, incluso si las
 nuevas solicitudes se pueden procesar rápidamente. Tendremos que solucionar
 esto, pero primero, veremos el problema en acción.
 
+<!-- Old headings. Do not remove or links may break. -->
+<a id="simulating-a-slow-request-in-the-current-server-implementation"></a>
+
 ### Simulando una solicitud lenta en la implementación actual del servidor
 
 Para simular una solicitud lenta, podemos hacer que el servidor duerma durante
@@ -168,7 +171,7 @@ compilador pueda guiarnos en cómo solucionarlo.
 
 <a id="building-the-threadpool-struct-using-compiler-driven-development"></a>
 
-#### Construyendo `ThreadPool` usando el desarrollo impulsado por el compilador
+#### Construyendo `ThreadPool` usando Compiler-Driven Development
 
 Realiza los cambios en el Listado 21-12 a _src/main.rs_, y luego usemos los
 errores del compilador de `cargo check` para impulsar nuestro desarrollo. Aquí
@@ -404,6 +407,9 @@ ligeramente más eficiente que usar `Vec::new`, que se redimensiona a sí mismo 
 medida que se insertan elementos.
 
 Cuando ejecutes `cargo check` nuevamente, debería tener éxito:
+
+<!-- Old headings. Do not remove or links may break. -->
+<a id ="a-worker-struct-responsible-for-sending-code-from-the-threadpool-to-a-thread"></a>
 
 #### Un struct `Worker` responsable de enviar código desde el `ThreadPool` a un hilo
 
@@ -710,7 +716,7 @@ para el trabajo a realizar. ¿Qué tipos cambiarían? ¿Cómo serían diferentes
 firmas de los métodos, si es que cambiarían? ¿Qué partes del código 
 permanecerían iguales?
 
-Después de aprender sobre el bucle `while let` en los Capítulos 17 y 18, es 
+Después de aprender sobre el bucle `while let` en los Capítulos 17 y 19, es 
 posible que te preguntes por qué no escribimos el código del hilo del trabajador 
 como se muestra en el Listado 21-21.
 

@@ -59,16 +59,13 @@ devolverá una nueva instancia de `TcpListener`. La función se llama `bind`
 porque, en redes, conectarse a un puerto para escuchar se conoce como “enlazar
 a un puerto”.
 
-La función `bind` devuelve un `Result<T, E>`, que indica que es posible que el
-enlace falle. Por ejemplo, conectarse al puerto 80 requiere privilegios de
-administrador (los no administradores solo pueden escuchar en puertos superiores
-a 1023), por lo que si intentáramos conectarnos al puerto 80 sin ser un
-administrador, el enlace no funcionaría. El enlace tampoco funcionaría, por
-ejemplo, si ejecutáramos dos instancias de nuestro programa y, por lo tanto,
-tuvimos dos programas escuchando el mismo puerto. Debido a que estamos
-escribiendo un servidor básico solo con fines de aprendizaje, no nos
-preocuparemos por manejar este tipo de errores; en su lugar, usamos `unwrap`
-para detener el programa si ocurren errores.
+La función `bind` devuelve un `Result<T, E>`, lo que indica que existe la 
+posibilidad de que la operación de asociación (*binding*) falle. Por ejemplo, 
+esto podría ocurrir si ejecutáramos dos instancias de nuestro programa al mismo 
+tiempo y, por lo tanto, ambos intentaran escuchar en el mismo puerto. Como 
+estamos escribiendo un servidor básico únicamente con fines de aprendizaje, no 
+nos preocuparemos por manejar este tipo de errores. En su lugar, utilizaremos 
+`unwrap` para detener el programa si ocurre algún error.
 
 El método `incoming` en `TcpListener` devuelve un iterator que nos da una
 secuencia de flujos (más específicamente, flujos de tipo `TcpStream`). Un solo
@@ -128,7 +125,7 @@ o utilizando un navegador diferente.
 ¡El factor importante es que hemos obtenido con éxito un controlador
 para una conexión TCP!
 
-Recuerda detener el programa presionando <kbd>ctrl</kbd>-<kbd>c</kbd>
+Recuerda detener el programa presionando <kbd>ctrl</kbd>-<kbd>C</kbd>
 cuando hayas terminado de ejecutar una versión particular del código. Luego
 reinicia el programa invocando el comando `cargo run` después de haber hecho
 cambios de código para asegurarte de que estás ejecutando el código más nuevo.
@@ -239,8 +236,8 @@ La siguiente parte de la línea de solicitud es */*, que indica el
 *Uniform Resource Identifier* *(URI)* que el cliente está solicitando: un URI
 es casi, pero no exactamente, lo mismo que un *Uniform Resource Locator*
 *(URL)*. La diferencia entre URIs y URLs no es importante para nuestros
-propósitos en este capítulo, pero la especificación HTTP usa el término URI,
-por lo que podemos simplemente sustituir mentalmente URL por URI aquí.
+propósitos en este capítulo, pero la especificación HTTP usa el término _URI_,
+por lo que podemos simplemente sustituir mentalmente _URL_ por _URI_ aquí.
 
 La última parte es la versión de HTTP que utiliza el cliente, y luego la línea
 de solicitud termina en una secuencia *CRLF*. (CRLF significa *carriage return*
