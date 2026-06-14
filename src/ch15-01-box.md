@@ -143,7 +143,7 @@ otro valor `Cons` que contiene `3` y un valor `List`, que es finalmente es
 Si intentamos compilar el código en el Listado 15-3, obtendremos el error que
 se muestra en el Listado 15-4:
 
-<Listing number="15-4" file-name="output.txt" caption="El error que obtenemos al intentar definir un enum recursivo">
+<Listing number="15-4" caption="El error que obtenemos al intentar definir un enum recursivo">
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-03/output.txt}}
@@ -184,7 +184,7 @@ variantes, comenzando con la variante `Cons`. La variante `Cons` contiene un
 valor de tipo `i32` y un valor de tipo `List`, y este proceso continúa
 infinitamente, como se muestra en la Figura 15-1.
 
-<img alt="An infinite Cons list" src="img/trpl15-01.svg" class="center" style="width: 50%;" />
+<img alt="An infinite Cons list: a rectangle labeled 'Cons' split into two smaller rectangles. The first smaller rectangle holds the label 'i32', and the second smaller rectangle holds the label 'Cons' and a smaller version of the outer 'Cons' rectangle. The 'Cons' rectangles continue to hold smaller and smaller versions of themselves until the smallest comfortably-sized rectangle holds an infinity symbol, indicating that this repetition goes on forever" src="img/trpl15-01.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Figura 15-1: Un `List` infinito consistente en variantes
 `Cons` infinitas</span>
@@ -233,13 +233,14 @@ Podemos cambiar la definición del enum `List` en el Listado 15-2 y el uso de
 
 La variante `Cons` necesita el tamaño de un `i32` más el espacio para almacenar
 los datos del puntero. La variante `Nil` no almacena ningún valor, por lo que
-necesita menos espacio que la variante `Cons`. Ahora sabemos que cualquier
-valor de `List` ocupará el tamaño de un `i32` más el tamaño de los datos del
-puntero de un Box. Al usar un Box, hemos roto la cadena infinita y recursiva,
-por lo que el compilador puede averiguar el tamaño que necesita para almacenar
-un valor de `List`. La Figura 15-2 muestra cómo se ve la variante `Cons` ahora.
+necesita menos espacio en el stack que la variante `Cons`. Ahora sabemos que 
+cualquier valor de `List` ocupará el tamaño de un `i32` más el tamaño de los 
+datos del puntero de un Box. Al usar un Box, hemos roto la cadena infinita y 
+recursiva, por lo que el compilador puede averiguar el tamaño que necesita para 
+almacenar un valor de `List`. La Figura 15-2 muestra cómo se ve la variante 
+`Cons` ahora.
 
-<img alt="Una lista Cons finita" src="img/trpl15-02.svg" class="center" />
+<img alt="Un rectángulo etiquetado como 'Cons', dividido en dos rectángulos más pequeños. El primer rectángulo más pequeño contiene la etiqueta 'i32', y el segundo rectángulo más pequeño contiene la etiqueta 'Box' con un rectángulo interno que contiene la etiqueta 'usize', representando el tamaño finito del puntero de la caja" src="img/trpl15-02.svg" class="center" />
 
 <span class="caption">Figura 15-2: Una `List` que no tiene un tamaño infinito
 porque `Cons` contiene una `Box`</span>

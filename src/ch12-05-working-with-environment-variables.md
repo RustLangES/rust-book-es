@@ -1,7 +1,7 @@
 ## Trabajando con Variables de Entorno
 
-Mejoraremos `minigrep` agregando una característica extra: una opción para
-búsqueda insensible a mayúsculas y minúsculas que el usuario puede activar
+Mejoraremos el `minigrep` binario agregando una característica extra: una opción 
+para búsqueda insensible a mayúsculas y minúsculas que el usuario puede activar
 mediante una variable de entorno. Podríamos hacer esta característica una opción
 de línea de comandos y requerir que los usuarios la ingresen cada vez que la
 quieran aplicar, pero en lugar de eso, al hacerla una variable de entorno,
@@ -11,9 +11,10 @@ terminal.
 
 ### Escribiendo un Test Fallido para la Función `search` Insensible a Mayúsculas y Minúsculas
 
-Primero agregaremos una nueva función `search_case_insensitive` que será
-llamada cuando la variable de entorno tenga un valor. Continuaremos siguiendo el
-proceso TDD, así que el primer paso es nuevamente escribir un test fallido.
+Primero agregaremos una nueva función `search_case_insensitive` en la libreria 
+`minigrep` que será llamada cuando la variable de entorno tenga un valor. 
+Continuaremos siguiendo el proceso TDD, así que el primer paso es nuevamente 
+escribir un test fallido.
 Agregaremos un nuevo test para la nueva función `search_case_insensitive` y
 renombraremos nuestro viejo test de `one_result` a `case_sensitive` para
 clarificar las diferencias entre los dos tests, como se muestra en el Listado
@@ -66,8 +67,9 @@ minúscula cuando verifiquemos si la línea contiene la consulta.
 Primero, convertimos el string `query` a minúsculas y lo almacenamos en una
 nueva variable sombreada con el mismo nombre, `query`. Ejecutaremos 
 `to_lowercase` sobre `query`, es necesario para que no importe si la consulta 
-del usuario es `"rust"`, `"RUST"`, `"Rust"` o `"rUsT"`, trataremos la consulta 
-como si fuera `"rust"` y seremos insensibles a la mayúscula o minúscula. 
+del usuario es `"rust"`, `"RUST"`, `"Rust"` o `#``"rUsT"``#`, trataremos la 
+consulta como si fuera `"rust"` y seremos insensibles a la mayúscula o 
+minúscula. 
 Mientras que `to_lowercase` manejará Unicode básico, no será 100% preciso. Si 
 estuviéramos escribiendo una aplicación real, querríamos hacer un poco más de 
 trabajo aquí, pero esta sección trata sobre variables de entorno, no Unicode, 
@@ -100,10 +102,10 @@ minúsculas y la búsqueda insensible a mayúsculas y minúsculas. Agregar este
 campo causará errores del compilador porque aún no estamos inicializando este
 campo en ningún lugar:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Filename: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/main.rs:here}}
 ```
 
 Hemos agregado el campo `ignore_case` que contiene un booleano. A continuación,
@@ -112,10 +114,10 @@ usar eso para decidir si llamar a la función `search` o la función
 `search_case_insensitive`, como se muestra en el Listado 12-22. Esto aún no se
 compilará.
 
-<Listing number="12-22" file-name="src/lib.rs" caption="Llamando a `search` o `search_case_insensitive` en función del valor de `config.ignore_case`">
+<Listing number="12-22" file-name="src/main.rs" caption="Llamando a `search` o `search_case_insensitive` en función del valor de `config.ignore_case`">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/lib.rs:there}}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/main.rs:there}}
 ```
 
 </Listing>
@@ -123,14 +125,14 @@ compilará.
 Finalmente, necesitamos verificar la variable de entorno. Las funciones para
 trabajar con variables de entorno están en el módulo `env` en la biblioteca
 estándar, así que traemos ese módulo al alcance en la parte superior de
-*src/lib.rs*. Luego usaremos la función `var` del módulo `env` para verificar
+*src/main.rs*. Luego usaremos la función `var` del módulo `env` para verificar
 si se ha establecido algún valor para una variable de entorno llamada
 `IGNORE_CASE`, como se muestra en el Listado 12-23.
 
-<Listing number="12-23" file-name="src/lib.rs" caption="Comprobando si existe algún valor en una variable de entorno llamada `IGNORE_CASE`">
+<Listing number="12-23" file-name="src/main.rs" caption="Comprobando si existe algún valor en una variable de entorno llamada `IGNORE_CASE`">
 
-```rust,noplayground
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-23/src/lib.rs:here}}
+```rust,ignore,noplayground
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-23/src/main.rs:here}}
 ```
 
 </Listing>

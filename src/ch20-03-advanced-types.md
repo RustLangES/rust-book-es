@@ -11,7 +11,7 @@ el tipo `!` y los tipos de tamaño dinámico.
 
 > Nota: Esta sección asume que has leído la sección anterior [“Usando el
 > Pattern Newtype para Implementar Traits Externos en Tipos
-> Externos.”][using-the-newtype-pattern]<!-- ignore -->
+> Externos.”][using-the-newtype-pattern]<!-- ignore -->.
 
 El newtype pattern también es útil para tareas más allá de las que hemos
 discutido hasta ahora, incluyendo hacer cumplir estáticamente que los valores
@@ -48,7 +48,7 @@ ejemplo, podemos crear el alias `Kilometers` a `i32` de la siguiente manera:
 {{#rustdoc_include ../listings/ch20-advanced-features/no-listing-04-kilometers-alias/src/main.rs:here}}
 ```
 
-Ahora, el alias `Kilometers` es un _sinónimo_ para `i32`; a diferencia de los
+Ahora el alias `Kilometers` es un _sinónimo_ para `i32`; a diferencia de los
 tipos `Millimeters` y `Meters` que creamos en el Listado 20-16, `Kilometers`
 no es un tipo nuevo y separado. Los valores que tienen el tipo `Kilometers`
 se tratarán de la misma manera que los valores del tipo `i32`:
@@ -88,7 +88,7 @@ En el Listado 20-26, hemos introducido un alias llamado `Thunk` para el tipo
 extenso y podemos reemplazar todos los usos del tipo con el alias más corto
 `Thunk`.
 
-<Listing number="20-26" caption="Introduciendo un type alias `Thunk` para reducir la repetición">
+<Listing number="20-26" caption="Introduciendo un type alias, `Thunk`, para reducir la repetición">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-26/src/main.rs:here}}
@@ -148,7 +148,7 @@ nunca retornará. Aquí hay un ejemplo:
 
 Este código se lee como “la función `bar` devuelve never”. Las funciones que
 devuelven never se llaman _funciones divergentes_. No podemos crear valores
-del tipo `!` por lo que `bar` nunca puede devolver.
+del tipo `!`, por lo que `bar` nunca puede devolver.
 
 Pero, ¿qué utilidad tiene un tipo del que nunca se pueden crear valores?
 Recuerda el código del Juego de Adivinar el Número mostrado en el Listado
@@ -164,7 +164,7 @@ Recuerda el código del Juego de Adivinar el Número mostrado en el Listado
 
 En ese momento, omitimos algunos detalles en este código. En el Capítulo 6 en
 la sección [“El operador de control de flujo
-`match`”][the-match-control-flow-operator]<!-- ignore -->
+`match`”][the-match-control-flow-construct]<!-- ignore -->
 discutimos que las opciones de `match` deben devolver todos el mismo tipo. Por
 lo tanto, por ejemplo, el siguiente código no funciona:
 
@@ -223,7 +223,8 @@ podemos conocer en tiempo de ejecución.
 
 Profundicemos en los detalles de un tipo de tamaño dinámico llamado `str`, que
 hemos estado usando a lo largo del libro. Así es, no `&str`, sino `str` por sí
-solo, es un DST. No podemos saber cuánto tiempo es la cadena hasta el tiempo de
+solo, es un DST. En muchos casos, como cuando almacenas texto integraso por el 
+usuario, no podemos saber cuánto tiempo es la cadena hasta el tiempo de
 ejecución, lo que significa que no podemos crear una variable de tipo `str`, ni
 podemos tomar un argumento de tipo `str`. Considera el siguiente código, que
 no funciona:
@@ -258,8 +259,7 @@ Podemos combinar `str` con todo tipo de punteros: por ejemplo, `Box<str>` o
 `Rc<str>`. De hecho, ya has visto esto antes, pero con un tipo de tamaño
 dinámico diferente: los traits. Cada trait es un tipo de tamaño dinámico al que
 podemos referirnos usando el nombre del trait. En el Capítulo 18 en la
-sección [“Usando trait objects que permiten valores de diferentes
-tipos”][usando-trait-objects-que-permiten-valores-de-diferentes-tipos]<!--
+sección [“Usando trait objects para Abstraer Comportamiento Compartido”][usando-trait-objects-para-abstraer-comportamiento-compartido]<!--
 ignore -->, mencionamos que para usar traits como objetos de trait, debemos
 ponerlos detrás de un puntero, como `&dyn Trait` o `Box<dyn Trait>` (`Rc<dyn
 Trait>` también funcionaría).
@@ -301,6 +301,6 @@ detrás de algún tipo de puntero. En este caso, hemos elegido una referencia.
 
 [encapsulacion-que-oculta-los-detalles-de-implementacion]: ch18-01-what-is-oo.html#encapsulacion-que-oculta-los-detalles-de-implementacion
 [string-slices]: ch04-03-slices.html#string-slices
-[the-match-control-flow-operator]: ch06-02-match.html#the-match-control-flow-operator
-[usando-trait-objects-que-permiten-valores-de-diferentes-tipos]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[the-match-control-flow-construct]: ch06-02-match.html#the-match-control-flow-construct
+[usando-trait-objects-para-abstraer-comportamiento-compartido]: ch18-02-trait-objects.html#usando-trait-objects-para-abstraer-comportamiento-compartido
 [using-the-newtype-pattern]: ch20-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos

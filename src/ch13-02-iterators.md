@@ -143,7 +143,7 @@ El Listado 13-14 muestra un ejemplo de llamar al método adapter de iterator
 `map` que toma un closure para llamar en cada item y produce un nuevo iterator.
 El método `map` retorna un nuevo iterador que ejecuta el closure que le
 pasamos en cada item y produce los items resultantes. El closure aquí crea un
-nuevo iterador en el que cada item del vector será incrementado en 1:
+nuevo iterador en el que cada item del vector será incrementado en 1.
 
 <Listing number="13-14" file-name="src/main.rs" caption="Llamando al iterador adaptor `map` para crear un nuevo iterator">
 
@@ -172,7 +172,7 @@ En el Listado 13-15, recolectamos los resultados de iterar sobre el iterator
 que es retornado de la llamada a `map` en un vector. Este vector terminará
 conteniendo cada item del vector original, incrementado en 1.
 
-<Listing number="13-15" file-name="src/main.rs" caption="Llamando al método `map` para crear un nuevo iterador y luego llamando al método `collect` para consumir el nuevo iterador y crear un vector">
+<Listing number="13-15" file-name="src/main.rs" caption="Llamando al método `map` para crear un nuevo iterador, y luego llamando al método `collect` para consumir el nuevo iterador y crear un vector">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-15/src/main.rs:here}}

@@ -134,7 +134,7 @@ un `Option<ElementRef>`. Finalmente, usamos el método `Option::map`, que nos
 permite trabajar con el elemento en el `Option` si está presente, y no hacer
 nada si no lo está. (También podríamos usar una expresión `match` aquí, pero
 `map` es más idiomático.) En el cuerpo de la función que proporcionamos a `map`,
-llamamos a `inner_html` en el `title_element` para obtener su contenido, que es
+llamamos a `inner_html` en el `title` para obtener su contenido, que es
 un `String`. Cuando todo está dicho y hecho, tenemos un `Option<String>`.
 
 Observa que la palabra clave `await` de Rust va después de la expresión que

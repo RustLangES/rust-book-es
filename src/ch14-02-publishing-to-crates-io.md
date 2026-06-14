@@ -48,7 +48,7 @@ Por conveniencia, ejecutar `cargo doc --open` generará el HTML para la
 documentación de tu crate actual (así como la documentación para todas las
 dependencias de tu crate) y abrirá el resultado en un navegador web. Navega
 hasta la función `add_one` y verás cómo se renderiza el texto en los comentarios
-de documentación, como se muestra en la Figura 14-1:
+de documentación, como se muestra en la Figura 14-1.
 
 <img alt="Documentación HTML renderizada para la función `add_one` de `my_crate`" src="img/trpl14-01.png" class="center" />
 
@@ -178,7 +178,7 @@ Por ejemplo, supongamos que creamos una biblioteca llamada `art` para modelar
 conceptos artísticos. Dentro de esta biblioteca hay dos módulos: un módulo
 `kinds` que contiene dos enums llamados `PrimaryColor` y `SecondaryColor` y un
 módulo `utils` que contiene una función llamada `mix`, como se muestra en el
-Listado 14-3:
+Listado 14-3.
 
 <Listing number="14-3" file-name="src/lib.rs" caption="Una biblioteca llamada `art` con items organizados en los módulos `kinds` y `utils">
 
@@ -189,7 +189,7 @@ Listado 14-3:
 </Listing>
 
 La Figura 14-3 muestra cómo se vería la página frontal de la documentación para
-este crate generada por `cargo doc`:
+este crate generada por `cargo doc`.
 
 <img alt="Rendered documentation for the `art` crate that lists the `kinds` and `utils` modules" src="img/trpl14-03.png" class="center" />
 
@@ -225,7 +225,7 @@ deben especificar los nombres de módulo en las declaraciones `use`.
 Para remover la estructura interna de la API pública, podemos modificar el
 código del crate `art` en el Listado 14-3 para agregar declaraciones `pub use`
 para reexportar los items en el nivel superior, como se muestra en el Listado
-14-5:
+14-5.
 
 <Listing number="14-5" file-name="src/lib.rs" caption="Agregando declaraciones `pub use` para re-exportar items">
 
@@ -247,7 +247,7 @@ función `mix` sean más fáciles de encontrar.
 
 Los usuarios del crate `art` aún pueden ver y usar la estructura interna del
 Listado 14-3 como se demuestra en el Listado 14-4, o pueden usar la estructura
-más conveniente del Listado 14-5, como se muestra en el Listado 14-6:
+más conveniente del Listado 14-5, como se muestra en el Listado 14-6.
 
 <Listing number="14-6" file-name="src/main.rs" caption="Un programa que utiliza los items reexportados del crate `art`">
 
@@ -289,7 +289,7 @@ abcdefghijklmnopqrstuvwxyz012345
 ```
 
 Este comando informará a Cargo de tu token de API y lo almacenará localmente en
-_~/.cargo/credentials_. Ten en cuenta que este token es un _secreto_: no lo
+_~/.cargo/credentials.toml_. Ten en cuenta que este token es un _secreto_: no lo
 compartas con nadie. Si lo compartes con alguien por cualquier motivo, debes
 revocarlo y generar un nuevo token en
 [crates.io](https://crates.io/)<!-- ignore -->.
@@ -397,8 +397,9 @@ publicar! Publicar un crate carga una versión específica en
 [crates.io](https://crates.io/)<!-- ignore --> para que otros la usen.
 
 Ten cuidado, porque una publicación es _permanente_. La versión nunca se puede
-sobrescribir y el código no se puede eliminar. Uno de los principales objetivos
-de [crates.io](https://crates.io/)<!-- ignore --> es actuar como un archivo
+sobrescribir y el código no se puede eliminar excepto en algunas circunstancias. 
+Uno de los principales objetivos de 
+[crates.io](https://crates.io/)<!-- ignore --> es actuar como un archivo
 permanente de código para que las compilaciones de todos los proyectos que
 dependen de crates de [crates.io](https://crates.io/)<!-- ignore --> sigan
 funcionando. Permitir la eliminación de versiones haría imposible cumplir ese
@@ -417,11 +418,17 @@ copy just the relevant lines below
 $ cargo publish
     Updating crates.io index
    Packaging guessing_game v0.1.0 (file:///projects/guessing_game)
+    Packaged 6 files, 1.2KiB (895.0B compressed)
    Verifying guessing_game v0.1.0 (file:///projects/guessing_game)
    Compiling guessing_game v0.1.0
 (file:///projects/guessing_game/target/package/guessing_game-0.1.0)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.19s
    Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
+    Uploaded guessing_game v0.1.0 to registry `crates-io`
+note: waiting for `guessing_game v0.1.0` to be available at registry
+`crates-io`.
+You may press ctrl-c to skip waiting; the crate should be available shortly.
+   Published guessing_game v0.1.0 at registry `crates-io`
 ```
 
 ¡Felicidades! Ahora has compartido tu código con la comunidad de Rust y
@@ -484,5 +491,5 @@ Un _yank_ no borra ningún código. No puede, por ejemplo, eliminar secretos
 cargados accidentalmente. Si eso sucede, debes restablecer esos secretos
 inmediatamente.
 
-[spdx]: http://spdx.org/licenses/
-[semver]: http://semver.org/
+[spdx]: https://spdx.org/licenses/
+[semver]: https://semver.org/

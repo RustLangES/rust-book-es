@@ -1,4 +1,8 @@
-## Usando Trait Objects que permiten valores de diferentes tipos
+## Usando Trait Objects para Abstraer sobre Comportamiento Compartido
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="usando-trait-objects-que-permiten-valores-de-diferentes-tipos"></a>
 
 En el capítulo 8, mencionamos que una limitación de los vectores es que pueden
 almacenar elementos de un solo tipo. Creamos una solución en el Listado 8-9
@@ -37,8 +41,8 @@ por lo tanto, heredarían el método `draw`. Cada uno podría anular el método
 `draw` para definir su comportamiento personalizado, pero el marco podría
 tratar todos los tipos como si fueran instancias de `Component` y llamar a
 `draw` en ellos. Pero como Rust no tiene herencia, necesitamos otra forma de
-estructurar la biblioteca `gui` para permitir a los usuarios extenderla con
-nuevos tipos.
+estructurar la biblioteca `gui` para permitir a los usuarios crear nuevos tipos
+compatibles con la libreria.
 
 ### Definir un Trait para un comportamiento común
 

@@ -25,7 +25,7 @@ primitivos de concurrencia más comunes para la memoria compartida.
 *Mutex* es una abreviatura de *exclusión mutua*, como en, un mutex permite que
 solo un hilo acceda a algunos datos en un momento dado. Para acceder a los
 datos en un mutex, un hilo primero debe señalar que desea acceso solicitando
-adquirir el *lock* del mutex. El lock es una estructura de datos que forma
+adquirir el *lock* del mutex. El _lock_ es una estructura de datos que forma
 parte del mutex que realiza un seguimiento de quién tiene actualmente acceso
 exclusivo a los datos. Por lo tanto, el mutex se describe como *guardando* los
 datos que contiene a través del sistema de bloqueo.

@@ -12,7 +12,7 @@ directamente. El siguiente código da algunos ejemplos:
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-01-literals/src/main.rs:here}}
 ```
 
-Este código imprime `one` porque el valor en `x` es 1. Esta sintaxis es útil
+Este código imprime `one` porque el valor en `x` es `1`. Esta sintaxis es útil
 cuando quieres que tu código tome una acción si obtiene un valor concreto
 particular.
 
@@ -600,8 +600,8 @@ un nombre diferente.
 
 Este ejemplo imprimirá `Found an id in range: 5`. Al especificar `id_variable 
 @` antes del rango `3..=7`, estamos capturando cualquier valor que coincida con
-el rango mientras también probamos que el valor coincidió con el pattern de
-rango.
+el rango en una variable llamada `id` mientras también probamos que el valor 
+coincidió con el pattern de rango.
 
 En la segunda opción, donde solo tenemos especificado un rango en el patrón,
 el código asociado a la opción no tiene una variable que contenga el valor real

@@ -1,10 +1,10 @@
-## Desarrollando la funcionalidad de la biblioteca con T.D.D.
+## Desarrollando la funcionalidad de la biblioteca con Test-Driven Development
 
-Ahora que hemos extraído la lógica en _src/lib.rs_ y dejado la recolección de
-argumentos y el manejo de errores en _src/main.rs_, es mucho más fácil escribir
-pruebas para la funcionalidad principal de nuestro código. Podemos llamar a las
-funciones directamente con varios argumentos y verificar los valores de
-retorno sin tener que llamar a nuestro binario desde la línea de comandos.
+Ahora que tenemos la lógica de búsqueda en _src/lib.rs_ separada de la función 
+`main`, es mucho más fácil escribir pruebas para la funcionalidad principal de 
+nuestro código. Podemos llamar a las funciones directamente con varios 
+argumentos y verificar los valores de retorno sin tener que llamar a nuestro 
+binario desde la línea de comandos.
 
 En esta sección, agregaremos la lógica de búsqueda al programa `minigrep`
 utilizando el proceso de desarrollo impulsado por pruebas (TDD) con los
@@ -29,16 +29,14 @@ llamada `search`.
 
 ### Escribiendo un test fallido
 
-Debido a que ya no los necesitamos, eliminemos las declaraciones `println!` de
-_src/lib.rs_ y _src/main.rs_ que usamos para verificar el comportamiento del
-programa. Luego, en _src/lib.rs_, agregue un módulo `tests` con una función de
+En _src/lib.rs_, agregue un módulo `tests` con una función de
 prueba, como lo hicimos en [Capítulo 11][ch11-anatomy]<!-- ignore -->. La
 función de prueba especifica el comportamiento que queremos que tenga la
 función `search`: tomará una consulta y el texto a buscar, y devolverá solo las
 líneas del texto que contengan la consulta. El listado 12-15 muestra esta
 prueba, que aún no se compilará.
 
-<Listing number="12-15" file-name="src/lib.rs" caption="Creando un test fallido para la función `search` que deseamos tener">
+<Listing number="12-15" file-name="src/lib.rs" caption="Creando un test fallido para la función `search` para la funcionalidad que deseamos tener">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-15/src/lib.rs:here}}
@@ -53,13 +51,14 @@ un carácter de nueva línea al comienzo del contenido de esta cadena literal).
 Afirmamos que el valor devuelto de la función `search` contiene solo la línea
 que esperamos.
 
-Aún no podemos ejecutar este test y verlo fallar porque el test ni siquiera se
-compila: ¡la función `search` aún no existe! De acuerdo con los principios de
-TDD, agregaremos solo el código suficiente para que la prueba se compile y se
-ejecute agregando una definición de la función `search` que siempre devuelve
-un vector vacío, como se muestra en el listado 12-16. Luego, la prueba debería
-compilar y fallar porque un vector vacío no coincide con un vector que
-contiene la línea `"safe, fast, productive."`.
+Si ejecutamos esta prueba ahora mismo, fallará porque el macro `unimplemented!` 
+provoca un *panic* con el mensaje «not implemented». Siguiendo los principios de 
+TDD (*Test-Driven Development*), daremos un pequeño paso agregando solo el 
+código suficiente para que la prueba deje de hacer *panic* al llamar a la 
+función, definiendo la función `search` para que siempre devuelva un vector 
+vacío, como se muestra en el Listado 12-16. Después de eso, la prueba debería 
+compilar y fallar porque un vector vacío no coincide con un vector que contiene 
+la línea `"safe, fast, productive."`.
 
 <Listing number="12-16" file-name="src/lib.rs" caption="Definiendo solo lo necesario de la función `search` para que nuestro test compile">
 
@@ -69,8 +68,9 @@ contiene la línea `"safe, fast, productive."`.
 
 </Listing>
 
-Observa que necesitamos definir un lifetime explícito `'a` en la firma de
-`search` y usar ese lifetime con el argumento `contents` y el valor de retorno.
+Ahora discutamos porque necesitamos definir un lifetime explícito `'a` en la 
+firma de `search` y usar ese lifetime con el argumento `contents` y el valor de 
+retorno.
 Recuerde en [Capítulo 10][ch10-lifetimes]<!-- ignore --> que los parámetros de
 lifetime especifican qué lifetime de argumento está conectado al lifetime del
 valor de retorno. En este caso, indicamos que el vector devuelto debe contener
@@ -91,26 +91,21 @@ obtendremos este error:
 {{#include ../listings/ch12-an-io-project/output-only-02-missing-lifetimes/output.txt}}
 ```
 
-Rust no puede saber qué argumento de los dos necesitamos, por lo que debemos
-decirle explícitamente. Debido a que `contents` es el argumento que contiene
-todo nuestro texto y queremos devolver las partes de ese texto que coincidan,
-sabemos que `contents` es el argumento que debe estar conectado al valor de
-retorno usando la sintaxis de lifetime.
+Rust no puede saber cuál de los dos parámetros necesitamos utilizar para el 
+valor de salida, por lo que debemos indicárselo explícitamente. Ten en cuenta 
+que el texto de ayuda sugiere especificar el mismo parámetro de *lifetime* para 
+todos los parámetros y para el tipo de retorno, ¡pero eso es incorrecto!
+
+Como `contents` es el parámetro que contiene todo nuestro texto y queremos 
+devolver las partes de ese texto que coinciden con la búsqueda, sabemos que 
+`contents` es el único parámetro que debe estar conectado al valor de retorno 
+mediante la sintaxis de *lifetimes*.
 
 Otros lenguajes de programación no requieren que conectes argumentos a valores
 de retorno en la firma, pero esta práctica será más fácil con el tiempo. Quizás
 quiera comparar este ejemplo con la sección ["Validando referencias con
 lifetimes"][validando-referencias-con-lifetimes]<!-- ignore --> en el
 Capítulo 10.
-
-Ahora ejecutemos el test:
-
-```console
-{{#include ../listings/ch12-an-io-project/listing-12-16/output.txt}}
-```
-
-¡Genial, el test falla, exactamente como esperábamos! ¡Vamos a hacer que el
-test pase!
 
 ### Escribiendo código para pasar el test
 

@@ -63,10 +63,10 @@ Listado 20-29:
 
 </Listing>
 
-O podríamos nombrar una función como argumento para `map` en lugar del
+O podríamos nombrar una función como argumento para ``map`` en lugar del
 closure. El Listado 20-30 muestra cómo se vería.
 
-<Listing number="20-30" caption="Usando el metodo `String::to_string` para convertir números a strings">
+<Listing number="20-30" caption="Usando la función `String::to_string` con el método `map` para convertir números a strings">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-30/src/main.rs:here}}
@@ -115,7 +115,7 @@ ejemplo, no está permitido usar el puntero a función `fn` como tipo de retorno
 
 En su lugar, normalmente usarás la sintaxis `impl Trait` que aprendimos en el 
 Capítulo 10. Puedes devolver cualquier tipo de función, usando `Fn`, `FnOnce` y 
-`FnMut`. Por ejemplo, el código en el Listado 20-32 funcionará perfectamente.
+`FnMut`. Por ejemplo, el código en el Listado 20-32 compilara perfectamente.
 
 <Listing number="20-32" caption="Devolviendo una closure desde una función usando la sintaxis `impl Trait`">
 
@@ -134,7 +134,7 @@ diferentes implementaciones, tendrás que usar un trait object para ellas.
 Considera qué sucede si escribes un código como el que se muestra en el 
 Listado 20-33.
 
-<Listing file-name="src/main.rs" number="20-33" caption="Crear un `Vec<T>` de closures definidos por funciones que retornan `impl Fn`">
+<Listing file-name="src/main.rs" number="20-33" caption="Crear un `Vec<T>` de closures definidos por funciones que retornan tipos `impl Fn`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-33/src/main.rs}}
@@ -153,11 +153,12 @@ Rust nos indica que no funcionará:
 
 El mensaje de error nos indica que cada vez que retornamos un `impl Trait`, 
 Rust crea un *tipo opaco* único, un tipo cuyos detalles no podemos ver ni 
-conocer cómo Rust lo construye. Así, aunque estas funciones retornan closures 
-que implementan el mismo trait, `Fn(i32) -> i32`, los tipos opacos que Rust 
-genera para cada una son distintos. (Esto es similar a cómo Rust produce tipos 
-concretos diferentes para bloques `async` distintos, incluso cuando tienen el 
-mismo tipo de salida, como vimos en 
+conocer cómo Rust lo construye, ni tampoco podemos adivinar el tipo que Rust 
+generará para escribirlo nosotros mismos. Así, aunque estas funciones retornan 
+closures que implementan el mismo trait, `Fn(i32) -> i32`, los tipos opacos que 
+Rust genera para cada una son distintos. (Esto es similar a cómo Rust produce 
+tipos concretos diferentes para bloques `async` distintos, incluso cuando tienen 
+el mismo tipo de salida, como vimos en 
 [“Trabajando con cualquier número de futuros”][any-number-of-futures] en el 
 Capítulo 17). Hemos visto una solución para este problema varias veces: podemos 
 usar un trait objeto, como en el Listado 20-34.
@@ -173,7 +174,7 @@ usar un trait objeto, como en el Listado 20-34.
 
 Este código se compilará sin problemas. Para más información sobre 
 trait objects, consulta la sección [“Usando trait objects que permiten valores 
-de diferentes tipos”][using-trait-objects-that-allow-for-values-of-different-types]<!-- ignore --> 
+de diferentes tipos”][using-trait-objects-to-abstract-over-shared-behavior]<!-- ignore --> 
 en el Capítulo 18.
 
 ¡Ahora, veamos las macros!
@@ -184,5 +185,5 @@ en el Capítulo 18.
 [valores-enum]: ch06-01-defining-an-enum.html#valores-enum
 [closure-types]: ch13-01-closures.html#closure-type-inference-and-annotation
 [any-number-of-futures]: ch17-03-more-futures.html
-[using-trait-objects-that-allow-for-values-of-different-types]: ch18-02-trait-objects.html#usando-trait-objects-que-permiten-valores-de-diferentes-tipos
+[using-trait-objects-to-abstract-over-shared-behavior]: ch18-02-trait-objects.html#usando-trait-objects-para-abstraer-sobre-comportamiento-compartido
 

@@ -40,7 +40,7 @@ proporciona otro enfoque para la concurrencia).
 Para crear un nuevo hilo, llamamos a la función `thread::spawn` y pasamos un
 closure (hablamos sobre closures en el Capítulo 13) que contiene el código que
 queremos ejecutar en el nuevo hilo. El ejemplo en el Listado 16-1 imprime
-algunos textos desde un hilo principal y otros textos desde un nuevo hilo:
+algunos textos desde un hilo principal y otros textos desde un nuevo hilo.
 
 <Listing number="16-1" file-name="src/main.rs" caption="Creando un nuevo hilo para imprimir una cosa mientras el hilo principal imprime algo más">
 
@@ -179,7 +179,7 @@ ejecutan al mismo tiempo.
 A menudo usamos la keyword `move` con closures pasadas a `thread::spawn` porque
 el closure tomará posesión de los valores que usa del entorno, transfiriendo así
 el ownership de esos valores de un hilo a otro. En la sección ["Capturando
-el Entorno con Closures"][capture]<!-- ignore --> del Capítulo 13,
+Referencias o Moviendo el Ownership"][capture]<!-- ignore --> del Capítulo 13,
 discutimos `move` en el contexto de las closures. Ahora, nos concentraremos más
 en la interacción entre `move` y `thread::spawn`.
 
@@ -213,7 +213,7 @@ problema: Rust no puede decir cuánto tiempo se ejecutará el hilo creado, por l
 que no sabe si la referencia a `v` siempre será válida.
 
 El Listado 16-4 proporciona un escenario que es más probable que tenga una
-referencia a `v` que no sea válida:
+referencia a `v` que no sea válida.
 
 <Listing number="16-4" file-name="src/main.rs" caption="Un hilo con un closure que intenta capturar una referencia a `v` desde un hilo principal que deja de tener `v`">
 
@@ -283,4 +283,4 @@ pedir prestado; no nos permite violar las reglas de ownership.
 Con una comprensión básica de los hilos y la API de hilos, veamos qué podemos
 _hacer_ con los hilos.
 
-[capture]: ch13-01-closures.html#capturing-the-environment-with-closures
+[capture]: ch13-01-closures.html#capturing-references-or-moving-ownership

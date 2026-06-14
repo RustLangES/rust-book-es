@@ -33,11 +33,11 @@ nuevo bloque que contenga el código inseguro. Puede tomar cinco acciones en
 Rust inseguro que no puede en Rust seguro, que llamamos _superpoderes
 Unsafe_. Esos superpoderes incluyen la capacidad de:
 
-- Desreferenciar un puntero crudo
-- Llamar a una función o método inseguro
-- Acceder o modificar una variable estática mutable
-- Implementar un trait inseguro
-- Acceder a los campos de un `union`
+1. Desreferenciar un puntero crudo
+1. Llamar a una función o método inseguro
+1. Acceder o modificar una variable estática mutable
+1. Implementar un trait inseguro
+1. Acceder a los campos de un `union`
 
 Es importante entender que `unsafe` no desactiva el borrow checker ni
 deshabilita ninguna otra de las comprobaciones de seguridad de Rust: si usa una
@@ -121,9 +121,10 @@ local, sabemos que estos punteros sin procesar en particular son válidos, pero
 no podemos hacer esa suposición sobre cualquier puntero sin procesar.
 
 Para demostrar esto, a continuación crearemos un puntero sin procesar cuya 
-validez no podemos estar tan seguros, utilizando `as` para convertir un valor en 
-lugar de usar los operadores de referencia sin procesar. El Listado 20-2 muestra 
-cómo crear un puntero sin procesar hacia una ubicación arbitraria en la memoria. 
+validez no podemos estar tan seguros, utilizando la palabra clave `as` para 
+convertir un valor en lugar de usar los operadores de referencia sin procesar. 
+El Listado 20-2 muestra cómo crear un puntero sin procesar hacia una ubicación 
+arbitraria en la memoria. 
 Intentar usar memoria arbitraria resulta en un comportamiento indefinido: podría 
 haber datos en esa dirección o podría no haberlos, el compilador podría 
 optimizar el código de manera que no haya acceso a la memoria, o el programa 
@@ -167,8 +168,9 @@ potencialmente creando una carrera de datos. ¡Ten cuidado!
 Con todos estos peligros, ¿por qué usarías punteros crudos? Un caso de uso
 importante es cuando se interactúa con código C, como verás en la siguiente
 sección, [“Llamando a una función o método
-inseguro”](#llamando-a-una-funcion-o-metodo-inseguro).<!-- ignore --> Otro caso es
-cuando se construyen abstracciones seguras que el borrow checker no entiende.
+inseguro”](#llamando-a-una-funcion-o-metodo-inseguro).<!-- ignore --> 
+Otro caso es cuando se construyen abstracciones seguras que el borrow checker 
+no entiende.
 Presentaremos funciones inseguras y luego veremos un ejemplo de una abstracción
 segura que usa código inseguro.
 
@@ -378,37 +380,37 @@ bloque `unsafe` para llamarla, como se muestra en el Listado 20-9.
 como una promesa que le haces a Rust de que *es* segura. Aún así, es tu 
 responsabilidad asegurarte de que esa promesa se cumpla.
 
-> #### Llamando a funciones Rust desde otros lenguajes
->
-> También podemos usar `extern` para crear una interfaz que permita que otros
-> lenguajes llamen funciones Rust. En lugar de crear un bloque `extern`, podemos
-> agregar la palabra clave `extern` y especificar la ABI a usar justo antes de
-> la palabra clave `fn` para la función relevante. También necesitamos agregar
-> una anotación `#[unsafe(no_mangle)]` para decirle al compilador de Rust que no
-> cambie el nombre de esta función. _Mangling_ es cuando un compilador cambia
-> el nombre que le hemos dado a una función a un nombre diferente que contiene
-> más información para otras partes del proceso de compilación para consumir,
-> pero es menos legible para los humanos. Cada compilador de lenguaje de
-> programación mangla los nombres de manera ligeramente diferente, por lo que
-> para que una función Rust sea nombrable por otros lenguajes, debemos
-> deshabilitar el mangling del compilador de Rust. Esto es **inseguro** porque 
-> podrían ocurrir colisiones de nombres entre bibliotecas al no usar el mangling 
-> integrado. Por lo tanto, es nuestra responsabilidad asegurarnos de que el 
-> nombre que hemos escogido sea seguro para exportar sin mangling.
->
-> En el siguiente ejemplo, hacemos que la función `call_from_c` sea accesible
-> desde el código C, después de que se compile a una biblioteca compartida y
-> se vincule desde C:
->
-> ```rust
-> #[unsafe(no_mangle)]
-> pub extern "C" fn call_from_c() {
->     println!("Just called a Rust function from C!");
-> }
-> ```
->
-> Este uso de `extern` requiere `unsafe` solo en el atributo, no en el bloque 
-> `extern`.
+#### Llamando a funciones Rust desde otros lenguajes
+
+También podemos usar `extern` para crear una interfaz que permita que otros
+lenguajes llamen funciones Rust. En lugar de crear un bloque `extern`, podemos
+agregar la palabra clave `extern` y especificar la ABI a usar justo antes de
+la palabra clave `fn` para la función relevante. También necesitamos agregar
+una anotación `#[unsafe(no_mangle)]` para decirle al compilador de Rust que no
+cambie el nombre de esta función. _Mangling_ es cuando un compilador cambia
+el nombre que le hemos dado a una función a un nombre diferente que contiene
+más información para otras partes del proceso de compilación para consumir,
+pero es menos legible para los humanos. Cada compilador de lenguaje de
+programación mangla los nombres de manera ligeramente diferente, por lo que
+para que una función Rust sea nombrable por otros lenguajes, debemos
+deshabilitar el mangling del compilador de Rust. Esto es **inseguro** porque 
+podrían ocurrir colisiones de nombres entre bibliotecas al no usar el mangling 
+integrado. Por lo tanto, es nuestra responsabilidad asegurarnos de que el 
+nombre que hemos escogido sea seguro para exportar sin mangling.
+
+En el siguiente ejemplo, hacemos que la función `call_from_c` sea accesible
+desde el código C, después de que se compile a una biblioteca compartida y
+se vincule desde C:
+
+```rust
+#[unsafe(no_mangle)]
+pub extern "C" fn call_from_c() {
+    println!("Just called a Rust function from C!");
+}
+```
+
+Este uso de `extern` requiere `unsafe` solo en el atributo, no en el bloque 
+`extern`.
 
 ### Acceder o modificar una variable estática mutable
 
@@ -446,7 +448,7 @@ variables static pueden ser mutables. Acceder y modificar variables static
 mutables es _inseguro_. El Listado 20-11 muestra cómo declarar, acceder y
 modificar una variable static mutable llamada `COUNTER`.
 
-<Listing number="20-11" file-name="src/main.rs" caption="Leer o escribir en una variable static mutable es inseguro">
+<Listing number="20-11" file-name="src/main.rs" caption="Leer o escribir en una variable static mutable es inseguro.">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-11/src/main.rs}}
@@ -470,12 +472,15 @@ usar la función de forma segura. De manera similar, siempre que realicemos una
 operación insegura, es idiomático escribir un comentario que comience con 
 `SAFETY` para explicar cómo se cumplen las reglas de seguridad.
 
-Además, el compilador no te permitirá crear referencias a una variable `static` 
-mutable. Solo se puede acceder a ella mediante un **puntero crudo** 
-(*raw pointer*), creado con uno de los operadores de *raw borrow*. Esto incluye 
+Además, el compilador negara por defector cualquier intento de crear referencias 
+a una variable `static` mutable mediante una advertencia. Debes optar 
+explícitamente por desactivar esas protecciones agregando una anotación 
+`#[allow(static_mut_refs)]` o acceder a la variable estática mutable mediante un
+**puntero crudo** (*raw pointer*), creado con uno de los operadores de 
+*raw borrow*. Esto incluye 
 los casos en los que la referencia se crea de forma implícita, como cuando se 
 utiliza dentro de un `println!` en el ejemplo de código.  
-El requerimiento de que las referencias a variables estáticas mutables solo 
+Requiriendo que las referencias a variables estáticas mutables solo 
 puedan crearse a través de punteros crudos ayuda a que los requisitos de 
 seguridad para su uso sean más evidentes.
 
@@ -505,9 +510,9 @@ como `unsafe` también, como se muestra en el Listado 20-12.
 Al utilizar `unsafe impl`, estamos prometiendo que mantendremos las invariantes
 que el compilador no puede verificar.
 
-Como ejemplo, recordemos los marcadores de traits `Sync` y `Send` que
-discutimos en la sección ["Concurrencia extensible con los traits `Sync` y
-`Send`"][concurrencia-extensible-con-los-traits-sync-y-send] en el Capítulo
+Como ejemplo, recordemos los marcadores de traits `Send` y `Sync` que
+discutimos en la sección ["Concurrencia extensible con los traits `Send` y
+`Sync`"][concurrencia-extensible-con-los-traits-send-y-sync] en el Capítulo
 16: el compilador implementa estos traits automáticamente si nuestros tipos se
 componen únicamente de otros tipos que implementan `Send` y `Sync`. Si 
 implementamos un tipo que contiene un tipo que no es `Send` o `Sync`, como 
@@ -539,7 +544,8 @@ ejecutando tu programa o su suite de pruebas, detectando cuándo violas las
 reglas que comprende sobre cómo debería funcionar Rust.
 
 Usar Miri requiere una versión nightly de Rust (hablamos más sobre esto en el 
-[Apéndice G: Cómo se desarrolla Rust y “Rust Nightly”][nightly]). Puedes 
+[Apéndice G: Cómo se desarrolla Rust y “Rust Nightly”][nightly]<!-- ignore -->). 
+Puedes 
 instalar tanto una versión nightly de Rust como la herramienta Miri escribiendo 
 `rustup +nightly component add miri`. Esto no cambia la versión de Rust que usa 
 tu proyecto; solo agrega la herramienta a tu sistema para que puedas usarla 
@@ -547,10 +553,10 @@ cuando lo desees. Puedes ejecutar Miri en un proyecto escribiendo
 `cargo +nightly miri run` o `cargo +nightly miri test`.
 
 Para ver lo útil que puede ser, considera lo que ocurre cuando lo ejecutamos con 
-el Listado 20-11:
+el Listado 20-7:
 
 ```console
-{{#include ../listings/ch20-advanced-features/listing-20-11/output.txt}}
+{{#include ../listings/ch20-advanced-features/listing-20-07/output.txt}}
 ```
 
 Miri nos advierte correctamente que tenemos referencias compartidas a datos 
@@ -561,41 +567,38 @@ indefinido y podemos pensar en cómo hacer que el código sea seguro. En algunos
 casos, Miri también puede detectar errores evidentes —patrones de código que con 
 certeza están mal— y hacer recomendaciones sobre cómo solucionarlos.
 
-Miri no detecta todos los posibles errores que podrías cometer al escribir 
-código `unsafe`. Miri es una herramienta de análisis dinámico, por lo que solo 
-detecta problemas en el código que realmente se ejecuta. Esto significa que 
-deberás usarla junto con buenas prácticas de pruebas para aumentar tu confianza 
-en el código `unsafe` que hayas escrito. Además, Miri no cubre todas las formas 
-posibles en las que tu código puede ser inseguro.
+Miri doesn’t catch everything you might get wrong when writing unsafe code. Miri
+is a dynamic analysis tool, so it only catches problems with code that actually
+gets run. That means you will need to use it in conjunction with good testing
+techniques to increase your confidence about the unsafe code you have written.
+Miri also does not cover every possible way your code can be unsound.
 
-Dicho de otro modo: si Miri *detecta* un problema, sabes que hay un error; pero 
-que Miri *no* detecte un error no significa que no haya un problema. Aun así, 
-puede detectar muchas cosas. ¡Prueba ejecutarla con los otros ejemplos de código 
-`unsafe` de este capítulo y mira qué te dice!
+Put another way: If Miri _does_ catch a problem, you know there’s a bug, but
+just because Miri _doesn’t_ catch a bug doesn’t mean there isn’t a problem. It
+can catch a lot, though. Try running it on the other examples of unsafe code in
+this chapter and see what it says!
 
-Puedes aprender más sobre Miri en \[su repositorio de GitHub]\[miri].
+You can learn more about Miri at [its GitHub repository][miri].
 
-### Cuándo usar código inseguro
+### When to Use Unsafe Code
 
-Utilizar `unsafe` para llevar a cabo una de las cinco acciones (superpoderes)
-que se acaban de mencionar no está mal ni se desaconseja. Sin embargo, es más
-difícil obtener código `unsafe` correcto porque el compilador no puede ayudar a
-mantener la seguridad de la memoria. Cuando tengas una razón para usar código
-`unsafe`, puedes hacerlo, y tener la anotación `unsafe` explícita hace que sea
-más fácil rastrear la fuente de los problemas cuando ocurren.
-Cada vez que escribas código inseguro, puedes usar Miri para ayudarte a tener 
-más confianza en que el código que has escrito respeta las reglas de Rust.
+Using `unsafe` to use one of the five superpowers just discussed
+isn’t wrong or even frowned upon, but it is trickier to get `unsafe` code
+correct because the compiler can’t help uphold memory safety. When you have a
+reason to use `unsafe` code, you can do so, and having the explicit `unsafe`
+annotation makes it easier to track down the source of problems when they occur.
+Whenever you write unsafe code, you can use Miri to help you be more confident
+that the code you have written upholds Rust’s rules.
 
-Para una exploración mucho más profunda sobre cómo trabajar de manera efectiva 
-con Rust inseguro, puedes leer la guía oficial de Rust sobre el tema: el 
-[Rustonomicon][nomicon].
+For a much deeper exploration of how to work effectively with unsafe Rust, read
+Rust’s official guide to the subject, the [Rustonomicon][nomicon].
 
 [referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes
 [ABI]: ../reference/items/external-blocks.html#abi
-[differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constantes
-[concurrencia-extensible-con-los-traits-sync-y-send]: ch16-04-extensible-concurrency-sync-and-send.html#concurrencia-extensible-con-los-traits-sync-y-send
-[el-tipo-slice]: ch04-03-slices.html#el-tipo-slice
-[unions]: https://doc.rust-lang.org/reference/items/unions.html
+[differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constants
+[extensible-concurrency-with-the-sync-and-send-traits]: ch16-04-extensible-concurrency-sync-and-send.html#extensible-concurrency-with-the-sync-and-send-traits
+[the-slice-type]: ch04-03-slices.html#the-slice-type
+[unions]: ../reference/items/unions.html
 [miri]: https://github.com/rust-lang/miri
 [editions]: appendix-05-editions.html
 [nightly]: appendix-07-nightly-rust.html

@@ -40,6 +40,21 @@ tener ningún efecto. Por ejemplo, si intentamos aprobar un borrador de blog
 antes de haber solicitado una revisión, la publicación debería seguir siendo
 un borrador no publicado.
 
+### Un intento tradicional orientado a objetos
+
+Existen infinitas formas de estructurar código para resolver un mismo problema, 
+cada una con diferentes ventajas y desventajas (*trade-offs*). La implementación 
+de esta sección sigue un estilo más tradicional de programación orientada a 
+objetos, algo que es posible escribir en Rust, pero que no aprovecha algunas de 
+las fortalezas del lenguaje.
+
+Más adelante, mostraremos una solución diferente que sigue utilizando el patrón 
+de diseño orientado a objetos, pero que está estructurada de una manera que 
+podría resultar menos familiar para los programadores con experiencia en 
+orientación a objetos. Compararemos ambas soluciones para experimentar las 
+ventajas y desventajas de diseñar código en Rust de forma diferente a como se 
+haría en otros lenguajes.
+
 El Listado 18-11 muestra este flujo de trabajo en forma de código: este es un
 ejemplo de uso de la API que implementaremos en una crate de biblioteca
 llamada `blog`. Esto aún no se compilará porque no hemos implementado el crate
@@ -78,7 +93,7 @@ administrar los cambios de estado directamente. Además, los usuarios no pueden
 cometer un error con los estados, como publicar una publicación antes de que
 se revise.
 
-### Definiendo `Post` y creando una nueva instancia en el estado de borrador
+#### Definiendo `Post` y creando una nueva instancia en el estado de borrador
 
 ¡Comencemos con la implementación de la biblioteca! Sabemos que necesitamos
 un struct `Post` público que contenga algún contenido, por lo que comenzaremos
@@ -112,7 +127,7 @@ comenzará como un borrador. Debido a que el campo `state` de `Post` es privado,
 ¡no hay forma de crear un `Post` en ningún otro estado! En la función
 `Post::new`, establecemos el campo `content` en un nuevo `String` vacío.
 
-### Almacenando el texto del contenido del post
+#### Almacenando el texto del contenido del post
 
 Vimos en el Listado 18-11 que queremos poder llamar a un método llamado
 `add_text` y pasarle un `&str` que luego se agregará como el contenido de texto
@@ -138,7 +153,7 @@ en el que se encuentre la publicación, por lo que no es parte del state pattern
 El método `add_text` no interactúa con el campo `state` en absoluto, pero es
 parte del comportamiento que queremos admitir.
 
-### Asegurando que el contenido de un post en borrador esté vacío
+#### Asegurando que el contenido de un post en borrador esté vacío
 
 Incluso después de que hayamos llamado `add_text` y agregado algún contenido a
 nuestra publicación, todavía queremos que el método `content` devuelva un slice
@@ -162,11 +177,11 @@ vacío. El Listado 18-14 muestra esta implementación de marcador de posición:
 Con este método `content` añadido, todo en el Listado 18-11 hasta la línea 7
 funciona como se pretendía.
 
-<!-- Old link, do not remove -->
+<!-- Old headings. Do not remove or links may break. -->
 
 <a id="requesting-a-review-of-the-post-changes-its-state"></a>
 
-### Solicitar una revisión de los cambios de publicación de su estado
+#### Solicitar una revisión de los cambios de publicación de su estado
 
 A continuación, necesitamos agregar funcionalidad para solicitar una revisión
 de una publicación, lo que debería cambiar su estado de `Draft` a
@@ -229,7 +244,7 @@ como en el estado `Draft`, pero queremos el mismo comportamiento en el estado
 
 <a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 
-### Agregando `approve` para cambiar el comportamiento de `content`
+#### Agregando `approve` para cambiar el comportamiento de `content`
 
 El método `approve` será similar al método `request_review`: establecerá el
 valor de `state` al estado que el estado actual indique que debería tener
@@ -305,7 +320,10 @@ estado tengamos, como se muestra en el Listado 17-18:
 Agregamos una implementación predeterminada para el método `content` que
 devuelve un string slice vacío. Eso significa que no necesitamos implementar
 `content` en los structs `Draft` y `PendingReview`. El struct `Published`
-anulará el método `content` y devolverá el valor en `post.content`.
+anulará el método `content` y devolverá el valor en `post.content`. Aunque es 
+conveniente, permitir que el método `content` de `State` sea quien decida cuál 
+es el contenido de `Post` hace menos clara la separación de responsabilidades 
+entre `State` y `Post`.
 
 Es importante destacar que necesitamos anotaciones de lifetime en este método,
 como discutimos en el Capítulo 10. Estamos tomando una referencia a un `post`
@@ -349,7 +367,7 @@ agregáramos: cada una de esas expresiones `match` necesitaría otra opción!
 Con el State Pattern, los métodos `Post` y los lugares donde usamos `Post` no
 necesitan expresiones `match`, y para agregar un nuevo estado, solo
 necesitaríamos agregar un nuevo struct e implementar los métodos del trait en
-ese struct.
+ese struct en una ubicación.
 
 La implementación utilizando el State Pattern es fácil de extender para agregar
 más funcionalidad. Para ver la simplicidad de mantener el código que usa el
@@ -394,7 +412,7 @@ Veamos algunos cambios que podemos hacer en el crate `blog` que pueden hacer
 que los estados y transiciones no válidos sean errores de tiempo de
 compilación.
 
-#### Codificando estados y comportamiento como tipos
+### Codificando estados y comportamiento como tipos
 
 Vamos a mostrarte cómo replantear el State Pattern para obtener un conjunto
 diferente de compensaciones. En lugar de encapsular los estados y las
@@ -452,6 +470,10 @@ que todas las publicaciones comienzan como publicaciones en borrador, y las
 publicaciones en borrador no tienen su contenido disponible para mostrar.
 Cualquier intento de evitar estas restricciones dará como resultado un error
 del compilador.
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="implementing-transitions-as-transformations-into-different-types"></a>
 
 #### Implementando transiciones como transformaciones en diferentes tipos
 

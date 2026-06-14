@@ -41,17 +41,17 @@ Abordemos estos cuatro problemas refactorizando nuestro proyecto.
 ### Separacion de preocupaciones para proyectos binarios
 
 El problema organizativo de asignar la responsabilidad de múltiples tareas a la
-función `main` es común a muchos proyectos binarios. Como resultado, la
-comunidad de Rust ha desarrollado pautas para dividir las preocupaciones
-separadas de un programa binario cuando `main` comienza a crecer. Este proceso
+función `main` es común a muchos proyectos binarios. Como resultado, muchos 
+programadores de Rust encuentran útil separar las responsabilidades
+de un programa binario cuando `main` comienza a crecer. Este proceso
 tiene los siguientes pasos:
 
 - Divide tu programa en un archivo _main.rs_ y un archivo _lib.rs_ y mueve la 
   lógica de tu programa a _lib.rs_.
 - Mientras la lógica de análisis de línea de comandos sea pequeña, puede
-  permanecer en _main.rs_.
+  permanecer en la función `main`.
 - Cuando la lógica de análisis de línea de comandos comience a complicarse,
-  extráela de _main.rs_ y muévala a _lib.rs_.
+  extráela de la función `main` en otras funciones o tipos.
 
 Las responsabilidades que quedan en la función `main` después de este proceso
 deberían limitarse a lo siguiente:
@@ -65,16 +65,15 @@ deberían limitarse a lo siguiente:
 Este patrón se trata de separar las preocupaciones: _main.rs_ maneja la
 ejecución del programa, y _lib.rs_ maneja toda la lógica de la tarea en
 cuestión. Debido a que no puede probar la función `main` directamente, esta
-estructura le permite probar toda la lógica de su programa moviéndola a
-funciones en _lib.rs_. El código que permanece en _main.rs_ será lo
-suficientemente pequeño como para verificar su corrección leyéndolo. Rehagamos
-nuestro programa siguiendo este proceso.
+estructura le permite probar toda la lógica de su programa moviéndola fuera la 
+función `main`. El código que permanece en la función `main` será lo
+suficientemente pequeño como para verificar lo correcta que esta simplemente 
+leyéndolo. Rehagamos nuestro programa siguiendo este proceso.
 
 #### Extracción del parser de argumentos
 
 Extraeremos la funcionalidad para analizar los argumentos en una función que
-`main` llamará para prepararse para mover la lógica de análisis de línea de
-comandos a _src/lib.rs_. La lista 12-5 muestra el nuevo inicio de `main` que
+`main` llamará. El Listado 12-5 muestra el nuevo inicio de la función `main` que
 llama a una nueva función `parse_config`, que definiremos en _src/main.rs_ por
 el momento.
 
@@ -356,7 +355,12 @@ salida. Esto es similar al manejo basado en `panic!` que usamos en el Listado
 
 ¡Genial! Este output es mucho más amigable para nuestros usuarios.
 
-### Extrayendo la lógica de `main`
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="extracting-logic-from-main"></a>
+<a id="extrayendo-la-lógica-de-`main`"></a>
+
+### Extrayendo la lógica de la función `main`
 
 Ahora que hemos terminado de refactorizar el análisis de configuración, pasemos
 a la lógica del programa. Como dijimos en [“Separación de preocupaciones para
@@ -364,8 +368,8 @@ proyectos
 binarios”](#separacion-de-preocupaciones-para-proyectos-binarios)<!-- ignore -->
 , extraeremos una función llamada `run` que contendrá toda la lógica actualmente
 en la función `main` que no está involucrada con la configuración o el manejo
-de errores. Cuando terminemos, `main` será conciso y fácil de verificar por
-inspección, y podremos escribir pruebas para toda la otra lógica.
+de errores. Cuando terminemos, la función `main` será concisa y fácil de 
+verificar por inspección, y podremos escribir pruebas para toda la otra lógica.
 
 El Listado 12-11 muestra la función `run` extraída. Por ahora, solo estamos
 haciendo la pequeña mejora incremental de extraer la función. Todavía estamos
@@ -467,35 +471,33 @@ _src/main.rs_ y pondremos parte del código en el archivo _src/lib.rs_. De esa
 manera podemos probar el código y tener un archivo _src/main.rs_ con menos
 responsabilidades.
 
-Vamos a mover todo el código que no sea la función `main` de _src/main.rs_ a
-_src/lib.rs_:
+Definamos el código responsable de buscar texto en _src/lib.rs_ en lugar de
+hacerlo en _src/main.rs_, lo que nos permitirá (a nosotros o a cualquier otra
+persona que use nuestra biblioteca `minigrep`) llamar a la función de búsqueda
+desde más contextos que únicamente nuestro binario `minigrep`.
 
-- La función `run`
-- Las declaraciones `use` relevantes
-- La definición de `Config`
-- La función `Config::build`
+Primero, definamos la firma de la función `search` en _src/lib.rs_ como se
+muestra en el Listado 12-13, con un cuerpo que llama al macro
+`unimplemented!`. Explicaremos la firma con más detalle cuando completemos la
+implementación.
 
-El contenido de _src/lib.rs_ debería tener la firma que se muestra en el
-Listado 12-13 (omitimos los cuerpos de las funciones por brevedad). Ten en
-cuenta que esto no se compilará hasta que modifiquemos _src/main.rs_ en el
-Listado 12-14.
-
-<Listing number="12-13" file-name="src/lib.rs" caption="Moviendo `Config` y `run` a _src/lib.rs_">
+<Listing number="12-13" file-name="src/lib.rs" caption="Definiendo la función `search` en *src/lib.rs*">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-13/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-13/src/lib.rs}}
 ```
 
 </Listing>
 
-Hemos hecho uso de la palabra clave `pub`: en `Config`, en sus campos y en su
-método `build`, y en la función `run`. ¡Ahora tenemos un crate de biblioteca que
-tiene una API pública que podemos probar!.
+Hemos utilizado la palabra clave `pub` en la definición de la función para
+designar a `search` como parte de la API pública de nuestro crate de
+biblioteca. ¡Ahora tenemos un crate de biblioteca que podemos usar desde
+nuestro crate binario y que también podemos probar con tests!
 
-Ahora necesitamos traer el código que movimos a _src/lib.rs_ al scope del crate
-binario en _src/main.rs_, como se muestra en el Listado 12-14.
+Ahora necesitamos traer al alcance del crate binario en _src/main.rs_ el código
+definido en _src/lib.rs_ y llamarlo, como se muestra en el Listado 12-14.
 
-<Listing number="12-14" file-name="src/main.rs" caption="Usando el crate biblioteca `minigrep` en _src/main.rs_">
+<Listing number="12-14" file-name="src/main.rs" caption="Usando la función `search` del crate de biblioteca `minigrep` en *src/main.rs*">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-14/src/main.rs:here}}
@@ -503,11 +505,22 @@ binario en _src/main.rs_, como se muestra en el Listado 12-14.
 
 </Listing>
 
-Agregamos una línea `use minigrep::Config` para traer el tipo `Config` desde el
-crate de biblioteca al scope del crate binario, y agregamos el prefijo
-`minigrep::` a la llamada a `run`. Ahora toda la funcionalidad debería estar
-conectada y debería funcionar. Ejecuta el programa con `cargo run` y asegúrate
-de que todo funcione correctamente.
+Agregamos una línea `use minigrep::search` para traer la función `search`
+desde el crate de biblioteca al alcance del crate binario. Luego, en la
+función `run`, en lugar de imprimir el contenido del archivo, llamamos a la
+función `search` y le pasamos como argumentos el valor `config.query` y
+`contents`. Después, `run` utilizará un bucle `for` para imprimir cada línea
+devuelta por `search` que coincida con la consulta. Este también es un buen
+momento para eliminar las llamadas a `println!` en la función `main` que
+mostraban la consulta y la ruta del archivo, de manera que nuestro programa
+solo imprima los resultados de la búsqueda (si no ocurre ningún error).
+
+Ten en cuenta que la función `search` recopilará todos los resultados en un
+vector que devuelve antes de que ocurra cualquier impresión. Esta
+implementación podría ser lenta al mostrar resultados cuando se buscan
+archivos grandes, porque los resultados no se imprimen a medida que se
+encuentran; en el Capítulo 13 discutiremos una posible forma de solucionar esto
+utilizando iteradores.
 
 ¡Uf! Eso fue mucho trabajo, pero nos hemos preparado para el éxito en el
 futuro. Ahora es mucho más fácil manejar errores, y hemos hecho que el código

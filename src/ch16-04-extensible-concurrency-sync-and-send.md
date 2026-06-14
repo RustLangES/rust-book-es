@@ -17,12 +17,12 @@ traits `Sync` y `Send` de `std::marker`.
 ### Permitiendo la transferencia de Ownership entre hilos con `Send`
 
 El trait `Send` indica que la propiedad de un valor se puede transferir entre
-hilos. Casi todos los tipos son `Send`, con algunas excepciones notables, como
-`Rc<T>`, que no es `Send` porque si clonara un valor de `Rc<T>` y tratara de
-transferir la propiedad del clon a otro hilo, ambos hilos podrían actualizar el
-recuento de referencias al mismo tiempo. Por esta razón, `Rc<T>` está
-implementado para su uso en situaciones de un solo hilo donde no desea pagar la
-penalización de rendimiento segura para subprocesos.
+hilos. Casi todos los tipos implementan `Send`, con algunas excepciones 
+notables, como `Rc<T>`, que no es `Send` porque si clonara un valor de `Rc<T>` y 
+tratara de transferir la propiedad del clon a otro hilo, ambos hilos podrían 
+actualizar el recuento de referencias al mismo tiempo. Por esta razón, `Rc<T>` 
+está implementado para su uso en situaciones de un solo hilo donde no desea 
+pagar la penalización de rendimiento segura para subprocesos.
 
 Por lo tanto, el sistema de tipos y los límites de los traits de Rust garantizan
 que nunca pueda enviar accidentalmente un valor `Rc<T>` a través de hilos de

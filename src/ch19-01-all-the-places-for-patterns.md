@@ -50,28 +50,101 @@ por ejemplo. Cubriremos el patrón `_` con más detalle en la sección [“Ignor
 valores en un patrón”][ignoring-values-in-a-pattern]<!-- ignore --> más adelante
 en este capítulo.
 
+### Sentencias `let`
+
+Antes de este capítulo, solo habíamos hablado explícitamente sobre el uso de 
+patrones con `match` e `if let`, pero en realidad también hemos estado usando 
+patrones en otros lugares, incluyendo las sentencias `let`. Por ejemplo, 
+considera esta sencilla asignación de variable con `let`:
+
+```rust
+let x = 5;
+```
+
+¡Cada vez que has usado una sentencia `let` como esta, has estado utilizando 
+patrones, aunque quizás no te hayas dado cuenta! De forma más formal, una 
+sentencia `let` tiene la siguiente forma:
+
+<!--
+  Manually formatted rather than using Markdown intentionally: Markdown does not
+  support italicizing code in the body of a block like this!
+-->
+
+<pre>
+<code>let <em>PATTERN</em> = <em>EXPRESSION</em>;</code>
+</pre>
+
+En sentencias como `let x = 5;`, donde hay un nombre de variable en la posición 
+del PATRÓN, dicho nombre es simplemente una forma particularmente simple de 
+patrón. Rust compara la expresión contra el patrón y asigna cualquier nombre que 
+encuentre. Así, en el ejemplo `let x = 5;`, `x` es un patrón que significa: 
+«vincula lo que coincida aquí a la variable `x`». Como el nombre `x` constituye 
+todo el patrón, este patrón significa efectivamente: «vincula cualquier valor a 
+la variable `x`, sin importar cuál sea».
+
+Para ver más claramente el aspecto de coincidencia de patrones en `let`, 
+considera el Listado 19-1, que utiliza un patrón con `let` para desestructurar 
+una tupla.
+
+<Listing number="19-1" caption="Uso de un patrón para desestructurar una tupla y crear tres variables de una sola vez">
+
+```rust
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-01/src/main.rs:here}}
+```
+
+</Listing>
+
+Aquí hacemos coincidir una tupla con un patrón. Rust compara el valor 
+`(1, 2, 3)` con el patrón `(x, y, z)` y observa que coinciden, ya que ambos 
+tienen la misma cantidad de elementos. Entonces Rust vincula `1` a `x`, `2` a 
+`y` y `3` a `z`. Puedes pensar en este patrón de tupla como si contuviera tres 
+patrones de variables individuales anidados en su interior.
+
+Si la cantidad de elementos en el patrón no coincide con la cantidad de 
+elementos de la tupla, el tipo general no coincidirá y obtendremos un error de 
+compilación. Por ejemplo, el Listado 19-2 muestra un intento de desestructurar 
+una tupla de tres elementos en dos variables, lo cual no funcionará.
+
+
+<Listing number="19-2" caption="Construcción incorrecta de un patrón cuyas variables no coinciden con la cantidad de elementos de la tupla">
+
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-02/src/main.rs:here}}
+```
+
+</Listing>
+
+Intentar compilar este código produce un error de tipos.
+
+Para corregir el error, podríamos ignorar uno o más de los valores de la tupla 
+usando `_` o `..`, como veremos en la sección «Ignorar valores en un patrón». Si 
+el problema es que tenemos demasiadas variables en el patrón, la solución es 
+hacer que los tipos coincidan eliminando variables hasta que la cantidad de 
+variables sea igual a la cantidad de elementos de la tupla.
+
 ### Expresiones condicionales `if let`
 
-En el capítulo 6 discutimos cómo usar expresiones `if let` principalmente como
-una forma más corta de escribir el equivalente de un `match` que solo coincide
-con un caso. Opcionalmente, `if let` puede tener un `else` correspondiente que
-contenga código para ejecutar si el patrón en el `if let` no coincide.
+En el Capítulo 6 vimos cómo utilizar expresiones `if let`, principalmente como 
+una forma más corta de escribir el equivalente a un `match` que solo maneja un 
+caso. Opcionalmente, un `if let` puede tener un bloque `else` correspondiente 
+que contenga el código a ejecutar cuando el patrón del `if let` no coincida.
 
-El Listado 19-1 muestra que también es posible mezclar y combinar expresiones
-`if let`, `else if` y `else if let`. Hacerlo nos da más flexibilidad que una
-expresión `match` en la que solo podemos expresar un valor para comparar con
-los patrones. Además, Rust no requiere que las condiciones en una serie de
-brazos `if let`, `else if`, `else if let` se relacionen entre sí.
+El Listado 19-3 muestra que también es posible combinar expresiones `if let`, 
+`else if` y `else if let`. Esto nos proporciona más flexibilidad que una 
+expresión `match`, en la que solo podemos expresar un único valor para 
+compararlo contra los patrones. Además, Rust no exige que las condiciones de 
+una serie de ramas `if let`, `else if` y `else if let` estén relacionadas entre 
+sí.
 
-El código en el Listado 19-1 determina de qué color hacer su fondo en función
+El código en el Listado 19-3 determina de qué color hacer su fondo en función
 de una serie de comprobaciones para varias condiciones. Para este ejemplo,
 hemos creado variables con valores codificados que un programa real podría
 recibir de la entrada del usuario.
 
-<Listing number="19-1" file-name="src/main.rs" caption="Combinando `if let`, `else if`, `else if let`, y `else`">
+<Listing number="19-3" file-name="src/main.rs" caption="Combinando `if let`, `else if`, `else if let`, y `else`">
 
 ```rust
-{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-01/src/main.rs}}
+{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-03/src/main.rs}}
 ```
 
 </Listing>
@@ -107,83 +180,10 @@ Similar en su construcción a `if let`, el bucle condicional `while let` permite
 que un bucle `while` se ejecute mientras un patrón continúe coincidiendo. Vimos 
 por primera vez un bucle `while let` en el Capítulo 17, donde lo usamos para 
 seguir iterando mientras un flujo producía nuevos valores. De manera similar, en 
-el Listado 19-2 mostramos un bucle `while let` que espera mensajes enviados 
+el Listado 19-4 mostramos un bucle `while let` que espera mensajes enviados 
 entre hilos, pero en este caso verificando un `Result` en lugar de una `Option`.
 
-<Listing number="19-2" caption="Usando un bucle `while let` para imprimir valores mientras `rx.recv()` devuelva `Ok`">
-
-```rust
-{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-02/src/main.rs:here}}
-```
-
-</Listing>
-
-Este ejemplo imprime 1, 2 y 3. Cuando vimos `recv` en el Capítulo 16, manejamos 
-el error directamente con `unwrap` o interactuamos con él como un iterador 
-usando un bucle `for`. Sin embargo, como muestra el Listado 19-2, también 
-podemos usar `while let`, ya que el método `recv` devuelve `Ok` mientras el 
-remitente siga produciendo mensajes, y luego genera un `Err` cuando el lado del 
-remitente se desconecta.
-
-### Bucles `for`
-
-En un bucle `for`, el valor que sigue directamente a la palabra clave `for` es
-un pattern. Por ejemplo, en `for x in y` el `x` es el pattern. El Listado 19-3
-demuestra cómo usar un pattern en un bucle `for` para destruir, o romper, una
-tupla como parte del bucle `for`.
-
-<Listing number="19-3" caption="Usando un pattern en un bucle `for` para desestructurar una tupla">
-
-```rust
-{{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-03/src/main.rs:here}}
-```
-
-</Listing>
-
-El código en el Listado 19-3 imprimirá lo siguiente:
-
-```console
-{{#include ../listings/ch19-patterns-and-matching/listing-19-03/output.txt}}
-```
-
-Adaptamos un iterator usando el método `enumerate` para que produzca un valor y
-el índice de ese valor, colocado en una tupla. El primer valor producido es la
-tupla `(0, 'a')`. Cuando este valor se corresponde con el pattern `(index,
-value)`, `index` será `0` y `value` será `'a'`, imprimiendo la primera línea
-del output.
-
-### Sentencias `let`
-
-Antes de este capítulo, solo habíamos discutido explícitamente el uso de
-patterns con `match` e `if let`, pero de hecho, también hemos usado patterns
-en otros lugares, incluyendo en las sentencias `let`. Por ejemplo, considera
-esta asignación de variable directa con `let`:
-
-```rust
-let x = 5;
-```
-
-Cada vez que has utilizado una declaración `let` como esta, has estado usando
-patterns, aunque es posible que no te hayas dado cuenta. Más formalmente, una
-sentencia `let` se ve así:
-
-```text
-let PATTERN = EXPRESSION;
-```
-
-En declaraciones como `let x = 5;`, con un nombre de variable en el slot
-`PATTERN`, el nombre de la variable es solo una forma particularmente simple de
-un pattern. Rust compara la expresión con el pattern y asigna cualquier nombre
-que encuentre. Entonces, en el ejemplo `let x = 5;`, `x` es un pattern que
-significa “vincula lo que coincide aquí a la variable `x`”. Debido a que el
-nombre `x` es todo el pattern, este pattern significa efectivamente “vincula
-todo a la variable `x`, sea cual sea el valor”.
-
-Para ver más claramente el aspecto de coincidencia de patrones de `let`,
-considera el Listado 19-4, que usa un pattern con `let` para destruir una
-tupla.
-
-<Listing number="19-4" caption="Usando un pattern para desestructurar una tupla y crear tres variables a la vez">
+<Listing number="19-4" caption="Usando un bucle `while let` para imprimir valores mientras `rx.recv()` devuelva `Ok`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-04/src/main.rs:here}}
@@ -191,36 +191,40 @@ tupla.
 
 </Listing>
 
-Aquí, emparejamos una tupla con un pattern. Rust compara el valor `(1, 2, 3)`
-con el pattern `(x, y, z)` y ve que el valor y el pattern coinciden, por lo que
-Rust asigna `1` a `x`, `2` a `y` y `3` a `z`. Puedes pensar que este pattern de
-tupla anida tres patterns de variable individuales dentro de él.
+Este ejemplo imprime 1, 2 y 3. Cuando vimos `recv` en el Capítulo 16, manejamos 
+el error directamente con `unwrap` o interactuamos con él como un iterador 
+usando un bucle `for`. Sin embargo, como muestra el Listado 19-4, también 
+podemos usar `while let`, ya que el método `recv` devuelve `Ok` mientras el 
+remitente siga produciendo mensajes, y luego genera un `Err` cuando el lado del 
+remitente se desconecta.
 
-Si el número de elementos en el pattern no coincide con el número de elementos
-en la tupla, el tipo general no coincidirá y obtendremos un error del
-compilador. Por ejemplo, el Listado 19-5 muestra un intento de destruir una
-tupla con tres elementos en dos variables, lo cual no funcionará.
+### Bucles `for`
 
-<Listing number="19-5" caption="Al construir incorrectamente un pattern cuyas variables no coinciden con el número de elementos en la tupla">
+En un bucle `for`, el valor que sigue directamente a la palabra clave `for` es
+un pattern. Por ejemplo, en `for x in y` el `x` es el pattern. El Listado 19-5
+demuestra cómo usar un pattern en un bucle `for` para destructurar, o romper, 
+una tupla como parte del bucle `for`.
 
-```rust,ignore,does_not_compile
+<Listing number="19-5" caption="Usando un pattern en un bucle `for` para desestructurar una tupla">
+
+```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-05/src/main.rs:here}}
 ```
 
 </Listing>
 
-Intentar compilar este código resulta en este error de tipo:
+El código en el Listado 19-5 imprimirá lo siguiente:
+
 
 ```console
 {{#include ../listings/ch19-patterns-and-matching/listing-19-05/output.txt}}
 ```
 
-Para solucionar el error, podríamos ignorar uno o más valores en la tupla
-utilizando `_` o `..`, como verás en la sección [“Ignorando valores en un
-pattern”][ignoring-values-in-a-pattern]<!-- ignore -->. Si el problema es que
-tenemos demasiadas variables en el pattern, la solución es hacer que los tipos
-coincidan eliminando variables para que el número de variables sea igual al
-número de elementos en la tupla.
+Adaptamos un iterator usando el método `enumerate` para que produzca un valor y
+el índice de ese valor, colocado en una tupla. El primer valor producido es la
+tupla `(0, 'a')`. Cuando este valor se corresponde con el pattern `(index,
+value)`, `index` será `0` y `value` será `'a'`, imprimiendo la primera línea
+del output.
 
 ### Parámetros de función
 

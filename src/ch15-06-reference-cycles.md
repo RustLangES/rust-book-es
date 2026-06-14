@@ -74,7 +74,7 @@ instancia `Rc<List>` de `a` de 2 a 1 también. La memoria asignada a la lista
 no se recogerá nunca. Para visualizar este ciclo de referencia, hemos creado
 un diagrama en la Figura 15-4.
 
-<img alt="Reference cycle of lists" src="img/trpl15-04.svg" class="center" />
+<img alt="A rectangle labeled 'a' that points to a rectangle containing the integer 5. A rectangle labeled 'b' that points to a rectangle containing the integer 10. The rectangle containing 5 points to the rectangle containing 10, and the rectangle containing 10 points back to the rectangle containing 5, creating a cycle" src="img/trpl15-04.svg" class="center" />
 
 <span class="caption">Figure 15-4: Un ciclo de referencia de las listas `a` 
 y `b` apuntándose mutuamente.</span>
@@ -119,8 +119,8 @@ Hasta ahora, hemos demostrado que llamar a `Rc::clone` aumenta el `strong_count`
 de una instancia `Rc<T>`, y una instancia `Rc<T>` solo se limpia si su
 `strong_count` es 0. También puedes crear una *referencia débil* al valor
 dentro de una instancia `Rc<T>` llamando a `Rc::downgrade` y pasando una
-referencia a la `Rc<T>`. Las referencias fuertes son cómo puedes compartir el
-ownership de una instancia `Rc<T>`. Las referencias débiles no expresan una
+referencia a la `Rc<T>`. Las _referencias fuertes_ son cómo puedes compartir el
+ownership de una instancia `Rc<T>`. Las _referencias débiles_ no expresan una
 relación de ownership, y su recuento no afecta cuándo se limpia una instancia
 `Rc<T>`. No causarán un ciclo de referencia porque cualquier ciclo que involucre
 algunas referencias débiles se romperá una vez que el recuento de referencias
@@ -214,7 +214,7 @@ Un nodo podrá referirse a su nodo padre, pero no será propietario de él. En
 el Listado 15-28, actualizamos `main` para usar esta nueva definición, por lo
 que el nodo `leaf` tendrá una forma de referirse a su nodo padre, `branch`.
 
-<Listing number="15-28" file-name="src/main.rs" caption="Un nodo `leaf` con una referencia débil a su nodo padre `branch`">
+<Listing number="15-28" file-name="src/main.rs" caption="Un nodo `leaf` con una referencia débil a su nodo padre, `branch`">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-28/src/main.rs:there}}

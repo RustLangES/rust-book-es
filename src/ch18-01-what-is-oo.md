@@ -60,7 +60,7 @@ campos dentro del struct permanecen privados. Esto es importante en este caso
 porque queremos asegurarnos de que cada vez que se agrega o elimina un valor de
 la lista, el promedio también se actualiza. Hacemos esto implementando los
 métodos públicos `add`, `remove` y `average` en el struct, como se muestra en
-el Listado 18-2:
+el Listado 18-2.
 
 <Listing number="18-2" file-name="src/lib.rs" caption="Implementaciones de los métodos públicos `add`, `remove`, y `average` en `AveragedCollection`">
 
@@ -144,6 +144,7 @@ características.
 > esos tipos deben proporcionar. Esto se llama a veces _polimorfismo paramétrico
 > acotado_.
 
+Rust ha elegido un conjunto diferente de compromisos al no ofrecer herencia.
 En los últimos tiempos, la herencia ha perdido popularidad como solución de
 diseño de programas en muchos lenguajes de programación porque a menudo está en
 riesgo de compartir más código del necesario. Las subclases no siempre deben
@@ -156,5 +157,5 @@ que una subclase solo puede heredar de una clase), lo que restringe aún más la
 flexibilidad del diseño de un programa.
 
 Por estas razones, Rust toma un enfoque diferente utilizando trait objects en
-lugar de herencia. Veamos cómo los trait objects permiten el polimorfismo en
-Rust.
+lugar de herencia para permitir polimorfismo. Veamos cómo los trait objects 
+funcionan.

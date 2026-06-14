@@ -269,7 +269,8 @@ capturó `list` usando una referencia inmutable porque esa es la menor cantidad
 de acceso a `list` necesaria para imprimirla. En este ejemplo, aunque el cuerpo
 del closure todavía solo necesita una referencia inmutable, debemos especificar
 que `list` debe moverse al closure poniendo la palabra clave `move` al comienzo
-de la definición del closure. El nuevo hilo podría terminar antes de que el
+de la definición del closure. Si el hilo principal realizara más trabajo antes 
+de llamar a `join`, el nuevo hilo podría terminar antes de que el
 resto del hilo principal termine, o el hilo principal podría terminar primero.
 Si el hilo principal mantuviera la propiedad de `list` pero terminara antes de
 que lo hiciera el nuevo hilo y dejara caer `list`, la referencia inmutable en
@@ -302,15 +303,15 @@ structs pueden especificar qué tipos de closures pueden usar. Los closures
 implementarán automáticamente uno, dos o los tres de estos traits `Fn`, de
 manera aditiva, dependiendo de cómo el cuerpo del closure maneje los valores:
 
-1. `FnOnce` se aplica los closures que pueden ser llamados una vez. Todos los
+* `FnOnce` se aplica los closures que pueden ser llamados una vez. Todos los
    closures implementan al menos este trait, porque todos los closures pueden
    ser llamados. Un closure que mueve valores capturados fuera de su cuerpo
    solo implementará `FnOnce` y ninguno de los otros traits `Fn`, porque solo
    puede ser llamado una vez.
-2. `FnMut` se aplica a los closures que no mueven valores capturados fuera de
+* `FnMut` se aplica a los closures que no mueven valores capturados fuera de
    su cuerpo, pero que podrían mutar los valores capturados. Estos closures
    pueden ser llamados más de una vez.
-3. `Fn` se aplica a los closures que no mueven valores capturados fuera de su
+* `Fn` se aplica a los closures que no mueven valores capturados fuera de su
    cuerpo y que no mutan los valores capturados, así como los closures que no
    capturan nada de su entorno. Estos closures pueden ser llamados más de una
    vez sin mutar su entorno, lo cual es importante en casos como llamar a un

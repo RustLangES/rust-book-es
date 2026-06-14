@@ -13,10 +13,10 @@ los valores, permitiendo que el struct `Config` posea esos valores. En el
 Listado 13-17, hemos reproducido la implementación de la función `Config::build`
 tal como estaba en el Listado 12-23.
 
-<Listing number="13-17" file-name="src/lib.rs" caption="Reproducción de la función `Config::build` del Listing 12-23">
+<Listing number="13-17" file-name="src/main.rs" caption="Reproducción de la función `Config::build` del Listing 12-23">
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch13-functional-features/listing-12-23-reproduced/src/lib.rs:ch13}}
+{{#rustdoc_include ../listings/ch13-functional-features/listing-12-23-reproduced/src/main.rs:ch13}}
 ```
 
 </Listing>
@@ -69,15 +69,14 @@ del iterator en un vector y luego pasar un slice a `Config::build`, ahora
 estamos pasando ownership del iterator retornado por `env::args` directamente a
 `Config::build`.
 
-Luego, necesitamos actualizar la definición de `Config::build`. En el archivo
-_src/lib.rs_ de tu proyecto I/O, cambiemos la firma de `Config::build` para que
-se vea como el Listado 13-19. Esto aún no compilará porque necesitamos
-actualizar el cuerpo de la función.
+Luego, necesitamos actualizar la definición de `Config::build`. Cambiemos la 
+firma de `Config::build` para que se vea como el Listado 13-19. Esto aún no 
+compilará porque necesitamos actualizar el cuerpo de la función.
 
-<Listing number="13-19" file-name="src/lib.rs" caption="Actualizando la firma de `Config::build` para esperar un iterator">
+<Listing number="13-19" file-name="src/main.rs" caption="Actualizando la firma de `Config::build` para esperar un iterator">
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/main.rs:here}}
 ```
 
 </Listing>
@@ -105,10 +104,10 @@ Luego, necesitamos actualizar el cuerpo de `Config::build` para usar los
 métodos del trait `Iterator` en lugar de indexar en el slice. En el Listado
 13-20 hemos actualizado el código del Listado 12-23 para usar el método `next`.
 
-<Listing number="13-20" file-name="src/lib.rs" caption="Cambiando el cuerpo de `Config::build` para usar métodos de iterator">
+<Listing number="13-20" file-name="src/main.rs" caption="Cambiando el cuerpo de `Config::build` para usar métodos de iterator">
 
-```rust,noplayground
-{{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/lib.rs:here}}
+```rust,ignore,noplayground
+{{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/main.rs:here}}
 ```
 
 </Listing>
@@ -126,7 +125,7 @@ retornamos temprano con un valor `Err`. Hacemos lo mismo para el valor
 
 También podemos aprovechar los iterators en la función `search` de nuestro
 proyecto I/O, el cual se reproduce aquí en el Listado 13-21 como estaba en el
-Listado 12-19:
+Listado 12-19.
 
 <Listing number="13-21" file-name="src/lib.rs" caption="La implementación de la función `search` del Listing 12-19">
 
@@ -160,19 +159,37 @@ líneas que coinciden en otro vector con `collect`. ¡Mucho más simple! Siénte
 libre de hacer el mismo cambio para usar los métodos del iterator en la función
 `search_case_insensitive` también.
 
+Como una mejora adicional, devuelve un iterador desde la función `search` 
+eliminando la llamada a `collect` y cambiando el tipo de retorno a 
+`impl Iterator<Item = &'a str>`, de modo que la función se convierta en un 
+adaptador de iteradores. Ten en cuenta que también necesitarás actualizar las 
+pruebas.
+
+Busca en un archivo grande usando tu herramienta `minigrep` antes y después de 
+realizar este cambio para observar la diferencia de comportamiento. Antes de 
+este cambio, el programa no imprimirá ningún resultado hasta haber recopilado 
+todos los resultados, pero después del cambio, los resultados se imprimirán a 
+medida que se encuentre cada línea coincidente, porque el bucle `for` en la 
+función `run` puede aprovechar la evaluación perezosa del iterador.
+
+<!-- Old heading. Do not remove or links may break. -->
+
+<a id="choosing-between-loops-or-iterators"></a>
+
 ### Escogiendo entre loops o iterators
 
 La siguiente pregunta lógica es qué estilo deberías escoger en tu propio código
 y por qué: la implementación original en el Listado 13-21 o la versión usando
-iterators en el Listado 13-22. La mayoría de los programadores Rust prefieren
-usar el estilo de iterators. Es un poco más difícil de entender al principio,
-pero una vez que obtienes una idea de los varios adaptadores de iterators y lo
-que hacen, los iterators pueden ser más fáciles de entender. En lugar de
-manipular los varios bits de los loops y construir nuevos vectores, el código
-se enfoca en el objetivo de alto nivel del loop. Esto abstrae un poco del
-código común para que sea más fácil ver los conceptos que son únicos a este
-código, como la condición de filtrado que cada elemento en el iterator debe
-pasar.
+iterators en el Listado 13-22 (suponiendo que estamos recopilando todos los 
+resultados antes de devolverlos, en lugar de devolver el iterador). 
+La mayoría de los programadores Rust prefieren usar el estilo de iterators. 
+Es un poco más difícil de entender al principio, pero una vez que obtienes una 
+idea de los varios adaptadores de iterators y lo que hacen, los iterators 
+pueden ser más fáciles de entender. En lugar de manipular los varios bits de los 
+loops y construir nuevos vectores, el código se enfoca en el objetivo de alto 
+nivel del loop. Esto abstrae un poco del código común para que sea más fácil ver 
+los conceptos que son únicos a este código, como la condición de filtrado que 
+cada elemento en el iterator debe pasar.
 
 ¿Pero son las dos implementaciones realmente equivalentes? La suposición
 intuitiva podría ser que el loop más bajo nivel será más rápido. Hablemos de

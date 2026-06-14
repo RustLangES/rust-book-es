@@ -53,7 +53,7 @@ pattern `Some(x)`, Rust produce un error del compilador.
 
 Si tenemos un pattern refutable donde se necesita un patrón irrefutable, 
 podemos solucionarlo cambiando el código que utiliza el patrón: en lugar de 
-usar `let`, podemos usar `if let`. Entonces, si el pattern no coincide, el 
+usar `let`, podemos usar `if else`. Entonces, si el pattern no coincide, el 
 código simplemente omitirá el código entre llaves, dándole una forma de 
 continuar válidamente. El Listado 19-9 muestra cómo solucionar el código del 
 Listado 19-8.
@@ -66,12 +66,13 @@ Listado 19-8.
 
 </Listing>
 
-¡Le hemos dado una solución al código! Este código es perfectamente válido ahora.
-Sin embargo, significa que no podemos usar un pattern irrefutable sin recibir un
-error. Si le damos a `if let` un pattern que siempre coincidirá, como `x`, como
-se muestra en el Listado 18-10, el compilador dará una advertencia.
+¡Le hemos dado una solución al código! Este código es perfectamente válido, 
+aunque significa que no podemos usar un patrón irrefutable sin recibir una 
+advertencia. Si le damos a `let...else` un patrón que siempre coincidirá, como 
+`x`, tal como se muestra en el Listado 19-10, el compilador emitirá una 
+advertencia.
 
-<Listing number="19-10" caption="Intentando usar un pattern irrefutable con `if let`">
+<Listing number="19-10" caption="Intentando usar un pattern irrefutable con `let...else`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-10/src/main.rs:here}}
@@ -79,7 +80,7 @@ se muestra en el Listado 18-10, el compilador dará una advertencia.
 
 </Listing>
 
-Rust se queja de que no tiene sentido usar `if let` con un pattern 
+Rust se queja de que no tiene sentido usar `if...else` con un pattern 
 irrefutable:
 
 ```console

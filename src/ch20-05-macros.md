@@ -228,7 +228,8 @@ terminado. El primer paso es hacer un nuevo crate de biblioteca, así:
 $ cargo new hello_macro --lib
 ```
 
-A continuación, definiremos el trait `HelloMacro` y su función asociada:
+A continuación, en el Listado 20-38, definiremos el trait `HelloMacro` y su 
+función asociada.
 
 <Listing file-name="src/lib.rs" number="20-38" caption="A simple trait that we will use with the `derive` macro">
 
@@ -318,10 +319,10 @@ macros procedurales que veas o crees. El código que especifiques en el cuerpo
 de la función interna (`impl_hello_macro` en este caso) será diferente
 dependiendo del propósito de tu macro procedural.
 
-Hemos introducido tres nuevos crates: `proc_macro`, [`syn`], y [`quote`]. El
-crate `proc_macro` viene con Rust, por lo que no necesitamos agregarlo a las
-dependencias en _Cargo.toml_. El crate `proc_macro` es la API del compilador
-que nos permite leer y manipular código Rust desde nuestro código.
+Hemos introducido tres nuevos crates: `proc_macro`, [`syn`][syn]<!--ignore -->, 
+y [`quote`]. El crate `proc_macro` viene con Rust, por lo que no necesitamos 
+agregarlo a las dependencias en _Cargo.toml_. El crate `proc_macro` es la API 
+del compilador que nos permite leer y manipular código Rust desde nuestro código.
 
 El crate `syn` analiza el código Rust desde un string en una estructura de
 datos en la que podemos realizar operaciones. El crate `quote` convierte las
@@ -403,11 +404,11 @@ el trait `HelloMacro` en el tipo anotado, como se muestra en el Listado 20-42.
 
 Obtenemos una instancia del struct `DeriveInput` que contiene el nombre
 (identificador) del tipo anotado usando `ast.ident`. El struct en el Listado
-20-33 muestra que cuando ejecutamos la función `impl_hello_macro` en el código
-del Listado 20-31, el `ident` que obtenemos tendrá el campo `ident` con un
-valor de `"Pancakes"`. Por lo tanto, la variable `name` en el Listado 20-34
+20-41 muestra que cuando ejecutamos la función `impl_hello_macro` en el código
+del Listado 20-37, el `ident` que obtenemos tendrá el campo `ident` con un
+valor de `"Pancakes"`. Por lo tanto, la variable `name` en el Listado 20-42
 contendrá una instancia del struct `Ident` que, cuando se imprima, será la
-cadena `"Pancakes"`, el nombre del struct en el Listado 20-31.
+cadena `"Pancakes"`, el nombre del struct en el Listado 20-37.
 
 La macro `quote!` nos permite construir el código que queremos devolver. El
 compilador espera algo diferente al resultado directo de la ejecución de la
@@ -438,16 +439,16 @@ de string en tiempo de compilación.
 
 En este punto, `cargo build` debería completarse correctamente tanto en
 `hello_macro` como en `hello_macro_derive`. ¡Conectemos estos crates al código
-del Listado 20-31 para ver la macro procedural en acción! Crea un nuevo
+del Listado 20-37 para ver la macro procedural en acción! Crea un nuevo
 proyecto binario en tu directorio _projects_ usando `cargo new pancakes`.
 Necesitamos agregar `hello_macro` y `hello_macro_derive` como dependencias en el
 _Cargo.toml_ de `pancakes`. Si estás publicando tus versiones de `hello_macro`
-y `hello_macro_derive` en [crates.io](https://crates.io/), serían dependencias
-regulares; si no, puedes especificarlas como dependencias `path` de la
-siguiente manera:
+y `hello_macro_derive` en [crates.io](https://crates.io/)<!-- ignore -->, 
+serían dependencias regulares; si no, puedes especificarlas como dependencias 
+`path` de la siguiente manera:
 
 ```toml
-{{#include ../listings/ch20-advanced-features/no-listing-21-pancakes/pancakes/Cargo.toml:7:9}}
+{{#include ../listings/ch20-advanced-features/no-listing-21-pancakes/pancakes/Cargo.toml:6:8}}
 ```
 
 Coloca el código del Listado 20-37 en _src/main.rs_ y ejecuta `cargo run`:
@@ -499,7 +500,7 @@ funciones; por ejemplo, pueden tomar un número desconocido de argumentos. Sin
 embargo, las macros `macro_rules!` solo se pueden definir usando la sintaxis
 similar a la de los patterns que discutimos en la sección [“Macros declarativas
 con `macro_rules!` para metaprogramación general”][decl]<!-- ignore -->
-anteriormente. Las macros tipo función toman un parámetro `TokenStream` y su
+anteriormente. Las macros tipo función toman un parámetro `TokenStream`, y su
 definición manipula ese `TokenStream` usando código Rust como los otros dos
 tipos de macros procedurales. Un ejemplo de una macro tipo función es una macro
 `sql!` que podría ser llamada así:
@@ -535,8 +536,8 @@ del libro y haremos un proyecto más!
 
 [ref]: https://doc.rust-lang.org/reference/macros-by-example.html
 [tlborm]: https://veykril.github.io/tlborm/
-[`syn`]: https://crates.io/crates/syn
-[`quote`]: https://crates.io/crates/quote
+[syn]: https://crates.io/crates/syn
+[quote]: https://crates.io/crates/quote
 [syn-docs]: https://docs.rs/syn/2.0/syn/struct.DeriveInput.html
 [quote-docs]: https://docs.rs/quote
 [decl]: #macros-declarativas-con-macro_rules-para-metaprogramacion-general

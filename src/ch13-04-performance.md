@@ -34,6 +34,12 @@ Stroustrup, el diseñador e implementador original de C++, define *cero costo* e
 > lo que no usas, no pagas. Y además: lo que usas, no podrías codificarlo a
 > mano mejor.
 
+En muchos casos, el código Rust que utiliza iteradores se compila al mismo
+ensamblador que escribirías manualmente. Optimizaciones como el desenrollado de
+bucles (*loop unrolling*) y la eliminación de verificaciones de límites
+(*bounds checking*) en accesos a arreglos se aplican y hacen que el código
+resultante sea extremadamente eficiente. 
+
 Como otro ejemplo, el siguiente código es tomado de un decodificador de audio.
 El algoritmo de decodificación usa la operación matemática de predicción lineal
 para estimar valores futuros basados en una función lineal de las muestras
@@ -66,7 +72,7 @@ valores de los coeficientes con los 12 valores anteriores en `buffer`. Luego,
 para cada par, multiplicamos los valores juntos, sumamos todos los resultados y
 desplazamos los bits en la suma `qlp_shift` bits a la derecha.
 
-Calculaciones en aplicaciones como decodificadores de audio a menudo priorizan
+Calculos en aplicaciones como decodificadores de audio a menudo priorizan
 el performance. Aquí, estamos creando un iterator, usando dos adaptadores, y
 luego consumiendo el valor. ¿Qué código ensamblador compilaría este código Rust?
 Bueno, a partir de este escrito, compila al mismo ensamblador que escribirías a

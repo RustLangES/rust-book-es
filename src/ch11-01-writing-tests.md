@@ -178,7 +178,8 @@ check the line number of the panic matches the line number in the following para
 En lugar de `ok`, la línea `test tests::another` muestra `FAILED`. Dos nuevas
 secciones aparecen entre los resultados individuales y el resumen: la primera
 muestra la razón detallada de cada falla de test. En este caso, obtenemos los
-detalles de que `another` falló porque `panicked at 'Make this test fail'` en la
+detalles de que `tests::another` falló porque este *paniqueo* con el mensaje 
+`panicked at 'Make this test fail'` en la
 línea 17 del archivo _src/lib.rs_. La siguiente sección lista solo los nombres
 de todos los tests que fallaron, lo cual es útil cuando hay muchos tests y
 mucho output detallado de tests fallidos. Podemos usar el nombre de un test
@@ -316,8 +317,8 @@ parámetro, luego testeamos esta función usando la macro `assert_eq!`.
 ```
 
 Creamos una variable llamada `result`que contiene el resultado de la llamada 
-`add_two(2)`. Luego hemos pasado `4` como argumento a `assert_eq!`, que es igual 
-al resultado de llamar a `add_two(2)`. La línea para este test es 
+`add_two(2)`. Luego hemos pasado `4` como argumento a la macro `assert_eq!`, que 
+es igual al resultado de llamar a `add_two(2)`. La línea para este test es 
 `test tests::it_adds_two ... ok`, y el texto `ok` indica que nuestro test pasó!
 
 Vamos a introducir un error en nuestro código para ver cómo se ve `assert_eq!`
@@ -334,8 +335,8 @@ Ejecutemos los tests nuevamente:
 {{#include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/output.txt}}
 ```
 
-¡Nuestro test atrapó el bug! El test `it_adds_two` falló, y el mensaje nos dice
-que la aserción que falló fue `` assertion `left == right` failed`` y
+¡Nuestro test atrapó el bug! El test `tests::it_adds_two` falló, y el mensaje 
+nos dice que la aserción que falló fue `` assertion `left == right` failed`` y
 cuáles son los valores de `left` y `right`. Este mensaje nos ayuda a comenzar a
 debuggear: el argumento `left` fue `4` pero el argumento `right`, donde
 llamamos a `add_two(2)`, fue `5`. Puedes imaginar que esto sería especialmente
@@ -346,8 +347,8 @@ las funciones de aserción de igualdad se llaman `expected` y `actual`, y el
 orden en que especificamos los argumentos importa. Sin embargo, en Rust, se
 llaman `left` y `right`, y el orden en que especificamos el valor que esperamos
 y el valor que el código produce no importa. Podríamos escribir la aserción en
-este test como `assert_eq!(add_two(2), result)`, lo que resultaría en el mismo
-mensaje de error que muestra `` assertion failed: `(left == right)` ``.
+este test como `assert_eq!(4, result)`, lo que resultaría en el mismo
+mensaje de error que muestra `` assertion `left == right` failed``.
 
 La macro `assert_ne!` pasará si los dos valores que le proporcionamos no son
 iguales. Esta macro es más útil en casos en los que no estamos seguros de cuál

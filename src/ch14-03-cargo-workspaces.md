@@ -30,7 +30,7 @@ configurará todo el *workspace*. Este archivo no tendrá una sección `[package
 En su lugar, comenzará con una sección `[workspace]` que nos permitirá agregar
 miembros al *workspace*. También nos esforzamos en utilizar las últimas y mejores
 versión del algoritmo de resolución de Cargo en nuestro workspace configurando el
-`resolver` en `"3"`. Especificando la ruta al paquete con nuestro *crate*
+valor `resolver` en `"3"`. Especificando la ruta al paquete con nuestro *crate*
 binario; en este caso, esa ruta es *adder*:
 
 <span class="filename">Filename: Cargo.toml</span>
@@ -52,13 +52,13 @@ copy output below
 
 ```console
 $ cargo new adder
-    Creating binary (application) `adder` package
+     Created binary (application) `adder` package
       Adding `adder` as member of workspace at `file:///projects/add`
 ```
 
 Ejecutando `cargo new` dentro de un espacio de trabajo también agrega 
 automáticamente el recién creado paquete a la clave `members` en la definición 
-`[workspace]` en el `Cargo.toml`, así:
+`[workspace]` en el _Cargo.toml_, así:
 
 ```toml
 {{#include ../listings/ch14-more-about-cargo/output-only-01-adder-crate/add/Cargo.toml}}
@@ -104,7 +104,7 @@ copy output below
 
 ```console
 $ cargo new add_one --lib
-    Creating library `add_one` package
+     Created library `add_one` package
       Adding `add_one` as member of workspace at `file:///projects/add`
 ```
 
@@ -375,7 +375,8 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 Este output muestra que `cargo test` solo ejecutó los tests para el crate
 `add_one` y no ejecutó los tests del crate `adder`.
 
-Si tu publicas los crates en el workspace en [crates.io](https://crates.io/),
+Si tu publicas los crates en el workspace en 
+[crates.io](https://crates.io/)<!-- ignore -->,
 cada crate en el workspace necesitará ser publicado por separado. Como `cargo
 test`, podemos publicar un crate en particular en nuestro workspace usando la
 bandera `-p` y especificando el nombre del crate que queremos publicar.

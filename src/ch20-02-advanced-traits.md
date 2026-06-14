@@ -152,8 +152,8 @@ lugar de usar el predeterminado.
 Tenemos dos structs, `Millimeters` y `Meters`, que contienen valores en
 unidades diferentes. Este envoltorio ligero de un tipo existente en otro struct
 se conoce como el _patrón newtype_, que describimos con más detalle en la
-sección [“Usando el Patrón Newtype para Implementar Traits Externos en Tipos
-Externos”][newtype]. Queremos agregar valores en milímetros a valores en metros
+sección [“Usando el Patrón Newtype para Implementar Traits Externos”][newtype]. 
+Queremos agregar valores en milímetros a valores en metros
 y que la implementación de `Add` haga la conversión correctamente. Podemos
 implementar `Add` para `Millimeters` con `Meters` como `Rhs`, como se muestra en
 el Listado 20-16.
@@ -435,7 +435,11 @@ Entonces, al, implementar el trait `OutlinePrint` en `Point`, se compilará
 exitosamente, y podemos llamar a `outline_print` en una instancia de `Point`
 para mostrarla dentro de un contorno de asteriscos.
 
-### Usando el pattern Newtype para implementar traits externos en tipos externos
+<!-- Old link, do not remove -->
+<a id="using-the-newtype-pattern-to-implement-external-traits-on-external-types"></a>
+<a id="usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos"></a>
+
+### Usando el pattern Newtype para implementar traits externos
 
 En el capítulo 10 en la sección [“Implementando un trait en un
 tipo”][implementando-un-trait-en-un-tipo]<!-- ignore -->, mencionamos los orphan
@@ -488,7 +492,7 @@ El pattern newtype también es útil incluso cuando no se involucran traits.
 Ahora cambiemos de enfoque y exploremos algunas formas avanzadas de interactuar
 con el sistema de tipos de Rust.
 
-[newtype]: ch20-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos
+[newtype]: ch20-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos
 [implementando-un-trait-en-un-tipo]: ch10-02-traits.html#implementando-un-trait-en-un-tipo
 [traits-definiendo-comportamiento-compartido]: ch10-02-traits.html#traits-definiendo-comportamiento-compartido
 [smart-pointer-deref]: ch15-02-deref.html#tratando-los-smart-pointers-como-referencias-regulares-con-el-trait-deref
