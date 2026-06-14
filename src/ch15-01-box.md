@@ -184,7 +184,7 @@ variantes, comenzando con la variante `Cons`. La variante `Cons` contiene un
 valor de tipo `i32` y un valor de tipo `List`, y este proceso continúa
 infinitamente, como se muestra en la Figura 15-1.
 
-<img alt="An infinite Cons list: a rectangle labeled 'Cons' split into two smaller rectangles. The first smaller rectangle holds the label 'i32', and the second smaller rectangle holds the label 'Cons' and a smaller version of the outer 'Cons' rectangle. The 'Cons' rectangles continue to hold smaller and smaller versions of themselves until the smallest comfortably-sized rectangle holds an infinity symbol, indicating that this repetition goes on forever" src="img/trpl15-01.svg" class="center" style="width: 50%;" />
+<img alt="Una lista Cons infinita: un rectángulo etiquetado como «Cons» dividido en dos rectángulos más pequeños. El primer rectángulo pequeño contiene la etiqueta «i32», y el segundo contiene la etiqueta «Cons» junto con una versión más pequeña del rectángulo «Cons» exterior. Los rectángulos «Cons» continúan conteniendo versiones cada vez más pequeñas de sí mismos hasta que el rectángulo más pequeño que aún puede apreciarse contiene un símbolo de infinito, indicando que esta repetición continúa para siempre." src="img/trpl15-01.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Figura 15-1: Un `List` infinito consistente en variantes
 `Cons` infinitas</span>

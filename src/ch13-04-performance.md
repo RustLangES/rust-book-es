@@ -72,7 +72,7 @@ valores de los coeficientes con los 12 valores anteriores en `buffer`. Luego,
 para cada par, multiplicamos los valores juntos, sumamos todos los resultados y
 desplazamos los bits en la suma `qlp_shift` bits a la derecha.
 
-Calculos en aplicaciones como decodificadores de audio a menudo priorizan
+Cálculos en aplicaciones como decodificadores de audio a menudo priorizan
 el performance. Aquí, estamos creando un iterator, usando dos adaptadores, y
 luego consumiendo el valor. ¿Qué código ensamblador compilaría este código Rust?
 Bueno, a partir de este escrito, compila al mismo ensamblador que escribirías a

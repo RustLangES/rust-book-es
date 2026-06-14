@@ -185,5 +185,5 @@ en el Capítulo 18.
 [valores-enum]: ch06-01-defining-an-enum.html#valores-enum
 [closure-types]: ch13-01-closures.html#closure-type-inference-and-annotation
 [any-number-of-futures]: ch17-03-more-futures.html
-[using-trait-objects-to-abstract-over-shared-behavior]: ch18-02-trait-objects.html#usando-trait-objects-para-abstraer-sobre-comportamiento-compartido
+[using-trait-objects-to-abstract-over-shared-behavior]: ch18-02-trait-objects.html#usando-trait-objects-para-abstraer-comportamiento-compartido
 

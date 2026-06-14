@@ -283,4 +283,4 @@ pedir prestado; no nos permite violar las reglas de ownership.
 Con una comprensión básica de los hilos y la API de hilos, veamos qué podemos
 _hacer_ con los hilos.
 
-[capture]: ch13-01-closures.html#capturing-references-or-moving-ownership
+[capture]: ch13-01-closures.html#capturando-referencias-o-moviendo-el-ownership

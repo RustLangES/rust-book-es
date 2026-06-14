@@ -223,7 +223,7 @@ podemos conocer en tiempo de ejecución.
 
 Profundicemos en los detalles de un tipo de tamaño dinámico llamado `str`, que
 hemos estado usando a lo largo del libro. Así es, no `&str`, sino `str` por sí
-solo, es un DST. En muchos casos, como cuando almacenas texto integraso por el 
+solo, es un DST. En muchos casos, como cuando almacenas texto ingresado por el 
 usuario, no podemos saber cuánto tiempo es la cadena hasta el tiempo de
 ejecución, lo que significa que no podemos crear una variable de tipo `str`, ni
 podemos tomar un argumento de tipo `str`. Considera el siguiente código, que
@@ -301,6 +301,6 @@ detrás de algún tipo de puntero. En este caso, hemos elegido una referencia.
 
 [encapsulacion-que-oculta-los-detalles-de-implementacion]: ch18-01-what-is-oo.html#encapsulacion-que-oculta-los-detalles-de-implementacion
 [string-slices]: ch04-03-slices.html#string-slices
-[the-match-control-flow-construct]: ch06-02-match.html#the-match-control-flow-construct
+[the-match-control-flow-construct]: ch06-02-match.html#el-operador-de-control-de-flujo-match
 [usando-trait-objects-para-abstraer-comportamiento-compartido]: ch18-02-trait-objects.html#usando-trait-objects-para-abstraer-comportamiento-compartido
 [using-the-newtype-pattern]: ch20-03-advanced-traits.html#usando-el-pattern-newtype-para-implementar-traits-externos-en-tipos-externos

@@ -1,7 +1,7 @@
 ## Concurrencia extensible con los traits `Sync` y `Send`
 
 <!-- Old link, do not remove -->
-
+<a id="concurrencia-extensible-con-los-traits-sync-y-send-old"></a>
 <a id="extensible-concurrency-with-the-sync-and-send-traits"></a>
 
 Curiosamente, el lenguaje Rust tiene _muy_ pocas características de

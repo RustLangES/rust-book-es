@@ -1,7 +1,6 @@
-## Usando Trait Objects para Abstraer sobre Comportamiento Compartido
+## Usando Trait Objects para Abstraer Comportamiento Compartido
 
 <!-- Old headings. Do not remove or links may break. -->
-
 <a id="usando-trait-objects-que-permiten-valores-de-diferentes-tipos"></a>
 
 En el capítulo 8, mencionamos que una limitación de los vectores es que pueden

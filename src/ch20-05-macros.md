@@ -320,9 +320,10 @@ de la función interna (`impl_hello_macro` en este caso) será diferente
 dependiendo del propósito de tu macro procedural.
 
 Hemos introducido tres nuevos crates: `proc_macro`, [`syn`][syn]<!--ignore -->, 
-y [`quote`]. El crate `proc_macro` viene con Rust, por lo que no necesitamos 
-agregarlo a las dependencias en _Cargo.toml_. El crate `proc_macro` es la API 
-del compilador que nos permite leer y manipular código Rust desde nuestro código.
+y [`quote`][quote]<!--ignore -->. El crate `proc_macro` viene con Rust, por lo 
+que no necesitamos agregarlo a las dependencias en _Cargo.toml_. El crate 
+`proc_macro` es la API del compilador que nos permite leer y manipular código 
+Rust desde nuestro código.
 
 El crate `syn` analiza el código Rust desde un string en una estructura de
 datos en la que podemos realizar operaciones. El crate `quote` convierte las

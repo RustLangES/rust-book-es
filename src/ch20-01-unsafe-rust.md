@@ -277,7 +277,7 @@ y algunas llamadas a funciones inseguras para hacer que la implementación de
 
 </Listing>
 
-Recordemos la sección [“The Slice Type”][el-tipo-slice]<!-- ignore --> del
+Recordemos la sección [“El Tipo Slice][the-slice-type]<!-- ignore --> del
 Capítulo 4 que los slices son un puntero a algunos datos y la longitud del
 slice. Usamos el método `len` para obtener la longitud del slice y el método
 `as_mut_ptr` para acceder al puntero sin procesar de un slice. En este caso,
@@ -472,7 +472,7 @@ usar la función de forma segura. De manera similar, siempre que realicemos una
 operación insegura, es idiomático escribir un comentario que comience con 
 `SAFETY` para explicar cómo se cumplen las reglas de seguridad.
 
-Además, el compilador negara por defector cualquier intento de crear referencias 
+Además, el compilador negara por defecto cualquier intento de crear referencias 
 a una variable `static` mutable mediante una advertencia. Debes optar 
 explícitamente por desactivar esas protecciones agregando una anotación 
 `#[allow(static_mut_refs)]` o acceder a la variable estática mutable mediante un
@@ -512,7 +512,7 @@ que el compilador no puede verificar.
 
 Como ejemplo, recordemos los marcadores de traits `Send` y `Sync` que
 discutimos en la sección ["Concurrencia extensible con los traits `Send` y
-`Sync`"][concurrencia-extensible-con-los-traits-send-y-sync] en el Capítulo
+`Sync`"][extensible-concurrency-with-the-sync-and-send-traits] en el Capítulo
 16: el compilador implementa estos traits automáticamente si nuestros tipos se
 componen únicamente de otros tipos que implementan `Send` y `Sync`. Si 
 implementamos un tipo que contiene un tipo que no es `Send` o `Sync`, como 
@@ -567,37 +567,42 @@ indefinido y podemos pensar en cómo hacer que el código sea seguro. En algunos
 casos, Miri también puede detectar errores evidentes —patrones de código que con 
 certeza están mal— y hacer recomendaciones sobre cómo solucionarlos.
 
-Miri doesn’t catch everything you might get wrong when writing unsafe code. Miri
-is a dynamic analysis tool, so it only catches problems with code that actually
-gets run. That means you will need to use it in conjunction with good testing
-techniques to increase your confidence about the unsafe code you have written.
-Miri also does not cover every possible way your code can be unsound.
+Miri no detecta todo lo que puede salir mal al escribir código inseguro 
+(*unsafe*). Miri es una herramienta de análisis dinámico, por lo que solo 
+detecta problemas en el código que realmente se ejecuta. Esto significa que 
+deberás utilizarla junto con buenas técnicas de pruebas para aumentar tu 
+confianza en el código inseguro que hayas escrito. Además, Miri no cubre todas 
+las formas posibles en las que tu código puede ser incorrecto o no cumplir las 
+garantías de seguridad (*unsound*).
 
-Put another way: If Miri _does_ catch a problem, you know there’s a bug, but
-just because Miri _doesn’t_ catch a bug doesn’t mean there isn’t a problem. It
-can catch a lot, though. Try running it on the other examples of unsafe code in
-this chapter and see what it says!
+Dicho de otra manera: si Miri detecta un problema, sabes que existe un 
+error. Pero el hecho de que Miri no detecte un error no significa que no 
+haya ningún problema. Aun así, puede detectar muchas cosas. ¡Prueba a ejecutarlo 
+sobre los otros ejemplos de código inseguro de este capítulo y observa qué 
+resultados obtienes!
 
-You can learn more about Miri at [its GitHub repository][miri].
+Puedes aprender más sobre Miri en [su repositorio de GitHub][miri].
 
-### When to Use Unsafe Code
+## Cuándo utilizar código inseguro
 
-Using `unsafe` to use one of the five superpowers just discussed
-isn’t wrong or even frowned upon, but it is trickier to get `unsafe` code
-correct because the compiler can’t help uphold memory safety. When you have a
-reason to use `unsafe` code, you can do so, and having the explicit `unsafe`
-annotation makes it easier to track down the source of problems when they occur.
-Whenever you write unsafe code, you can use Miri to help you be more confident
-that the code you have written upholds Rust’s rules.
+Utilizar `unsafe` para emplear uno de los cinco superpoderes que acabamos de 
+analizar no está mal ni está mal visto. Sin embargo, es más difícil escribir 
+correctamente código `unsafe` porque el compilador ya no puede ayudarte a 
+garantizar la seguridad de memoria (*memory safety*). Cuando tengas una razón 
+válida para utilizar código `unsafe`, puedes hacerlo. Además, la anotación 
+explícita `unsafe` facilita localizar el origen de los problemas cuando estos 
+aparecen. Siempre que escribas código inseguro, puedes utilizar Miri para tener 
+una mayor confianza en que tu código respeta las reglas de Rust.
 
-For a much deeper exploration of how to work effectively with unsafe Rust, read
-Rust’s official guide to the subject, the [Rustonomicon][nomicon].
+Para una exploración mucho más profunda sobre cómo trabajar eficazmente con Rust 
+inseguro, consulta la guía oficial de Rust sobre el tema, el 
+[Rustonomicon][nomicon].
 
 [referencias-colgantes]: ch04-02-references-and-borrowing.html#referencias-colgantes
 [ABI]: ../reference/items/external-blocks.html#abi
-[differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constants
-[extensible-concurrency-with-the-sync-and-send-traits]: ch16-04-extensible-concurrency-sync-and-send.html#extensible-concurrency-with-the-sync-and-send-traits
-[the-slice-type]: ch04-03-slices.html#the-slice-type
+[differences-between-variables-and-constants]: ch03-01-variables-and-mutability.html#constantes
+[extensible-concurrency-with-the-sync-and-send-traits]: ch16-04-extensible-concurrency-sync-and-send.html#concurrencia-extensible-con-los-traits-sync-y-send-old
+[the-slice-type]: ch04-03-slices.html#el-tipo-slice
 [unions]: ../reference/items/unions.html
 [miri]: https://github.com/rust-lang/miri
 [editions]: appendix-05-editions.html
