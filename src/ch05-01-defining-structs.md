@@ -80,8 +80,7 @@ variables `email` y `username` es un poco tedioso. Si el struct tuviera más
 campos, repetir cada nombre sería aún más molesto. Afortunadamente, hay una
 conveniente forma abreviada.
 
-<!-- Old heading. Do not remove or links may break. -->
-
+<!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
@@ -107,7 +106,12 @@ valor del parámetro `email` de la función `build_user`. Debido a que el campo
 `email` y el parámetro `email` tienen el mismo nombre, solo necesitamos escribir
 `email` en lugar de `email: email`.
 
-### Creando Instancias de Otras Instancias con Sintaxis de Struct Update
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="creating-instances-from-other-instances-with-struct-update-syntax"></a>
+<a id="creando-instancias-de-otras-instancias-con-sintaxis-de-struct-update"></a>
+
+### Creando Instancias con Sintaxis de Struct Update
 
 Suele ser útil crear una nueva instancia de un struct que incluya la mayoría de
 los valores de otra instancia, pero cambie algunos. Puede hacer esto usando la
@@ -163,7 +167,12 @@ discutimos en la sección [“Datos de pila: Copy”][copy]<!-- ignore --> se
 aplicaría. Nosotros podemos aún usar `user1.email` en este ejemplo, debido a que 
 el *valor no es movido*.
 
-### Usando Structs de Tuplas sin Campos Nombrados para Crear Diferentes Tipos
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
+<a id="usando-structs-de-tuplas-sin-campos-nombrados-para-crear-diferentes-tipos"></a>
+
+### Creando Diferentes Tipos con Structs de Tuplas
 
 Rust también admite structs que se parecen a tuplas, llamados _structs de
 tuplas_. Los structs de tuplas tienen el significado adicional que proporciona
@@ -198,7 +207,12 @@ tipo de estructura cuando las desestructuras. Por ejemplo, escribiríamos
 `let Punto(x, y, z) = punto` para desestructurar los valores de `origin` en 
 variables llamadas x, y y z.
 
-### Structs de Unidad sin Campos
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="unit-like-structs-without-any-fields"></a>
+<a id="structs-de-unidad-sin-campos"></a>
+
+### Definiendo de Structs de Unidad
 
 También puede definir structs que no tienen ningún campo. Estos se llaman
 _structs de unidad_ porque se comportan de manera similar a `()`, el tipo de

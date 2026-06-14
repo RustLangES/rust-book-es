@@ -213,8 +213,7 @@ que, como las variables, las referencias son inmutables por defecto. Por lo
 tanto, necesitas escribir `&mut guess` en lugar de `&guess` para hacerlo
 mutable. (El capítulo 4 explicará las referencias con más detalle.)
 
-<!-- Old heading. Do not remove or links may break. -->
-
+<!-- Old headings. Do not remove or links may break. -->
 
 <a id="handling-potential-failure-with-the-result-type"></a>
 
@@ -340,7 +339,11 @@ funcionalidad de números aleatorios en su biblioteca estándar. Sin embargo, el
 equipo de Rust proporciona un [`rand` crate][randcrate] con dicha
 funcionalidad.
 
-### Usando un Crate para obtener más funcionalidad
+<!-- Old headings. Do not remove or links may break. -->
+<a id="using-a-crate-to-get-more-functionality"></a>
+<a id="usando-un-crate-para-obtener-mas-funcionalidad"></a>
+
+### Mejorando Funcionalidad con un Crate
 
 Recuerda que un crate es una colección de archivos de código fuente de Rust. El
 proyecto que hemos estado construyendo es un _binary crate_, que es un
@@ -392,7 +395,7 @@ rm Cargo.lock
 cargo clean
 cargo build -->
 
-<Listing number="2-2" caption="La salida de ejecutar `cargo build` después de agregar el crate rand como una dependencia">
+<Listing number="2-2" caption="La salida de ejecutar `cargo build` después de agregar el crate `rand` como una dependencia">
 
 ```console
 $ cargo build
@@ -461,7 +464,11 @@ cambio en el archivo _src/main.rs_. Sus dependencias no han cambiado, por lo
 que Cargo sabe que puede reutilizar lo que ya ha descargado y compilado para
 esas.
 
-#### Garantizar compilaciones reproducibles con el archivo _Cargo.lock_
+<!-- Old headings. Do not remove or links may break. -->
+<a id="ensuring-reproducible-builds-with-the-cargo-lock-file"></a>
+<a id="garantizar-compilaciones-reproducibles-con-el-archivo-cargo-lock"></a>
+
+#### Garantizando Compilaciones Reproducibles
 
 Cargo tiene un mecanismo que le garantiza que puede reconstruir el mismo
 artefacto cada vez que usted o cualquier otra persona construye su código:
@@ -488,10 +495,10 @@ verifica en el control de versiones con el resto del código en su proyecto.
 Cuando _quiera_ actualizar un crate, Cargo proporciona el comando `update`,
 que ignorará el archivo _Cargo.lock_ y determinará todas las últimas versiones
 que cumplan con sus especificaciones en _Cargo.toml_. Cargo luego escribirá
-esas versiones en el archivo _Cargo.lock_. En este caso, Cargo solo buscará 
-versiones mayores que 0.8.5 y menores que 0.9.0. Si el crate `rand` ha lanzado 
-las dos nuevas versiones 0.8.6 y 0.9.0, vería lo siguiente si ejecutara 
-`cargo update`:
+esas versiones en el archivo _Cargo.lock_. De otra forma, por defecto, Cargo 
+solo buscará versiones mayores que 0.8.5 y menores que 0.9.0. Si el crate `rand` 
+ha lanzado las dos nuevas versiones 0.8.6 y 0.9.0, vería lo siguiente si 
+ejecutara `cargo update`:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/listing-02-02/
@@ -738,7 +745,7 @@ lógicamente en números y, por lo tanto, pueden causar fácilmente errores. Si,
 por ejemplo, la cadena contiene `A👍%`, no habría manera de convertir eso en un
 número. Debido a que podría fallar, el método `parse` devuelve un tipo `Result`,
 tal como lo hace el método `read_line` (discutido anteriormente en
-[“Manejo de posibles fallas con `Result`”](#handling-potential-failure-with-the-result-type)<!-- ignore-->).
+[“Manejo de posibles fallas con `Result`”](#handling-potential-failure-with-the-result-type)<!-- ignore -->).
 Trataremos este `Result` de la misma manera usando el método `expect` de nuevo.
 Si `parse` devuelve una variante `Err` del tipo `Result` porque no pudo crear
 un número a partir de la cadena, la llamada `expect` hará que el juego se
@@ -795,7 +802,7 @@ otra adivinanza para siempre, lo que introduce un nuevo problema! ¡Parece que e
 usuario no puede salir!
 
 El usuario siempre podría interrumpir el programa usando el atajo de teclado
-<kbd>ctrl</kbd>-<kbd>c</kbd>. Pero hay otra forma de escapar de este monstruo insaciable, 
+<kbd>ctrl</kbd>-<kbd>C</kbd>. Pero hay otra forma de escapar de este monstruo insaciable, 
 como se mencionó en la discusión de `parse` en
 [“Comparando la adivinanza con el número secreto”](#comparando-la-adivinanza-con-el-numero-secreto)<!--
 ignore -->: si el usuario ingresa una respuesta que no es un número, el

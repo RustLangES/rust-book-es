@@ -159,9 +159,6 @@ programación se comuniquen entre sí. Diferentes clientes pueden usar
 `rust-analyzer`, como [el complemento del analizador Rust para Visual Studio
 Code][vscode].
 
-[lsp]: http://langserver.org/
-[vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer
-
 Visite la [página de inicio del proyecto `rust-analyzer`][rust-analyzer]<!-- ignore -->
 para obtener instrucciones de instalación, luego instale el soporte del servidor
 de lenguaje en su IDE en particular. Su IDE ganará habilidades como

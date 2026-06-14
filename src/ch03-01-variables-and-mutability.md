@@ -76,7 +76,11 @@ Se nos permite cambiar el valor vinculado a `x` de `5` a `6` cuando se usa
 `mut`. En última instancia, decidir si usar o no la mutabilidad depende de
 usted y depende de lo que crea que es más claro en esa situación particular.
 
-### Constantes
+<!-- Old headings. Do not remove or links may break. -->
+<a id="constants"></a>
+<a id="constantes"></a>
+
+### Declarando Constantes
 
 Al igual que las variables inmutables, las _constantes_ son valores que están
 vinculados a un nombre y no se les permite cambiar, pero hay algunas

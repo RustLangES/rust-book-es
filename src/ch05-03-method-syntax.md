@@ -1,6 +1,6 @@
 <a id="sintaxis-de-metodos"></a>
 
-## Sintaxis de Métodos
+## Métodos
 
 Los métodos son similares a las funciones: los declaramos con la palabra clave
 `fn` y un nombre, pueden tener parámetros y un valor de retorno, y contienen
@@ -11,7 +11,11 @@ una estructura (o un enum o un objeto de tipo trait, que cubriremos en el
 -->, respectivamente), y su primer parámetro siempre es `self`, que representa
 la instancia de la estructura en la que se está llamando al método.
 
-### Definiendo Metodos
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="definiendo-metodos"></a>
+
+### Sintaxis de Métodos
 
 Vamos a cambiar la función `area` que tiene una instancia de `Rectangle` como
 parámetro y en vez de eso definamos un método `area` en el struct `Rectangle`,

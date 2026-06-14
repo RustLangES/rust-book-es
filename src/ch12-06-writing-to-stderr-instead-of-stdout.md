@@ -1,4 +1,9 @@
-## Escribiendo mensajes de error estándar en lugar del output estándar
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="writing-error-messages-to-standard-error-instead-of-standard-output"></a>
+<a id="escribiendo-mensajes-de-error-en-error-estandar-en-lugar-de-output-estandar"></a>
+
+## Redirigiendo errores al error estándar
 
 En este momento, estamos escribiendo toda nuestro output en la terminal usando
 la macro `println!`. En la mayoría de las terminales, hay dos tipos de output:

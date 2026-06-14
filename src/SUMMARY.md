@@ -32,7 +32,7 @@
 
   - [Definiendo e Instanciando Structs](ch05-01-defining-structs.md)
   - [Un Programa de Ejemplo Usando Structs](ch05-02-example-structs.md)
-  - [Sintaxis de Métodos](ch05-03-method-syntax.md)
+  - [Métodos](ch05-03-method-syntax.md)
 
 - [Enums y Pattern Matching](ch06-00-enums.md)
   - [Definiendo un Enum](ch06-01-defining-an-enum.md)

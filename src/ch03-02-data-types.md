@@ -330,7 +330,11 @@ El arreglo llamado `a` contendrá `5` elementos que inicialmente se establecerá
 en el valor `3`. Esto es lo mismo que escribir `let a = [3, 3, 3, 3, 3];` pero
 de una manera más concisa.
 
-##### Accediendo a los Elementos del Arreglo
+<!-- Old headings. Do not remove or links may break. -->
+<a id="accessing-array-elements"></a>
+<a id="accediendo-a-los-elementos-del-arreglo"></a>
+
+##### Acceso a los Elementos del Arreglo
 
 Un arreglo es un trozo de memoria de tamaño fijo y conocido que puede asignarse 
 a la pila. Se puede acceder a los elementos de una arreglo utilizando la 

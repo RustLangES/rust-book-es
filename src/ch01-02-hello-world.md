@@ -14,7 +14,11 @@ aquí!
 > centrado en habilitar un gran soporte a IDEs a través de `rust-analyzer`.
 > Consulta [Apéndice D][devtools]<!-- ignore --> para obtener más detalles.
 
-### Creando un directorio de proyecto
+<!-- Old headings. Do not remove or links may break. -->
+<a id="creating-a-project-directory"></a>
+<a id="creando-un-directorio-de-proyecto"></a>
+
+### Configuración del directorio del proyecto
 
 Comenzarás creando un directorio para almacenar tu código Rust. A Rust no le
 importa dónde vive tu código, pero para los ejercicios y proyectos de este libro,
@@ -43,7 +47,11 @@ Para Windows CMD, escribe esto:
 > cd hola_mundo
 ```
 
-### Escribir y ejecutar un programa en Rust
+<!-- Old headings. Do not remove or links may break. -->
+<a id="writing-and-running-a-rust-program"></a>
+<a id="escribir-y-ejecutar-un-programa-en-rust"></a>
+
+### Programa Básico en Rust
 
 A continuación, crea un nuevo archivo de texto y llámalo *main.rs*. Los archivos
 Rust siempre terminan con la extensión *.rs*. Si estás usando más de una palabra
@@ -124,7 +132,7 @@ El cuerpo de la función `main` contiene el siguiente código:
     println!("¡Hola, mundo!");
 ```
 
-Esta línea hace todo el trabajo en este pequeño programa: imprime texto en la
+Esta línea hace todo el trabajo en este pequeño programa: Imprime texto en la
 pantalla. Hay tres detalles importantes que hay que notar aquí.
 
 Primero, `println!` llamamos a una macro de Rust. Si hubiéramos llamado a una
@@ -140,7 +148,11 @@ Tercero, terminamos la línea con un punto y coma (`;`), lo que indica que esta
 expresión ha terminado y la siguiente está lista para comenzar. La mayoría de
 las líneas de código de Rust terminan con un punto y coma.
 
-### Compilar y ejecutar son pasos separados
+<!-- Old headings. Do not remove or links may break. -->
+<a id="compiling-and-running-are-separate-steps"></a>
+<a id="compilar-y-ejecutar-son-pasos-separados"></a>
+
+### Compilación y Ejecución
 
 Acabas de ejecutar un programa recién creado, así que examinemos cada paso en el
 proceso.

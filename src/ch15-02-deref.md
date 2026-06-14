@@ -202,7 +202,11 @@ nuestro código. Debido a que la sustitución del operador `*` no se repite
 infinitamente, terminamos con datos de tipo `i32`, que coincide con el `5` en
 `assert_eq!` en el Listado 15-9.
 
-### Coerciones implicitas de Deref con funciones y metodos
+<!-- Old headings. Do not remove or links may break. -->
+<a id="implicit-deref-coercions-with-functions-and-methods"></a>
+<a id="coerciones-implicitas-de-deref-con-funciones-y-metodos"></a>
+
+### Usando Coerciones de Deref en Funciones y Métodos
 
 La _coerción Deref_ convierte una referencia a un tipo que implementa el trait
 `Deref` en una referencia a otro tipo. Por ejemplo, la coerción Deref puede

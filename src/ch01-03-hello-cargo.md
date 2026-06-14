@@ -228,7 +228,11 @@ Si estás midiendo el tiempo de ejecución de tu código, asegúrate de ejecutar
 `cargo build --release` y realizar la prueba de rendimiento con el ejecutable
 en *target/release*.
 
-### Cargo como convención
+<!-- Old headings. Do not remove or links may break. -->
+<a id="cargo-as-convention"></a>
+<a id="cargo-como-convención"></a>
+
+### Aprovechando las convenciones de Cargo
 
 Con proyectos simples, Cargo no proporciona mucho valor por sobre sólo usar
 `rustc`, pero demostrará su valor a medida que tus programas se vuelvan más

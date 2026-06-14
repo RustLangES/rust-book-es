@@ -143,8 +143,11 @@ desde tu shell:
 ```console
 $ rustup self uninstall
 ```
+<!-- Old headings. Do not remove or links may break. -->
+<a id="local-documentation"></a>
+<a id="documentacion-local"></a>
 
-### Documentación local
+### Leyendo la Documentación Local
 
 La instalación de Rust también incluye una copia local de la documentación para
 que puedas leerla sin conexión. Ejecuta `rustup doc` para abrir la documentación
@@ -154,7 +157,11 @@ En cualquier momento en que se proporcione un tipo o una función de la bibliote
 estándar y no estés seguro de lo que hace o cómo usarlo, usa la documentación de
 la interfaz de programación de aplicaciones (API) para averiguarlo.
 
-### Editores de Texto y Entornos de Desarrollo Integrados
+<!-- Old headings. Do not remove or links may break. -->
+<a id="text-editors-and-integrated-development-environments"></a>
+<a id="editores-de-texto-y-entornos-de-desarrollo-integrados"></a>
+
+### Editores de Texto e IDEs
 
 Este libro no asume qué herramientas usas para escribir código en Rust. ¡Casi 
 cualquier editor de texto servirá! Sin embargo, muchos editores de texto y 

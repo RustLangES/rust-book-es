@@ -199,7 +199,7 @@ que se vea así:
 
 Cuando ejecutemos este programa, veremos `again!` impreso una y otra vez
 continuamente hasta que detengamos manualmente el programa. La mayoría de los
-terminales admiten el atajo de teclado <kbd>ctrl</kbd>-<kbd>c</kbd>
+terminales admiten el atajo de teclado <kbd>ctrl</kbd>-<kbd>C</kbd>
 para interrumpir un programa que está atascado en un bucle continuo.
 Inténtelo:
 
@@ -221,9 +221,9 @@ again!
 ^Cagain!
 ```
 
-El símbolo `^C` representa dónde presionó </kbd>ctrl</kbd>-<kbd>c</kbd>. Puede que vea o no la palabra `again!`
-impresa después del `^C`, dependiendo de dónde estaba el código en el bucle
-cuando recibió la señal de interrupción.
+El símbolo `^C` representa dónde presionó </kbd>ctrl</kbd>-<kbd>C</kbd>. Puede 
+que vea o no la palabra `again!` impresa después del `^C`, dependiendo de dónde 
+estaba el código en el bucle cuando recibió la señal de interrupción.
 
 Afortunadamente, Rust también proporciona una forma de salir de un bucle
 utilizando código. Puede colocar la palabra clave `break` dentro del bucle para
@@ -262,7 +262,11 @@ usamos un punto y coma para terminar la instrucción que asigna el valor a
 Tu puedes también usar `return` dentro de un loop. Mientras `break` solo existe
 para el loop actual, `return` siempre existe para la función actual.
 
-#### Etiquetas de bucle para distinguir entre varios bucles
+<!-- Old headings. Do not remove or links may break. -->
+<a id="loop-labels-to-disambiguate-between-multiple-loops"></a>
+<a id="etiquetas-de-bucle-para-distinguir-entre-varios-bucles"></a>
+
+#### Desambiguando con Etiquetas de Bucles
 
 Si tiene bucles dentro de bucles, `break` y `continue` se aplican al bucle más
 interior en ese punto. Opcionalmente, puede especificar una _etiqueta de bucle_
@@ -284,7 +288,11 @@ una etiqueta solo saldrá del bucle interno. La instrucción `break
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/output.txt}}
 ```
 
-#### Bucles condicionales con `while`
+<!-- Old headings. Do not remove or links may break. -->
+<a id="conditional-loops-with-while"></a>
+<a id="bucles-condicionales-con-while"></a>
+
+#### Simplificando Bucles Condicionales con while
 
 Un programa a menudo necesitará evaluar una condición dentro de un bucle.
 Mientras la condición sea `true`, el bucle se ejecuta. Cuando la condición deja

@@ -67,7 +67,12 @@ descubriera y lo tuviera en cuenta si usara nuestro código! Debido a que no
 hemos transmitido el significado de nuestros datos en nuestro código, ahora es
 más fácil introducir errores.
 
-### Refactorizando con Structs: Añadiendo Más Significado
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="refactoring-with-structs-adding-more-meaning"></a>
+<a id="refactorizando-con-structs-anadiendo-mas-significado"></a>
+
+### Refactorizando con Structs
 
 Hemos usado structs para agregar significado al etiquetar los datos. Podemos
 transformar la tupla que estamos usando en un struct con un nombre para la estructura y nombres para los campos, como se muestra en la lista 5-10.

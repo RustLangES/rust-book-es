@@ -5,7 +5,7 @@ en una [colección](ch08-00-common-collections.md)<!-- ignore --> en lugar de la
 colección completa. Un slice es una especie de referencia, por lo que no tiene 
 ownership.
 
-Aquí hay un pequeño problema de programación: escribe una función que tome un
+Aquí hay un pequeño problema de programación: Escribe una función que tome un
 string de palabras separadas por espacios y retorne la primera palabra que
 encuentre en ese string.
 Si la función no encuentra ningún espacio en el string, todo el string debe ser
@@ -140,7 +140,7 @@ Figure 4-7 muestra esto en el diagrama.
 
 <img alt="Three tables: a table representing the stack data of s, which points
 to the byte at index 0 in a table of the string data &quot;hello world&quot; on
-the heap. The third table rep-resents the stack data of the slice world, which
+the heap. The third table represents the stack data of the slice world, which
 has a length value of 5 and points to byte 6 of the heap data table."
 src="img/trpl04-07.svg" class="center" style="width: 50%;" />
 
@@ -251,8 +251,7 @@ existan al mismo tiempo, y la compilación falla. No solo Rust ha hecho más fá
 nuestra API, sino que también ha eliminado una clase entera de errores en tiempo
 de compilación.
 
-<!-- Old heading. Do not remove or links may break. -->
-
+<!-- Old headings. Do not remove or links may break. -->
 
 <a id="string-literals-are-slices"></a>
 
@@ -266,7 +265,7 @@ los string literales:
 let s = "Hello, world!";
 ```
 
-El tipo de `s` aquí es `&str`: es un slice apuntando a ese punto específico
+El tipo de `s` aquí es `&str`: Es un slice apuntando a ese punto específico
 del binario. Esto también es por qué los literales de string son inmutables;
 `&str` es una referencia inmutable.
 
@@ -295,7 +294,7 @@ Si tenemos un string slice, podemos pasar directamente ese valor. Si tenemos
 un `String`, podemos pasar un slice del `String` o una referencia al `String`.
 Esta flexibilidad aprovecha las _deref coercions_, una característica que
 veremos en la sección
-["Tratando los Smart Pointers como Referencias Regulares con el Trait Deref"]<!--ignore-->
+["Usando Coerciones de Deref en Funciones y Métodos"][deref-coercions]<!--ignore-->
 del Capítulo 15.
 
 Definir una función para tomar un string slice en lugar de una referencia a un
@@ -351,4 +350,4 @@ ver cómo agrupar piezas de datos en un `struct`.
 [ch13]: ch13-02-iterators.html
 [ch6]: ch06-02-match.html#patrones-que-vinculan-valores
 [strings]: ch08-02-strings.html#almacenando-texto-codificado-en-utf-8-con-strings
-["Tratando los Smart Pointers como Referencias Regulares con el Trait Deref"]: ch15-02-deref.html#coerciones-implicitas-de-deref-con-funciones-y-metodos
+[deref-coercions]: ch15-02-deref.html#usando-coerciones-de-deref-en-funciones-y-métodos

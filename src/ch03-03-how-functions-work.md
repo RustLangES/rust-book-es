@@ -70,7 +70,7 @@ macro `println!` pone `5` donde estaba el par de llaves que contenía `x` en la
 cadena de formato.
 
 En las firmas de las funciones, _debes_ declarar el tipo de cada parámetro. Esta
-es una decisión deliberada en el diseño de Rust: requerir anotaciones de tipo en
+es una decisión deliberada en el diseño de Rust: Requerir anotaciones de tipo en
 las definiciones de las funciones significa que el compilador casi nunca necesita
 que las uses en otro lugar del código para averiguar a qué tipo te refieres. El
 compilador también puede dar mensajes de error más útiles si sabe qué tipos espera la función.
@@ -110,9 +110,9 @@ es una distinción importante de entender. Otros lenguajes no tienen las mismas
 distinciones, así que veamos qué son las sentencias y las expresiones y cómo
 sus diferencias afectan a los cuerpos de las funciones.
 
-- Sentencias son instrucciones que realizan alguna acción y no devuelven un
+- _Sentencias_ son instrucciones que realizan alguna acción y no devuelven un
   valor.
-- Expresiones evalúan a un valor resultante.
+- _Expresiones_ evalúan a un valor resultante.
 
 Veamos algunos ejemplos.
 
@@ -129,7 +129,7 @@ un valor con la palabra clave `let` es una sentencia. En el Listado 3-1,
 </Listing>
 
 Las definiciones de las funciones también son sentencias; todo el ejemplo
-anterior es una sentencia en sí misma. (Como veremos a continuación, *ejecutar* 
+anterior es una sentencia en sí misma. (Como veremos en breve, *ejecutar* 
 una función no es una sentencia.)
 
 Las sentencias no devuelven valores. Por lo tanto, no puedes asignar una
@@ -157,7 +157,7 @@ eso no es el caso en Rust.
 Las expresiones evalúan a un valor y componen la mayor parte del resto del
 código que escribirás en Rust. Considera una operación matemática, como `5 + 6`,
 que es una expresión que evalúa al valor `11`. Las expresiones pueden ser parte
-de las sentencias: en el Listado 3-1, el `6` en la sentencia `let y = 6;` es
+de las sentencias: En el Listado 3-1, el `6` en la sentencia `let y = 6;` es
 una expresión que evalúa al valor `6`. Llamar a una función es una expresión.
 Llamar a una macro es una expresión. Un nuevo bloque de ámbito creado con
 llaves es una expresión, por ejemplo:
@@ -212,7 +212,7 @@ verse así:
 
 El `5` en `five` es el valor de retorno de la función, por eso el tipo de
 retorno es `i32`. Veamos esto con más detalle. Hay dos partes importantes:
-primero, la línea `let x = five();` muestra que estamos usando el valor de
+Primero, la línea `let x = five();` muestra que estamos usando el valor de
 retorno de una función para inicializar una variable. Debido a que la función
 `five` devuelve un `5`, esa línea es la misma que la siguiente:
 
@@ -242,7 +242,7 @@ expresión a una sentencia, obtendremos un error:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/src/main.rs}}
 ```
 
-La compilación de este código produce un error, como sigue:
+La compilación de este código producirá un error, como sigue:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/output.txt}}
@@ -254,4 +254,4 @@ con este código. La definición de la función `plus_one` dice que devolverá u
 tipo unitario. Por lo tanto, no se devuelve nada, lo que contradice la
 definición de la función y da como resultado un error. En esta salida, Rust
 proporciona un mensaje para posiblemente ayudar a corregir este problema:
-sugiere eliminar el punto y coma, lo que arreglaría el error.
+Sugiere eliminar el punto y coma, lo que arreglaría el error.
