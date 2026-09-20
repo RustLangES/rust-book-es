@@ -13,7 +13,7 @@ ralentizará su programa mientras se ejecuta.
 
 Porque el ownership es un concepto nuevo para muchos programadores, toma un
 tiempo acostumbrarse. La buena noticia es que a medida que se vuelva más
-experimentado con Rust y las reglas del sistema de ownership, más fácil le
+experimentado con Rust y las reglas de este sistema, más fácil le
 resultará desarrollar naturalmente código que sea seguro y eficiente. ¡Sigue
 intentándolo!
 
@@ -92,16 +92,16 @@ datos muy común: las cadenas de caracteres.
 > se sacan del stack.
 >
 > Mantener un registro de qué partes del código están utilizando qué datos en
-> el heap, minimizar la cantidad de datos duplicados en el heap y limpiar los
-> datos no utilizados en el heap para que no se quede sin espacio son todos
-> problemas que ownership aborda. Una vez que comprenda ownership, no tendrá
+> el heap, minimizar la cantidad de datos duplicados y limpiar los
+> datos no utilizados del mismo para que no se quede sin espacio, son todos
+> problemas que el ownership aborda. Una vez que comprenda ownership, no tendrá
 > que pensar mucho en el stack y el heap, pero saber que el principal propósito
-> de ownership es administrar datos en el heap puede ayudar a explicar por qué
+> del ownership es administrar datos en el heap puede ayudar a explicar por qué
 > funciona de la manera en que lo hace.
 
-### Reglas de Ownership
+### Reglas del Ownership
 
-Primero, echemos un vistazo a las reglas de ownership. Mantenga estas reglas en
+Primero, echemos un vistazo a las reglas del ownership. Mantenga estas reglas en
 mente mientras trabajamos a través de los ejemplos que las ilustran:
 
 - Cada valor en Rust tiene un _propietario_.
@@ -116,7 +116,7 @@ colocar los siguientes ejemplos dentro de una función `main` manualmente. Como
 resultado, nuestros ejemplos serán un poco más concisos, permitiéndonos
 centrarnos en los detalles reales en lugar del código repetitivo.
 
-Como primer ejemplo de ownership, veremos el _contexto de ejecución_ de algunas variables.
+Como primer ejemplo del ownership, veremos el _contexto de ejecución_ de algunas variables.
 Un contexto de ejecución es el rango o espacio dentro de un programa para el que un elemento es válido.
 Toma la siguiente variable:
 
@@ -149,7 +149,7 @@ este entendimiento al introducir el tipo `String`.
 
 ### El Tipo `String`
 
-Para ilustrar las reglas de ownership, necesitamos un tipo de datos más complejo
+Para ilustrar las reglas del ownership, necesitamos un tipo de datos más complejo
 que los que cubrimos en la sección [“Tipos de Datos”][data-types]<!-- ignore -->
 del Capítulo 3. Los tipos cubiertos anteriormente son de un tamaño conocido,
 pueden almacenarse en el stack y se pueden sacar del stack cuando su contexto de ejecución termina, y se pueden copiar rápidamente y trivialmente para crear una nueva
