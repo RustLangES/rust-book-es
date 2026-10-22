@@ -1,7 +1,7 @@
 ## Definiendo e Instanciando Structs
 
 Los Structs son similares a las tuplas, discutido en la sección
-[“The Tuple Type”][tuples]<!--ignore --> en ambos casos mantenemos múltiples
+[“El Tipo Tupla”][tuples]<!--ignore --> en ambos casos mantenemos múltiples
 valores relativos. Como en las tuplas, las partes de un struct pueden ser de
 diferentes tipos. A diferencia de las tuplas, en un struct tú nombras a cada
 pieza de datos para que quede claro, que significan estos valores.
@@ -25,8 +25,8 @@ que almacena información sobre una cuenta de usuario.
 
 Para usar un struct después de haberlo definido, creamos una _instancia_ de ese
 struct especificando valores concretos para cada uno de los campos. Creamos una
-instancia al declarar el nombre del struct y luego agregar llaves que contienen
-_clave: valor_ pares, donde las claves son los nombres de los campos y los
+instancia al declarar el nombre del struct y luego agregar llaves que contienen pares
+_clave: valor_, donde las claves son los nombres de los campos y los
 valores son los datos que queremos almacenar en esos campos. No tenemos que
 especificar los campos en el mismo orden en el que los declaramos en el struct.
 En otras palabras, la definición del struct es como una plantilla general para
@@ -115,7 +115,7 @@ _sintaxis de struct update_.
 
 Primero, en el Listing 5-6 mostramos cómo crear una nueva instancia de `User`
 regularmente, sin la sintaxis de actualización. Establecemos un nuevo valor para
-`email`, pero de lo contrario usamos los mismos valores de `user1` que creamos
+`email`, pero por el contrario usamos los mismos valores de `user1` que creamos
 en el Listing 5-2.
 
 <Listing number="5-6" file-name="src/main.rs" caption="Creando una nueva instancia `User` usando uno de los valores de `user1`">
@@ -144,13 +144,13 @@ resto de los valores de `user1`</span>
 
 El código en el Listing 5-7 también crea una instancia en `user2` que tiene un
 valor diferente para `email` pero tiene los mismos valores para los campos
-`username`, `active` y `sign_in_count` de `user1`. Él `..user1` debe ir al
+`username`, `active` y `sign_in_count` de `user1`. El `..user1` debe ir al
 final para especificar que cualquier campo restante debe obtener sus valores
 del campo correspondiente en `user1`, pero podemos elegir especificar valores
 para tantos campos como queramos en cualquier orden, independientemente del
 orden de los campos en la definición del struct.
 
-Nota que la sintaxis de update struct usa `=` como una asignación; esto es
+Cabe destacar que la sintaxis de update struct usa `=` como una asignación; esto es
 porque mueve los datos, como vimos en la sección [“Variables y datos
 interactuando con Move”][move]<!-- ignore -->. En este ejemplo, ya no podemos
 usar `user1` como un todo después de crear `user2` porque el `String` en el
@@ -160,7 +160,7 @@ los valores de `active` y `sign_in_count` de `user1`, entonces `user1` todavía
 sería válido después de crear `user2`. Tanto `active` como `sign_in_count` son
 tipos que implementan la trait `Copy`, por lo que el comportamiento que
 discutimos en la sección [“Datos de pila: Copy”][copy]<!-- ignore --> se
-aplicaría. Nosotros podemos aún usar `user1.email` en este ejemplo, debido a que 
+aplicaría. Nosotros podemos aún usar `user1.email` en este ejemplo, debido a que
 el *valor no es movido*.
 
 ### Usando Structs de Tuplas sin Campos Nombrados para Crear Diferentes Tipos
@@ -190,19 +190,19 @@ instancias de diferentes structs de tupla. Cada struct que defina es su propio
 tipo, incluso si los campos dentro del struct tienen los mismos tipos. Por
 ejemplo, una función que toma un parámetro de tipo `Color` no puede tomar un
 `Point` como argumento, incluso si ambos tipos están compuestos por tres
-valores `i32`. De lo contrario, las instancias de structs de tupla son
-similares a las tuplas en que puede descomponerlas en sus piezas individuales,
-y puede usar un `.` seguido por el índice para acceder a un valor individual.
-A diferencia de las tuplas, las estructuras de tuplas requieren que nombre del 
-tipo de estructura cuando las desestructuras. Por ejemplo, escribiríamos 
-`let Punto(x, y, z) = punto` para desestructurar los valores de `origin` en 
+valores `i32`. Además, las instancias de structs de tupla comparten con las
+tuplas que puede descomponerlas en sus piezas individuales, y puede usar un
+`.` seguido por el índice para acceder a un valor individual.
+A diferencia de las tuplas, las estructuras de tuplas requieren el nombre del
+tipo de estructura cuando las desestructuras. Por ejemplo, escribiríamos
+`let Punto(x, y, z) = punto` para desestructurar los valores de `origin` en
 variables llamadas x, y y z.
 
 ### Structs de Unidad sin Campos
 
 También puede definir structs que no tienen ningún campo. Estos se llaman
 _structs de unidad_ porque se comportan de manera similar a `()`, el tipo de
-unidad que mencionamos en la sección [“El tipo de tupla”][tuples]<!-- ignore
+unidad que mencionamos en la sección [“El Tipo Tupla”][tuples]<!-- ignore
 -->. Los structs de unidad pueden ser útiles cuando necesita implementar un
 trait en algún tipo, pero no tiene datos que desea almacenar en el tipo
 propio. Discutiremos los traits en el Capítulo 10. Aquí hay un ejemplo de
