@@ -180,10 +180,9 @@ Afortunadamente, `Arc<T>` *es* un tipo como `Rc<T>` que es seguro de usar en
 situaciones concurrentes. La *a* significa *atómico*, lo que significa que es
 un tipo de recuento de referencia atómico. Los átomos son un tipo adicional de
 primitiva de concurrencia que no cubriremos en detalle aquí: consulte la
-documentación de la biblioteca estándar para [`std::sync::atomic`][atomic]
-<!-- ignore --> para más detalles. En este punto, solo necesita saber que los
-Átomos funcionan como tipos primitivos, pero son seguros para compartir entre
-hilos.
+documentación de la biblioteca estándar para [`std::sync::atomic`][atomic]<!-- ignore -->
+para más detalles. En este punto, solo necesita saber que los Átomos funcionan
+como tipos primitivos, pero son seguros para compartir entre hilos.
 
 Entonces podrías preguntarte por qué todos los tipos primitivos no son atómicos
 y por qué los tipos de biblioteca estándar no se implementan para usar `Arc<T>`
