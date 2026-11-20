@@ -90,9 +90,7 @@ Hemos actualizado la firma de la función `Config::build` para que el parámetro
 `args` tenga un tipo genérico con los trait bounds
 `impl Iterator<Item = String>` en lugar de `&[String]`. Este uso de la sintaxis
 `impl Trait` que discutimos en la sección [“Traits como parámetros”][impl-trait]
-
 <!-- ignore --> del Capítulo 10 significa que `args` puede ser cualquier tipo
-
 que implemente el trait `Iterator` y retorne items `String`.
 
 Debido a que estamos tomando ownership de `args` y estaremos mutando `args`

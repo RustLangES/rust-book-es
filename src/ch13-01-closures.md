@@ -61,9 +61,7 @@ aprendido, excepto por el cuerpo del método `giveaway` que usa un closure. En e
 método `giveaway`, obtenemos la preferencia del usuario como un parámetro de
 tipo `Option<ShirtColor>` y llamamos al método `unwrap_or_else` en
 `user_preference`. El método [`unwrap_or_else` en `Option<T>`][unwrap-or-else]
-
 <!-- ignore --> está definido por la biblioteca estándar. Toma un argumento: un
-
 Closure sin ningún argumento que devuelve un valor `T` (el mismo tipo almacenado
 en la variante `Some` de la `Option<T>`, en este caso `ShirtColor`). Si la
 `Option<T>` es la variante `Some`, `unwrap_or_else` devuelve el valor de dentro
@@ -302,7 +300,7 @@ structs pueden especificar qué tipos de closures pueden usar. Los closures
 implementarán automáticamente uno, dos o los tres de estos traits `Fn`, de
 manera aditiva, dependiendo de cómo el cuerpo del closure maneje los valores:
 
-1. `FnOnce` se aplica los closures que pueden ser llamados una vez. Todos los
+1. `FnOnce` se aplica a los closures que pueden ser llamados una vez. Todos los
    closures implementan al menos este trait, porque todos los closures pueden
    ser llamados. Un closure que mueve valores capturados fuera de su cuerpo
    solo implementará `FnOnce` y ninguno de los otros traits `Fn`, porque solo
