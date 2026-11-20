@@ -16,7 +16,7 @@ que incluyen el atributo `test`, algunas macros, y el atributo `should_panic`.
 En su forma más simple, un test en Rust es una función que está anotada con el
 atributo `test`. Los atributos son metadatos sobre piezas de código Rust; un
 ejemplo es el atributo `derive` que usamos con structs en el Capítulo 5. Para
-cambiar una función en una función de test, agrega `#[test]` en la línea antes
+convertir una función en una función de test, agrega `#[test]` en la línea antes
 de `fn`. Cuando ejecutas tus tests con el comando `cargo test`, Rust construye
 un binario que corre las funciones anotadas y reporta si cada función de test
 pasa o falla.

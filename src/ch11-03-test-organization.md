@@ -182,14 +182,11 @@ aprendiste en el Capítulo 7 sobre cómo separar el código en módulos y archiv
 La diferencia en el comportamiento de los archivos en _src_ y _tests_ es más
 notable cuando tienes un conjunto de funciones de ayuda para usar en múltiples
 archivos de test de integración y tratas de seguir los pasos en la sección
-
-<!--ignore[“Separando Módulos en Diferentes 
-Archivos”][separating-modules-into-files]--> del Capítulo 7 para extraerlas
-
-en un módulo común. Por ejemplo, si creamos _tests/common.rs_ y colocamos una
-función llamada `setup` en él, podemos agregar algo de código a `setup` que
-queremos llamar desde múltiples funciones de test en múltiples archivos de
-test:
+[“Separando Módulos en Diferentes Archivos”][separating-modules-into-files]<!--ignore-->
+del Capítulo 7 para extraerlas en un módulo común. Por ejemplo, si creamos
+_tests/common.rs_ y colocamos una función llamada `setup` en él, podemos
+agregar algo de código a `setup` que queremos llamar desde múltiples funciones
+de test en múltiples archivos de test:
 
 <span class="filename">Filename: tests/common.rs</span>
 
