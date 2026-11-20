@@ -205,7 +205,7 @@ tipo con el que trabajar. Ya hemos usado una función como esta: la función
 `String::from` que está definida en el tipo `String`.
 
 Las funciones asociadas que no son métodos son a menudo utilizadas para
-constructores que devolverán una nueva instancia de la estructura. Estás
+constructores que devolverán una nueva instancia de la estructura. Estas
 a menudo se llaman `new`, pero `new` no es un nombre especial y no está
 incorporado en el lenguaje. Por ejemplo, podríamos elegir proporcionar una
 función asociada llamada `square` que tendría un parámetro de dimensión y lo
