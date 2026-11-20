@@ -100,7 +100,7 @@ en cualquier otra lista de valores `i32` que podríamos tener en el futuro.
 </Listing>
 
 La función `largest` tiene un parámetro llamado `list`, que representa cualquier
-slice de valores `ì32` que podríamos pasar a la función. Como resultado, cuando
+slice de valores `i32` que podríamos pasar a la función. Como resultado, cuando
 llamamos a la función, el código se ejecuta en los valores específicos que
 pasamos.
 
