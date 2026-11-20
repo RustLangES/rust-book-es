@@ -31,7 +31,7 @@ de propiedad, codificado en UTF-8. Cuando los Rustaceans se refieren a "strings"
 pueden estar refiriéndose a cualquiera de los tipos `String` o `str`, no solo
 a uno de esos tipos. Aunque esta sección trata principalmente de `String`, ambos
 tipos se usan mucho en la biblioteca estándar de Rust, y tanto `String` como
-las rebanadas de cadena son codificadas en UTF-8.
+las _string slices_ son codificadas en UTF-8.
 
 ### Creando un nuevo String
 
@@ -101,7 +101,7 @@ Todos estos strings son valores válidos de `String`.
 ### Actualizando un String
 
 Un `String` puede crecer en tamaño y su contenido puede cambiar, al igual que
-el contenido de un `Vec<T>`, si se introducen más datos en el. Además, puedes usar
+el contenido de un `Vec<T>`, si se introducen más datos en él. Además, puedes usar
 convenientemente el operador `+` o el macro `format!` para concatenar valores de
 `String`.
 
@@ -184,7 +184,7 @@ dos valores `String` juntos. Pero espera, el tipo de `&s2` es `&String`, no
 compila el listado 8-18?
 
 La razón por la que podemos usar `s2` en la llamada a `add` es que el
-compilador puede _convertir_ el argumento `&String` en un `&str`. Cuando  
+compilador puede _convertir_ el argumento `&String` en un `&str`. Cuando
 llamamos al método `add`, Rust usa una _coerción de dereferencia_, que aquí
 convierte `&s2` en `&s2[..]`. Discutiremos la coerción de dereferencia con más
 detalle en el Capítulo 15. Debido a que `add` no toma posesión del parámetro
@@ -278,7 +278,7 @@ let hello = "Здравствуйте";
 let answer = &hello[0];
 ```
 
-Tu Ahora sabes que `answer` no será `З`, la primera letra. Cuando codificado
+Ahora sabes que `answer` no será `З`, la primera letra. Cuando codificado
 en UTF-8, el primer byte de `З` es `208` y el segundo es `151`, por lo que
 parecería que `answer` debería ser `208`, pero `208` no es un carácter válido
 por sí solo. Devolver `208` probablemente no sea lo que un usuario querría si
