@@ -170,7 +170,7 @@ podrían estar molestos por tener que ingresar `use`
 Las buenas noticias son que si la estructura _no_ es conveniente para que otros
 la usen desde otra biblioteca, no tienes que reorganizar tu organización
 interna: en su lugar, puedes reexportar items para hacer una estructura pública
-que sea diferente de tu estructura privada usando `pub use`. *Reexportando* toma 
+que sea diferente de tu estructura privada usando `pub use`. *Reexportar* toma 
 un item público en una ubicación y lo hace público en otra ubicación, como si se
 definiera en la otra ubicación en su lugar.
 

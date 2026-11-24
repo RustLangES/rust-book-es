@@ -10,10 +10,10 @@ Borrowing"][references-and-borrowing]<!-- ignore --> en el Capítulo 4 es que
 cada referencia en Rust tiene un _lifetime_, que es el scope para el que esa
 referencia es válida. La mayoría de las veces, los lifetimes son implícitos e
 inferidos, al igual que la mayoría de las veces, los tipos se infieren.
-Nosotros debemos anotar los tipos solo cuando son posibles varios tipos. De 
-manera similar, debemos anotar los lifetimes cuando los lifetimes de las 
-referencias podrían estar relacionados de algunas maneras diferentes. Rust nos 
-obliga a anotar las relaciones usando parámetros genéricos de lifetime para 
+Nosotros debemos anotar los tipos solo cuando son posibles varios tipos. De
+manera similar, debemos anotar los lifetimes cuando los lifetimes de las
+referencias podrían estar relacionados de algunas maneras diferentes. Rust nos
+obliga a anotar las relaciones usando parámetros genéricos de lifetime para
 garantizar que las referencias reales utilizadas en tiempo de ejecución sean
 definitivamente válidas.
 
@@ -56,13 +56,13 @@ del scope antes de que intentemos usarlo. Aquí está el mensaje de error:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/output.txt}}
 ```
 
-El mensaje de error dice que la variable `x` no “vive lo suficiente”. La razón 
-es que `x` estará fuera del scope cuando el scope interno termine en la línea 7. 
-Pero `r` todavía es válido para el scope externo; porque su scope es más grande, 
-decimos que “vive más tiempo”. Si Rust permitiera que este código funcionara, 
-`r` estaría referenciando memoria que se desasignó cuando `x` quedó fuera del 
-scope, y cualquier cosa que intentemos hacer con `r` no funcionaría 
-correctamente. ¿Cómo determina Rust que este código es inválido? Utiliza el 
+El mensaje de error dice que la variable `x` no “vive lo suficiente”. La razón
+es que `x` estará fuera del scope cuando el scope interno termine en la línea 7.
+Pero `r` todavía es válido para el scope externo; porque su scope es más grande,
+decimos que “vive más tiempo”. Si Rust permitiera que este código funcionara,
+`r` estaría referenciando memoria que se desasignó cuando `x` quedó fuera del
+scope, y cualquier cosa que intentemos hacer con `r` no funcionaría
+correctamente. ¿Cómo determina Rust que este código es inválido? Utiliza el
 _borrow checker_.
 
 ### El Borrow Checker
@@ -443,7 +443,7 @@ aparezcan patrones más deterministas y se agreguen al compilador. En el futuro,
 se pueden requerir aún menos anotaciones de lifetime.
 
 Los patrones programados en el análisis de referencias de Rust se llaman _reglas
-de omisión de lifetime_. Estas no son reglas que los programadores deben  
+de omisión de lifetime_. Estas no son reglas que los programadores deben
 seguir; son un conjunto de casos particulares que el compilador considerará, y
 si su código se ajusta a estos casos, no es necesario que escriba los lifetimes
 explícitamente.

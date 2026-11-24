@@ -59,7 +59,7 @@ deberían limitarse a lo siguiente:
 - Llamar a la lógica de análisis de línea de comandos con los valores de
   argumento
 - Configuración de cualquier otra configuración
-- Llamando a una función `run` en _lib.rs_
+- Llamar a una función `run` en _lib.rs_
 - Manejo del error si `run` devuelve un error
 
 Este patrón se trata de separar las preocupaciones: _main.rs_ maneja la
@@ -181,14 +181,14 @@ agregamos un struct `Config` para nombrar el propósito relacionado de `query`
 y `file_path` y poder devolver los nombres de los valores como nombres de campo
 de struct desde la función `parse_config`.
 
-Así que ahora el propósito de la función `parse_config` es crear una instancia
+Ahora que el propósito de la función `parse_config` es crear una instancia
 de `Config`, podemos cambiar `parse_config` de una función normal a una función
-llama `new` que es asociada con `Config`. que esté asociada con el struct
-`Config`. Haciendo este cambio, el código será más idiomático. Podemos crear
-instancias de tipos en la biblioteca estándar, como `String`, llamando a
-`String::new`. De manera similar, al cambiar `parse_config` a una función
-asociada con `Config`, podremos crear instancias de `Config` llamando a
-`Config::new`. El listado 12-7 muestra los cambios que debemos hacer.
+llamada `new` que esté asociada con el struct `Config`. Haciendo este cambio,
+el código será más idiomático. Podemos crear instancias de tipos en la
+biblioteca estándar, como `String`, llamando a `String::new`. De manera similar,
+al cambiar `parse_config` a una función asociada con `Config`, podremos crear
+instancias de `Config` llamando a `Config::new`. El listado 12-7 muestra los
+cambios que debemos hacer.
 
 <Listing number="12-7" file-name="src/main.rs" caption="Cambiando `parse_config` a `Config::new`">
 

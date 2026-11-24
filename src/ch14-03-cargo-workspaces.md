@@ -375,8 +375,8 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 Este output muestra que `cargo test` solo ejecutó los tests para el crate
 `add_one` y no ejecutó los tests del crate `adder`.
 
-Si tu publicas los crates en el workspace en [crates.io](https://crates.io/),
-cada crate en el workspace necesitará ser publicado por separado. Como `cargo
+Si tú publicas los crates en el workspace en [crates.io](https://crates.io/),
+cada crate en el workspace necesitará ser publicado por separado. Como con `cargo
 test`, podemos publicar un crate en particular en nuestro workspace usando la
 bandera `-p` y especificando el nombre del crate que queremos publicar.
 

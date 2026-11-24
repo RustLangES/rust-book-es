@@ -107,11 +107,11 @@ La solución al error del compilador es agregar una declaración `use` para
 
 </Listing>
 
-Con todas esas piezas juntas, este código funciona como queremos. ¡Lo que es
-más, ahora que tenemos `StreamExt` en el ámbito, podemos usar todos sus
-métodos de utilidad, al igual que con los iteradores! Por ejemplo, en el
-listado 17-32, usamos el método `filter` para filtrar todo menos los
-múltiplos de tres y cinco.
+Con todas esas piezas juntas, este código funciona como queremos. ¡Es más,
+ahora que tenemos `StreamExt` en el ámbito, podemos usar todos sus métodos
+de utilidad, al igual que con los iteradores! Por ejemplo, en el listado
+17-32, usamos el método `filter` para filtrar todo menos los múltiplos de
+tres y cinco.
 
 <Listing number="17-32" caption="Filtrando un `Stream` con el método `StreamExt::filter`" file-name="src/main.rs">
 
@@ -212,7 +212,7 @@ espera se agotó antes de que llegara algún mensaje. Hacemos un `match` sobre e
 resultado y o bien imprimimos el mensaje cuando lo recibimos con éxito o 
 mostramos un aviso sobre el tiempo de espera. Finalmente, observa que fijamos 
 (pin) los mensajes después de aplicarles el timeout, porque el helper de timeout 
-produce un stream que debe ser fijado para poder ser polleado.
+produce un stream que debe ser fijado para poder ser consultado.
 
 Sin embargo, como no hay demoras entre los mensajes, este tiempo de espera
 no cambia el comportamiento del programa. Agreguemos una demora variable

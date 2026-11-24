@@ -29,7 +29,7 @@ rutas traídas al ámbito con `use` también verifican la privacidad, como
 cualquier otra ruta.
 
 Ten en cuenta que `use` solo crea el atajo para el ámbito particular en el que
-ocurre él `use`. El Listado 7-12 mueve la función `eat_at_restaurant` a un
+ocurre el `use`. El Listado 7-12 mueve la función `eat_at_restaurant` a un
 nuevo módulo hijo llamado `customer`, que es entonces un ámbito diferente al de 
 la sentencia `use`, por lo que el cuerpo de la función no compilará.
 
@@ -224,7 +224,7 @@ use std::collections::HashMap;
 ```
 
 Esta es una ruta absoluta que comienza con `std`, el nombre del crate de la
-biblioteca estándar. También podríamos escribir este `use` como:
+biblioteca estándar.
 
 ### Usando rutas anidadas para limpiar listas `use` grandes
 

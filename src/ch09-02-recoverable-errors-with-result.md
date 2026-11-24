@@ -170,7 +170,7 @@ archivo faltante.
 
 #### Atajos para `panic` en caso de error: `unwrap` y `expect`
 
-Usando `match` funciona bastante bien, pero puede ser un poco verboso y no
+Usar `match` funciona bastante bien, pero puede ser un poco verboso y no
 siempre comunica bien la intención. El tipo `Result<T, E>` tiene muchos métodos
 auxiliares definidos en él para hacer varias tareas más específicas. El método
 `unwrap` es un método de atajo implementado exactamente como la expresión

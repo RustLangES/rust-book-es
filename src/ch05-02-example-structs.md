@@ -61,8 +61,8 @@ cálculo sea menos obvio.
 
 Mezclar el ancho y el alto no importaría para el cálculo del área, pero si
 queremos dibujar el rectángulo en la pantalla, ¡importaría! Tendríamos que
-tener en cuenta que `width` es el índice de la tupla `0` y `height` es el índice
-de la tupla `1`. ¡Esto sería aún más difícil para que otra persona lo
+tener en cuenta que `width` es el índice `0` de la tupla y `height` es el índice
+`1` de la tupla. ¡Esto sería aún más difícil para que otra persona lo
 descubriera y lo tuviera en cuenta si usara nuestro código! Debido a que no
 hemos transmitido el significado de nuestros datos en nuestro código, ahora es
 más fácil introducir errores.

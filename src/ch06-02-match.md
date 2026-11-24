@@ -173,7 +173,7 @@ Ahora consideremos la segunda llamada a `plus_one` en el Listing 6-5, donde
 devuelve el valor `None` en el lado derecho de `=>`. Debido a que la primera
 Opción coincidió, no se comparan otras Opciones.
 
-Combinando `match` y enums es útil en muchas situaciones. Verás este patrón
+Combinar `match` y enums es útil en muchas situaciones. Verás este patrón
 mucho en el código Rust: `match` contra un enum, vincula una variable a los
 datos internos y luego ejecuta el código en función de él. Es un poco
 complicado al principio, pero una vez que te acostumbras, desearás tenerlo en

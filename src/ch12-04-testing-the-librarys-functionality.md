@@ -10,8 +10,8 @@ En esta sección, agregaremos la lógica de búsqueda al programa `minigrep`
 utilizando el proceso de desarrollo impulsado por pruebas (TDD) con los
 siguientes pasos:
 
-1. Escriba un test que falle y ejecútala para asegurarse de que falla por la
-   razón que espera.
+1. Escribe un test que falle y ejecútalo para asegurarte de que falla por la
+   razón que esperas.
 2. Escribe o modifica solo el código suficiente para que el nuevo test pase.
 3. Refactoriza el código que acabas de agregar o cambiar y asegúrate de que los
    tests sigan pasando.

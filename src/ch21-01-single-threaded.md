@@ -85,7 +85,7 @@ nuestro programa si el flujo tienen algún error; si no hay errores, el programa
 imprime un mensaje. Agregaremos más funcionalidad para el caso de éxito en el
 siguiente listado. La razón por la que podríamos recibir errores del método
 `incoming` cuando un cliente se conecta al servidor es que en realidad no
-iteramos sobre las conexiones. En cambio, iteramos sobre *intentos de
+iteramos sobre las conexiones, sino que iteramos sobre *intentos de
 conexión*. La conexión podría no tener éxito por una serie de razones, muchas
 de ellas específicas del sistema operativo. Por ejemplo, muchos sistemas
 operativos tienen un límite para el número de conexiones abiertas simultáneas
@@ -135,7 +135,7 @@ cambios de código para asegurarte de que estás ejecutando el código más nuev
 
 ### Leyendo la solicitud
 
-¡Vamos a implementar la funcionalidad para leer la solicitud del navegador!. Para
+¡Vamos a implementar la funcionalidad para leer la solicitud del navegador! Para
 separar las preocupaciones de obtener primero una conexión y luego tomar alguna
 acción con la conexión, iniciaremos una nueva función para procesar conexiones.
 En esta nueva función `handle_connection`, leeremos datos del flujo TCP e
@@ -167,11 +167,11 @@ recopilar estas líneas en un vector agregando la anotación de tipo `Vec<_>`.
 `BufReader` implementa el trait `std::io::BufRead`, que proporciona el método
 `lines`. El método `lines` devuelve un iterator de `Result<String,
 std::io::Error>` al dividir el flujo de datos cada vez que ve un byte de nueva
-línea. Para obtener cada `String`, mapeamos y `unwrap` cada `Result`. El
-`Result` podría ser un error si los datos no son válidos UTF-8 o si hubo un
-problema al leer del flujo. Nuevamente, un programa de producción debería
-manejar estos errores de manera más elegante, pero estamos eligiendo detener el
-programa en el caso de error por simplicidad.
+línea. Para obtener cada `String`, mapeamos y ejecutamos un `unwrap` sobre cada
+`Result`. El `Result` podría ser un error si los datos no son válidos UTF-8 o
+si hubo un problema al leer del flujo. Nuevamente, un programa de producción
+debería manejar estos errores de manera más elegante, pero estamos eligiendo
+detener el programa en el caso de error por simplicidad.
 
 El navegador señala el final de una solicitud HTTP enviando dos caracteres de
 nueva línea seguidos, por lo que para obtener una solicitud del flujo, tomamos

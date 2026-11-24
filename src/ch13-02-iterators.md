@@ -229,4 +229,4 @@ iterador adaptado en un vector que es retornado por la función.
 
 El test muestra que cuando llamamos a `shoes_in_size` con un vector de zapatos
 y un tamaño de zapato, obtenemos de vuelta solo los zapatos del tamaño
-especificado:
+especificado.

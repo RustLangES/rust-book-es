@@ -7,7 +7,7 @@
 En esta sección, aplicaremos async a algunos de los mismos desafíos
 de concurrencia que abordamos con threads en el capítulo 16. Hemos explorado muchas de
 las ideas claves en esa sección, aquí se profundizara en las diferencias
-entre threads and futures.
+entre threads y futures.
 
 En muchos casos, las APIs para trabajar con concurrencia usando async son muy
 similares a las que se usan con threads. En otros casos, terminan teniendo formas
@@ -38,7 +38,7 @@ el mismo ejemplo de conteo que con threads, como se muestra en el Listado 17-6.
 </Listing>
 
 Como punto de partida, configuramos nuestra función `main` con `trpl::run`, de
-de modo que nuestra función de nivel superior pueda ser async.
+modo que nuestra función de nivel superior pueda ser async.
 
 > Nota: A partir de este punto en el capítulo, cada ejemplo incluirá
 > este mismo código de envoltura con  `trpl::run` en `main`, así que a menudo lo omitiremos,
@@ -162,7 +162,7 @@ Aquí verás exactamente el mismo orden en cada ejecución, lo cual es muy difer
 de lo que ocurría con threads. Esto se debe a que la función `trpl::join`  es *justa*,
 lo que significa que revisa cada future con la misma frecuencia, alternando entre ellos y evitando
 que uno avance más rápido que el otro si ambos están listos. Con threads, el sistema operativo
-decide qué hilo revisar y cuánto tiempo permitirle ejecutarse. Con async Rust, es
+decide qué hilo revisar y cuánto tiempo permitirle ejecutarse. Con Rust asíncrono, es
 el runtime el que decide que tarea revisar. (En la práctica, esto se vuelve más complejo
 porque un runtime async puede usar threads del sistema operativo en segundo
 plano para gestionar la concurrencia, lo que hace que garantizar la equidad requiera más trabajo
@@ -260,7 +260,7 @@ La llamada `rx.recv` produce un `Future`, que debemos esperar con `await`. El
 runtime pausará la ejecución del `Future` hasta que esté listo. Cuando llegue un
 mensaje, el future se resolverá en `Some(message)`, tantas veces como lleguen 
 mensajes. Cuando el canal se cierre, sin importar si llegaron mensajes o no, el 
-future se resolverá en en `None`, lo que indica que no hay más valores y debemos 
+future se resolverá en `None`, lo que indica que no hay más valores y debemos 
 dejar de esperar (es decir, dejar de hacer await).
 
 El bucle `while let` combina todo esto. Si el resultado de

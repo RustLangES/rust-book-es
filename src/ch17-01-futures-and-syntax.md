@@ -200,16 +200,14 @@ Veamos cada parte de la versión transformada:
 * El nuevo cuerpo de la función es un bloque `async move` debido a cómo usa el
   parámetro `url`. (Hablaremos mucho más sobre `async` vs. `async move` más
   adelante en el capítulo.)
-* La nueva versión de la función tiene un tipo de duración que no hemos visto
-  antes en el tipo de salida: `'_`. Debido a que la función devuelve un `Future`
-  que se refiere a una referencia —en este caso, la referencia del parámetro
-  `url`— necesitamos decirle a Rust que queremos que esa referencia esté
-  incluida. No tenemos que nombrar la duración aquí, porque Rust es lo
-  suficientemente inteligente como para saber que solo hay una referencia que
-  podría estar involucrada, pero *sí* tenemos que ser explícitos en que el
-  `Future` resultante está vinculado por esa duración.
 
-Ahora podemos llamar a `page_title` en `main`. Para empezar, solo obtendremos
+Ahora podemos llamar a `page_title` en `main`.
+
+<a id ="determining-a-single-pages-title"></a>
+
+### Ejecutando una función Async con un Runtime
+
+Para empezar, solo obtendremos
 el título de una sola página. En el Listado 17-3, seguimos el mismo patrón que
 usamos para obtener los argumentos de la línea de comandos en el Capítulo 12.
 Luego pasamos la primera URL a `page_title`, y esperamos el resultado. Dado que
@@ -257,15 +255,15 @@ disponibles, cada uno de los cuales hace diferentes compensaciones adecuadas
 para el caso de uso al que se dirigen. Por ejemplo, un servidor web de alto
 rendimiento con muchos núcleos de CPU y una gran cantidad de RAM tiene
 necesidades muy diferentes a las de un microcontrolador con un solo núcleo, una
-pequeña cantidad de RAM y sin capacidad para hacer asignaciones en el montón. 
+pequeña cantidad de RAM y sin capacidad para hacer asignaciones en el heap. 
 Los crates que proporcionan esos runtimes también suelen suministrar versiones
 asíncronas de funcionalidades comunes como la E/S de archivos o de red.
 
-Aquí, y a lo largo del resto de este capítulo, usaremos la función `run` del
-crate `trpl`, que toma un futuro como argumento y lo ejecuta hasta su
-finalización. Detrás de escena, llamar a `run` configura un runtime para usarlo
-para ejecutar el futuro pasado. Una vez que el futuro se completa, `run`
-devuelve cualquier valor que el futuro haya producido.
+Aquí, y a lo largo del resto de este capítulo, usaremos la función `run`
+del crate `trpl`, que toma un futuro como argumento y lo ejecuta hasta su
+finalización. Entre bastidores, llamar a `run` configura un runtime para
+usarlo para ejecutar el futuro pasado. Una vez que el futuro se completa,
+`run` devuelve cualquier valor que el futuro haya producido.
 
 Podríamos pasar el futuro devuelto por `page_title` directamente a `run`. Una
 vez completado, podríamos hacer una coincidencia en el `Option<String>`
@@ -329,7 +327,7 @@ Afortunadamente, el compilador también se encarga de comprobarlas por nosotros,
 y tiene buenos mensajes de error. ¡Trabajaremos a través de algunos de esos más 
 tarde en el capítulo!
 
-En última instancia, algo tiene que ejecutar esa máquina de estados. Eso algo es
+En última instancia, algo tiene que ejecutar esa máquina de estados. Ese algo es
 un runtime. (Es por eso que a veces puedes encontrarte con referencias a
 *ejecutores* al investigar runtimes: un ejecutor es la parte de un runtime
 responsable de ejecutar el código asíncrono.)
@@ -401,7 +399,7 @@ disponible, terminamos actualizando nuestra salida de `println!` para indicar
 tanto qué URL terminó primero como cuál fue el `<title>` de la página web en
 esa URL, si lo hay.
 
-¡Has construido un pequeño scraper web funcional ahora! Elige un par de URLs y
+¡Has construido un pequeño scraper web funcional! Elige un par de URLs y
 ejecuta la herramienta de línea de comandos. Puedes descubrir que algunos sitios
 son confiablemente más rápidos que otros, mientras que en otros casos qué sitio
 “gana” varía de una ejecución a otra. Más importante aún, has aprendido los

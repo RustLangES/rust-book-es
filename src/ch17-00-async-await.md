@@ -109,8 +109,6 @@ Cada persona en el equipo puede avanzar al mismo tiempo.
 
 <img src="img/trpl17-02.svg" class="center" alt="Un diagrama con cajas etiquetadas como Tarea A y Tarea B, con rombos dentro que representan subtareas. Hay flechas que apuntan de A1 a A2, de A2 a A3, de A3 a A4, de B1 a B2 y de B2 a B3. No hay flechas que crucen entre las cajas de Tarea A y Tarea B." />
 
-<img alt="Flujo de trabajo paralelo" src="img/trpl17-02.svg" class="center" />
-
 <figcaption>Figura 17-2: Un flujo de trabajo paralelo, donde el trabajo se realiza en la Tarea A y la Tarea B de forma independiente.</figcaption>
 
 </figure>
@@ -137,7 +135,7 @@ de tus tareas. Ahora tu trabajo concurrente también se ha vuelto serial.
 El paralelismo y la concurrencia también pueden interceptarse entre sí. Si
 descubres que un colega está atascado hasta que termines una de tus tareas,
 probablemente centrarás todos tus esfuerzos en esa tarea para “desbloquear” a tu
-colega. Tú y tu compañero de trabajo ya no pueden trabajar en paralelo, y tú
+colega. Tú y tu compañero de trabajo ya no podéis trabajar en paralelo, y tú
 tampoco puedes trabajar en forma concurrente en tus propias tareas.
 
 Las mismas dinámicas básicas entran en juego con el software y el hardware. En

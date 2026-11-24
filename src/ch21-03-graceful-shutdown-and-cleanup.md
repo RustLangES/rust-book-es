@@ -85,7 +85,7 @@ necesitamos envolver el valor `thread` en `Some` cuando creamos un nuevo
 <Listing file-name="src/lib.rs">
 
 ```rust
-{{#rustdoc_include ../listings/ch21-web-server/no-listing-04-update-drop-definition/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch21-web-server/no-listing-05-fix-worker-new/src/lib.rs:here}}
 ```
 
 </Listing>
@@ -139,7 +139,7 @@ para poder mover `sender` fuera de `ThreadPool`:
 Soltar `sender` cierra el canal, lo que indica que no se enviarán más mensajes.
 Cuando eso sucede, todas las llamadas a `recv` que los workers hacen en el loop
 infinito devolverán un error. En el Listing 21-24, cambiamos el loop de `Worker`
-para salir del loop con gracia en ese caso, lo que significa que los hreads
+para salir del loop con gracia en ese caso, lo que significa que los threads
 terminarán cuando la implementación de `drop` de `ThreadPool` llame a `join`
 en ellos.
 

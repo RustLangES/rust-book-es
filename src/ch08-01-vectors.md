@@ -237,7 +237,7 @@ operaciones realizadas en los elementos del vector. Usar un `enum` más una
 expresión `match` significa que Rust se asegurará en tiempo de compilación de
 que se maneje cada caso posible, como se discutió en el Capítulo 6.
 
-Si tu no sabes el conjunto exhaustivo de tipos que un programa obtendrá en
+Si tú no sabes el conjunto exhaustivo de tipos que un programa obtendrá en
 tiempo de ejecución para almacenar en un vector, la técnica de `enum` no
 funcionará. En su lugar, puede usar un objeto de rasgo, que cubriremos en el
 Capítulo 18.

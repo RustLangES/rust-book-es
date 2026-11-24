@@ -31,7 +31,7 @@ variables de entorno.
 
 Por ejemplo, digamos que cada uno de tus tests ejecuta código que crea un
 archivo en disco llamado _test-output.txt_ y escribe algunos datos en ese
-archivo. Luego cada test lee los datos en ese archivo y aserta que el archivo
+archivo. Luego cada test lee los datos en ese archivo y comprueba que el archivo
 contiene un valor particular, el cual es diferente en cada test. Debido a que
 los tests se ejecutan al mismo tiempo, un test podría sobreescribir el archivo
 en el tiempo entre que otro test escribe y lee el archivo. El segundo test

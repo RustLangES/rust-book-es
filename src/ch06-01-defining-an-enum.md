@@ -59,7 +59,7 @@ Y podemos llamar a esta función con cualquiera de las variantes:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:fn_call}}
 ```
 
-Usando `enum` tiene aún más ventajas. Pensando más en nuestro tipo de dirección
+Usar `enum` tiene aún más ventajas. Pensando más en nuestro tipo de dirección
 IP, en este momento no tenemos una forma de almacenar los datos reales de la
 dirección IP; solo sabemos qué tipo es. Dado que acabas de aprender sobre los
 structs en el Capítulo 5, podrías estar tentado a abordar este problema con
@@ -223,7 +223,7 @@ Tony Hoare, el inventor de null, tiene esto que decir:
 > programación orientado a objetos. Mi objetivo era asegurarme de que todo el
 > uso de referencias fuera absolutamente seguro, con verificación realizada
 > automáticamente por el compilador. Pero no pude resistir la tentación de
-> poner un valor null, simplemente porque era tan fácil de implementar. Esto a
+> poner un valor null, simplemente porque era tan fácil de implementar. Esto ha
 > dado lugar a innumerables errores, vulnerabilidades y bloqueos del sistema,
 > que probablemente han causado un billón de dólares de dolor y daños en los
 > últimos cuarenta años.

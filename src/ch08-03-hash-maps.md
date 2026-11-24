@@ -234,10 +234,10 @@ Aquí hay algunos ejercicios que ahora deberías estar equipado para resolver:
 1. Dada una lista de enteros, usa un vector y devuelve la mediana (cuando se
   ordena, el valor en la posición media) y la moda (el valor que ocurre con más
   frecuencia; un hash map será útil aquí) de la lista.
-2. Convierte strings a pig latin. La primera consonante de cada palabra se
+2. Convierte strings a Pig Latin. La primera consonante de cada palabra se
   mueve al final de la palabra y se agrega "*ay*", por lo que "*primero*" se
-  convierte en "*rimepay*". Sin embargo, si la palabra comienza con una vocal,
-  simplemente agregue "hay" al final de la palabra ("*manzanaay*"). ¡Ten en
+  convierte en "*rimero-pay*". Sin embargo, si la palabra comienza con una vocal,
+  simplemente agregue "hay" al final de la palabra ("*manzana -hay*"). ¡Ten en
   cuenta las reglas de UTF-8!
 3. Usando un hash map y vectores, cree un texto de interfaz para permitir que un
   usuario agregue nombres de empleados a un departamento en una empresa. Por
